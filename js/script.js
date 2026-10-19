@@ -100,10 +100,12 @@ Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
     if (currentSectionId) {
       navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if (href === `#${currentSectionId}`) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
+        if (href && href.startsWith('#')) {
+          if (href === `#${currentSectionId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
         }
       });
     }
