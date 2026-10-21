@@ -187,10 +187,51 @@ Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
   });
 
   // ========================================================
-  // 6. FILTER KATEGORI DESTINASI (TAB FILTER)
+  // 6. FILTER KATEGORI DESTINASI & LOAD MORE (LIHAT LAINNYA)
   // ========================================================
   const filterBtns = document.querySelectorAll('.dest-filter-btn');
   const destCards = document.querySelectorAll('.dest-card');
+  const btnLoadMore = document.getElementById('btnLoadMoreDest');
+  const btnLoadMoreText = document.getElementById('btnLoadMoreText');
+  let isDestExpanded = false;
+
+  function filterDestinations() {
+    const activeBtn = document.querySelector('.dest-filter-btn.active');
+    const filterValue = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+
+    destCards.forEach(card => {
+      const isExtra = card.classList.contains('dest-card-extra');
+      const categories = (card.getAttribute('data-category') || '').split(' ');
+      const matchesFilter = (filterValue === 'all' || categories.includes(filterValue));
+
+      if (!matchesFilter) {
+        card.classList.add('hide');
+      } else {
+        if (isExtra && !isDestExpanded) {
+          card.classList.add('hide');
+        } else {
+          card.classList.remove('hide');
+        }
+      }
+    });
+
+    if (btnLoadMore) {
+      const extraMatching = Array.from(destCards).filter(c => {
+        if (!c.classList.contains('dest-card-extra')) return false;
+        const categories = (c.getAttribute('data-category') || '').split(' ');
+        return filterValue === 'all' || categories.includes(filterValue);
+      });
+
+      const wrapper = btnLoadMore.closest('.dest-more-wrapper');
+      if (wrapper) {
+        if (extraMatching.length === 0) {
+          wrapper.style.display = 'none';
+        } else {
+          wrapper.style.display = 'flex';
+        }
+      }
+    }
+  }
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -201,18 +242,41 @@ Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
       btn.classList.add('active');
       btn.setAttribute('aria-selected', 'true');
 
-      const filterValue = btn.getAttribute('data-filter');
-
-      destCards.forEach(card => {
-        const categories = (card.getAttribute('data-category') || '').split(' ');
-        if (filterValue === 'all' || categories.includes(filterValue)) {
-          card.classList.remove('hide');
-        } else {
-          card.classList.add('hide');
-        }
-      });
+      filterDestinations();
     });
   });
+
+  if (btnLoadMore) {
+    btnLoadMore.addEventListener('click', () => {
+      isDestExpanded = !isDestExpanded;
+      btnLoadMore.setAttribute('aria-expanded', isDestExpanded ? 'true' : 'false');
+
+      const extraCards = document.querySelectorAll('.dest-card-extra');
+      extraCards.forEach(card => {
+        if (isDestExpanded) {
+          card.classList.add('is-expanded');
+        } else {
+          card.classList.remove('is-expanded');
+        }
+      });
+
+      if (btnLoadMoreText) {
+        btnLoadMoreText.textContent = isDestExpanded ? 'Tampilkan Lebih Sedikit' : 'Lihat Destinasi Lainnya';
+      }
+
+      filterDestinations();
+
+      if (!isDestExpanded) {
+        const destSection = document.getElementById('destinasi');
+        if (destSection) {
+          destSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+
+    // Inisialisasi awal
+    filterDestinations();
+  }
 
   // ========================================================
   // 7. MODAL DETAIL ITINERARY & RUNDOWN PERJALANAN
@@ -717,108 +781,65 @@ Mohon informasi ketersediaan tanggal dan negosiasi penawaran terbaiknya. Terima 
   });
 
   // ========================================================
-  // 10. LIGHTBOX MODAL UNTUK GALERI KEGIATAN
+  // 9.5 LOAD MORE ARTIKEL & TIPS WISATA
   // ========================================================
-  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
-  const lightboxModal = document.getElementById('lightboxModal');
-  const lightboxBackdrop = document.getElementById('lightboxBackdrop');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxTitle = document.getElementById('lightboxTitle');
-  const lightboxCaption = document.getElementById('lightboxCaption');
-  const lightboxCounter = document.getElementById('lightboxCounter');
-  const lightboxClose = document.getElementById('lightboxClose');
-  const lightboxPrev = document.getElementById('lightboxPrev');
-  const lightboxNext = document.getElementById('lightboxNext');
+  const btnLoadMoreArticles = document.getElementById('btnLoadMoreArticles');
+  const btnLoadMoreArticlesText = document.getElementById('btnLoadMoreArticlesText');
+  let isArticlesExpanded = false;
 
-  let currentGalleryIndex = 0;
+  if (btnLoadMoreArticles) {
+    btnLoadMoreArticles.addEventListener('click', () => {
+      isArticlesExpanded = !isArticlesExpanded;
+      btnLoadMoreArticles.setAttribute('aria-expanded', isArticlesExpanded ? 'true' : 'false');
 
-  if (galleryItems.length > 0 && lightboxModal) {
-    function openLightbox(index) {
-      currentGalleryIndex = index;
-      updateLightboxContent();
-      lightboxModal.removeAttribute('hidden');
-      void lightboxModal.offsetWidth;
-      lightboxModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightboxModal.classList.remove('active');
-      document.body.style.overflow = '';
-      setTimeout(() => {
-        if (!lightboxModal.classList.contains('active')) {
-          lightboxModal.setAttribute('hidden', '');
+      const extraArticles = document.querySelectorAll('.article-card-extra');
+      extraArticles.forEach(card => {
+        if (isArticlesExpanded) {
+          card.classList.add('is-expanded');
+        } else {
+          card.classList.remove('is-expanded');
         }
-      }, 300);
-    }
-
-    function updateLightboxContent() {
-      const item = galleryItems[currentGalleryIndex];
-      if (!item) return;
-
-      const imgSrc = item.getAttribute('data-src');
-      const title = item.getAttribute('data-title') || '';
-      const caption = item.getAttribute('data-caption') || '';
-
-      if (lightboxImg) {
-        lightboxImg.style.opacity = '0';
-        setTimeout(() => {
-          lightboxImg.src = imgSrc;
-          lightboxImg.alt = title;
-          lightboxImg.style.opacity = '1';
-        }, 150);
-      }
-
-      if (lightboxTitle) lightboxTitle.textContent = title;
-      if (lightboxCaption) lightboxCaption.textContent = caption;
-      if (lightboxCounter) {
-        lightboxCounter.textContent = `${currentGalleryIndex + 1} / ${galleryItems.length}`;
-      }
-    }
-
-    function showNextImage() {
-      currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
-      updateLightboxContent();
-    }
-
-    function showPrevImage() {
-      currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
-      updateLightboxContent();
-    }
-
-    galleryItems.forEach((item, index) => {
-      item.addEventListener('click', () => {
-        openLightbox(index);
       });
-    });
 
-    lightboxClose?.addEventListener('click', closeLightbox);
-    lightboxBackdrop?.addEventListener('click', closeLightbox);
-    lightboxNext?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showNextImage();
-    });
-    lightboxPrev?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showPrevImage();
-    });
+      if (btnLoadMoreArticlesText) {
+        btnLoadMoreArticlesText.textContent = isArticlesExpanded ? 'Tampilkan Lebih Sedikit' : 'Lihat Artikel Lainnya';
+      }
 
-    document.addEventListener('keydown', (e) => {
-      if (lightboxModal.classList.contains('active')) {
-        if (e.key === 'Escape') {
-          closeLightbox();
-        } else if (e.key === 'ArrowRight') {
-          showNextImage();
-        } else if (e.key === 'ArrowLeft') {
-          showPrevImage();
-        }
-      } else if (itineraryModal && itineraryModal.classList.contains('active')) {
-        if (e.key === 'Escape') {
-          closeItineraryModal();
+      if (!isArticlesExpanded) {
+        const articleSection = document.getElementById('artikel');
+        if (articleSection) {
+          articleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     });
   }
+
+  // ========================================================
+  // 10. GALERI VIDEO KEGIATAN & SINKRONISASI PEMUTAR
+  // ========================================================
+  const galleryVideos = document.querySelectorAll('.gallery-video');
+  if (galleryVideos.length > 0) {
+    galleryVideos.forEach(video => {
+      // Ketika satu video diputar, otomatis jeda video lainnya
+      video.addEventListener('play', () => {
+        galleryVideos.forEach(otherVideo => {
+          if (otherVideo !== video && !otherVideo.paused) {
+            otherVideo.pause();
+          }
+        });
+      });
+    });
+  }
+
+  // Keyboard shortcut (Escape) untuk menutup modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const itineraryModal = document.getElementById('itineraryModal');
+      if (itineraryModal && itineraryModal.classList.contains('active')) {
+        closeItineraryModal();
+      }
+    }
+  });
 
   // ========================================================
   // 11. CURRENT YEAR DYNAMIC UPDATE

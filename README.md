@@ -14,13 +14,14 @@ Single-page website profile perusahaan travel **Nirwana Tour Lampung**, built wi
 
 ### Section Website
 1. **Hero** - Headline "Jelajahi Dunia, Ciptakan Cerita" dengan tombol konsultasi WhatsApp
-2. **Tentang Kami** - Profil perusahaan dengan foto tim dan badge "8+ Tahun Melayani"
-3. **Layanan** - 4 jenis perjalanan: Wisata, Study Tour, Kunjungan Industri, Transportasi Rombongan
-4. **Destinasi Wisata** - 9 kartu destinasi dengan filter kategori (Lampung, Nusantara, Edukasi)
-5. **Keunggulan** - Alasan memilih Nirwana Tour Lampung
-6. **Galeri Kegiatan** - Lightbox modal dengan navigasi next/prev dan keyboard control
-7. **Kontak** - Formulir kontak + tombol WhatsApp cepat
-8. **Footer** - Identitas perusahaan, tautan sosial, copyright tahun dinamis
+2. **Mitra & Klien Rekanan** - Ticker marquee berjalan otomatis menampilkan logo dan nama instansi/perusahaan (BUMN, Pemprov, Universitas, Sekolah) yang dipercaya
+3. **Profil Perusahaan & Sambutan Pemilik** - Showcase sambutan hangat pimpinan/founder Nirwana Tour dengan foto resmi pemilik, kutipan komitmen, pilar nilai keunggulan, dan statistik pencapaian resmi
+4. **Layanan** - 4 jenis perjalanan: Wisata, Study Tour, Kunjungan Industri, Transportasi Rombongan
+5. **Destinasi Wisata** - 9 kartu destinasi dengan filter kategori (Lampung, Nusantara, Edukasi)
+6. **Keunggulan** - Alasan memilih Nirwana Tour Lampung
+7. **Galeri Kegiatan** - Lightbox modal dengan navigasi next/prev dan keyboard control
+8. **Kontak** - Formulir kontak + tombol WhatsApp cepat
+9. **Footer** - Identitas perusahaan, tautan sosial, copyright tahun dinamis
 
 ### Fitur Interaktif
 - **Budget Estimator** - Kalkulator biaya wisata interaktif dengan:

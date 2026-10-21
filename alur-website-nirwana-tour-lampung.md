@@ -10,7 +10,8 @@ Dokumen ini menjelaskan alur halaman (page flow) website company profile **Nirwa
 flowchart TD
     A([Pengunjung membuka website]) --> B[1. Navbar]
     B --> C[2. Hero]
-    C --> D[3. Tentang Kami]
+    C --> M[2.5 Mitra & Klien Berjalan]
+    M --> D[3. Tentang Kami]
     D --> E[4. Layanan]
     E --> F[5. Destinasi Wisata]
     F --> G[6. Keunggulan]
@@ -41,8 +42,9 @@ Keterangan:
 
 | No | Bagian | Isi | Tujuan | Aksi pengunjung |
 |----|--------|-----|--------|-----------------|
-| 1 | Navbar | Logo Nirwana Tour, menu Beranda, Tentang Kami, Layanan, Destinasi, Galeri, Kontak | Navigasi utama | Klik menu, scroll ke bagian terkait |
+| 1 | Navbar | Logo Nirwana Tour, menu Beranda, Layanan, Artikel, Gallery, Tentang, Kontak | Navigasi utama | Klik menu, scroll ke bagian terkait |
 | 2 | Hero | Headline "Jelajahi Dunia, Ciptakan Cerita", gambar perjalanan, tombol konsultasi WhatsApp | Kesan pertama dan ajakan bertindak | Klik tombol WhatsApp atau lanjut scroll |
+| 2.5 | Mitra | Running ticker marquee logo dan nama instansi/perusahaan rekanan terpercaya | Membangun kredibilitas & social proof instan | Melihat daftar mitra, pause on hover |
 | 3 | Tentang Kami | Profil perusahaan dan gambaran layanan | Membangun kepercayaan | Membaca |
 | 4 | Layanan | Wisata, study tour, kunjungan industri, transportasi rombongan | Menjelaskan produk | Klik "Pesan layanan ini" (WhatsApp) |
 | 5 | Destinasi Wisata | Galeri destinasi dan inspirasi perjalanan | Memberi inspirasi dan memancing minat | Klik "Tanya paket ini" (WhatsApp) |
