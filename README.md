@@ -1,178 +1,58 @@
-# Nirwana Tour Lampung - Company Profile Website
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Single-page website profile perusahaan travel **Nirwana Tour Lampung**, built with HTML, CSS, and JavaScript. Website menampilkan 9 section lengkap dengan fitur interaktif: filter destinasi, kalkulator estimasi biaya, modal rundown itinerary, lightbox gallery, dan koneksi WhatsApp untuk konsultasi.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
----
+## About Laravel
 
-## 📋 Fitur Utama
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-### Navigasi & Layout
-- **Single-page navigation** dengan smooth scroll antar section
-- **Navbar sticky** yang menambah kelas `.scrolled` saat scroll turun
-- **Menu hamburger mobile** untuk layar < 768px dengan close di luar area
-- **Anchor links** dengan highlight section aktif berdasarkan posisi scroll
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-### Section Website
-1. **Hero** - Headline "Jelajahi Dunia, Ciptakan Cerita" dengan tombol konsultasi WhatsApp
-2. **Mitra & Klien Rekanan** - Ticker marquee berjalan otomatis menampilkan logo dan nama instansi/perusahaan (BUMN, Pemprov, Universitas, Sekolah) yang dipercaya
-3. **Profil Perusahaan & Sambutan Pemilik** - Showcase sambutan hangat pimpinan/founder Nirwana Tour dengan foto resmi pemilik, kutipan komitmen, pilar nilai keunggulan, dan statistik pencapaian resmi
-4. **Layanan** - 4 jenis perjalanan: Wisata, Study Tour, Kunjungan Industri, Transportasi Rombongan
-5. **Destinasi Wisata** - 9 kartu destinasi dengan filter kategori (Lampung, Nusantara, Edukasi)
-6. **Keunggulan** - Alasan memilih Nirwana Tour Lampung
-7. **Galeri Kegiatan** - Lightbox modal dengan navigasi next/prev dan keyboard control
-8. **Kontak** - Formulir kontak + tombol WhatsApp cepat
-9. **Footer** - Identitas perusahaan, tautan sosial, copyright tahun dinamis
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-### Fitur Interaktif
-- **Budget Estimator** - Kalkulator biaya wisata interaktif dengan:
-  - Dropdown destinasi (9 opsi, termasuk 3 paket domestik baru: Jakarta-Bandung, Yogyakarta, Malang-Bromo)
-  - Slider jumlah peserta
-  - Opsi armada transportasi (HiAce, Medium Bus, Big Bus)
-  - Add-on: drone (Rp750k), kaos trip, dinner
-  - Output: harga perorang & total dalam format Rupiah
-  - Tombol WhatsApp CTA dengan pesan otomatis
+## Learning Laravel
 
-- **Itinerary Modal** - Modal detail rundown perjalanan per paket dengan:
-  - Timeline per hari
-  - Daftar include & exclude
-  - Harga per paket
-  - Tombol WhatsApp konsultasi
-  - Tutup dengan tombol X atau backdrop click
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-- **Destination Filter** - Tab filter kategori:
-  - Semua / Lampung / Nusantara / Edukasi
-  - Menampilkan/ menyembunyikan kartu destinasi sesuai filter
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-- **Lightbox Gallery** - Pop-up foto kegiatan:
-  - Navigasi next/prev
-  - Keyboard control (Arrow Left/Right, Escape)
-  - Counter gambar saat ini / total
-  - Title & caption dari setiap foto
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-- **WhatsApp Integration** - Tombol konsultasi tersebar di:
-  - Hero section
-  - Setiap card layanan
-  - Setiap card destinasi
-  - Setiap tombol "Pesan Paket"
-  - Contact form submit
+## Agentic Development
 
-- **FAQ Accordion** - 6 pertanyaan jawaban dengan:
-  - Tutup semua yang lain saat buka satu
-  - ARIA expanded attributes
-  - Animasi height transition
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
-### Desain Visual
-- **Paleta warna**:
-  - Primer: Ocean Blue `#0284C7`
-  - Aksen: Gold `#F59E0B`
-  - Neutral: Abu-abu gelap `#0f2c59` - `#f8f9fa`
-- **Typography**: Font `Plus Jakarta Sans` untuk semua teks
-- **Radius**: `var(--radius-xl)` untuk kotak, `var(--radius-md)` untuk badge
-- **Shadow**: `var(--shadow-xl)` untuk kartu dan image wrapper
+```bash
+composer require laravel/boost --dev
 
-### Media & Aset
-- **Gambar destinasi**: 12 gambar di 3 kategori (Lampung dalam, Nusantara, Edukasi)
-- **Galerinya**: Foto kegiatan wisata dengan data-src untuk lightbox
-- **Hero section**: Gambar perjalanan utama
-- **Logo**: `Logo-Nirwana.png` di Navbar dan Footer
-- **Foto tim**: `about-team.jpg` di section tentang kami
-
----
-
-## 📁 Struktur File
-
-```
-nirwana-tour-lampung/
-├── index.html          # Halaman utama, 9 section, semua content
-├── css/
-│   └── style.css       # Gaya tampilan, warna, responsif
-└── js/
-    └── script.js       # Semua interaktivitas (828 lines)
-        └── 11 modul:
-            - WhatsApp conversion links
-            - Sticky navbar & scroll highlight
-            - Mobile hamburger menu
-            - Smooth scroll anchor links
-            - Destination filter tabs
-            - Itinerary rundown modal
-            - Budget estimator kalkulator
-            - FAQ accordion
-            - Lightbox gallery modal
-            - Dynamic year update
-            - Contact form to WhatsApp
-
-assets/
-├── images/
-│   ├── hero/
-│   │   ├── about-team.jpg      # Foto tim perusahaan
-│   │   ├── hero-bg.jpg         # Background hero
-│   │   └── about-team.jpg    # (ganti dari pemilik)
-│   ├── destinasi/
-│   │   ├── 6 gambar Lampung
-│   │   ├── jakarta-bandung.jpg
-│   │   ├── yogyakarta.jpg
-│   │   └── bromo.jpg
-│   └── galeri/
-│       └── multiple gallery images
-└── logo/
-    └── Logo-Nirwana.png
+php artisan boost:install
 ```
 
----
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
-## 🛠 Teknologi
+## Contributing
 
-- **HTML5** - Struktur semantic, 9 section, data attributes
-- **CSS3** - Flexbox, Grid, responsive design, CSS variables
-- **Vanilla JavaScript** - Tidak ada dependency luar, 828 lines murni
-- **Font Awesome 6** - Ikon (check, xmark, clock, bus, dll)
-- **Responsive** - Mobile-first, breakpoints di 768px dan 375px
-- **No Build Step** - Bisa langsung dibuka di browser
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
----
+## Code of Conduct
 
-## 📱 Uji Coba
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-### Browser Automation Test Results
-- **0 error/warning** di headless browser
-- **Image display**: 412×560px founder photo (sekarang tim photo)
-- **Mobile viewport** 375px: Semua fitur aktif
-- **Calculator**: 3 paket domestic dengan price data benar
-- **Filter**: 9 kartu destinasi + 3 kategori filter
-- **Modal**: Itinerary dan Lightbox terbuka/tertutup dengan benar
+## Security Vulnerabilities
 
-### Test Scenario
-1. Buka `index.html` di browser
-2. Test smooth scroll ke tiap section
-3. Cek menu hamburger di mobile (resize < 768px)
-4. Filter destinasi ke Lampung/Nusantara/Edukasi
-5. Kalkulator estimator: pilih destinasi, masukan peserta, lihat harga
-6. Klik tombol "Pesan Paket" buka modal rundown
-7. Galeri: klik foto buka lightbox, cek navigasi
-8. Scroll turun, lihat navbar berubah warna (sticky)
-9. WhatsApp buttons: verifikasi URL wa.me terbuka dengan pesan otomatis
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
----
+## License
 
-## 🚀 Deployment
-
-Website static bisa dihosting di:
-- **GitHub Pages** - Letak `index.html` di branch `main`
-- **Netlify** - Drag folder atau koneksi repo
-- **Vercel** - Same principle
-- **Shared hosting** - Upload file ke `public_html`
-
-**Catatan**: Tidak butah build step atau server-side language. Cukup upload file ke web server.
-
----
-
-## 📞 Kontak
-
-**Nirwana Tour Lampung**
-- Website: Dibuat untuk konsultasi perjalanan wisata
-- WhatsApp: Terintegrasi di seluruh tombol konsultasi
-- Pembuatan: Single-page travel profile
-
----
-
-*Dibangun dengan ❤️ untuk mempromosikan perjalanan wisata ke Lampung dan destinasional Indonesia lainnya.*
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

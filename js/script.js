@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. CONFIGURATION
   // ========================================================
   const CONFIG = {
-    whatsappNumber: '6282178901234',
+    whatsappNumber: '6282269616188',
     defaultWaMessage: 'Halo Nirwana Tour, saya ingin konsultasi perjalanan.',
     headerOffset: 75
   };
@@ -152,7 +152,21 @@ Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
     }
 
     navLinks.forEach(link => {
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        if (link.classList.contains('nav-dropdown-toggle')) {
+          e.preventDefault();
+          const parent = link.closest('.nav-dropdown');
+          if (parent) {
+            parent.classList.toggle('open');
+          }
+          return;
+        }
+        closeMobileMenu();
+      });
+    });
+
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('click', () => {
         closeMobileMenu();
       });
     });
@@ -187,50 +201,25 @@ Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
   });
 
   // ========================================================
-  // 6. FILTER KATEGORI DESTINASI & LOAD MORE (LIHAT LAINNYA)
+  // 6. FILTER KATEGORI DESTINASI / PAKET WISATA
   // ========================================================
   const filterBtns = document.querySelectorAll('.dest-filter-btn');
   const destCards = document.querySelectorAll('.dest-card');
-  const btnLoadMore = document.getElementById('btnLoadMoreDest');
-  const btnLoadMoreText = document.getElementById('btnLoadMoreText');
-  let isDestExpanded = false;
 
   function filterDestinations() {
     const activeBtn = document.querySelector('.dest-filter-btn.active');
     const filterValue = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
 
     destCards.forEach(card => {
-      const isExtra = card.classList.contains('dest-card-extra');
       const categories = (card.getAttribute('data-category') || '').split(' ');
       const matchesFilter = (filterValue === 'all' || categories.includes(filterValue));
 
       if (!matchesFilter) {
         card.classList.add('hide');
       } else {
-        if (isExtra && !isDestExpanded) {
-          card.classList.add('hide');
-        } else {
-          card.classList.remove('hide');
-        }
+        card.classList.remove('hide');
       }
     });
-
-    if (btnLoadMore) {
-      const extraMatching = Array.from(destCards).filter(c => {
-        if (!c.classList.contains('dest-card-extra')) return false;
-        const categories = (c.getAttribute('data-category') || '').split(' ');
-        return filterValue === 'all' || categories.includes(filterValue);
-      });
-
-      const wrapper = btnLoadMore.closest('.dest-more-wrapper');
-      if (wrapper) {
-        if (extraMatching.length === 0) {
-          wrapper.style.display = 'none';
-        } else {
-          wrapper.style.display = 'flex';
-        }
-      }
-    }
   }
 
   filterBtns.forEach(btn => {
@@ -245,38 +234,6 @@ Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
       filterDestinations();
     });
   });
-
-  if (btnLoadMore) {
-    btnLoadMore.addEventListener('click', () => {
-      isDestExpanded = !isDestExpanded;
-      btnLoadMore.setAttribute('aria-expanded', isDestExpanded ? 'true' : 'false');
-
-      const extraCards = document.querySelectorAll('.dest-card-extra');
-      extraCards.forEach(card => {
-        if (isDestExpanded) {
-          card.classList.add('is-expanded');
-        } else {
-          card.classList.remove('is-expanded');
-        }
-      });
-
-      if (btnLoadMoreText) {
-        btnLoadMoreText.textContent = isDestExpanded ? 'Tampilkan Lebih Sedikit' : 'Lihat Destinasi Lainnya';
-      }
-
-      filterDestinations();
-
-      if (!isDestExpanded) {
-        const destSection = document.getElementById('destinasi');
-        if (destSection) {
-          destSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-    });
-
-    // Inisialisasi awal
-    filterDestinations();
-  }
 
   // ========================================================
   // 7. MODAL DETAIL ITINERARY & RUNDOWN PERJALANAN
@@ -802,7 +759,7 @@ Mohon informasi ketersediaan tanggal dan negosiasi penawaran terbaiknya. Terima 
       });
 
       if (btnLoadMoreArticlesText) {
-        btnLoadMoreArticlesText.textContent = isArticlesExpanded ? 'Tampilkan Lebih Sedikit' : 'Lihat Artikel Lainnya';
+        btnLoadMoreArticlesText.textContent = isArticlesExpanded ? 'Tampilkan Lebih Sedikit' : 'Lihat Berita Lainnya';
       }
 
       if (!isArticlesExpanded) {
@@ -815,18 +772,51 @@ Mohon informasi ketersediaan tanggal dan negosiasi penawaran terbaiknya. Terima 
   }
 
   // ========================================================
-  // 10. GALERI VIDEO KEGIATAN & SINKRONISASI PEMUTAR
+  // 9.8 SINKRONISASI VERTICAL TESTIMONIAL MARQUEE
+  // ========================================================
+  const testimonialsViewport = document.getElementById('testimonialsViewport');
+  if (testimonialsViewport) {
+    testimonialsViewport.addEventListener('touchstart', () => {
+      testimonialsViewport.classList.add('is-paused');
+    }, { passive: true });
+
+    testimonialsViewport.addEventListener('touchend', () => {
+      testimonialsViewport.classList.remove('is-paused');
+    }, { passive: true });
+  }
+
+  // ========================================================
+  // 10. GALERI VIDEO KEGIATAN & SINKRONISASI PEMUTAR MARQUEE
   // ========================================================
   const galleryVideos = document.querySelectorAll('.gallery-video');
+  const marqueeWrapper = document.getElementById('videoMarqueeWrapper');
   if (galleryVideos.length > 0) {
     galleryVideos.forEach(video => {
-      // Ketika satu video diputar, otomatis jeda video lainnya
+      // Ketika satu video diputar, otomatis jeda video lainnya dan hentikan animasi marquee
       video.addEventListener('play', () => {
+        if (marqueeWrapper) {
+          marqueeWrapper.classList.add('is-paused');
+        }
         galleryVideos.forEach(otherVideo => {
           if (otherVideo !== video && !otherVideo.paused) {
             otherVideo.pause();
           }
         });
+      });
+
+      // Ketika video dijeda atau selesai, lanjutkan animasi marquee jika tidak ada video lain yang berputar
+      video.addEventListener('pause', () => {
+        const anyPlaying = Array.from(galleryVideos).some(v => !v.paused);
+        if (!anyPlaying && marqueeWrapper) {
+          marqueeWrapper.classList.remove('is-paused');
+        }
+      });
+
+      video.addEventListener('ended', () => {
+        const anyPlaying = Array.from(galleryVideos).some(v => !v.paused);
+        if (!anyPlaying && marqueeWrapper) {
+          marqueeWrapper.classList.remove('is-paused');
+        }
       });
     });
   }
@@ -840,6 +830,102 @@ Mohon informasi ketersediaan tanggal dan negosiasi penawaran terbaiknya. Terima 
       }
     }
   });
+
+  // ========================================================
+  // 10.5 ANIMASI SCROLL MINI STATS COUNTER
+  // ========================================================
+  const statsContainer = document.querySelector('.about-mini-stats');
+  const statNumbers = document.querySelectorAll('.about-mini-stats .mini-stat-num');
+
+  if (statsContainer && statNumbers.length > 0) {
+    let hasAnimated = false;
+
+    const animateNumber = (element, target, duration, suffix, useDot) => {
+      const startTime = performance.now();
+
+      const updateNumber = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing easeOutCubic
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.floor(easeProgress * target);
+
+        let formattedVal = currentVal.toString();
+        if (useDot) {
+          formattedVal = formattedVal.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        element.textContent = formattedVal + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateNumber);
+        } else {
+          let finalVal = target.toString();
+          if (useDot) {
+            finalVal = finalVal.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+          }
+          element.textContent = finalVal + suffix;
+        }
+      };
+
+      requestAnimationFrame(updateNumber);
+    };
+
+    const runCounters = () => {
+      if (hasAnimated) return;
+      hasAnimated = true;
+      statsContainer.classList.add('is-animated');
+
+      statNumbers.forEach(statEl => {
+        const target = parseInt(statEl.getAttribute('data-counter-target'), 10);
+        const suffix = statEl.getAttribute('data-counter-suffix') || '';
+        const useDot = statEl.getAttribute('data-counter-dot') === 'true';
+
+        if (!isNaN(target)) {
+          statEl.textContent = '0' + suffix;
+          animateNumber(statEl, target, 1600, suffix, useDot);
+        }
+      });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const statsObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.25,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      statsObserver.observe(statsContainer);
+    } else {
+      runCounters();
+    }
+  }
+
+  // ========================================================
+  // 10.6 ANIMASI SCROLL TESTIMONIALS CARDS
+  // ========================================================
+  const testimonialsGrid = document.querySelector('.testimonials-grid');
+  if (testimonialsGrid && 'IntersectionObserver' in window) {
+    const testiObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          testimonialsGrid.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px'
+    });
+    testiObserver.observe(testimonialsGrid);
+  }
 
   // ========================================================
   // 11. CURRENT YEAR DYNAMIC UPDATE

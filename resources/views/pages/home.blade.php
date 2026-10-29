@@ -1,81 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nirwana Tour Lampung - Jelajahi Dunia, Ciptakan Cerita</title>
-  <meta name="description" content="Biro perjalanan wisata resmi di Lampung. Melayani paket wisata Lampung & Nusantara, study tour sekolah, gathering perusahaan, dan sewa transportasi pariwisata.">
-  <meta name="keywords" content="Nirwana Tour Lampung, Tour Lampung, Paket Wisata Lampung, Wisata Pahawang, Teluk Kiluan, Gigi Hiu, Sewa Bus Lampung, Study Tour Lampung">
-  <meta name="author" content="Nirwana Tour Lampung">
-  
-  <!-- Open Graph / Meta Sosial -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Nirwana Tour Lampung - Jelajahi Dunia, Ciptakan Cerita">
-  <meta property="og:description" content="Paket wisata Lampung, study tour sekolah, gathering instansi, dan sewa armada bus pariwisata terpercaya.">
-  <meta property="og:image" content="assets/images/hero/hero-bg.jpg">
-  
-  <!-- Favicon & Theme Color -->
-  <link rel="icon" type="image/png" href="assets/logo/Logo-Nirwana.png">
-  <meta name="theme-color" content="#800020">
-  
-  <!-- Google Fonts: Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+@extends('layouts.app')
 
-  <!-- ========================================================
-       1. NAVBAR
-       ======================================================== -->
-  <header class="site-header" id="header">
-    <div class="header-container container">
-      <!-- Logo Brand -->
-      <a href="#hero" class="brand-logo" aria-label="Nirwana Tour Lampung Beranda">
-        <img src="assets/logo/Logo-Nirwana.png" alt="Nirwana Tour Lampung" class="logo-emblem">
-        <div class="brand-text">
-          <span class="brand-title">NIRWANA<strong>TOUR</strong></span>
-          <span class="brand-sub">LAMPUNG &bull; INDONESIA</span>
-        </div>
-      </a>
+@section('title', 'Nirwana Tour Lampung - Jelajahi Dunia, Ciptakan Cerita')
 
-      <!-- Desktop Navigation Menu -->
-      <nav class="nav-menu" id="navMenu" aria-label="Navigasi Utama">
-        <ul class="nav-list">
-          <li class="nav-item"><a href="#hero" class="nav-link active">Beranda</a></li>
-          <li class="nav-item"><a href="#layanan" class="nav-link">Layanan</a></li>
-          <li class="nav-item"><a href="#artikel" class="nav-link">Artikel</a></li>
-          <li class="nav-item"><a href="#galeri" class="nav-link">Gallery</a></li>
-          <li class="nav-item"><a href="#tentang" class="nav-link">Tentang</a></li>
-          <li class="nav-item"><a href="#kontak" class="nav-link">Kontak</a></li>
-        </ul>
-        <div class="nav-mobile-cta">
-          <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
-            <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp
-          </a>
-        </div>
-      </nav>
-
-      <!-- Header CTA & Mobile Toggle -->
-      <div class="header-actions">
-        <a href="#" class="btn btn-primary btn-sm desktop-only wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
-          <i class="fa-brands fa-whatsapp"></i> Konsultasi Cepat
-        </a>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navMenu">
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
+@section('content')
   <main>
     <!-- ========================================================
          2. HERO SECTION
@@ -85,11 +12,11 @@
       <div class="container hero-container">
         <div class="hero-content">
           <div class="hero-badge">
-            <i class="fa-solid fa-compass"></i> Biro Perjalanan Wisata Resmi Lampung
+            Biro Perjalanan Wisata Resmi Lampung
           </div>
           <h1 class="hero-title">
-            Jelajahi Dunia, <br>
-            <span class="text-gradient">Ciptakan Cerita</span> Tak Terlupakan
+            Selamat Datang di Website <br>
+            <span class="text-gradient">Nirwana Tour and Travel</span> Lampung
           </h1>
           <p class="hero-description">
             Wujudkan momen liburan terbaik Anda bersama Nirwana Tour Lampung. Kami menghadirkan paket wisata eksotis, study tour edukatif, gathering perusahaan, serta persewaan armada transportasi nyaman dan profesional.
@@ -120,17 +47,10 @@
           </div>
         </div>
 
-        <!-- Hero Visual (Transparent Bus Cutout) -->
+        <!-- Hero Visual (Transparent Cutout) -->
         <div class="hero-visual">
           <div class="hero-image-wrapper">
-            <img src="assets/images/nirwana-hero.png" alt="Armada Wisata Nirwana Tour Lampung" class="hero-image-cutout">
-          </div>
-          <div class="hero-stat-floating stat-hero-badge stat-2">
-            <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
-            <div class="stat-info">
-              <strong>100%</strong>
-              <span>Kepuasan Terjamin</span>
-            </div>
+            <img src="{{ asset('assets/images/hero-right.png') }}" alt="Armada Wisata Nirwana Tour Lampung" class="hero-image-cutout">
           </div>
         </div>
       </div>
@@ -138,7 +58,7 @@
       <!-- Wave Separator -->
       <div class="hero-wave">
         <svg viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none">
-          <path d="M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,64C1200,75,1320,85,1380,90.7L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z" fill="#F8FAFC"></path>
+          <path d="M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,64C1200,75,1320,85,1380,90.7L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z" fill="#800020"></path>
         </svg>
       </div>
     </section>
@@ -150,9 +70,6 @@
       <div class="container mitra-container">
         <!-- Kolom Kiri: Label & Heading Mitra -->
         <div class="mitra-info-col">
-          <div class="mitra-pill">
-            <i class="fa-solid fa-handshake-simple"></i> Mitra Perjalanan Kami
-          </div>
           <h3 class="mitra-heading">Dipercaya Berbagai Instansi & Perusahaan</h3>
           <p class="mitra-desc">
             Pilihan utama study tour sekolah, perjalanan dinas kantor, family gathering BUMN, dan rombongan di Lampung.
@@ -725,14 +642,8 @@
               
               <!-- Frame Foto Pemilik -->
               <div class="owner-photo-frame">
-                <img src="assets/images/hero/founder.png" alt="Pimpinan & Founder Nirwana Tour Lampung" class="owner-photo">
+                <img src="{{ asset('assets/images/pemilik-nirwana.JPG') }}" alt="Pimpinan & Founder Nirwana Tour Lampung - Kiki M Alfin" class="owner-photo">
                 <div class="owner-photo-overlay"></div>
-                
-                <!-- Badge Atas: Founder & Pimpinan -->
-                <div class="owner-top-badge">
-                  <i class="fa-solid fa-crown"></i>
-                  <span>Founder & Pimpinan</span>
-                </div>
               </div>
 
               <!-- Box Sambutan Pemilik -->
@@ -753,11 +664,8 @@
 
                 <div class="owner-profile-footer">
                   <div class="owner-details">
-                    <strong class="owner-name">Pimpinan & Founder</strong>
+                    <strong class="owner-name">Pimpinan & Founder - Kiki M Alfin</strong>
                     <span class="owner-role">Nirwana Tour Lampung &bull; Sejak 2016</span>
-                  </div>
-                  <div class="owner-badge-verified">
-                    <i class="fa-solid fa-certificate"></i> Biro Resmi
                   </div>
                 </div>
               </div>
@@ -767,8 +675,8 @@
 
           <!-- Sisi Kanan: Konten Profil Perusahaan -->
           <div class="about-content">
-            <div class="section-tag"><i class="fa-solid fa-building"></i> Profil Perusahaan</div>
-            <h2 class="section-title">Mitra Terpercaya Perjalanan Wisata Anda di Lampung & Indonesia</h2>
+            <div class="section-tag">Profil Perusahaan</div>
+            <h2 class="section-title">Biro Perjalanan Wisata Terpercaya di Lampung</h2>
             
             <p class="about-lead">
               <strong>Nirwana Tour Lampung</strong> adalah biro perjalanan wisata resmi dan berizin lengkap yang berbasis di Bandar Lampung, berdedikasi menciptakan pengalaman liburan yang aman, nyaman, dan berkesan tinggi bagi setiap rombongan.
@@ -780,22 +688,22 @@
             <!-- Highlights / Mini Stats Bar -->
             <div class="about-mini-stats">
               <div class="mini-stat">
-                <span class="mini-stat-num">8+</span>
+                <span class="mini-stat-num" data-counter-target="8" data-counter-suffix="+">8+</span>
                 <span class="mini-stat-lbl">Tahun Pengalaman</span>
               </div>
               <div class="mini-stat-sep"></div>
               <div class="mini-stat">
-                <span class="mini-stat-num">1.500+</span>
+                <span class="mini-stat-num" data-counter-target="1500" data-counter-suffix="+" data-counter-dot="true">1.500+</span>
                 <span class="mini-stat-lbl">Trip Terlaksana</span>
               </div>
               <div class="mini-stat-sep"></div>
               <div class="mini-stat">
-                <span class="mini-stat-num">99%</span>
+                <span class="mini-stat-num" data-counter-target="99" data-counter-suffix="%">99%</span>
                 <span class="mini-stat-lbl">Kepuasan Pelanggan</span>
               </div>
               <div class="mini-stat-sep"></div>
               <div class="mini-stat">
-                <span class="mini-stat-num">100%</span>
+                <span class="mini-stat-num" data-counter-target="100" data-counter-suffix="%">100%</span>
                 <span class="mini-stat-lbl">Legalitas Resmi</span>
               </div>
             </div>
@@ -823,7 +731,7 @@
 
             <!-- Action Buttons -->
             <div class="about-cta-row">
-              <a href="tentang.html" class="btn btn-primary">
+              <a href="{{ route('about') }}" class="btn btn-primary">
                 <i class="fa-solid fa-circle-info"></i> Selengkapnya Tentang Kami
               </a>
               <a href="#" class="btn btn-outline wa-link-btn" data-wa-msg="Halo Pimpinan Nirwana Tour, saya ingin konsultasi paket perjalanan wisata.">
@@ -839,10 +747,10 @@
     <!-- ========================================================
          4. LAYANAN SECTION
          ======================================================== -->
-    <section class="section services-section bg-alt" id="layanan">
+    <section class="section services-section" id="layanan">
       <div class="container">
         <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-suitcase-rolling"></i> Solusi Perjalanan Lengkap</div>
+          <div class="section-tag">Solusi Perjalanan Lengkap</div>
           <h2 class="section-title">Layanan Terbaik Nirwana Tour Lampung</h2>
           <p class="section-subtitle">Pilihan komprehensif untuk liburan keluarga, kegiatan pendidikan, gathering kantor, hingga sewa transportasi VIP.</p>
         </div>
@@ -858,17 +766,17 @@
             </div>
             <h3 class="service-title">Paket Wisata Lampung & Domestik</h3>
             <p class="service-desc">
-              Jelajahi keindahan surga bahari Lampung (Pahawang, Kiluan, Gigi Hiu) hingga destinasi favorit nasional seperti Bali, Yogyakarta, Lombok, dan Malang dengan jadwal yang tertata rapi.
+              Jelajahi surga bahari Lampung (Pahawang, Kiluan, Gigi Hiu) hingga destinasi nasional seperti Bali & Jogja dengan jadwal tertata rapi.
             </p>
             <ul class="service-perks">
               <li><i class="fa-solid fa-check"></i> Tiket wisata & retribusi all-in</li>
               <li><i class="fa-solid fa-check"></i> Penginapan hotel / homestay nyaman</li>
-              <li><i class="fa-solid fa-check"></i> Makan, snack, dan dokumentasi foto/video</li>
+              <li><i class="fa-solid fa-check"></i> Makan, snack, & dokumentasi</li>
               <li><i class="fa-solid fa-check"></i> Tour Leader ramah bersertifikat</li>
             </ul>
             <div class="service-action">
               <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Paket Wisata.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan layanan ini
+                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
               </a>
             </div>
           </div>
@@ -883,17 +791,17 @@
             </div>
             <h3 class="service-title">Study Tour & Edukasi Pelajar</h3>
             <p class="service-desc">
-              Program perjalanan belajar di luar kelas yang edukatif, seru, dan aman untuk siswa TK, SD, SMP, SMA hingga mahasiswa perguruan tinggi dengan bimbingan fasilitator berpengalaman.
+              Program belajar di luar kelas yang edukatif, seru, dan aman untuk siswa TK hingga mahasiswa dengan panduan fasilitator berpengalaman.
             </p>
             <ul class="service-perks">
-              <li><i class="fa-solid fa-check"></i> Destinasi sejarah, sains, budaya & konservasi</li>
-              <li><i class="fa-solid fa-check"></i> Modul / LKPD edukasi terarah</li>
-              <li><i class="fa-solid fa-check"></i> Pendampingan medis P3K & asuransi perjalanan</li>
-              <li><i class="fa-solid fa-check"></i> Free seat untuk guru pendamping</li>
+              <li><i class="fa-solid fa-check"></i> Destinasi sejarah, sains & budaya</li>
+              <li><i class="fa-solid fa-check"></i> Lembar edukasi / LKPD terarah</li>
+              <li><i class="fa-solid fa-check"></i> Tim medis P3K & asuransi lengkap</li>
+              <li><i class="fa-solid fa-check"></i> Free seat guru & modul terpadu</li>
             </ul>
             <div class="service-action">
               <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Study Tour.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan layanan ini
+                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
               </a>
             </div>
           </div>
@@ -908,17 +816,17 @@
             </div>
             <h3 class="service-title">Kunjungan Industri & Gathering</h3>
             <p class="service-desc">
-              Paket lengkap team building, outbound fun games, family gathering, serta koordinasi perizinan kunjungan pabrik/institusi untuk mempererat soliditas dan kinerja tim kerja Anda.
+              Paket outbound team building, fun games, family gathering kantor, dan perizinan instansi untuk mempererat kekompakan tim kerja Anda.
             </p>
             <ul class="service-perks">
-              <li><i class="fa-solid fa-check"></i> Master of Ceremony (MC) & game master profesional</li>
-              <li><i class="fa-solid fa-check"></i> Sound system, panggung & entertainment gala dinner</li>
-              <li><i class="fa-solid fa-check"></i> Spanduk/backdrop, kaos rombongan & plakat</li>
+              <li><i class="fa-solid fa-check"></i> MC & game master profesional</li>
+              <li><i class="fa-solid fa-check"></i> Sound system & entertainment</li>
+              <li><i class="fa-solid fa-check"></i> Spanduk, kaos seragam & plakat</li>
               <li><i class="fa-solid fa-check"></i> Fasilitas koordinasi perizinan instansi</li>
             </ul>
             <div class="service-action">
               <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Kunjungan Industri & Gathering.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan layanan ini
+                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
               </a>
             </div>
           </div>
@@ -933,17 +841,17 @@
             </div>
             <h3 class="service-title">Sewa Transportasi Rombongan</h3>
             <p class="service-desc">
-              Penyewaan kendaraan pariwisata berstandar VIP untuk perjalanan dalam maupun luar kota. Pilihan unit prima dengan pengemudi ramah dan paham rute wisata di seluruh Sumatera dan Jawa.
+              Penyewaan armada pariwisata prima dalam dan luar kota didampingi kru ramah yang berpengalaman rute Lampung, Jawa, dan Bali.
             </p>
             <ul class="service-perks">
-              <li><i class="fa-solid fa-check"></i> Toyota HiAce Commuter / Premio (14 Seat)</li>
-              <li><i class="fa-solid fa-check"></i> Medium Bus Pariwisata (29-35 Seat)</li>
-              <li><i class="fa-solid fa-check"></i> Big Bus Executive HD / SHD (45-50 Seat)</li>
-              <li><i class="fa-solid fa-check"></i> AC sejuk, charger HP, TV audio karaoke, rec seat</li>
+              <li><i class="fa-solid fa-check"></i> Toyota HiAce Premio (14 Seat)</li>
+              <li><i class="fa-solid fa-check"></i> Medium Bus Pariwisata (31-35 Seat)</li>
+              <li><i class="fa-solid fa-check"></i> Big Bus Executive (45-50 Seat)</li>
+              <li><i class="fa-solid fa-check"></i> Full AC, audio karaoke & charger HP</li>
             </ul>
             <div class="service-action">
               <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Sewa Transportasi.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan layanan ini
+                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
               </a>
             </div>
           </div>
@@ -957,25 +865,9 @@
     <section class="section destination-section" id="destinasi">
       <div class="container">
         <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-map-marked-alt"></i> Inspirasi Wisata Favorit</div>
+          <div class="section-tag">Inspirasi Wisata Favorit</div>
           <h2 class="section-title">Destinasi Populer Pilihan Terbaik</h2>
           <p class="section-subtitle">Temukan pesona alam eksotis Lampung hingga destinasi favorit Jawa dan Nusantara bersama biro perjalanan berizin resmi.</p>
-        </div>
-
-        <!-- Filter Kategori Destinasi -->
-        <div class="dest-filter-tabs" role="tablist" aria-label="Filter Kategori Destinasi">
-          <button type="button" class="dest-filter-btn active" data-filter="all" role="tab" aria-selected="true">
-            <i class="fa-solid fa-border-all"></i> Semua Destinasi
-          </button>
-          <button type="button" class="dest-filter-btn" data-filter="lampung" role="tab" aria-selected="false">
-            <i class="fa-solid fa-umbrella-beach"></i> Wisata Lampung
-          </button>
-          <button type="button" class="dest-filter-btn" data-filter="nusantara" role="tab" aria-selected="false">
-            <i class="fa-solid fa-earth-asia"></i> Jawa & Nusantara
-          </button>
-          <button type="button" class="dest-filter-btn" data-filter="edukasi" role="tab" aria-selected="false">
-            <i class="fa-solid fa-graduation-cap"></i> Study Tour & Edukasi
-          </button>
         </div>
 
         <div class="destinations-grid" id="destGrid">
@@ -1205,7 +1097,7 @@
           </article>
 
           <!-- Destinasi Extra 1: Krakatau & Sebesi -->
-          <article class="dest-card dest-card-extra" data-category="lampung" data-id="krakatau">
+          <article class="dest-card" data-category="lampung" data-id="krakatau">
             <div class="dest-thumb">
               <img src="assets/images/destinasi/krakatau.jpg" alt="Gunung Anak Krakatau dan Pulau Sebesi">
               <span class="dest-category"><i class="fa-solid fa-volcano"></i> Ekspedisi Geologi</span>
@@ -1242,7 +1134,7 @@
           </article>
 
           <!-- Destinasi Extra 2: Krui Pesisir Barat -->
-          <article class="dest-card dest-card-extra" data-category="lampung" data-id="krui">
+          <article class="dest-card" data-category="lampung" data-id="krui">
             <div class="dest-thumb">
               <img src="assets/images/destinasi/krui.jpg" alt="Pantai Krui Pesisir Barat Lampung">
               <span class="dest-category"><i class="fa-solid fa-umbrella-beach"></i> Pantai & Surfing</span>
@@ -1279,7 +1171,7 @@
           </article>
 
           <!-- Destinasi Extra 3: Jakarta - Bandung -->
-          <article class="dest-card dest-card-extra" data-category="nusantara edukasi" data-id="jakarta-bandung">
+          <article class="dest-card" data-category="nusantara edukasi" data-id="jakarta-bandung">
             <div class="dest-thumb">
               <img src="assets/images/destinasi/jakarta-bandung.jpg" alt="Tour Jakarta Bandung Lembang">
               <span class="dest-category"><i class="fa-solid fa-city"></i> Kunjungan & Wisata</span>
@@ -1319,10 +1211,10 @@
 
         <!-- Tombol Aksi Lihat Destinasi Lainnya -->
         <div class="dest-more-wrapper">
-          <button type="button" class="btn btn-outline btn-lg" id="btnLoadMoreDest" aria-expanded="false">
-            <span id="btnLoadMoreText">Lihat Destinasi Lainnya</span>
-            <i class="fa-solid fa-chevron-down" id="btnLoadMoreIcon"></i>
-          </button>
+          <a href="{{ route('packages.index') }}" class="btn btn-outline btn-lg">
+            <span>Lihat Destinasi Lainnya</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
           <p class="dest-more-note">
             Punya rencana destinasi khusus lainnya? 
             <a href="#" class="wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi paket wisata custom ke destinasi khusus.">
@@ -1382,15 +1274,19 @@
     <!-- ========================================================
          6. KEUNGGULAN SECTION
          ======================================================== -->
-    <section class="section reasons-section bg-alt" id="keunggulan">
+    <section class="section reasons-section" id="keunggulan">
       <div class="container">
         <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-thumbs-up"></i> Mengapa Memilih Kami</div>
+          <div class="section-tag">Mengapa Memilih Kami</div>
           <h2 class="section-title">Keunggulan Nirwana Tour Lampung</h2>
           <p class="section-subtitle">Komitmen kami dalam memberikan standar mutu perjalanan tertinggi tanpa kompromi.</p>
         </div>
+      </div>
 
-        <div class="reasons-grid">
+      <!-- Marquee Keunggulan Berjalan Sejajar ke Kanan -->
+      <div class="reasons-marquee-wrap" title="Sorot kursor untuk menjeda putaran">
+        <div class="reasons-track">
+          <!-- ================= SET 1 ================= -->
           <!-- Item 1 -->
           <div class="reason-card">
             <div class="reason-icon">
@@ -1456,106 +1352,236 @@
               Admin kami selalu siap melayani pertanyaan, permintaan penawaran proposal, dan reservasi dadakan via WhatsApp dengan respons cepat dan ramah.
             </p>
           </div>
-        </div>
 
-        <!-- Banner Trust Quote -->
-        <div class="trust-banner">
-          <div class="trust-content">
-            <i class="fa-solid fa-quote-left quote-icon"></i>
-            <blockquote>
-              "Kenyamanan dan kepuasan rombongan adalah prioritas utama kami. Bersama Nirwana Tour Lampung, setiap detik perjalanan Anda adalah kenangan berharga."
-            </blockquote>
-            <div class="trust-author">
-              <strong>Manajemen Nirwana Tour Lampung</strong>
-              <span>Mitra Perjalanan Wisata Anda</span>
+          <!-- ================= SET 2 (CLONE FOR INFINITE MARQUEE) ================= -->
+          <!-- Item 1 -->
+          <div class="reason-card" aria-hidden="true">
+            <div class="reason-icon">
+              <i class="fa-solid fa-certificate"></i>
             </div>
+            <h3 class="reason-title">Biro Resmi & Legalitas Terjamin</h3>
+            <p class="reason-desc">
+              Perusahaan resmi berbadan hukum dengan izin usaha pariwisata lengkap. Menjamin transaksi aman dan kepastian jadwal keberangkatan tanpa rasa was-was.
+            </p>
           </div>
-          <div class="trust-cta">
-            <a href="#" class="btn btn-whatsapp btn-md wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
-              <i class="fa-brands fa-whatsapp"></i> Diskusikan Rencana Trip Anda
-            </a>
+
+          <!-- Item 2 -->
+          <div class="reason-card" aria-hidden="true">
+            <div class="reason-icon">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <h3 class="reason-title">Tour Leader & Kru Bersertifikat</h3>
+            <p class="reason-desc">
+              Dipandu oleh tim lokal yang ramah, berlisensi, menguasai medan, sigap membantu kebutuhan rombongan, serta dibekali pelatihan pertolongan pertama (P3K).
+            </p>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="reason-card" aria-hidden="true">
+            <div class="reason-icon">
+              <i class="fa-solid fa-bus"></i>
+            </div>
+            <h3 class="reason-title">Armada Nyaman & Terawat Prima</h3>
+            <p class="reason-desc">
+              Kendaraan HiAce dan bus pariwisata keluaran terbaru dengan fasilitas AC dingin, reclining seat, audio video karaoke, charger port, serta uji kelaikan berkala.
+            </p>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="reason-card" aria-hidden="true">
+            <div class="reason-icon">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+            <h3 class="reason-title">Itinerary Fleksibel & Custom</h3>
+            <p class="reason-desc">
+              Jadwal perjalanan dapat disesuaikan sepenuhnya dengan preferensi destinasi, waktu, dan batas anggaran kelompok kerja, sekolah, maupun keluarga Anda.
+            </p>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="reason-card" aria-hidden="true">
+            <div class="reason-icon">
+              <i class="fa-solid fa-camera-retro"></i>
+            </div>
+            <h3 class="reason-title">Dokumentasi Menarik & Berkualitas</h3>
+            <p class="reason-desc">
+              Kami sediakan fasilitas dokumentasi kamera DSLR, mirrorless, GoPro underwater, hingga drone (paket tertentu) agar memori liburan Anda tersimpan abadi.
+            </p>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="reason-card" aria-hidden="true">
+            <div class="reason-icon">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3 class="reason-title">Konsultasi Responsif & Cepat 24/7</h3>
+            <p class="reason-desc">
+              Admin kami selalu siap melayani pertanyaan, permintaan penawaran proposal, dan reservasi dadakan via WhatsApp dengan respons cepat dan ramah.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========================================================
-         TESTIMONI WISATAWAN (SOCIAL PROOF)
+         7. GALERI VIDEO KEGIATAN SECTION
          ======================================================== -->
-    <section class="section testimonials-section" id="testimoni">
+    <section class="section gallery-section" id="galeri">
       <div class="container">
         <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-star"></i> Cerita Bahagia Wisatawan</div>
-          <h2 class="section-title">Apa Kata Mereka Tentang Nirwana Tour?</h2>
-          <p class="section-subtitle">Pengalaman nyata dari sekolah, instansi, BUMN, dan keluarga yang telah mempercayakan perjalanannya kepada kami.</p>
+          <div class="section-tag">Video Dokumentasi Nyata</div>
+          <h2 class="section-title">Galeri Video & Momen Keseruan Tour</h2>
+          <p class="section-subtitle">Saksikan langsung cuplikan video keceriaan dan kehangatan rombongan wisatawan saat menjelajahi ragam destinasi impian bersama Nirwana Tour Lampung.</p>
         </div>
 
-        <div class="testimonials-grid">
-          <!-- Card 1: Sekolah -->
-          <div class="testimonial-card">
-            <div class="testimonial-card-top">
-              <div class="testi-author">
-                <div class="author-avatar avatar-1">RJ</div>
-                <div>
-                  <h4 class="author-name">Dra. Hj. Ratna Juwita, M.Pd</h4>
-                  <p class="author-role">Kepala SMA Negeri di Bandar Lampung</p>
+        <!-- Video Marquee Auto-Scroll ke Kiri (4 Video Berjalan Seamless) -->
+        <div class="video-marquee-wrapper" id="videoMarqueeWrapper">
+          <div class="video-marquee-track">
+            
+            <!-- Group 1: 4 Video Cards Utama -->
+            <div class="video-marquee-group">
+              <!-- Video 1 -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:33</div>
                 </div>
-              </div>
-            </div>
-            <p class="testi-text">
-              "Pelayanan Nirwana Tour sangat profesional dan amanah saat mendampingi study tour 120 siswa kami ke Yogyakarta. Kunjungan edukasi berjalan tepat waktu, armada bus executive sangat prima, serta para tour leader sigap dan telaten mengayomi siswa. Sangat kami rekomendasikan untuk agenda sekolah!"
-            </p>
-            <div class="testi-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-            <div class="testi-trip-badge">
-              <i class="fa-solid fa-graduation-cap"></i> Study Tour Edukasi (120 Siswa)
-            </div>
-          </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Wisata Bahari & Snorkeling</span>
+                  <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
+                  <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari, snorkeling di perairan jernih, dan kebersamaan hangat peserta trip.</p>
+                </div>
+              </article>
 
-          <!-- Card 2: BUMN / Corporate -->
-          <div class="testimonial-card">
-            <div class="testimonial-card-top">
-              <div class="testi-author">
-                <div class="author-avatar avatar-2">DW</div>
-                <div>
-                  <h4 class="author-name">Dimas Wicaksono, S.T.</h4>
-                  <p class="author-role">Ketua Panitia Gathering BUMN Lampung</p>
+              <!-- Video 2 -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video2-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video2.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 00:59</div>
                 </div>
-              </div>
-            </div>
-            <p class="testi-text">
-              "Employee gathering perusahaan kami ke Teluk Kiluan terlaksana sukses dan sangat berkesan. Kegiatan outbound seru, akomodasi tepi pantai bersih dan nyaman, serta koordinasi tim di lapangan sangat rapi. Momen melihat lumba-lumba liar dan jamuan hidangan lautnya luar biasa memuaskan!"
-            </p>
-            <div class="testi-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
-            <div class="testi-trip-badge">
-              <i class="fa-solid fa-people-group"></i> Corporate Gathering (45 Peserta)
-            </div>
-          </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Study Tour & Edukasi</span>
+                  <h3 class="video-title">Keceriaan Agenda Study Tour Edukasi Pelajar</h3>
+                  <p class="video-desc">Pendampingan penuh kehangatan oleh tim tour leader Nirwana Tour dalam membimbing siswa belajar dan berpetualang dengan riang gembira.</p>
+                </div>
+              </article>
 
-          <!-- Card 3: Keluarga Luar Kota -->
-          <div class="testimonial-card">
-            <div class="testimonial-card-top">
-              <div class="testi-author">
-                <div class="author-avatar avatar-3">HK</div>
-                <div>
-                  <h4 class="author-name">dr. Hendra Kurniawan, Sp.A</h4>
-                  <p class="author-role">Wisatawan Keluarga (Jakarta)</p>
+              <!-- Video 3 -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video3-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video3.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:00</div>
                 </div>
-              </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Momen Liburan Tropis</span>
+                  <h3 class="video-title">Eksplorasi Panorama & Keindahan Bahari Tropis</h3>
+                  <p class="video-desc">Menyusuri deburan ombak dan pesona alam nusantara, menghadirkan memori manis dan cerita tak terlupakan bagi setiap rombongan wisatawan.</p>
+                </div>
+              </article>
+
+              <!-- Video 4 -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video4-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video4.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:15</div>
+                </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Gathering & Outbound</span>
+                  <h3 class="video-title">Keseruan Outbound & Gathering Perusahaan</h3>
+                  <p class="video-desc">Aktivitas fun team building, kekompakan karyawan instansi, dan malam kebersamaan rombongan yang penuh tawa dan keakraban.</p>
+                </div>
+              </article>
             </div>
-            <p class="testi-text">
-              "Liburan keluarga besar kami ke Pulau Pahawang terasa sangat praktis dan menyenangkan. Layanan penjemputan di Bandara Radin Inten II tepat waktu dengan armada HiAce Premio yang bersih dan nyaman. Pemandu lokal sangat ramah dan telaten mendampingi anak-anak saat berenang. Pengalaman yang luar biasa!"
-            </p>
-            <div class="testi-stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+
+            <!-- Group 2: Duplikasi 4 Video Cards untuk Seamless Infinite Loop -->
+            <div class="video-marquee-group" aria-hidden="true">
+              <!-- Video 1 (Clone) -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:33</div>
+                </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Wisata Bahari & Snorkeling</span>
+                  <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
+                  <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari, snorkeling di perairan jernih, dan kebersamaan hangat peserta trip.</p>
+                </div>
+              </article>
+
+              <!-- Video 2 (Clone) -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video2-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video2.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 00:59</div>
+                </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Study Tour & Edukasi</span>
+                  <h3 class="video-title">Keceriaan Agenda Study Tour Edukasi Pelajar</h3>
+                  <p class="video-desc">Pendampingan penuh kehangatan oleh tim tour leader Nirwana Tour dalam membimbing siswa belajar dan berpetualang dengan riang gembira.</p>
+                </div>
+              </article>
+
+              <!-- Video 3 (Clone) -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video3-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video3.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:00</div>
+                </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Momen Liburan Tropis</span>
+                  <h3 class="video-title">Eksplorasi Panorama & Keindahan Bahari Tropis</h3>
+                  <p class="video-desc">Menyusuri deburan ombak dan pesona alam nusantara, menghadirkan memori manis dan cerita tak terlupakan bagi setiap rombongan wisatawan.</p>
+                </div>
+              </article>
+
+              <!-- Video 4 (Clone) -->
+              <article class="video-card">
+                <div class="video-player-wrapper">
+                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video4-poster.jpg') }}">
+                    <source src="{{ asset('assets/images/galeri/video4.mp4') }}" type="video/mp4">
+                    Browser Anda tidak mendukung pemutar video HTML5.
+                  </video>
+                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:15</div>
+                </div>
+                <div class="video-card-body">
+                  <span class="video-tag">Gathering & Outbound</span>
+                  <h3 class="video-title">Keseruan Outbound & Gathering Perusahaan</h3>
+                  <p class="video-desc">Aktivitas fun team building, kekompakan karyawan instansi, dan malam kebersamaan rombongan yang penuh tawa dan keakraban.</p>
+                </div>
+              </article>
             </div>
-            <div class="testi-trip-badge">
-              <i class="fa-solid fa-umbrella-beach"></i> Family Private Trip Pahawang
-            </div>
+
           </div>
+        </div>
+
+        <div class="gallery-video-cta text-center">
+          <p class="gallery-cta-note">
+            Ingin rombongan Anda merasakan keseruan liburan berkelas seperti ini? 
+            <a href="#" class="wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin reservasi paket wisata rombongan kami.">
+              Hubungi Tim Nirwana Tour via WhatsApp <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </p>
         </div>
       </div>
     </section>
@@ -1563,172 +1589,54 @@
     <!-- ========================================================
          6.5 ARTIKEL & TIPS WISATA SECTION
          ======================================================== -->
-    <section class="section articles-section bg-alt" id="artikel">
+    <section class="section articles-section" id="artikel">
       <div class="container">
         <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-newspaper"></i> Informasi & Edukasi</div>
-          <h2 class="section-title">Artikel & Tips Wisata Terbaru</h2>
+          <div class="section-tag">Informasi & Edukasi</div>
+          <h2 class="section-title">Berita & Tips Wisata Terbaru</h2>
           <p class="section-subtitle">Dapatkan panduan liburan praktis, tips destinasi populer, dan wawasan seru seputar wisata Lampung & Nusantara.</p>
         </div>
 
         <div class="articles-grid">
-          <!-- Artikel 1 -->
-          <article class="article-card">
-            <div class="article-thumb">
-              <img src="assets/images/destinasi/pahawang.jpg" alt="Tips Snorkeling di Pulau Pahawang Lampung" class="article-img">
-              <span class="article-tag">Tips Wisata</span>
-            </div>
-            <div class="article-body">
-              <div class="article-meta">
-                <span><i class="fa-regular fa-calendar"></i> 18 Oktober 2026</span>
-                <span><i class="fa-regular fa-clock"></i> 4 Menit Baca</span>
-              </div>
-              <h3 class="article-title">
-                <a href="#kontak">5 Tips Liburan Snorkeling Seru & Aman di Pulau Pahawang</a>
-              </h3>
-              <p class="article-excerpt">
-                Panduan lengkap persiapan snorkeling, waktu terbaik melihat nemo, perlengkapan pelampung wajib, dan spot foto underwater tercantik di Teluk Lampung.
-              </p>
-              <div class="article-footer">
-                <a href="#" class="btn-read-more wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik membaca info paket dan tips wisata Pulau Pahawang.">
-                  Konsultasi Trip Ini <i class="fa-solid fa-arrow-right"></i>
+          @forelse($posts as $post)
+            <article class="article-card">
+              <div class="article-thumb">
+                <a href="{{ route('posts.show', $post->slug) }}" style="display: block; width: 100%; height: 100%;">
+                  <img src="{{ $post->cover_image ? asset($post->cover_image) : asset('assets/images/destinasi/pahawang.jpg') }}" alt="{{ $post->title }}" class="article-img" loading="lazy">
                 </a>
+                <span class="article-tag">{{ $post->category->name ?? 'Tips Wisata' }}</span>
               </div>
-            </div>
-          </article>
-
-          <!-- Artikel 2 -->
-          <article class="article-card">
-            <div class="article-thumb">
-              <img src="assets/images/destinasi/jakarta-bandung.jpg" alt="Panduan Study Tour Sekolah & Kampus" class="article-img">
-              <span class="article-tag">Edukasi & Sekolah</span>
-            </div>
-            <div class="article-body">
-              <div class="article-meta">
-                <span><i class="fa-regular fa-calendar"></i> 15 Oktober 2026</span>
-                <span><i class="fa-regular fa-clock"></i> 5 Menit Baca</span>
+              <div class="article-body">
+                <div class="article-meta">
+                  <span><i class="fa-regular fa-calendar"></i> {{ $post->published_at ? $post->published_at->format('d M Y') : date('d M Y') }}</span>
+                  <span><i class="fa-regular fa-clock"></i> {{ ceil(str_word_count(strip_tags($post->content ?? '')) / 150) ?: 4 }} Menit Baca</span>
+                </div>
+                <h3 class="article-title">
+                  <a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
+                </h3>
+                <p class="article-excerpt">
+                  {{ Str::limit($post->excerpt ?: strip_tags($post->content), 125) }}
+                </p>
+                <div class="article-footer">
+                  <a href="{{ route('posts.show', $post->slug) }}" class="btn-read-more">
+                    Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
               </div>
-              <h3 class="article-title">
-                <a href="#kontak">Panduan Merancang Study Tour Sekolah yang Menyenangkan & Bermakna</a>
-              </h3>
-              <p class="article-excerpt">
-                Cara menyusun rundown kunjungan industri, perizinan instansi, dan pemilihan armada bus pariwisata yang mengutamakan keselamatan para siswa.
-              </p>
-              <div class="article-footer">
-                <a href="#" class="btn-read-more wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi rencana study tour sekolah kami.">
-                  Konsultasi Trip Ini <i class="fa-solid fa-arrow-right"></i>
-                </a>
-              </div>
+            </article>
+          @empty
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: #fff; border-radius: 12px; border: 1px solid var(--border-light);">
+              <p style="color: var(--text-muted); font-size: 0.95rem;">Belum ada artikel atau tips wisata yang dipublikasikan saat ini.</p>
             </div>
-          </article>
-
-          <!-- Artikel 3 -->
-          <article class="article-card">
-            <div class="article-thumb">
-              <img src="assets/images/galeri/galeri-4.jpg" alt="Family Gathering & Outbound Perusahaan" class="article-img">
-              <span class="article-tag">Corporate Gathering</span>
-            </div>
-            <div class="article-body">
-              <div class="article-meta">
-                <span><i class="fa-regular fa-calendar"></i> 10 Oktober 2026</span>
-                <span><i class="fa-regular fa-clock"></i> 6 Menit Baca</span>
-              </div>
-              <h3 class="article-title">
-                <a href="#kontak">Ide Kegiatan Outbound & Gathering Kantor untuk Mempererat Soliditas Tim</a>
-              </h3>
-              <p class="article-excerpt">
-                Rekomendasi fun games pantai, koordinasi konsumsi prasmanan higienis, serta dokumentasi drone profesional untuk momen kebersamaan perusahaan.
-              </p>
-              <div class="article-footer">
-                <a href="#" class="btn-read-more wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi paket employee gathering perusahaan.">
-                  Konsultasi Trip Ini <i class="fa-solid fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Artikel Extra 1: Teluk Kiluan Dolphin -->
-          <article class="article-card article-card-extra">
-            <div class="article-thumb">
-              <img src="assets/images/destinasi/kiluan.jpg" alt="Waktu Terbaik Melihat Lumba-Lumba di Teluk Kiluan" class="article-img">
-              <span class="article-tag">Tips Bahari</span>
-            </div>
-            <div class="article-body">
-              <div class="article-meta">
-                <span><i class="fa-regular fa-calendar"></i> 8 Oktober 2026</span>
-                <span><i class="fa-regular fa-clock"></i> 4 Menit Baca</span>
-              </div>
-              <h3 class="article-title">
-                <a href="#kontak">Waktu Terbaik Menyaksikan Lumba-Lumba Liar di Teluk Kiluan</a>
-              </h3>
-              <p class="article-excerpt">
-                Ketahui jam ideal pelayaran jukung tradisional, kondisi cuaca laut, dan tips mengambil foto atraksi kawanan lumba-lumba melompat bebas di perairan Kiluan.
-              </p>
-              <div class="article-footer">
-                <a href="#" class="btn-read-more wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik membaca info paket dan tips Dolphin Safari Teluk Kiluan.">
-                  Konsultasi Trip Ini <i class="fa-solid fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Artikel Extra 2: Ekowisata Way Kambas -->
-          <article class="article-card article-card-extra">
-            <div class="article-thumb">
-              <img src="assets/images/destinasi/way-kambas.jpg" alt="Ekowisata Konservasi Gajah TN Way Kambas" class="article-img">
-              <span class="article-tag">Konservasi & Alam</span>
-            </div>
-            <div class="article-body">
-              <div class="article-meta">
-                <span><i class="fa-regular fa-calendar"></i> 5 Oktober 2026</span>
-                <span><i class="fa-regular fa-clock"></i> 5 Menit Baca</span>
-              </div>
-              <h3 class="article-title">
-                <a href="#kontak">Ekowisata Edukatif: Mengenal Konservasi Gajah di TN Way Kambas</a>
-              </h3>
-              <p class="article-excerpt">
-                Pengalaman seru berinteraksi memandikan gajah di sungai, memberi makan buah segar, dan pembelajaran ekosistem hutan bagi keluarga serta rombongan pelajar.
-              </p>
-              <div class="article-footer">
-                <a href="#" class="btn-read-more wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi paket wisata edukasi ke TN Way Kambas.">
-                  Konsultasi Trip Ini <i class="fa-solid fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Artikel Extra 3: Yogyakarta Overland Trip -->
-          <article class="article-card article-card-extra">
-            <div class="article-thumb">
-              <img src="assets/images/destinasi/jogja.jpg" alt="Rundown Ideal Liburan Rombongan ke Yogyakarta" class="article-img">
-              <span class="article-tag">Wisata Nusantara</span>
-            </div>
-            <div class="article-body">
-              <div class="article-meta">
-                <span><i class="fa-regular fa-calendar"></i> 1 Oktober 2026</span>
-                <span><i class="fa-regular fa-clock"></i> 6 Menit Baca</span>
-              </div>
-              <h3 class="article-title">
-                <a href="#kontak">Rundown Ideal Liburan Rombongan ke Yogyakarta: Candi, Merapi, & Malioboro</a>
-              </h3>
-              <p class="article-excerpt">
-                Strategi menyusun jadwal perjalanan overland dari Lampung ke Jogja, rekomendasi kuliner gudeg legendaris, serta tips belanja hemat di kawasan Malioboro.
-              </p>
-              <div class="article-footer">
-                <a href="#" class="btn-read-more wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi paket wisata rombongan ke Yogyakarta.">
-                  Konsultasi Trip Ini <i class="fa-solid fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </article>
+          @endforelse
         </div>
 
-        <!-- Tombol Aksi Lihat Artikel Lainnya -->
+        <!-- Tombol Aksi Buka Semua Artikel -->
         <div class="article-more-wrapper">
-          <button type="button" class="btn btn-outline btn-lg" id="btnLoadMoreArticles" aria-expanded="false">
-            <span id="btnLoadMoreArticlesText">Lihat Artikel Lainnya</span>
-            <i class="fa-solid fa-chevron-down" id="btnLoadMoreArticlesIcon"></i>
-          </button>
+          <a href="{{ route('posts.index') }}" class="btn btn-outline btn-lg">
+            <span>Buka Semua Berita & Tips Wisata</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
           <p class="article-more-note">
             Ingin panduan atau tips destinasi khusus lainnya? 
             <a href="#" class="wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin menanyakan panduan dan tips seputar destinasi wisata.">
@@ -1740,73 +1648,355 @@
     </section>
 
     <!-- ========================================================
-         7. GALERI VIDEO KEGIATAN SECTION
+         8. TESTIMONI WISATAWAN (CERITA BAHAGIA WISATAWAN)
          ======================================================== -->
-    <section class="section gallery-section" id="galeri">
+    <section class="section testimonials-section" id="testimoni">
       <div class="container">
-        <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-clapperboard"></i> Video Dokumentasi Nyata</div>
-          <h2 class="section-title">Galeri Video & Momen Keseruan Tour</h2>
-          <p class="section-subtitle">Saksikan langsung cuplikan video keceriaan dan kehangatan rombongan wisatawan saat menjelajahi ragam destinasi impian bersama Nirwana Tour Lampung.</p>
-        </div>
+        <div class="testimonials-split-wrapper">
+          <!-- SISI KIRI: Tulisan & Ringkasan Kepuasan -->
+          <div class="testimonials-left-col">
+            <div class="section-tag">Cerita Bahagia Wisatawan</div>
+            <h2 class="section-title">Apa Kata Mereka Tentang Nirwana Tour?</h2>
+            <p class="section-subtitle">
+              Pengalaman nyata dari sekolah, instansi, BUMN, dan keluarga yang telah mempercayakan perjalanan liburan serta agenda rombongannya kepada kami.
+            </p>
 
-        <div class="video-gallery-grid" id="videoGalleryGrid">
-          <!-- Video 1 -->
-          <article class="video-card">
-            <div class="video-player-wrapper">
-              <video class="gallery-video" controls playsinline preload="metadata" poster="assets/images/galeri/video1-poster.jpg">
-                <source src="assets/images/galeri/video1.mp4" type="video/mp4">
-                Browser Anda tidak mendukung pemutar video HTML5.
-              </video>
-              <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:33</div>
-            </div>
-            <div class="video-card-body">
-              <span class="video-tag"><i class="fa-solid fa-circle-play"></i> Wisata Bahari & Gathering</span>
-              <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
-              <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari, snorkeling di perairan jernih, dan kebersamaan hangat peserta trip.</p>
-            </div>
-          </article>
+            <!-- Social Proof Trust Card -->
+            <div class="testi-trust-card">
+              <div class="trust-card-score">
+                <span class="trust-number">4.9</span>
+                <div class="trust-stars-wrap">
+                  <div class="trust-stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                  <span class="trust-label">Kepuasan 99% dari 500+ Rombongan</span>
+                </div>
+              </div>
 
-          <!-- Video 2 -->
-          <article class="video-card">
-            <div class="video-player-wrapper">
-              <video class="gallery-video" controls playsinline preload="metadata" poster="assets/images/galeri/video2-poster.jpg">
-                <source src="assets/images/galeri/video2.mp4" type="video/mp4">
-                Browser Anda tidak mendukung pemutar video HTML5.
-              </video>
-              <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 00:59</div>
-            </div>
-            <div class="video-card-body">
-              <span class="video-tag"><i class="fa-solid fa-circle-play"></i> Study Tour & Edukasi</span>
-              <h3 class="video-title">Keceriaan Agenda Study Tour Edukasi Pelajar</h3>
-              <p class="video-desc">Pendampingan penuh kehangatan oleh tim tour leader Nirwana Tour dalam membimbing siswa belajar dan berpetualang dengan riang gembira.</p>
-            </div>
-          </article>
+              <div class="trust-benefits">
+                <div class="trust-benefit-item">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>100% Legalitas Resmi PT Biro Perjalanan</span>
+                </div>
+                <div class="trust-benefit-item">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Tour Leader & Kru Berlisensi Ramah</span>
+                </div>
+                <div class="trust-benefit-item">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Armada Bus & Mobil Wisata Terawat Prima</span>
+                </div>
+              </div>
 
-          <!-- Video 3 -->
-          <article class="video-card">
-            <div class="video-player-wrapper">
-              <video class="gallery-video" controls playsinline preload="metadata" poster="assets/images/galeri/video3-poster.jpg">
-                <source src="assets/images/galeri/video3.mp4" type="video/mp4">
-                Browser Anda tidak mendukung pemutar video HTML5.
-              </video>
-              <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:00</div>
+              <div class="trust-card-cta">
+                <a href="#kontak" class="btn btn-primary btn-md">
+                  <span>Konsultasi Liburan Rombongan</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
             </div>
-            <div class="video-card-body">
-              <span class="video-tag"><i class="fa-solid fa-circle-play"></i> Momen Liburan Tropis</span>
-              <h3 class="video-title">Eksplorasi Panorama & Keindahan Bahari Tropis</h3>
-              <p class="video-desc">Menyusuri deburan ombak dan pesona alam nusantara, menghadirkan memori manis dan cerita tak terlupakan bagi setiap rombongan wisatawan.</p>
-            </div>
-          </article>
-        </div>
+          </div>
 
-        <div class="gallery-video-cta text-center">
-          <p class="gallery-cta-note">
-            Ingin rombongan Anda merasakan keseruan liburan berkelas seperti ini? 
-            <a href="#" class="wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin reservasi paket wisata rombongan kami.">
-              Hubungi Tim Nirwana Tour via WhatsApp <i class="fa-solid fa-arrow-right"></i>
-            </a>
-          </p>
+          <!-- SISI KANAN: Testimoni Berjalan Kebawah (Vertical Downward Marquee) -->
+          <div class="testimonials-right-col">
+            <div class="testimonials-viewport" id="testimonialsViewport">
+              <div class="testi-track-grid">
+                <!-- Kolom Track 1: Bergerak Kebawah -->
+                <div class="testi-col-track track-col-1">
+                  <div class="testi-track-inner">
+                    <!-- Group 1 -->
+                    <div class="testi-group">
+                      <!-- Card 1: Sekolah -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-1">RJ</div>
+                            <div>
+                              <h4 class="author-name">Dra. Hj. Ratna Juwita, M.Pd</h4>
+                              <p class="author-role">Kepala SMA Negeri di Bandar Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Pelayanan Nirwana Tour sangat profesional dan amanah saat mendampingi study tour 120 siswa kami ke Yogyakarta. Kunjungan edukasi tepat waktu, armada bus executive prima, serta tour leader sigap mengayomi siswa."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-graduation-cap"></i> Study Tour Edukasi (120 Siswa)
+                        </div>
+                      </div>
+
+                      <!-- Card 2: BUMN / Corporate -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-2">DW</div>
+                            <div>
+                              <h4 class="author-name">Dimas Wicaksono, S.T.</h4>
+                              <p class="author-role">Ketua Panitia Gathering BUMN Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Employee gathering perusahaan kami ke Teluk Kiluan terlaksana sukses dan sangat berkesan. Kegiatan outbound seru, akomodasi bersih dan nyaman, serta koordinasi tim di lapangan sangat rapi."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-people-group"></i> Corporate Gathering (45 Peserta)
+                        </div>
+                      </div>
+
+                      <!-- Card 3: Keluarga Luar Kota -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-3">HK</div>
+                            <div>
+                              <h4 class="author-name">dr. Hendra Kurniawan, Sp.A</h4>
+                              <p class="author-role">Wisatawan Keluarga (Jakarta)</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Liburan keluarga besar kami ke Pulau Pahawang terasa sangat praktis dan menyenangkan. Layanan penjemputan di Bandara Radin Inten II tepat waktu dengan armada HiAce Premio yang bersih dan nyaman."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-umbrella-beach"></i> Family Private Trip Pahawang
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Group 1 Clone (Infinite Loop) -->
+                    <div class="testi-group" aria-hidden="true">
+                      <!-- Card 1: Sekolah -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-1">RJ</div>
+                            <div>
+                              <h4 class="author-name">Dra. Hj. Ratna Juwita, M.Pd</h4>
+                              <p class="author-role">Kepala SMA Negeri di Bandar Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Pelayanan Nirwana Tour sangat profesional dan amanah saat mendampingi study tour 120 siswa kami ke Yogyakarta. Kunjungan edukasi tepat waktu, armada bus executive prima, serta tour leader sigap mengayomi siswa."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-graduation-cap"></i> Study Tour Edukasi (120 Siswa)
+                        </div>
+                      </div>
+
+                      <!-- Card 2: BUMN / Corporate -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-2">DW</div>
+                            <div>
+                              <h4 class="author-name">Dimas Wicaksono, S.T.</h4>
+                              <p class="author-role">Ketua Panitia Gathering BUMN Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Employee gathering perusahaan kami ke Teluk Kiluan terlaksana sukses dan sangat berkesan. Kegiatan outbound seru, akomodasi bersih dan nyaman, serta koordinasi tim di lapangan sangat rapi."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-people-group"></i> Corporate Gathering (45 Peserta)
+                        </div>
+                      </div>
+
+                      <!-- Card 3: Keluarga Luar Kota -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-3">HK</div>
+                            <div>
+                              <h4 class="author-name">dr. Hendra Kurniawan, Sp.A</h4>
+                              <p class="author-role">Wisatawan Keluarga (Jakarta)</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Liburan keluarga besar kami ke Pulau Pahawang terasa sangat praktis dan menyenangkan. Layanan penjemputan di Bandara Radin Inten II tepat waktu dengan armada HiAce Premio yang bersih dan nyaman."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-umbrella-beach"></i> Family Private Trip Pahawang
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Kolom Track 2: Bergerak Kebawah -->
+                <div class="testi-col-track track-col-2">
+                  <div class="testi-track-inner">
+                    <!-- Group 2 -->
+                    <div class="testi-group">
+                      <!-- Card 4: Instansi / Kedinasan -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-4">NH</div>
+                            <div>
+                              <h4 class="author-name">Nurdin Hidayat, S.Sos., M.M.</h4>
+                              <p class="author-role">Koordinator Kunker Instansi Kedinasan</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Agenda study banding dan capacity building tim kami ke Bromo & Malang berjalan tertib, aman, dan sangat berkesan. Nirwana Tour sangat profesional dalam penyusunan SPJ administrasi resmi dinas."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-landmark"></i> Capacity Building & Kunker (35 Peserta)
+                        </div>
+                      </div>
+
+                      <!-- Card 5: Corporate Gathering HRD -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-2">RD</div>
+                            <div>
+                              <h4 class="author-name">Ratna Dewi Kusuma</h4>
+                              <p class="author-role">Divisi HRD Bank Mandiri Area Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Family gathering tahunan karyawan di Pulau Pahawang sangat sukses! Games outbound-nya seru, makanan seafood segar melimpah, serta dokumentasi drone dan foto underwater-nya luar biasa."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-building"></i> Company Gathering Pahawang
+                        </div>
+                      </div>
+
+                      <!-- Card 6: Reuni & Sewa Bus Pariwisata -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-3">BP</div>
+                            <div>
+                              <h4 class="author-name">Budi Prasetyo, S.T.</h4>
+                              <p class="author-role">Ikatan Alumni Universitas Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Pelayanan sewa bus pariwisatanya istimewa. Kondisi armada Big Bus Jetbus sangat bersih, AC dingin, dan suspensi empuk untuk perjalanan jauh ke Bromo-Malang. Sangat terpercaya."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-bus"></i> Reuni & Overland Trip Bromo
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Group 2 Clone (Infinite Loop) -->
+                    <div class="testi-group" aria-hidden="true">
+                      <!-- Card 4: Instansi / Kedinasan -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-4">NH</div>
+                            <div>
+                              <h4 class="author-name">Nurdin Hidayat, S.Sos., M.M.</h4>
+                              <p class="author-role">Koordinator Kunker Instansi Kedinasan</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Agenda study banding dan capacity building tim kami ke Bromo & Malang berjalan tertib, aman, dan sangat berkesan. Nirwana Tour sangat profesional dalam penyusunan SPJ administrasi resmi dinas."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-landmark"></i> Capacity Building & Kunker (35 Peserta)
+                        </div>
+                      </div>
+
+                      <!-- Card 5: Corporate Gathering HRD -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-2">RD</div>
+                            <div>
+                              <h4 class="author-name">Ratna Dewi Kusuma</h4>
+                              <p class="author-role">Divisi HRD Bank Mandiri Area Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Family gathering tahunan karyawan di Pulau Pahawang sangat sukses! Games outbound-nya seru, makanan seafood segar melimpah, serta dokumentasi drone dan foto underwater-nya luar biasa."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-building"></i> Company Gathering Pahawang
+                        </div>
+                      </div>
+
+                      <!-- Card 6: Reuni & Sewa Bus Pariwisata -->
+                      <div class="testimonial-card">
+                        <div class="testimonial-card-top">
+                          <div class="testi-author">
+                            <div class="author-avatar avatar-3">BP</div>
+                            <div>
+                              <h4 class="author-name">Budi Prasetyo, S.T.</h4>
+                              <p class="author-role">Ikatan Alumni Universitas Lampung</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="testi-text">
+                          "Pelayanan sewa bus pariwisatanya istimewa. Kondisi armada Big Bus Jetbus sangat bersih, AC dingin, dan suspensi empuk untuk perjalanan jauh ke Bromo-Malang. Sangat terpercaya."
+                        </p>
+                        <div class="testi-stars">
+                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="testi-trip-badge">
+                          <i class="fa-solid fa-bus"></i> Reuni & Overland Trip Bromo
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testi-hint">
+              <i class="fa-solid fa-hand-pointer"></i>
+              <span>Arahkan kursor atau sentuh untuk menjeda ulasan</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1920,7 +2110,7 @@
     <section class="section contact-section bg-alt" id="kontak">
       <div class="container">
         <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-comments"></i> Hubungi Kami</div>
+          <div class="section-tag">Hubungi Kami</div>
           <h2 class="section-title">Mari Rencanakan Perjalanan Anda Bersama Kami</h2>
           <p class="section-subtitle">Tim konsultasi Nirwana Tour Lampung siap membantu menyusun paket liburan dan proposal penawaran terbaik untuk Anda.</p>
         </div>
@@ -1928,7 +2118,7 @@
         <div class="contact-grid">
           <!-- Info Kontak -->
           <div class="contact-info-card">
-            <h3>Informasi Kontak</h3>
+            <h3 class="contact-card-title">Informasi Kontak & Kantor</h3>
             <p class="contact-lead-text">
               Punya pertanyaan seputar paket wisata, reservasi armada, atau penawaran khusus rombongan? Hubungi kami langsung melalui saluran resmi berikut:
             </p>
@@ -1936,72 +2126,82 @@
             <div class="contact-items-list">
               <!-- Item 1: Alamat -->
               <div class="contact-item">
-                <div class="contact-item-icon">
+                <div class="contact-item-icon icon-location">
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
-                <div>
-                  <strong>Alamat Kantor</strong>
-                  <p>Jl. Raden Intan No. 45, Enggal, Kota Bandar Lampung, Lampung 35118</p>
+                <div class="contact-item-content">
+                  <strong>Alamat Kantor Resmi</strong>
+                  <p>{{ $settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122' }}</p>
                 </div>
               </div>
 
               <!-- Item 2: WhatsApp -->
               <div class="contact-item">
-                <div class="contact-item-icon">
+                <div class="contact-item-icon icon-whatsapp">
                   <i class="fa-brands fa-whatsapp"></i>
                 </div>
-                <div>
+                <div class="contact-item-content">
                   <strong>WhatsApp & Telepon</strong>
-                  <p><a href="tel:+6282178901234">+62 821-7890-1234</a> (Fast Response 24/7)</p>
+                  <p>
+                    <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282269616188' }}" target="_blank" rel="noopener noreferrer">
+                      +{{ $settings['whatsapp_number'] ?? '6282269616188' }}
+                    </a>
+                  </p>
                 </div>
               </div>
 
               <!-- Item 3: Email -->
               <div class="contact-item">
-                <div class="contact-item-icon">
+                <div class="contact-item-icon icon-email">
                   <i class="fa-solid fa-envelope"></i>
                 </div>
-                <div>
+                <div class="contact-item-content">
                   <strong>Email Resmi</strong>
-                  <p><a href="mailto:info@nirwanatourlampung.com">info@nirwanatourlampung.com</a></p>
+                  <p>
+                    <a href="mailto:{{ $settings['email'] ?? 'info@nirwanatour.com' }}">
+                      {{ $settings['email'] ?? 'info@nirwanatour.com' }}
+                    </a>
+                  </p>
                 </div>
               </div>
 
               <!-- Item 4: Jam Operasional -->
               <div class="contact-item">
-                <div class="contact-item-icon">
+                <div class="contact-item-icon icon-clock">
                   <i class="fa-solid fa-clock"></i>
                 </div>
-                <div>
-                  <strong>Jam Pelayanan Kantor</strong>
-                  <p>Senin – Sabtu: 08.00 – 18.00 WIB<br>Konsultasi WhatsApp: Siaga 24 Jam</p>
+                <div class="contact-item-content">
+                  <strong>Jam Operasional Kantor</strong>
+                  <p>
+                    {{ $settings['operating_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00 WIB' }}
+                    <br><span style="font-size: 0.8rem; color: #64748b;">Konsultasi Online WhatsApp: Siaga 24 Jam</span>
+                  </p>
                 </div>
               </div>
             </div>
 
             <!-- WhatsApp Conversion Action Button -->
             <div class="contact-wa-action">
-              <a href="#" class="btn btn-whatsapp btn-block btn-lg wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin bertanya.">
-                <i class="fa-brands fa-whatsapp"></i> Hubungi Kami via WhatsApp
+              <a href="#" class="btn btn-whatsapp btn-block btn-lg wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan wisata.">
+                <i class="fa-brands fa-whatsapp"></i> Chat Langsung via WhatsApp
               </a>
             </div>
 
             <!-- Social Links in Card -->
             <div class="contact-social-wrap">
-              <span>Ikuti Aktivitas Kami:</span>
+              <span>Ikuti Saluran Resmi Kami:</span>
               <div class="social-icons-row">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram Nirwana Tour"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook Nirwana Tour"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok Nirwana Tour"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube Nirwana Tour"><i class="fa-brands fa-youtube"></i></a>
+                <a href="{{ $settings['instagram'] ?? 'https://www.instagram.com/nirwana_tourlampung/?utm_source=ig_web_button_share_sheet' }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Nirwana Tour"><i class="fa-brands fa-instagram"></i></a>
+                <a href="{{ $settings['tiktok'] ?? 'https://www.tiktok.com/@nirwana_tour_travel?is_from_webapp=1&sender_device=pc' }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok Nirwana Tour"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="{{ $settings['youtube'] ?? 'https://youtube.com/@nirwanatourlampung?si=ZMFi9b5dvpn0NKfr' }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube Nirwana Tour"><i class="fa-brands fa-youtube"></i></a>
               </div>
             </div>
           </div>
 
-          <!-- Form Kontak Cepat & Map Embed Placeholder -->
+          <!-- Form Kontak Cepat -->
           <div class="contact-form-card">
-            <h3>Kirim Pesan atau Permintaan Proposal</h3>
-            <p class="form-instruction">Isi formulir ringkas ini untuk langsung mengarahkan pesan rapi ke WhatsApp konsultan kami.</p>
+            <h3 class="contact-card-title">Kirim Pesan & Pengajuan Proposal</h3>
+            <p class="form-instruction">Isi formulir ringkas ini untuk langsung mengarahkan pesan terstruktur ke WhatsApp konsultan kami.</p>
 
             <form id="contactForm" class="contact-form">
               <div class="form-group">
@@ -2049,142 +2249,43 @@
                 <textarea id="formNotes" name="notes" class="form-control" rows="3" placeholder="Tuliskan tujuan yang diinginkan atau fasilitas khusus yang dibutuhkan..."></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block btn-lg">
+              <button type="submit" class="btn btn-primary btn-block btn-lg contact-submit-btn">
                 <i class="fa-brands fa-whatsapp"></i> Kirim Konsultasi ke WhatsApp
               </button>
             </form>
+          </div>
+        </div>
 
-            <div class="map-preview-box">
-              <div class="map-header">
-                <span><i class="fa-solid fa-map-pin"></i> Lokasi Kantor di Bandar Lampung</span>
+        <!-- Peta Lokasi Kantor Mandiri & Luas -->
+        <div class="contact-map-banner">
+          <div class="contact-map-header">
+            <div class="contact-map-title-wrap">
+              <div class="contact-map-icon">
+                <i class="fa-solid fa-map-location-dot"></i>
               </div>
-              <div class="map-embed-container">
-                <iframe 
-                  title="Peta Lokasi Nirwana Tour Lampung"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
-                  width="100%" 
-                  height="180" 
-                  style="border:0;" 
-                  allowfullscreen="" 
-                  loading="lazy" 
-                  referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+              <div>
+                <h4 class="contact-map-title">Lokasi Kantor Resmi Nirwana Tour Lampung</h4>
+                <p class="contact-map-subtitle">{{ $settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122' }}</p>
               </div>
             </div>
+            <a href="https://maps.google.com/?q={{ urlencode($settings['address'] ?? 'Nirwana Tour Bandar Lampung') }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm contact-map-btn">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Google Maps
+            </a>
+          </div>
+          <div class="contact-map-frame-wrap">
+            <iframe 
+              title="Peta Lokasi Nirwana Tour Lampung"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+              width="100%" 
+              height="280" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
           </div>
         </div>
       </div>
     </section>
   </main>
-
-  <!-- ========================================================
-       9. FOOTER
-       ======================================================== -->
-  <footer class="site-footer">
-    <div class="container footer-container">
-      <div class="footer-top">
-        <div class="footer-grid">
-          <!-- Col 1: Brand & Bio -->
-          <div class="footer-col col-brand">
-            <a href="#hero" class="footer-logo" aria-label="Nirwana Tour Lampung">
-              <img src="assets/logo/Logo-Nirwana.png" alt="Nirwana Tour Lampung" class="footer-logo-emblem">
-              <div class="footer-brand-text">
-                <span class="footer-brand-title">NIRWANA<span class="highlight">TOUR</span></span>
-                <span class="footer-brand-sub">LAMPUNG &bull; INDONESIA</span>
-              </div>
-            </a>
-            <p class="footer-bio">
-              Nirwana Tour Lampung adalah biro perjalanan wisata tepercaya yang melayani paket wisata nusantara, study tour, gathering perusahaan, dan transportasi pariwisata berkelas di Provinsi Lampung.
-            </p>
-            <div class="footer-legal-badge">
-              <i class="fa-solid fa-shield-check"></i>
-              <span>Biro Perjalanan Wisata Resmi Terdaftar</span>
-            </div>
-          </div>
-
-          <!-- Col 2: Quick Links -->
-          <div class="footer-col">
-            <h4 class="footer-title">Navigasi Cepat</h4>
-            <ul class="footer-links">
-              <li><a href="#hero"><i class="fa-solid fa-angle-right"></i> Beranda</a></li>
-              <li><a href="tentang.html"><i class="fa-solid fa-angle-right"></i> Tentang Kami</a></li>
-              <li><a href="#layanan"><i class="fa-solid fa-angle-right"></i> Paket Layanan</a></li>
-              <li><a href="#destinasi"><i class="fa-solid fa-angle-right"></i> Destinasi Favorit</a></li>
-              <li><a href="#artikel"><i class="fa-solid fa-angle-right"></i> Artikel & Tips Wisata</a></li>
-              <li><a href="#testimoni"><i class="fa-solid fa-angle-right"></i> Ulasan Wisatawan</a></li>
-              <li><a href="#kontak"><i class="fa-solid fa-angle-right"></i> Hubungi Kami</a></li>
-            </ul>
-          </div>
-
-          <!-- Col 3: Layanan Populer -->
-          <div class="footer-col">
-            <h4 class="footer-title">Layanan Unggulan</h4>
-            <ul class="footer-links">
-              <li><a href="#layanan"><i class="fa-solid fa-angle-right"></i> Trip Pulau Pahawang</a></li>
-              <li><a href="#layanan"><i class="fa-solid fa-angle-right"></i> Dolphin Safari Teluk Kiluan</a></li>
-              <li><a href="#layanan"><i class="fa-solid fa-angle-right"></i> Tour Tebing Gigi Hiu</a></li>
-              <li><a href="#layanan"><i class="fa-solid fa-angle-right"></i> Study Tour Sekolah TK-SMA</a></li>
-              <li><a href="#layanan"><i class="fa-solid fa-angle-right"></i> Outbound & Gathering Kantor</a></li>
-              <li><a href="#layanan"><i class="fa-solid fa-angle-right"></i> Sewa Bus & HiAce Lampung</a></li>
-            </ul>
-          </div>
-
-          <!-- Col 4: Hubungi Kami -->
-          <div class="footer-col col-contact">
-            <h4 class="footer-title">Kontak & Reservasi</h4>
-            <ul class="footer-contact-info">
-              <li>
-                <i class="fa-solid fa-location-dot"></i>
-                <span>Jl. Raden Intan No. 45, Enggal, Bandar Lampung</span>
-              </li>
-              <li>
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="#" class="wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">+62 821-7890-1234</a>
-              </li>
-              <li>
-                <i class="fa-solid fa-envelope"></i>
-                <a href="mailto:info@nirwanatourlampung.com">info@nirwanatourlampung.com</a>
-              </li>
-            </ul>
-
-            <h5 class="social-header-title">Ikuti Kami</h5>
-            <div class="footer-social-icons">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer Bottom Copyright -->
-      <div class="footer-bottom">
-        <p>&copy; <span id="currentYear">2026</span> <strong>Nirwana Tour Lampung</strong>. Hak Cipta Dilindungi Undang-Undang.</p>
-        <p class="footer-tagline">Jelajahi Dunia, Ciptakan Cerita Bersama Kami.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ========================================================
-       FLOATING WHATSAPP BUTTON (TITIK KONVERSI UTAMA)
-       ======================================================== -->
-  <div class="floating-wa-wrapper" id="floatingWA">
-    <div class="floating-wa-bubble">
-      <span>Butuh bantuan liburan? Chat kami!</span>
-    </div>
-    <a href="#" class="floating-wa-btn wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan." aria-label="Chat WhatsApp Admin">
-      <i class="fa-brands fa-whatsapp"></i>
-      <span class="online-indicator"></span>
-    </a>
-  </div>
-
-  <!-- Back to top button -->
-  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
-
-  <!-- Script JS -->
-  <script src="js/script.js"></script>
-</body>
-</html>
+@endsection
