@@ -3,7 +3,7 @@
 @php
   $cleanWa = preg_replace('/[^0-9]/', '', $settings['whatsapp_number'] ?? '6282269616188');
   $waMsg = rawurlencode("Halo Nirwana Tour, saya tertarik dan ingin info paket wisata: {$package->title}");
-  $imgSrc = $package->thumbnail ? asset($package->thumbnail) : asset('assets/images/destinasi/pahawang.jpg');
+  $imgSrc = $package->thumbnail_url;
 @endphp
 
 <article class="dest-card" data-category="{{ $package->category->slug ?? 'lampung' }}">

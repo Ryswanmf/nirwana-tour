@@ -12,7 +12,7 @@
         @foreach($partners as $partner)
           <div class="ticker-item">
             @if($partner->logo)
-              <img src="{{ asset($partner->logo) }}" alt="{{ $partner->name }}" class="partner-logo">
+              <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="partner-logo">
             @else
               <span class="partner-text"><i class="fa-solid fa-building"></i> {{ $partner->name }}</span>
             @endif
@@ -22,7 +22,7 @@
         @foreach($partners as $partner)
           <div class="ticker-item" aria-hidden="true">
             @if($partner->logo)
-              <img src="{{ asset($partner->logo) }}" alt="{{ $partner->name }}" class="partner-logo">
+              <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="partner-logo">
             @else
               <span class="partner-text"><i class="fa-solid fa-building"></i> {{ $partner->name }}</span>
             @endif

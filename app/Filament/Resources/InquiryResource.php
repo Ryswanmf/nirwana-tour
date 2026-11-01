@@ -23,17 +23,30 @@ class InquiryResource extends Resource
 {
     protected static ?string $model = Inquiry::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-arrow-down';
 
-    protected static ?string $navigationGroup = 'Layanan Pelanggan';
+    protected static ?string $navigationGroup = 'Manajemen Wisata & Reservasi';
 
-    protected static ?string $navigationLabel = 'Pesan & Leads Masuk';
+    protected static ?string $navigationLabel = 'Pesan & Booking Masuk';
 
     protected static ?string $modelLabel = 'Lead / Konsultasi';
 
-    protected static ?string $pluralModelLabel = 'Pesan & Leads Masuk';
+    protected static ?string $pluralModelLabel = 'Pesan & Booking Masuk';
 
     protected static ?int $navigationSort = 1;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return \Illuminate\Support\Facades\Cache::remember('inquiry_pending_badge_count', 60, function () {
+            $pending = Inquiry::where('status', 'pending')->count();
+            return $pending > 0 ? (string) $pending : null;
+        });
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'danger';
+    }
 
     public static function form(Form $form): Form
     {
@@ -160,6 +173,34 @@ class InquiryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('export_selected')
+                        ->label('Ekspor Pilihan ke CSV/Excel')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->color('success')
+                        ->action(function (\Illuminate\Database\Eloquent\Collection $records) {
+                            return response()->streamDownload(function () use ($records) {
+                                $handle = fopen('php://output', 'w');
+                                fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
+                                fputcsv($handle, ['Waktu Masuk', 'Nama', 'WhatsApp', 'Email', 'Paket Terpilih', 'Peserta', 'Armada', 'Estimasi Biaya', 'Status', 'Catatan / Pesan']);
+                                foreach ($records as $inquiry) {
+                                    fputcsv($handle, [
+                                        $inquiry->created_at ? $inquiry->created_at->format('Y-m-d H:i:s') : '-',
+                                        $inquiry->name,
+                                        $inquiry->phone,
+                                        $inquiry->email ?? '-',
+                                        $inquiry->tourPackage?->title ?? $inquiry->package_name ?? 'Konsultasi Umum',
+                                        $inquiry->participants,
+                                        $inquiry->fleet_type ?? '-',
+                                        $inquiry->estimated_price ?? 0,
+                                        ucfirst($inquiry->status),
+                                        $inquiry->message ?? '-',
+                                    ]);
+                                }
+                                fclose($handle);
+                            }, 'rekap-leads-terpilih-' . date('Ymd-His') . '.csv', [
+                                'Content-Type' => 'text/csv; charset=UTF-8',
+                            ]);
+                        }),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        require_once app_path('Helpers/helpers.php');
     }
 
     /**
@@ -23,22 +23,42 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Pastikan aturan upload Livewire mengizinkan berkas besar hingga 150 MB (mendukung foto kamera resolusi tinggi & video)
+        config([
+            'livewire.temporary_file_upload.rules' => ['file', 'max:153600'],
+            'livewire.temporary_file_upload.max_upload_time' => 30,
+        ]);
+
         // Set default pagination view
         Paginator::defaultView('vendor.pagination.default');
 
-        // Share site settings globally across all Blade views
-        View::composer('*', function ($view) {
+        // Share site settings and active services globally across frontend Blade views with cache (skipping internal Filament views)
+        View::composer(['pages.*', 'layouts.*', 'components.*', 'emails.*'], function ($view) {
             static $sharedSettings = null;
+            static $sharedServices = null;
 
             if ($sharedSettings === null) {
-                if (Schema::hasTable('site_settings')) {
-                    $sharedSettings = SiteSetting::pluck('value', 'key')->toArray();
-                } else {
-                    $sharedSettings = [];
-                }
+                $sharedSettings = \Illuminate\Support\Facades\Cache::remember('nirwana_site_settings', 3600, function () {
+                    if (Schema::hasTable('site_settings')) {
+                        return SiteSetting::pluck('value', 'key')->toArray();
+                    }
+                    return [];
+                });
             }
 
-            $view->with('settings', $sharedSettings);
+            if ($sharedServices === null) {
+                $sharedServices = \Illuminate\Support\Facades\Cache::remember('nirwana_footer_services', 3600, function () {
+                    if (Schema::hasTable('services')) {
+                        return \App\Models\Service::where('is_active', true)->orderBy('order')->get(['id', 'title', 'slug']);
+                    }
+                    return collect();
+                });
+            }
+
+            $view->with([
+                'settings' => $sharedSettings,
+                'footerServices' => $sharedServices,
+            ]);
         });
     }
 }

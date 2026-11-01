@@ -29,11 +29,18 @@
     <div class="footer-col">
       <h3 class="footer-title">Layanan Unggulan</h3>
       <ul class="footer-links">
-        <li><a href="{{ route('packages.index', ['kategori' => 'wisata-lampung']) }}">Tour Pulau Pahawang</a></li>
-        <li><a href="{{ route('packages.index', ['kategori' => 'wisata-lampung']) }}">Dolphin Tour Kiluan</a></li>
-        <li><a href="{{ route('packages.index', ['kategori' => 'study-tour-edukasi']) }}">Study Tour Sekolah</a></li>
-        <li><a href="{{ route('packages.index', ['kategori' => 'wisata-nusantara']) }}">Paket Tour Jogja & Bromo</a></li>
-        <li><a href="{{ route('services.index') }}">Sewa Bus Pariwisata</a></li>
+        @if(isset($footerServices) && $footerServices->isNotEmpty())
+          @foreach($footerServices as $fService)
+            <li><a href="{{ route('services.show', $fService->slug) }}">{{ $fService->title }}</a></li>
+          @endforeach
+          <li><a href="{{ route('services.index') }}" style="font-weight: 600; color: #F59E0B;">Lihat Semua Layanan &rarr;</a></li>
+        @else
+          <li><a href="{{ route('services.show', 'paket-wisata-domestik-lampung') }}">Paket Wisata Domestik & Lampung</a></li>
+          <li><a href="{{ route('services.show', 'study-tour-field-trip-sekolah') }}">Study Tour & Field Trip Sekolah</a></li>
+          <li><a href="{{ route('services.show', 'family-gathering-corporate-event') }}">Family Gathering & Corporate Event</a></li>
+          <li><a href="{{ route('services.show', 'sewa-bus-transportasi-pariwisata') }}">Sewa Bus & Transportasi Pariwisata</a></li>
+          <li><a href="{{ route('services.index') }}" style="font-weight: 600; color: #F59E0B;">Lihat Semua Layanan &rarr;</a></li>
+        @endif
       </ul>
     </div>
 

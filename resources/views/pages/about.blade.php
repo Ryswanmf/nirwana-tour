@@ -146,7 +146,7 @@
               </p>
               <div style="margin-top: auto; border-top: 1px solid var(--border-light); padding-top: 20px;">
                 <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 12px;">Pilar Komitmen Utama:</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
                   <div style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 600; color: var(--text-main);">
                     <i class="fa-solid fa-circle-check" style="color: var(--primary); font-size: 0.95rem;"></i> Integritas Bisnis
                   </div>

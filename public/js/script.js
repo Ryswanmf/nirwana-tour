@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. CONFIGURATION
   // ========================================================
   const CONFIG = {
-    whatsappNumber: '6282269616188',
-    defaultWaMessage: 'Halo Nirwana Tour, saya ingin konsultasi perjalanan.',
+    whatsappNumber: (window.NIRWANA_CONFIG && window.NIRWANA_CONFIG.whatsappNumber) ? window.NIRWANA_CONFIG.whatsappNumber : '6282269616188',
+    defaultWaMessage: (window.NIRWANA_CONFIG && window.NIRWANA_CONFIG.defaultWaMessage) ? window.NIRWANA_CONFIG.defaultWaMessage : 'Halo Nirwana Tour, saya ingin konsultasi perjalanan.',
     headerOffset: 75
   };
 
@@ -151,18 +151,25 @@ Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
       navToggle.setAttribute('aria-expanded', 'false');
     }
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        if (link.classList.contains('nav-dropdown-toggle')) {
-          e.preventDefault();
-          const parent = link.closest('.nav-dropdown');
-          if (parent) {
-            parent.classList.toggle('open');
-          }
-          return;
+    const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+    dropdownToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const parent = toggle.closest('.nav-dropdown');
+        if (parent) {
+          const isOpen = parent.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         }
-        closeMobileMenu();
       });
+    });
+
+    navLinks.forEach(link => {
+      if (!link.classList.contains('nav-dropdown-toggle')) {
+        link.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+      }
     });
 
     document.querySelectorAll('.dropdown-item').forEach(item => {
@@ -934,4 +941,122 @@ Mohon informasi ketersediaan tanggal dan negosiasi penawaran terbaiknya. Terima 
   if (currentYearSpan) {
     currentYearSpan.textContent = new Date().getFullYear();
   }
+
+  // ========================================================
+  // 12. FLOATING WHATSAPP MULTI-CHANNEL CONCIERGE WIDGET
+  // ========================================================
+  const floatingWABtn = document.getElementById('floatingWABtn');
+  const waConciergeCard = document.getElementById('waConciergeCard');
+  const waConciergeClose = document.getElementById('waConciergeClose');
+  const floatingWABubble = document.getElementById('floatingWABubble');
+
+  if (floatingWABtn && waConciergeCard) {
+    function toggleWaConcierge() {
+      const isVisible = waConciergeCard.style.display === 'block';
+      if (isVisible) {
+        waConciergeCard.style.display = 'none';
+        floatingWABtn.setAttribute('aria-expanded', 'false');
+        if (floatingWABubble) floatingWABubble.style.opacity = '';
+      } else {
+        waConciergeCard.style.display = 'block';
+        floatingWABtn.setAttribute('aria-expanded', 'true');
+        if (floatingWABubble) floatingWABubble.style.opacity = '0';
+      }
+    }
+
+    floatingWABtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleWaConcierge();
+    });
+
+    if (waConciergeClose) {
+      waConciergeClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        waConciergeCard.style.display = 'none';
+        floatingWABtn.setAttribute('aria-expanded', 'false');
+        if (floatingWABubble) floatingWABubble.style.opacity = '';
+      });
+    }
+
+    // Klik di luar kartu menutup concierge
+    document.addEventListener('click', (e) => {
+      if (waConciergeCard.style.display === 'block' && !waConciergeCard.contains(e.target) && !floatingWABtn.contains(e.target)) {
+        waConciergeCard.style.display = 'none';
+        floatingWABtn.setAttribute('aria-expanded', 'false');
+        if (floatingWABubble) floatingWABubble.style.opacity = '';
+      }
+    });
+  }
+
+  // ========================================================
+  // 13. TESTIMONIAL REVIEW MODAL & STAR PICKER
+  // ========================================================
+  const reviewModal = document.getElementById('reviewModal');
+  if (reviewModal) {
+    // Tutup saat klik di backdrop luar card
+    reviewModal.addEventListener('click', (e) => {
+      if (e.target === reviewModal) {
+        reviewModal.style.display = 'none';
+      }
+    });
+
+    // Star rating picker
+    const starButtons = document.querySelectorAll('#starRatingPicker .star-btn');
+    const ratingInput = document.getElementById('ratingInput');
+    const ratingText = document.getElementById('ratingText');
+    const ratingLabels = {
+      1: '1 / 5 - Perlu Peningkatan',
+      2: '2 / 5 - Cukup Baik',
+      3: '3 / 5 - Baik & Memuaskan',
+      4: '4 / 5 - Sangat Baik & Nyaman',
+      5: '5 / 5 - Luar Biasa Sangat Puas!'
+    };
+
+    starButtons.forEach(star => {
+      star.addEventListener('click', function() {
+        const val = parseInt(this.getAttribute('data-val'), 10);
+        if (ratingInput) ratingInput.value = val;
+        if (ratingText) ratingText.textContent = ratingLabels[val] || (val + ' / 5');
+
+        starButtons.forEach(s => {
+          const sVal = parseInt(s.getAttribute('data-val'), 10);
+          if (sVal <= val) {
+            s.classList.remove('fa-regular');
+            s.classList.add('fa-solid');
+            s.style.color = '#F59E0B';
+          } else {
+            s.classList.remove('fa-solid');
+            s.classList.add('fa-regular');
+            s.style.color = '#CBD5E1';
+          }
+        });
+      });
+    });
+  }
+
+  // ========================================================
+  // 14. INSTANT HOVER LINK PREFETCHER (SPEED ACCELERATOR)
+  // ========================================================
+  const prefetchedUrls = new Set();
+  function prefetchUrl(url) {
+    if (!url || prefetchedUrls.has(url)) return;
+    if (url.startsWith('#') || url.startsWith('mailto:') || url.startsWith('tel:') || url.startsWith('javascript:') || url.includes('wa.me')) return;
+    try {
+      const parsed = new URL(url, window.location.origin);
+      if (parsed.origin !== window.location.origin) return;
+      if (parsed.pathname === window.location.pathname) return;
+      if (parsed.pathname.startsWith('/admin') || parsed.pathname.startsWith('/login')) return;
+
+      prefetchedUrls.add(url);
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = parsed.href;
+      document.head.appendChild(link);
+    } catch (e) {}
+  }
+
+  document.querySelectorAll('a[href]').forEach(a => {
+    a.addEventListener('mouseenter', () => prefetchUrl(a.getAttribute('href')), { passive: true });
+    a.addEventListener('touchstart', () => prefetchUrl(a.getAttribute('href')), { passive: true });
+  });
 });

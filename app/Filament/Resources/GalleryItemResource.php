@@ -12,11 +12,15 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class GalleryItemResource extends Resource
 {
@@ -24,7 +28,7 @@ class GalleryItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationGroup = 'Publikasi & Konten';
+    protected static ?string $navigationGroup = 'Konten & Informasi';
 
     protected static ?string $navigationLabel = 'Galeri Dokumentasi';
 
@@ -32,7 +36,7 @@ class GalleryItemResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Galeri Dokumentasi';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -40,42 +44,46 @@ class GalleryItemResource extends Resource
             ->schema([
                 Section::make('Item Galeri')
                     ->schema([
-                        Grid::make(2)->schema([
+                        Grid::make(3)->schema([
                             TextInput::make('title')
                                 ->label('Judul Foto / Video')
                                 ->required(),
                             Select::make('media_type')
                                 ->label('Tipe Media')
                                 ->options([
-                                    'image' => 'Foto / Gambar',
                                     'video' => 'Video Perjalanan (MP4)',
+                                    'image' => 'Foto / Gambar',
                                 ])
-                                ->default('image')
+                                ->default('video')
                                 ->required(),
-                        ]),
-                        Grid::make(2)->schema([
-                            Select::make('category_id')
-                                ->label('Kategori Album')
-                                ->relationship('category', 'name', fn ($q) => $q->where('type', 'gallery'))
-                                ->searchable()
-                                ->preload(),
                             TextInput::make('order')
-                                ->label('Urutan')
+                                ->label('Urutan Prioritas')
                                 ->numeric()
                                 ->default(0),
                         ]),
+                        Toggle::make('is_featured')
+                            ->label('Video Unggulan Beranda (Tampil di Home)')
+                            ->helperText('Jika diaktifkan, video ini akan tampil di bagian Galeri Video Beranda (maksimal 5 video unggulan). Jika tidak diaktifkan, video akan tampil di halaman Galeri.')
+                            ->default(false),
                         FileUpload::make('file_path')
-                            ->label('Unggah File Media')
+                            ->label('Unggah File Media (Foto / Video)')
                             ->directory('gallery')
+                            ->maxSize(153600)
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
+                                'image/gif',
+                                'video/mp4',
+                                'video/quicktime',
+                                'video/x-msvideo',
+                                'video/webm',
+                            ])
+                            ->helperText('Mendukung file foto (JPG, PNG, WebP) atau video (MP4, MOV) dengan ukuran hingga 150 MB.')
                             ->required()
                             ->columnSpanFull(),
-                        FileUpload::make('thumbnail')
-                            ->label('Poster / Cover Thumbnail (Jika Video)')
-                            ->image()
-                            ->directory('gallery/thumbnails')
-                            ->columnSpanFull(),
                         Textarea::make('caption')
-                            ->label('Keterangan / Caption Foto')
+                            ->label('Keterangan / Caption Singkat')
                             ->rows(2)
                             ->columnSpanFull(),
                     ]),
@@ -86,9 +94,9 @@ class GalleryItemResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('thumbnail')
-                    ->label('Thumbnail')
-                    ->defaultImageUrl(fn ($record) => $record->file_path),
+                ImageColumn::make('file_path')
+                    ->label('Media')
+                    ->defaultImageUrl(fn () => asset('assets/images/galeri/video1-poster.jpg')),
                 TextColumn::make('title')
                     ->label('Judul')
                     ->searchable()
@@ -96,13 +104,17 @@ class GalleryItemResource extends Resource
                 TextColumn::make('media_type')
                     ->label('Tipe')
                     ->badge(),
-                TextColumn::make('category.name')
-                    ->label('Album'),
+                ToggleColumn::make('is_featured')
+                    ->label('Unggulan Beranda'),
                 TextColumn::make('order')
                     ->label('Urutan')
                     ->sortable(),
             ])
             ->defaultSort('order')
+            ->filters([
+                TernaryFilter::make('is_featured')
+                    ->label('Unggulan Beranda'),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

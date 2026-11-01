@@ -2,6 +2,24 @@
 
 @section('title', $service->title . ' - ' . ($settings['site_name'] ?? 'Nirwana Tour Lampung') . ' | Layanan Profesional')
 @section('meta_description', Str::limit($service->short_description, 160))
+@section('og_image', $service->image_url)
+@section('og_type', 'service')
+
+@push('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{{ $service->title }}",
+  "description": "{{ $service->short_description }}",
+  "provider": {
+    "@type": "TravelAgency",
+    "name": "Nirwana Tour Lampung",
+    "url": "{{ url('/') }}"
+  }
+}
+</script>
+@endpush
 
 @section('content')
   <main>
@@ -27,7 +45,7 @@
          ======================================================== -->
     <section class="section bg-alt" id="detail-layanan">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start;">
+        <div class="detail-page-layout">
           
           <!-- KOLOM KIRI: DESKRIPSI & KEUNGGULAN -->
           <div>
@@ -101,7 +119,7 @@
           </div>
 
           <!-- KOLOM KANAN: FORM KONSULTASI / BOOKING -->
-          <div style="position: sticky; top: 100px;">
+          <div class="detail-sidebar-sticky">
             <div style="background: #FFFFFF; border-radius: 20px; padding: 30px; border: 1px solid #E2E8F0; box-shadow: 0 8px 30px rgba(0,0,0,0.06);">
               <div style="text-align: center; margin-bottom: 22px;">
                 <h3 style="font-size: 1.25rem; font-weight: 800; color: #0F172A; margin: 0 0 6px 0;">Ajukan Penawaran Layanan</h3>
@@ -114,6 +132,8 @@
                 @csrf
                 <input type="hidden" name="package_name" value="Layanan: {{ $service->title }}">
                 <input type="hidden" name="source" value="service_detail">
+                {{-- Anti-Spam Honeypot Field --}}
+                <input type="text" name="_hp_security_check" style="display:none !important;" tabindex="-1" autocomplete="off">
 
                 <div style="margin-bottom: 14px;">
                   <label style="display: block; font-weight: 600; font-size: 0.84rem; margin-bottom: 6px; color: #334155;">Nama Lengkap / Instansi *</label>

@@ -21,6 +21,38 @@ class PackageController extends Controller
             });
         }
 
+        if ($request->filled('durasi')) {
+            switch ($request->durasi) {
+                case '1':
+                case 'oneday':
+                    $query->where('duration_days', 1)->where('duration_nights', 0);
+                    break;
+                case '2d1n':
+                    $query->where('duration_days', 2)->where('duration_nights', 1);
+                    break;
+                case '3d2n':
+                    $query->where('duration_days', 3)->where('duration_nights', 2);
+                    break;
+                case 'multidays':
+                    $query->where('duration_days', '>=', 4);
+                    break;
+            }
+        }
+
+        if ($request->filled('budget')) {
+            switch ($request->budget) {
+                case 'under_500k':
+                    $query->where('price_from', '<=', 500000);
+                    break;
+                case '500k_1500k':
+                    $query->whereBetween('price_from', [500001, 1500000]);
+                    break;
+                case 'above_1500k':
+                    $query->where('price_from', '>', 1500000);
+                    break;
+            }
+        }
+
         if ($request->filled('q')) {
             $search = $request->q;
             $query->where(function ($q) use ($search) {
@@ -30,7 +62,23 @@ class PackageController extends Controller
             });
         }
 
-        $packages = $query->orderBy('order')->paginate(9)->withQueryString();
+        if ($request->filled('sort')) {
+            switch ($request->sort) {
+                case 'termurah':
+                    $query->orderBy('price_from', 'asc');
+                    break;
+                case 'termahal':
+                    $query->orderBy('price_from', 'desc');
+                    break;
+                default:
+                    $query->orderBy('order');
+                    break;
+            }
+        } else {
+            $query->orderBy('order');
+        }
+
+        $packages = $query->paginate(9)->withQueryString();
 
         return view('pages.packages.index', compact('packages', 'categories'));
     }

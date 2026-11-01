@@ -135,6 +135,8 @@
             <form action="{{ route('inquiry.store') }}" method="POST" class="contact-form">
               @csrf
               <input type="hidden" name="source" value="contact_page">
+              {{-- Anti-Spam Honeypot Field --}}
+              <input type="text" name="_hp_security_check" style="display:none !important;" tabindex="-1" autocomplete="off">
 
               <div class="form-group">
                 <label for="pageFormName">Nama Lengkap / Instansi <span class="required">*</span></label>
@@ -168,18 +170,21 @@
                   <div class="input-icon-group">
                     <i class="fa-solid fa-compass"></i>
                     <select id="pageFormPackage" name="package_name" class="form-control">
-                      <option value="Paket Wisata Lampung">Paket Wisata Lampung</option>
-                      <option value="Study Tour Sekolah">Study Tour Sekolah</option>
-                      <option value="Gathering Perusahaan">Gathering Perusahaan / Outbound</option>
-                      <option value="Sewa Bus Pariwisata & HiAce">Sewa Bus Pariwisata & HiAce</option>
-                      <option value="Custom Trip Rombongan">Custom Trip Rombongan</option>
-                      @if(isset($packages) && $packages->count() > 0)
-                        <optgroup label="Paket Populer Pilihan:">
-                          @foreach($packages as $pkg)
-                            <option value="{{ $pkg->title }}">{{ $pkg->title }}</option>
+                      @if(isset($services) && $services->count() > 0)
+                        <optgroup label="Layanan Utama Nirwana Tour:">
+                          @foreach($services as $srv)
+                            <option value="{{ $srv->title }}">{{ $srv->title }}</option>
                           @endforeach
                         </optgroup>
                       @endif
+                      <optgroup label="Pilihan Paket Wisata Populer:">
+                        @if(isset($packages) && $packages->count() > 0)
+                          @foreach($packages as $pkg)
+                            <option value="{{ $pkg->title }}">{{ $pkg->title }}</option>
+                          @endforeach
+                        @endif
+                        <option value="Custom Trip / Rombongan Khusus">Custom Trip / Rombongan Khusus</option>
+                      </optgroup>
                     </select>
                   </div>
                 </div>
@@ -217,14 +222,14 @@
                 <p class="contact-map-subtitle">{{ $settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122' }}</p>
               </div>
             </div>
-            <a href="https://maps.google.com/?q={{ urlencode($settings['address'] ?? 'Nirwana Tour Bandar Lampung') }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm contact-map-btn">
+            <a href="{{ $settings['google_maps_review_url'] ?? ('https://maps.google.com/?q=' . urlencode($settings['address'] ?? 'Nirwana Tour Bandar Lampung')) }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm contact-map-btn">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Google Maps
             </a>
           </div>
           <div class="contact-map-frame-wrap">
             <iframe 
               title="Peta Lokasi Nirwana Tour Lampung"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+              src="{{ $settings['google_maps_embed_url'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid' }}" 
               width="100%" 
               height="340" 
               style="border:0;" 

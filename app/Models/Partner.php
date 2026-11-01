@@ -15,4 +15,9 @@ class Partner extends Model
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    public function getLogoUrlAttribute(): ?string
+    {
+        return storage_or_asset($this->logo);
+    }
 }

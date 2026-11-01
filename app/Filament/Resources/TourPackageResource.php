@@ -24,23 +24,24 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class TourPackageResource extends Resource
 {
     protected static ?string $model = TourPackage::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-globe-americas';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
-    protected static ?string $navigationGroup = 'Manajemen Wisata';
+    protected static ?string $navigationGroup = 'Manajemen Wisata & Reservasi';
 
-    protected static ?string $navigationLabel = 'Paket Wisata';
+    protected static ?string $navigationLabel = 'Paket & Destinasi';
 
     protected static ?string $modelLabel = 'Paket Wisata';
 
     protected static ?string $pluralModelLabel = 'Paket Wisata';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -63,7 +64,7 @@ class TourPackageResource extends Resource
                         Grid::make(3)->schema([
                             Select::make('category_id')
                                 ->label('Kategori')
-                                ->relationship('category', 'name')
+                                ->relationship('category', 'name', fn (Builder $query) => $query->where('type', 'tour'))
                                 ->searchable()
                                 ->preload()
                                 ->required(),
@@ -157,6 +158,30 @@ class TourPackageResource extends Resource
                         ]),
                     ]),
 
+                Section::make('Pertanyaan yang Sering Diajukan (FAQ)')
+                    ->description('Tambahkan pertanyaan dan jawaban umum seputar paket wisata ini')
+                    ->schema([
+                        Repeater::make('faqs')
+                            ->label('Daftar FAQ Paket')
+                            ->schema([
+                                TextInput::make('question')
+                                    ->label('Pertanyaan')
+                                    ->placeholder('Contoh: Apakah paket ini cocok untuk anak-anak?')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                Textarea::make('answer')
+                                    ->label('Jawaban')
+                                    ->placeholder('Tuliskan penjelasan jawaban secara jelas dan ramah...')
+                                    ->rows(3)
+                                    ->required()
+                                    ->columnSpanFull(),
+                            ])
+                            ->collapsible()
+                            ->itemLabel(fn (array $state): ?string => $state['question'] ?? null)
+                            ->defaultItems(0)
+                            ->columnSpanFull(),
+                    ]),
+
                 Section::make('Foto & Visibilitas')
                     ->schema([
                         Grid::make(2)->schema([
@@ -164,6 +189,10 @@ class TourPackageResource extends Resource
                                 ->label('Foto Thumbnail / Banner')
                                 ->image()
                                 ->directory('packages')
+                                ->imageResizeMode('cover')
+                                ->imageResizeTargetWidth('1280')
+                                ->imageResizeTargetHeight('720')
+                                ->maxSize(5120)
                                 ->imageEditor(),
                             Grid::make(1)->schema([
                                 Toggle::make('is_featured')
@@ -219,7 +248,7 @@ class TourPackageResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('category')
-                    ->relationship('category', 'name'),
+                    ->relationship('category', 'name', fn (Builder $query) => $query->where('type', 'tour')),
                 TernaryFilter::make('is_featured')
                     ->label('Paket Unggulan'),
                 TernaryFilter::make('is_active')

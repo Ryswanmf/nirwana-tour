@@ -22,9 +22,9 @@ class PartnerResource extends Resource
 {
     protected static ?string $model = Partner::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-office';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
-    protected static ?string $navigationGroup = 'Identitas & Profil';
+    protected static ?string $navigationGroup = 'Profil & Pengaturan';
 
     protected static ?string $navigationLabel = 'Mitra & Klien Rekanan';
 
@@ -52,7 +52,11 @@ class PartnerResource extends Resource
                             FileUpload::make('logo')
                                 ->label('Logo Instansi (PNG/SVG)')
                                 ->image()
-                                ->directory('partners'),
+                                ->directory('partners')
+                                ->imageResizeMode('contain')
+                                ->imageResizeTargetWidth('500')
+                                ->imageResizeTargetHeight('300')
+                                ->maxSize(3072),
                             Grid::make(1)->schema([
                                 TextInput::make('order')
                                     ->label('Urutan Tampil')

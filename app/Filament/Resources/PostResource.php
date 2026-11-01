@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
+use App\Helpers\ImageOptimizer;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,6 +14,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Resources\Resource;
@@ -21,7 +23,10 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class PostResource extends Resource
 {
@@ -29,15 +34,15 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
-    protected static ?string $navigationGroup = 'Publikasi & Konten';
+    protected static ?string $navigationGroup = 'Konten & Informasi';
 
-    protected static ?string $navigationLabel = 'Berita';
+    protected static ?string $navigationLabel = 'Artikel & Tips Wisata';
 
-    protected static ?string $modelLabel = 'Berita';
+    protected static ?string $modelLabel = 'Artikel';
 
-    protected static ?string $pluralModelLabel = 'Berita';
+    protected static ?string $pluralModelLabel = 'Artikel & Tips Wisata';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -54,11 +59,15 @@ class PostResource extends Resource
                             ->label('URL Slug')
                             ->required()
                             ->unique(ignoreRecord: true),
-                        Select::make('category_id')
-                            ->label('Kategori')
-                            ->relationship('category', 'name', fn ($query) => $query->where('type', 'article'))
-                            ->searchable()
-                            ->preload(),
+                        TextInput::make('category_name')
+                            ->label('Kategori Berita')
+                            ->placeholder('Ketik kategori sendiri (contoh: Tips Wisata, Edukasi, Promo, Event)')
+                            ->maxLength(100)
+                            ->afterStateHydrated(function ($component, $record) {
+                                if ($record && empty($component->getState())) {
+                                    $component->state($record->category_name ?: $record->category?->name);
+                                }
+                            }),
                         Textarea::make('excerpt')
                             ->label('Ringkasan / Excerpt')
                             ->rows(3),
@@ -72,13 +81,33 @@ class PostResource extends Resource
                     ->schema([
                         Grid::make(2)->schema([
                             FileUpload::make('cover_image')
-                                ->label('Gambar Sampul (Cover)')
+                                ->label('Gambar Sampul Utama (Cover)')
                                 ->image()
-                                ->directory('posts'),
+                                ->directory('posts')
+                                ->maxSize(51200)
+                                ->helperText('Maksimal ukuran berkas hingga 50 MB (mendukung foto 10-25 MB). Foto otomatis dikompresi tanpa mengurangi resolusi aslinya.')
+                                ->imageEditor()
+                                ->saveUploadedFileUsing(function (BaseFileUpload $component, TemporaryUploadedFile $file) {
+                                    $storeMethod = $component->getVisibility() === 'public' ? 'storePubliclyAs' : 'storeAs';
+                                    $path = $file->{$storeMethod}(
+                                        $component->getDirectory(),
+                                        $component->getUploadedFileNameForStorage($file),
+                                        $component->getDiskName()
+                                    );
+
+                                    $fullPath = $component->getDisk()->path($path);
+                                    ImageOptimizer::compress($fullPath);
+
+                                    return $path;
+                                }),
                             Grid::make(1)->schema([
                                 TextInput::make('author')
                                     ->label('Penulis')
                                     ->default('Admin Nirwana'),
+                                Toggle::make('is_featured')
+                                    ->label('Berita Unggulan (Tampil di Beranda)')
+                                    ->helperText('Jika aktif maka berita tampil di Beranda. Jika tidak aktif maka tampil di Halaman Berita.')
+                                    ->default(false),
                                 Toggle::make('is_published')
                                     ->label('Terbitkan Berita')
                                     ->default(true),
@@ -86,6 +115,29 @@ class PostResource extends Resource
                                     ->label('Tanggal Publikasi')
                                     ->default(now()),
                             ]),
+                            FileUpload::make('gallery_images')
+                                ->label('Foto Dokumentasi Tambahan (Opsional)')
+                                ->multiple()
+                                ->reorderable()
+                                ->image()
+                                ->directory('posts/gallery')
+                                ->maxSize(51200)
+                                ->maxFiles(8)
+                                ->columnSpanFull()
+                                ->helperText('Kosongkan jika hanya ingin menampilkan 1 foto sampul. Unggah beberapa foto hanya jika Anda ingin menampilkan galeri foto pendukung di dalam artikel.')
+                                ->saveUploadedFileUsing(function (BaseFileUpload $component, TemporaryUploadedFile $file) {
+                                    $storeMethod = $component->getVisibility() === 'public' ? 'storePubliclyAs' : 'storeAs';
+                                    $path = $file->{$storeMethod}(
+                                        $component->getDirectory(),
+                                        $component->getUploadedFileNameForStorage($file),
+                                        $component->getDiskName()
+                                    );
+
+                                    $fullPath = $component->getDisk()->path($path);
+                                    ImageOptimizer::compress($fullPath);
+
+                                    return $path;
+                                }),
                         ]),
                     ]),
             ]);
@@ -103,9 +155,13 @@ class PostResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->limit(50),
-                TextColumn::make('category.name')
+                TextColumn::make('category_name')
                     ->label('Kategori')
+                    ->getStateUsing(fn ($record) => $record->category_name ?: ($record->category->name ?? '-'))
                     ->badge(),
+                ToggleColumn::make('is_featured')
+                    ->label('Unggulan Beranda')
+                    ->sortable(),
                 TextColumn::make('author')
                     ->label('Penulis'),
                 IconColumn::make('is_published')

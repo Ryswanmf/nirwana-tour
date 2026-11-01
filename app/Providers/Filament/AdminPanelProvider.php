@@ -6,6 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -28,10 +29,17 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(\App\Filament\Pages\Auth\Login::class)
+            ->profile()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
+            ->spa()
             ->brandName('Nirwana Tour Lampung')
-            ->brandLogo(fn () => asset('assets/logo/Logo-Nirwana.png'))
-            ->brandLogoHeight('3.2rem')
+            ->brandLogo(fn () => view('filament.components.brand-logo'))
+            ->brandLogoHeight('2.8rem')
             ->favicon(fn () => asset('assets/logo/Logo-Nirwana.png'))
+            ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('17.5rem')
+            ->collapsedSidebarWidth('4.5rem')
             ->colors([
                 'primary' => '#800020',
             ])
@@ -44,10 +52,9 @@ class AdminPanelProvider extends PanelProvider
                 fn () => view('filament.custom-styles'),
             )
             ->navigationGroups([
-                'Manajemen Wisata',
-                'Layanan Pelanggan',
-                'Publikasi & Konten',
-                'Identitas & Profil',
+                NavigationGroup::make('Manajemen Wisata & Reservasi')->collapsible(false),
+                NavigationGroup::make('Konten & Informasi')->collapsible(false),
+                NavigationGroup::make('Profil & Pengaturan')->collapsible(false),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -56,8 +63,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
+                \App\Filament\Widgets\AdminWelcomeWidget::class,
                 \App\Filament\Widgets\StatsOverview::class,
-                Widgets\AccountWidget::class,
+                \App\Filament\Widgets\LatestInquiriesWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

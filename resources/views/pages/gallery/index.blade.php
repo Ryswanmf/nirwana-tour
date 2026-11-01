@@ -45,8 +45,8 @@
           <div class="gallery-video-grid">
             @foreach($galleryItems as $item)
               @php
-                $thumbUrl = $item->thumbnail ? asset($item->thumbnail) : asset('assets/images/galeri/video1-poster.jpg');
-                $videoUrl = asset($item->file_path);
+                $thumbUrl = $item->thumbnail_url;
+                $videoUrl = $item->file_url;
                 
                 // Durasi & badge kategori otomatis berdasarkan file_path/order
                 $duration = '01:15';

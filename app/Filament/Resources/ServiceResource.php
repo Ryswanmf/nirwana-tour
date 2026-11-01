@@ -27,7 +27,7 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
-    protected static ?string $navigationGroup = 'Manajemen Wisata';
+    protected static ?string $navigationGroup = 'Manajemen Wisata & Reservasi';
 
     protected static ?string $navigationLabel = 'Layanan Perjalanan';
 
@@ -35,7 +35,7 @@ class ServiceResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Layanan Perjalanan';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -79,6 +79,11 @@ class ServiceResource extends Resource
                             ->label('Foto Banner Layanan')
                             ->image()
                             ->directory('services')
+                            ->imageResizeMode('cover')
+                            ->imageResizeTargetWidth('1280')
+                            ->imageResizeTargetHeight('720')
+                            ->maxSize(5120)
+                            ->imageEditor()
                             ->columnSpanFull(),
                         Toggle::make('is_active')
                             ->label('Status Aktif')

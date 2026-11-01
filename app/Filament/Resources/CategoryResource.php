@@ -23,15 +23,15 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
-    protected static ?string $navigationGroup = 'Identitas & Profil';
+    protected static ?string $navigationGroup = 'Manajemen Wisata & Reservasi';
 
-    protected static ?string $navigationLabel = 'Kategori';
+    protected static ?string $navigationLabel = 'Kategori Destinasi';
 
     protected static ?string $modelLabel = 'Kategori';
 
     protected static ?string $pluralModelLabel = 'Kategori';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

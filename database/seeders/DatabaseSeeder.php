@@ -32,23 +32,44 @@ class DatabaseSeeder extends Seeder
 
         // 2. Site Settings
         $settings = [
-            'site_name' => 'Nirwana Tour Lampung',
-            'tagline' => 'Jelajahi Dunia, Ciptakan Cerita',
-            'whatsapp_number' => '6282269616188',
-            'phone' => '0822-6961-6188',
-            'email' => 'info@nirwanatour.com',
-            'address' => 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122',
-            'instagram' => 'https://www.instagram.com/nirwana_tourlampung/?utm_source=ig_web_button_share_sheet',
-            'tiktok' => 'https://www.tiktok.com/@nirwana_tour_travel?is_from_webapp=1&sender_device=pc',
-            'youtube' => 'https://youtube.com/@nirwanatourlampung?si=ZMFi9b5dvpn0NKfr',
-            'operating_hours' => 'Senin - Sabtu: 08:00 - 17:00 WIB',
-            'hero_title' => 'Jelajahi Dunia, Ciptakan Cerita',
-            'hero_subtitle' => 'Biro perjalanan wisata resmi berizin di Bandar Lampung. Kami melayani paket tour Lampung, Jawa, Bali, study tour sekolah, family gathering kantor, dan sewa bus pariwisata eksekutif.',
-            'about_company' => 'Nirwana Tour Lampung adalah biro perjalanan wisata berizin resmi (TDUP & NIB) yang telah berpengalaman lebih dari 8 tahun mendampingi ribuan wisatawan lokal maupun nusantara mengeksplorasi keindahan alam dan budaya Indonesia dengan pelayanan standar V.I.P yang aman, nyaman, dan berkesan.',
+            'site_name' => ['value' => 'Nirwana Tour Lampung', 'group' => 'general', 'label' => 'Nama Website'],
+            'tagline' => ['value' => 'Biro Wisata, Paket Tour & Sewa Bus Terpercaya', 'group' => 'general', 'label' => 'Tagline & Subjudul SEO Beranda'],
+            'whatsapp_number' => ['value' => '6282269616188', 'group' => 'general', 'label' => 'Nomor WhatsApp Resmi (Tombol Navbar & Chat)'],
+            'phone' => ['value' => '0822-6961-6188', 'group' => 'general', 'label' => 'Nomor Telepon'],
+            'email' => ['value' => 'info@nirwanatour.com', 'group' => 'general', 'label' => 'Alamat Email'],
+            'address' => ['value' => 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122', 'group' => 'general', 'label' => 'Alamat Kantor'],
+            'instagram' => ['value' => 'https://www.instagram.com/nirwana_tourlampung/?utm_source=ig_web_button_share_sheet', 'group' => 'general', 'label' => 'Tautan Instagram'],
+            'tiktok' => ['value' => 'https://www.tiktok.com/@nirwana_tour_travel?is_from_webapp=1&sender_device=pc', 'group' => 'general', 'label' => 'Tautan TikTok'],
+            'youtube' => ['value' => 'https://youtube.com/@nirwanatourlampung?si=ZMFi9b5dvpn0NKfr', 'group' => 'general', 'label' => 'Tautan YouTube'],
+            'operating_hours' => ['value' => 'Senin - Sabtu: 08:00 - 17:00 WIB', 'group' => 'general', 'label' => 'Jam Operasional'],
+            'google_maps_embed_url' => ['value' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid', 'group' => 'general', 'label' => 'Google Maps Embed URL (Iframe)'],
+            'hero_title' => ['value' => 'Jelajahi Dunia, Ciptakan Cerita', 'group' => 'marketing', 'label' => 'Judul Hero'],
+            'hero_subtitle' => ['value' => 'Biro perjalanan wisata resmi berizin di Bandar Lampung. Kami melayani paket tour Lampung, Jawa, Bali, study tour sekolah, family gathering kantor, dan sewa bus pariwisata eksekutif.', 'group' => 'marketing', 'label' => 'Subjudul Hero'],
+            'about_company' => ['value' => 'Nirwana Tour Lampung adalah biro perjalanan wisata berizin resmi (TDUP & NIB) yang telah berpengalaman lebih dari 8 tahun mendampingi ribuan wisatawan lokal maupun nusantara mengeksplorasi keindahan alam dan budaya Indonesia dengan pelayanan standar V.I.P yang aman, nyaman, dan berkesan.', 'group' => 'about', 'label' => 'Ringkasan Profil Perusahaan'],
+            'owner_name' => ['value' => 'Kiki M Alfin', 'group' => 'about', 'label' => 'Nama Pemilik'],
+            'owner_role' => ['value' => 'Pimpinan & Founder - Nirwana Tour Lampung • Sejak 2016', 'group' => 'about', 'label' => 'Jabatan / Subtitle Pemilik'],
+            'owner_quote' => ['value' => 'Selamat datang di Nirwana Tour Lampung. Bagi kami, setiap perjalanan bukan sekadar mengantar Anda ke destinasi, melainkan sebuah amanah untuk menghadirkan rasa aman, kenyamanan prima, dan kenangan indah yang abadi bersama orang-orang tercinta.', 'group' => 'about', 'label' => 'Kutipan Sambutan Pemilik'],
+            'owner_photo' => ['value' => null, 'group' => 'about', 'label' => 'Foto Pemilik'],
+            'about_description' => ['value' => 'Dengan pengalaman lebih dari 8 tahun, kami telah melayani ribuan pelanggan mulai dari keluarga, sekolah, universitas, instansi pemerintahan, hingga BUMN & perusahaan swasta nasional. Setiap rencana perjalanan kami susun secara terstruktur dengan pemandu berlisensi dan armada transportasi pariwisata terawat.', 'group' => 'about', 'label' => 'Deskripsi Lengkap Perusahaan'],
+            'stat_years_count' => ['value' => '8', 'group' => 'about', 'label' => 'Statistik 1: Angka Pengalaman (Tahun)'],
+            'stat_years_label' => ['value' => 'Tahun Pengalaman', 'group' => 'about', 'label' => 'Statistik 1: Label'],
+            'stat_trips_count' => ['value' => '1500', 'group' => 'about', 'label' => 'Statistik 2: Angka Trip'],
+            'stat_trips_label' => ['value' => 'Trip Terlaksana', 'group' => 'about', 'label' => 'Statistik 2: Label'],
+            'stat_satisfaction_count' => ['value' => '99', 'group' => 'about', 'label' => 'Statistik 3: Angka Kepuasan (%)'],
+            'stat_satisfaction_label' => ['value' => 'Kepuasan Pelanggan', 'group' => 'about', 'label' => 'Statistik 3: Label'],
+            'stat_legal_count' => ['value' => '100', 'group' => 'about', 'label' => 'Statistik 4: Angka Legalitas (%)'],
+            'stat_legal_label' => ['value' => 'Legalitas Resmi', 'group' => 'about', 'label' => 'Statistik 4: Label'],
         ];
 
-        foreach ($settings as $key => $value) {
-            SiteSetting::updateOrCreate(['key' => $key], ['value' => $value, 'label' => ucwords(str_replace('_', ' ', $key))]);
+        foreach ($settings as $key => $item) {
+            SiteSetting::updateOrCreate(
+                ['key' => $key],
+                [
+                    'value' => $item['value'],
+                    'label' => $item['label'] ?? ucwords(str_replace('_', ' ', $key)),
+                    'group' => $item['group'] ?? 'general',
+                ]
+            );
         }
 
         // 3. Categories

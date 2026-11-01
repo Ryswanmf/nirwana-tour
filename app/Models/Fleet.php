@@ -16,4 +16,9 @@ class Fleet extends Model
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    public function getImageUrlAttribute(): string
+    {
+        return storage_or_asset($this->image, 'assets/images/armada/big-bus.jpg');
+    }
 }

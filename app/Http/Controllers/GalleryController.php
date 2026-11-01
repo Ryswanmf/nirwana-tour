@@ -10,7 +10,9 @@ class GalleryController extends Controller
 {
     public function index(): View
     {
+        // Video non-unggulan (koleksi lengkap galeri reguler)
         $galleryItems = GalleryItem::where('media_type', 'video')
+            ->where('is_featured', false)
             ->orderBy('order')
             ->paginate(8)
             ->withQueryString();

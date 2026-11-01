@@ -14,10 +14,21 @@ class GalleryItem extends Model
 
     protected $casts = [
         'order' => 'integer',
+        'is_featured' => 'boolean',
     ];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getFileUrlAttribute(): string
+    {
+        return storage_or_asset($this->file_path);
+    }
+
+    public function getThumbnailUrlAttribute(): string
+    {
+        return storage_or_asset($this->thumbnail, 'assets/images/galeri/video1-poster.jpg');
     }
 }

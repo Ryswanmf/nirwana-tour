@@ -12,6 +12,18 @@ class SiteSetting extends Model
 
     protected $guarded = ['id'];
 
+    protected static function booted(): void
+    {
+        static::saved(function (SiteSetting $setting) {
+            Cache::forget('nirwana_site_settings');
+            Cache::forget("site_setting_{$setting->key}");
+        });
+        static::deleted(function (SiteSetting $setting) {
+            Cache::forget('nirwana_site_settings');
+            Cache::forget("site_setting_{$setting->key}");
+        });
+    }
+
     public static function get(string $key, $default = null): ?string
     {
         return Cache::rememberForever("site_setting_{$key}", function () use ($key, $default) {

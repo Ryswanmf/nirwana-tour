@@ -7,7 +7,12 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
+
+// XML Sitemap
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // Public Multi-Page Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -30,15 +35,20 @@ Route::get('/layanan/{slug}', [ServiceController::class, 'show'])->name('service
 // Galeri Dokumentasi
 Route::get('/galeri', [GalleryController::class, 'index'])->name('gallery.index');
 
-// Artikel & Tips Wisata
+// Artikel & Tips Wisata / Berita
 Route::get('/artikel', [PostController::class, 'index'])->name('posts.index');
+Route::get('/berita', [PostController::class, 'index']);
 Route::get('/artikel/{slug}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/berita/{slug}', [PostController::class, 'show']);
 
 // Kontak
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 
 // Submission Lead / Booking
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');
+
+// Kirim Testimoni / Ulasan Klien
+Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testimonial.store');
 
 // Rute Akses Login Admin di /login
 Route::get('/login', \App\Filament\Pages\Auth\Login::class)
@@ -50,6 +60,34 @@ Route::get('/login', \App\Filament\Pages\Auth\Login::class)
     ])
     ->name('filament.admin.auth.login');
 
+Route::get('/auth/login', function () {
+    return redirect('/login');
+})->name('login');
+
 Route::get('/admin/login', function () {
     return redirect('/login');
 });
+
+// PWA Assets Routing
+Route::get('/manifest.json', function () {
+    return response()->json(json_decode(file_get_contents(public_path('manifest.json')), true));
+});
+
+Route::get('/sw.js', function () {
+    return response()->file(public_path('sw.js'), ['Content-Type' => 'application/javascript']);
+});
+
+// Download Backup Database Khusus Admin
+Route::get('/admin/backup-database', function () {
+    if (!auth()->check()) {
+        abort(403, 'Akses ditolak.');
+    }
+    \Illuminate\Support\Facades\Artisan::call('app:backup-database');
+    $backupDir = storage_path('app/backups');
+    $files = \Illuminate\Support\Facades\File::files($backupDir);
+    usort($files, fn ($a, $b) => $b->getMTime() - $a->getMTime());
+    if (empty($files)) {
+        abort(404, 'File backup tidak ditemukan.');
+    }
+    return response()->download($files[0]->getPathname());
+})->middleware(['web', 'auth'])->name('admin.backup.download');

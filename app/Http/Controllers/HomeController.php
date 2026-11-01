@@ -8,6 +8,7 @@ use App\Models\GalleryItem;
 use App\Models\Partner;
 use App\Models\Post;
 use App\Models\Service;
+use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\TourPackage;
 use Illuminate\Http\Request;
@@ -20,12 +21,24 @@ class HomeController extends Controller
         $partners = Partner::where('is_active', true)->orderBy('order')->get();
         $services = Service::where('is_active', true)->orderBy('order')->get();
         $tourCategories = Category::where('type', 'tour')->withCount(['tourPackages' => fn ($q) => $q->where('is_active', true)])->get();
-        $packages = TourPackage::where('is_active', true)->with('category')->orderBy('order')->get();
+        $packages = TourPackage::where('is_active', true)->select(['id', 'title', 'price_from'])->orderBy('order')->get();
         $featuredPackages = TourPackage::where('is_active', true)->where('is_featured', true)->with('category')->orderBy('order')->take(6)->get();
         $fleets = Fleet::where('is_active', true)->orderBy('order')->get();
         $testimonials = Testimonial::where('is_active', true)->orderBy('order')->get();
-        $posts = Post::where('is_published', true)->with('category')->orderByDesc('published_at')->take(4)->get();
+        // Berita Unggulan untuk Beranda
+        $posts = Post::where('is_published', true)
+            ->where('is_featured', true)
+            ->with('category')
+            ->orderByDesc('published_at')
+            ->take(4)
+            ->get();
         $galleryItems = GalleryItem::orderBy('order')->take(6)->get();
+        // 5 Video Unggulan untuk Galeri Beranda
+        $galleryVideos = GalleryItem::where('media_type', 'video')
+            ->where('is_featured', true)
+            ->orderBy('order')
+            ->take(5)
+            ->get();
 
         return view('pages.home', compact(
             'partners',
@@ -36,7 +49,8 @@ class HomeController extends Controller
             'fleets',
             'testimonials',
             'posts',
-            'galleryItems'
+            'galleryItems',
+            'galleryVideos'
         ));
     }
 
@@ -53,8 +67,9 @@ class HomeController extends Controller
     {
         $partners = Partner::where('is_active', true)->orderBy('order')->get();
         $testimonials = Testimonial::where('is_active', true)->orderBy('order')->take(3)->get();
+        $teamMembers = TeamMember::where('is_active', true)->orderBy('order')->get();
 
-        return view('pages.management', compact('partners', 'testimonials'));
+        return view('pages.management', compact('partners', 'testimonials', 'teamMembers'));
     }
 
     public function certificates(): View

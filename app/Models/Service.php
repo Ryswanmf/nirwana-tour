@@ -16,4 +16,19 @@ class Service extends Model
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    protected static function booted(): void
+    {
+        static::saved(function () {
+            \Illuminate\Support\Facades\Cache::forget('nirwana_footer_services');
+        });
+        static::deleted(function () {
+            \Illuminate\Support\Facades\Cache::forget('nirwana_footer_services');
+        });
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        return storage_or_asset($this->image, 'assets/images/destinasi/pahawang.jpg');
+    }
 }

@@ -2,7 +2,71 @@
 
 @section('title', $package->title . ' - ' . ($settings['site_name'] ?? 'Nirwana Tour Lampung') . ' | Paket Wisata Pilihan')
 @section('meta_description', Str::limit($package->summary, 160))
-@section('og_image', $package->thumbnail ? asset($package->thumbnail) : asset('assets/images/destinasi/pahawang.jpg'))
+@section('og_image', $package->thumbnail_url)
+@section('og_type', 'article')
+
+@php
+  $faqsList = !empty($package->faqs) ? $package->faqs : [
+    [
+      'question' => 'Apa saja perlengkapan yang wajib dibawa saat trip ini?',
+      'answer' => 'Disarankan membawa pakaian ganti, pakaian renang / snorkeling, alas kaki anti-selip / sandal gunung, tabir surya (sunblock), kacamata hitam, obat-obatan pribadi, casing tahan air untuk smartphone, dan uang tunai secukupnya.'
+    ],
+    [
+      'question' => 'Apakah paket wisata ini aman untuk anak-anak dan lansia?',
+      'answer' => 'Sangat aman. Setiap perjalanan didampingi oleh pemandu wisata profesional Nirwana Tour Lampung yang berpengalaman, lengkap dengan rompi pelampung (life jacket) berstandar SNI serta kotak P3K darurat.'
+    ],
+    [
+      'question' => 'Bagaimana ketentuan pembayaran dan pelunasan paket?',
+      'answer' => 'Pemesanan dapat dikonfirmasi dengan pembayaran uang muka (DP) sebesar 30% - 50%. Pelunasan dapat diselesaikan H-2 sebelum keberangkatan atau saat hari H penjemputan sesuai kesepakatan invoice resmi.'
+    ],
+    [
+      'question' => 'Bagaimana jika kondisi cuaca buruk pada hari keberangkatan?',
+      'answer' => 'Keselamatan wisatawan adalah prioritas utama. Jika otoritas pelabuhan atau BMKG melarang penyeberangan karena faktor cuaca, tour dapat dijadwalkan ulang (reschedule) tanpa biaya tambahan atau dialihkan ke rute alternatif yang aman.'
+    ],
+  ];
+@endphp
+
+@push('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "{{ $package->title }}",
+  "description": "{{ $package->summary }}",
+  "touristType": "Semua Usia",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ $package->price_from }}",
+    "priceCurrency": "IDR",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "{{ date('Y-01-01') }}"
+  },
+  "provider": {
+    "@type": "TravelAgency",
+    "name": "Nirwana Tour Lampung",
+    "url": "{{ url('/') }}"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    @foreach($faqsList as $faq)
+    {
+      "@type": "Question",
+      "name": {!! json_encode($faq['question'] ?? '') !!},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {!! json_encode($faq['answer'] ?? '') !!}
+      }
+    }{{ !$loop->last ? ',' : '' }}
+    @endforeach
+  ]
+}
+</script>
+@endpush
 
 @section('content')
   <main>
@@ -35,13 +99,13 @@
          ======================================================== -->
     <section class="section bg-alt" id="detail-paket">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start;">
+        <div class="detail-page-layout">
           
           <!-- KOLOM KIRI: FOTO, DESKRIPSI, ITINERARY, FASILITAS -->
           <div>
             <!-- Foto Utama -->
             <div style="border-radius: 20px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 6px 25px rgba(0,0,0,0.06); border: 1px solid #E2E8F0;">
-              <img src="{{ $package->thumbnail ? asset($package->thumbnail) : asset('assets/images/destinasi/pahawang.jpg') }}"
+              <img src="{{ $package->thumbnail_url }}"
                    alt="{{ $package->title }}"
                    style="width: 100%; max-height: 440px; object-fit: cover; display: block;">
             </div>
@@ -139,10 +203,45 @@
                 @endif
               </div>
             </div>
+
+            <!-- PERTANYAAN UMUM (FAQ) -->
+            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 30px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h3 style="font-size: 1.25rem; font-weight: 800; color: #0F172A; margin: 0 0 6px 0; display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-circle-question" style="color: var(--primary, #800020);"></i>
+                    <span>Pertanyaan Umum (FAQ)</span>
+                  </h3>
+                  <p style="color: #64748B; font-size: 0.88rem; margin: 0;">Hal yang sering ditanyakan wisatawan seputar paket ini.</p>
+                </div>
+                <span style="font-size: 0.78rem; font-weight: 700; background: #F1F5F9; color: #475569; padding: 4px 12px; border-radius: 20px;">
+                  {{ count($faqsList) }} Pertanyaan
+                </span>
+              </div>
+
+              <div class="faq-accordion-group" style="display: flex; flex-direction: column; gap: 12px;">
+                @foreach($faqsList as $faqIndex => $faq)
+                  <details class="faq-details-item" {{ $faqIndex === 0 ? 'open' : '' }} style="border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; background: #F8FAFC; transition: all 0.25s ease;">
+                    <summary style="padding: 16px 20px; font-weight: 700; color: #1E293B; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; user-select: none; font-size: 0.94rem;">
+                      <span style="display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 24px; height: 24px; border-radius: 50%; background: rgba(128,0,32,0.1); color: var(--primary, #800020); display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0;">
+                          {{ $faqIndex + 1 }}
+                        </span>
+                        {{ $faq['question'] ?? '' }}
+                      </span>
+                      <i class="fa-solid fa-chevron-down faq-chevron" style="color: #64748B; font-size: 0.85rem; transition: transform 0.2s ease;"></i>
+                    </summary>
+                    <div style="padding: 14px 20px 18px 54px; color: #475569; font-size: 0.9rem; line-height: 1.65; border-top: 1px solid #E2E8F0; background: #FFFFFF;">
+                      {!! nl2br(e($faq['answer'] ?? '')) !!}
+                    </div>
+                  </details>
+                @endforeach
+              </div>
+            </div>
           </div>
 
           <!-- KOLOM KANAN: STICKY BOOKING CARD -->
-          <div style="position: sticky; top: 100px;">
+          <div class="detail-sidebar-sticky">
             <div style="background: #FFFFFF; border-radius: 20px; padding: 30px; border: 1px solid #E2E8F0; box-shadow: 0 8px 30px rgba(0,0,0,0.06);">
               
               <!-- Harga Highlight Header -->
@@ -165,6 +264,8 @@
                 <input type="hidden" name="tour_package_id" value="{{ $package->id }}">
                 <input type="hidden" name="package_name" value="{{ $package->title }}">
                 <input type="hidden" name="source" value="package_detail">
+                {{-- Anti-Spam Honeypot Field --}}
+                <input type="text" name="_hp_security_check" style="display:none !important;" tabindex="-1" autocomplete="off">
 
                 <div style="margin-bottom: 14px;">
                   <label style="display: block; font-weight: 600; font-size: 0.84rem; margin-bottom: 5px; color: #334155;">Nama Pemesan / Instansi *</label>
@@ -218,6 +319,43 @@
                   <i class="fa-brands fa-whatsapp" style="font-size: 1.1rem;"></i>
                   <span>Chat Langsung dengan Konsultan</span>
                 </a>
+              </div>
+            </div>
+
+            <!-- 1-Click Social Share Card -->
+            <div style="background: #FFFFFF; border-radius: 16px; padding: 20px; border: 1px solid #E2E8F0; margin-top: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+              <span style="display: block; font-weight: 700; color: #1E293B; font-size: 0.88rem; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                <i class="fa-solid fa-share-nodes" style="color: var(--primary, #800020);"></i> Bagikan Paket Wisata Ini:
+              </span>
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                <!-- WhatsApp -->
+                <a href="https://api.whatsapp.com/send?text={{ rawurlencode($package->title . ' - Liburan Seru bersama Nirwana Tour Lampung: ' . url()->current()) }}"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Bagikan ke WhatsApp"
+                   style="background: #25D366; color: #FFFFFF; padding: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.15rem; transition: transform 0.2s;">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ rawurlencode(url()->current()) }}"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Bagikan ke Facebook"
+                   style="background: #1877F2; color: #FFFFFF; padding: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.15rem; transition: transform 0.2s;">
+                  <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <!-- Telegram -->
+                <a href="https://t.me/share/url?url={{ rawurlencode(url()->current()) }}&text={{ rawurlencode($package->title) }}"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Bagikan ke Telegram"
+                   style="background: #229ED9; color: #FFFFFF; padding: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.15rem; transition: transform 0.2s;">
+                  <i class="fa-brands fa-telegram"></i>
+                </a>
+                <!-- Copy Link Button -->
+                <button type="button"
+                        onclick="navigator.clipboard.writeText(window.location.href); alert('Tautan paket wisata berhasil disalin ke clipboard!');"
+                        title="Salin Tautan"
+                        style="background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; padding: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.15rem; transition: transform 0.2s;">
+                  <i class="fa-solid fa-link"></i>
+                </button>
               </div>
             </div>
           </div>

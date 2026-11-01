@@ -2,7 +2,36 @@
 
 @section('title', $post->title . ' - ' . ($settings['site_name'] ?? 'Nirwana Tour Lampung'))
 @section('meta_description', Str::limit($post->excerpt ?? strip_tags($post->content), 160))
-@section('og_image', $post->cover_image ? asset($post->cover_image) : asset('assets/images/destinasi/pahawang.jpg'))
+@section('og_image', $post->cover_image_url)
+@section('og_type', 'article')
+
+@push('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "{{ $post->title }}",
+  "image": [
+    "{{ $post->cover_image_url }}"
+  ],
+  "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : now()->toIso8601String() }}",
+  "dateModified": "{{ $post->updated_at ? $post->updated_at->toIso8601String() : now()->toIso8601String() }}",
+  "author": [{
+      "@type": "Person",
+      "name": "{{ $post->author ?? 'Tim Redaksi Nirwana' }}"
+  }],
+  "publisher": {
+      "@type": "Organization",
+      "name": "Nirwana Tour & Travel Lampung",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ asset('assets/logo/Logo-Nirwana.png') }}"
+      }
+  },
+  "description": "{{ Str::limit($post->excerpt ?? strip_tags($post->content), 160) }}"
+}
+</script>
+@endpush
 
 @section('content')
   <main>
@@ -19,7 +48,7 @@
           <span class="current">{{ Str::limit($post->title, 32) }}</span>
         </nav>
         <span style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(255,255,255,0.15); color: #FDA4AF; font-size: 0.8rem; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
-          {{ $post->category->name ?? 'Tips Wisata' }}
+          {{ $post->category_name ?: ($post->category->name ?? 'Tips Wisata') }}
         </span>
         <h1 class="page-hero-title" style="font-size: clamp(1.8rem, 3.5vw, 2.6rem); max-width: 820px; margin: 0 auto 16px auto;">
           {{ $post->title }}
@@ -37,27 +66,31 @@
     <section class="section bg-alt" id="artikel-detail">
       <div class="container" style="max-width: 920px;">
         
-        <!-- GALERI 4 FOTO DOKUMENTASI ARTIKEL -->
+        <!-- FOTO DOKUMENTASI ARTIKEL (1 FOTO JIKA HANYA COVER, ATAU LEBIH JIKA ADA GALERI TAMBAHAN) -->
         @php
           $articlePhotos = $post->photos;
+          $mainPhoto = $articlePhotos[0] ?? $post->cover_image;
+          $subPhotos = array_slice($articlePhotos, 1);
         @endphp
-        <div class="article-gallery-showcase">
-          <!-- Foto Utama (1) -->
-          <div class="article-main-photo">
-            <img src="{{ asset($articlePhotos[0] ?? $post->cover_image) }}" alt="{{ $post->title }}">
-          </div>
+        @if($mainPhoto)
+          <div class="article-gallery-showcase">
+            <!-- Foto Utama (1) -->
+            <div class="article-main-photo">
+              <img src="{{ storage_or_asset($mainPhoto) }}" alt="{{ $post->title }}">
+            </div>
 
-          <!-- 3 Foto Pendukung Dokumentasi (2, 3, 4) -->
-          <div class="article-sub-photos">
-            @for($i = 1; $i < 4; $i++)
-              @if(isset($articlePhotos[$i]))
-                <div class="article-sub-photo-item">
-                  <img src="{{ asset($articlePhotos[$i]) }}" alt="Dokumentasi {{ $post->title }} Foto {{ $i + 1 }}" loading="lazy">
-                </div>
-              @endif
-            @endfor
+            <!-- Foto Pendukung (HANYA tampil jika admin menambahkan beberapa foto galeri) -->
+            @if(!empty($subPhotos))
+              <div class="article-sub-photos">
+                @foreach($subPhotos as $index => $subPhoto)
+                  <div class="article-sub-photo-item">
+                    <img src="{{ storage_or_asset($subPhoto) }}" alt="Dokumentasi {{ $post->title }} Foto {{ $index + 2 }}" loading="lazy">
+                  </div>
+                @endforeach
+              </div>
+            @endif
           </div>
-        </div>
+        @endif
 
         <!-- ISI KONTEN ARTIKEL -->
         <article style="background: #FFFFFF; border-radius: 20px; padding: 45px 40px; border: 1px solid #E2E8F0; box-shadow: 0 6px 20px rgba(0,0,0,0.04); line-height: 1.85; font-size: 1.05rem; color: #334155;">
@@ -72,25 +105,42 @@
           </div>
         </article>
 
-        <!-- CTA KONSULTASI DESTINASI -->
-        <div style="background: linear-gradient(135deg, #4A0012 0%, #800020 100%); color: #FFFFFF; border-radius: 20px; padding: 36px 32px; margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; box-shadow: 0 12px 28px rgba(128,0,32,0.22);">
-          <div style="max-width: 580px;">
-            <h3 style="margin: 0 0 6px; font-size: 1.35rem; font-weight: 800; color: #FFFFFF;">Tertarik Mengunjungi Destinasi Ini?</h3>
-            <p style="margin: 0; color: #FCE7EB; font-size: 0.92rem; line-height: 1.55;">
-              Konsultasikan rencana liburan Anda bersama konsultan Nirwana Tour Lampung untuk mendapatkan jadwal perjalanan terbaik dan penawaran hemat.
-            </p>
+        <!-- 1-Click Social Share Card untuk Artikel -->
+        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.03);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-share-nodes" style="color: var(--primary, #800020); font-size: 1.2rem;"></i>
+            <span style="font-weight: 700; color: #1E293B; font-size: 0.92rem;">Bagikan Tips & Berita Ini:</span>
           </div>
-          @php
-            $cleanWa = preg_replace('/[^0-9]/', '', $settings['whatsapp_number'] ?? '6282269616188');
-            $msg = rawurlencode("Halo Nirwana Tour Lampung, saya membaca artikel '{$post->title}' dan ingin informasi paket wisata terkait.");
-          @endphp
-          <a href="https://wa.me/{{ $cleanWa }}?text={{ $msg }}"
-             target="_blank"
-             rel="noopener noreferrer"
-             class="btn btn-whatsapp btn-lg"
-             style="border-radius: 12px; padding: 13px 24px; font-weight: 700; font-size: 0.95rem; white-space: nowrap;">
-            <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp Admin
-          </a>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <!-- WhatsApp -->
+            <a href="https://api.whatsapp.com/send?text={{ rawurlencode($post->title . ' - Baca selengkapnya di Nirwana Tour: ' . url()->current()) }}"
+               target="_blank" rel="noopener noreferrer"
+               title="Bagikan ke WhatsApp"
+               style="background: #25D366; color: #FFFFFF; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.15rem; transition: transform 0.2s;">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ rawurlencode(url()->current()) }}"
+               target="_blank" rel="noopener noreferrer"
+               title="Bagikan ke Facebook"
+               style="background: #1877F2; color: #FFFFFF; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.15rem; transition: transform 0.2s;">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <!-- Telegram -->
+            <a href="https://t.me/share/url?url={{ rawurlencode(url()->current()) }}&text={{ rawurlencode($post->title) }}"
+               target="_blank" rel="noopener noreferrer"
+               title="Bagikan ke Telegram"
+               style="background: #229ED9; color: #FFFFFF; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.15rem; transition: transform 0.2s;">
+              <i class="fa-brands fa-telegram"></i>
+            </a>
+            <!-- Copy Link Button -->
+            <button type="button"
+                    onclick="navigator.clipboard.writeText(window.location.href); alert('Tautan artikel berhasil disalin!');"
+                    title="Salin Tautan"
+                    style="background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.15rem; transition: transform 0.2s;">
+              <i class="fa-solid fa-link"></i>
+            </button>
+          </div>
         </div>
 
         <!-- BERITA LAINNYA / RELATED POSTS -->
@@ -104,7 +154,7 @@
                 <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.03); transition: transform 0.25s ease, box-shadow 0.25s ease;">
                   <div>
                     <span style="font-size: 0.75rem; color: var(--primary, #800020); font-weight: 700; text-transform: uppercase;">
-                      {{ $rec->category->name ?? 'Info Wisata' }}
+                      {{ $rec->category_name ?: ($rec->category->name ?? 'Info Wisata') }}
                     </span>
                     <h4 style="margin: 10px 0 12px; font-size: 1.02rem; font-weight: 700; line-height: 1.4;">
                       <a href="{{ route('posts.show', $rec->slug) }}" style="color: #0F172A; text-decoration: none;">

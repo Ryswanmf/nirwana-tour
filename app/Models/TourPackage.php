@@ -17,6 +17,7 @@ class TourPackage extends Model
         'itinerary' => 'array',
         'includes' => 'array',
         'excludes' => 'array',
+        'faqs' => 'array',
         'gallery' => 'array',
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
@@ -48,5 +49,10 @@ class TourPackage extends Model
             return "{$this->duration_days}D {$this->duration_nights}N";
         }
         return "{$this->duration_days} Hari (One Day Trip)";
+    }
+
+    public function getThumbnailUrlAttribute(): string
+    {
+        return storage_or_asset($this->thumbnail, 'assets/images/destinasi/pahawang.jpg');
     }
 }

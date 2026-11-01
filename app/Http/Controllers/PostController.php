@@ -11,7 +11,10 @@ class PostController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = Post::where('is_published', true)->with('category');
+        // Hanya menampilkan berita non-unggulan di Halaman Berita (berita unggulan tampil di Beranda)
+        $query = Post::where('is_published', true)
+            ->where('is_featured', false)
+            ->with('category');
 
         // Pencarian kata kunci judul / isi berita
         if ($request->filled('q')) {
@@ -19,14 +22,18 @@ class PostController extends Controller
             $query->where(function ($q) use ($keyword) {
                 $q->where('title', 'like', "%{$keyword}%")
                   ->orWhere('excerpt', 'like', "%{$keyword}%")
-                  ->orWhere('content', 'like', "%{$keyword}%");
+                  ->orWhere('content', 'like', "%{$keyword}%")
+                  ->orWhere('category_name', 'like', "%{$keyword}%");
             });
         }
 
         // Filter berdasarkan kategori
         if ($request->filled('category')) {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', $request->query('category'));
+            $catSlug = $request->query('category');
+            $query->where(function ($q) use ($catSlug) {
+                $q->whereHas('category', function ($sub) use ($catSlug) {
+                    $sub->where('slug', $catSlug);
+                })->orWhere('category_name', 'like', "%{$catSlug}%");
             });
         }
 
@@ -39,7 +46,9 @@ class PostController extends Controller
         }
 
         $posts = $query->paginate(6)->withQueryString();
-        $categories = Category::where('type', 'article')->withCount('posts')->get();
+        $categories = Category::where('type', 'article')
+            ->withCount(['posts' => fn ($q) => $q->where('is_published', true)->where('is_featured', false)])
+            ->get();
 
         return view('pages.articles.index', compact('posts', 'categories'));
     }

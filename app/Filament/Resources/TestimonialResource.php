@@ -26,15 +26,28 @@ class TestimonialResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
 
-    protected static ?string $navigationGroup = 'Layanan Pelanggan';
+    protected static ?string $navigationGroup = 'Konten & Informasi';
 
-    protected static ?string $navigationLabel = 'Testimoni & Review';
+    protected static ?string $navigationLabel = 'Ulasan & Testimoni';
 
     protected static ?string $modelLabel = 'Testimoni';
 
     protected static ?string $pluralModelLabel = 'Testimoni & Review';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return \Illuminate\Support\Facades\Cache::remember('testimonial_pending_badge_count', 60, function () {
+            $pending = Testimonial::where('is_active', false)->count();
+            return $pending > 0 ? (string) $pending : null;
+        });
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
 
     public static function form(Form $form): Form
     {
@@ -80,6 +93,10 @@ class TestimonialResource extends Resource
                             ->label('Foto Profil Klien')
                             ->image()
                             ->directory('testimonials')
+                            ->imageResizeMode('cover')
+                            ->imageResizeTargetWidth('400')
+                            ->imageResizeTargetHeight('400')
+                            ->maxSize(3072)
                             ->avatar(),
                         Toggle::make('is_active')
                             ->label('Tampilkan di Website')
@@ -110,11 +127,39 @@ class TestimonialResource extends Resource
                 TextColumn::make('trip_name')
                     ->label('Trip'),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
-                    ->boolean(),
+                    ->label('Status Tayang')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-clock')
+                    ->trueColor('success')
+                    ->falseColor('warning'),
             ])
-            ->defaultSort('order')
+            ->defaultSort('created_at', 'desc')
+            ->filters([
+                Tables\Filters\SelectFilter::make('is_active')
+                    ->label('Status Moderasi')
+                    ->options([
+                        '1' => 'Ditampilkan di Web',
+                        '0' => 'Menunggu Verifikasi',
+                    ]),
+            ])
             ->actions([
+                Tables\Actions\Action::make('approve')
+                    ->label('Setujui')
+                    ->icon('heroicon-o-check-badge')
+                    ->color('success')
+                    ->visible(fn (Testimonial $record): bool => ! $record->is_active)
+                    ->requiresConfirmation()
+                    ->modalHeading('Publikasikan Ulasan?')
+                    ->modalDescription('Ulasan ini akan disetujui dan langsung tampil pada halaman testimoni website publik.')
+                    ->action(function (Testimonial $record) {
+                        $record->update(['is_active' => true]);
+                        \Filament\Notifications\Notification::make()
+                            ->title('Ulasan Berhasil Disetujui')
+                            ->body("Ulasan dari {$record->client_name} kini aktif di website.")
+                            ->success()
+                            ->send();
+                    }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

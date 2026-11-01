@@ -25,7 +25,7 @@ class FleetResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-truck';
 
-    protected static ?string $navigationGroup = 'Manajemen Wisata';
+    protected static ?string $navigationGroup = 'Manajemen Wisata & Reservasi';
 
     protected static ?string $navigationLabel = 'Armada Transportasi';
 
@@ -33,7 +33,7 @@ class FleetResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Armada Transportasi';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
@@ -69,6 +69,11 @@ class FleetResource extends Resource
                             ->label('Foto Armada')
                             ->image()
                             ->directory('fleets')
+                            ->imageResizeMode('cover')
+                            ->imageResizeTargetWidth('1280')
+                            ->imageResizeTargetHeight('720')
+                            ->maxSize(5120)
+                            ->imageEditor()
                             ->columnSpanFull(),
                         Toggle::make('is_active')
                             ->label('Status Aktif')

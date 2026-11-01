@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Nirwana Tour Lampung - Jelajahi Dunia, Ciptakan Cerita')
+@section('title', ($settings['site_name'] ?? 'Nirwana Tour Lampung') . ' - ' . ($settings['tagline'] ?? 'Biro Wisata, Paket Tour & Sewa Bus Terpercaya'))
 
 @section('content')
   <main>
@@ -15,14 +15,13 @@
             Biro Perjalanan Wisata Resmi Lampung
           </div>
           <h1 class="hero-title">
-            Selamat Datang di Website <br>
-            <span class="text-gradient">Nirwana Tour and Travel</span> Lampung
+            {{ $settings['hero_title'] ?? 'Selamat Datang di Website Nirwana Tour and Travel Lampung' }}
           </h1>
           <p class="hero-description">
-            Wujudkan momen liburan terbaik Anda bersama Nirwana Tour Lampung. Kami menghadirkan paket wisata eksotis, study tour edukatif, gathering perusahaan, serta persewaan armada transportasi nyaman dan profesional.
+            {{ $settings['hero_subtitle'] ?? 'Wujudkan momen liburan terbaik Anda bersama Nirwana Tour Lampung. Kami menghadirkan paket wisata eksotis, study tour edukatif, gathering perusahaan, serta persewaan armada transportasi nyaman dan profesional.' }}
           </p>
           <div class="hero-buttons">
-            <a href="#" class="btn btn-whatsapp btn-lg wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
+            <a href="#" class="btn btn-whatsapp btn-lg wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan wisata.">
               <i class="fa-brands fa-whatsapp"></i> Konsultasi via WhatsApp
             </a>
             <a href="#destinasi" class="btn btn-outline btn-lg">
@@ -50,7 +49,10 @@
         <!-- Hero Visual (Transparent Cutout) -->
         <div class="hero-visual">
           <div class="hero-image-wrapper">
-            <img src="{{ asset('assets/images/hero-right.png') }}" alt="Armada Wisata Nirwana Tour Lampung" class="hero-image-cutout">
+            <picture>
+              <source srcset="{{ asset('assets/images/hero-right.webp') }}" type="image/webp">
+              <img src="{{ asset('assets/images/hero-right.png') }}" alt="Armada Wisata Nirwana Tour Lampung" class="hero-image-cutout" fetchpriority="high">
+            </picture>
           </div>
         </div>
       </div>
@@ -78,550 +80,96 @@
 
         <!-- Kolom Kanan: 2 Running Marquee Ticker (Atas & Bawah) -->
         <div class="mitra-marquee-col" title="Sorot kursor untuk menjeda putaran">
-          
+          @php
+            $halfCount = max(1, (int) ceil($partners->count() / 2));
+            $partnersRow1 = $partners->slice(0, $halfCount);
+            $partnersRow2 = $partners->slice($halfCount);
+            if ($partnersRow2->isEmpty()) {
+                $partnersRow2 = $partnersRow1;
+            }
+          @endphp
+
           <!-- ================= BARIS 1 (ATAS) ================= -->
           <div class="mitra-marquee-wrap">
             <div class="mitra-track track-left">
-              <!-- SET 1 (BARIS 1) -->
-              <!-- 1. Telkom Indonesia -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="18" cy="18" r="16" fill="#FEE2E2"/>
-                    <path d="M18 6C11.37 6 6 11.37 6 18C6 24.63 11.37 30 18 30C23.18 30 27.58 26.71 29.21 22.1H24.5C23.23 24.67 20.82 26.2 18 26.2C13.47 26.2 9.8 22.53 9.8 18C9.8 13.47 13.47 9.8 18 9.8C20.61 9.8 22.86 11.02 24.28 12.92L27.65 10.42C25.43 7.7 21.94 6 18 6Z" fill="#DC2626"/>
-                    <circle cx="19" cy="18" r="4.5" fill="#475569"/>
-                  </svg>
+              @foreach($partnersRow1 as $partner)
+                <div class="mitra-card">
+                  <div class="mitra-logo-wrap">
+                    @if($partner->logo)
+                      <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" loading="lazy" decoding="async" style="max-height: 28px; max-width: 34px; object-fit: contain;">
+                    @else
+                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #800020, #991B1B); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
+                        {{ strtoupper(substr($partner->name, 0, 2)) }}
+                      </div>
+                    @endif
+                  </div>
+                  <div class="mitra-meta">
+                    <span class="mitra-name">{{ $partner->name }}</span>
+                    <span class="mitra-sub">{{ $partner->category ?? 'Mitra Rekanan' }}</span>
+                  </div>
                 </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Telkom Indonesia</span>
-                  <span class="mitra-sub">BUMN Telekomunikasi</span>
-                </div>
-              </div>
+              @endforeach
 
-              <!-- 2. Bank Mandiri -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#00387A"/>
-                    <path d="M8 22V14H11.5L14 18.5L16.5 14H20V22H17.5V17.2L15 21.2H13L10.5 17.2V22H8Z" fill="#FFFFFF"/>
-                    <path d="M19 13C22 13 25.5 14.5 28 17.5C25.5 18.5 22.5 18 20 16.5C18.5 15.6 18 14 19 13Z" fill="#F59E0B"/>
-                    <path d="M21 17C24 17 27.5 19 29 22C26.5 22.5 23.5 21.5 21.5 19.8C20.5 19 20 17.8 21 17Z" fill="#FBBF24"/>
-                  </svg>
+              {{-- Clone untuk Infinite Marquee --}}
+              @foreach($partnersRow1 as $partner)
+                <div class="mitra-card" aria-hidden="true">
+                  <div class="mitra-logo-wrap">
+                    @if($partner->logo)
+                      <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" loading="lazy" decoding="async" style="max-height: 28px; max-width: 34px; object-fit: contain;">
+                    @else
+                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #800020, #991B1B); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
+                        {{ strtoupper(substr($partner->name, 0, 2)) }}
+                      </div>
+                    @endif
+                  </div>
+                  <div class="mitra-meta">
+                    <span class="mitra-name">{{ $partner->name }}</span>
+                    <span class="mitra-sub">{{ $partner->category ?? 'Mitra Rekanan' }}</span>
+                  </div>
                 </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Bank Mandiri (Persero)</span>
-                  <span class="mitra-sub">BUMN Perbankan</span>
-                </div>
-              </div>
-
-              <!-- 3. Universitas Lampung (UNILA) -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#ECFDF5"/>
-                    <path d="M18 5L28 9V17C28 23.5 23.7 28.5 18 31C12.3 28.5 8 23.5 8 17V9L18 5Z" fill="#047857"/>
-                    <path d="M18 8L25.5 11.2V17C25.5 22 22.2 26 18 28.2C13.8 26 10.5 22 10.5 17V11.2L18 8Z" fill="#065F46"/>
-                    <path d="M18 11C18.8 12.2 19.5 13.5 18 15C16.5 13.5 17.2 12.2 18 11Z" fill="#F59E0B"/>
-                    <path d="M14 19C15.5 18 17 18.5 18 19.5C19 18.5 20.5 18 22 19V24C20.5 23 19 23.5 18 24.5C17 23.5 15.5 23 14 24V19Z" fill="#FBBF24"/>
-                    <rect x="17.2" y="15" width="1.6" height="4" rx="0.8" fill="#F59E0B"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Universitas Lampung</span>
-                  <span class="mitra-sub">Perguruan Tinggi Negeri</span>
-                </div>
-              </div>
-
-              <!-- 4. PT PLN (Persero) -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#FEF9C3"/>
-                    <path d="M18 5L29 11V23L18 31L7 23V11L18 5Z" fill="#FACC15" stroke="#EAB308" stroke-width="1.2"/>
-                    <path d="M10 20C12 18.5 14 21.5 16 20C18 18.5 20 21.5 22 20C24 18.5 25 20 26 19.5" stroke="#0284C7" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M19.5 8L12.5 19H17.5L15 28L24 16.5H18.5L21.5 8H19.5Z" fill="#DC2626"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT PLN (Persero)</span>
-                  <span class="mitra-sub">BUMN Ketenagalistrikan</span>
-                </div>
-              </div>
-
-              <!-- 5. PT Bukit Asam Tbk -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#FFF1F2"/>
-                    <path d="M18 6L25 18H11L18 6Z" fill="#DC2626"/>
-                    <path d="M18 13L27 28H19L18 13Z" fill="#EA580C"/>
-                    <path d="M18 13L9 28H17L18 13Z" fill="#B91C1C"/>
-                    <circle cx="18" cy="20" r="3.5" fill="#FDE047"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Bukit Asam Tbk</span>
-                  <span class="mitra-sub">BUMN Pertambangan & Energi</span>
-                </div>
-              </div>
-
-              <!-- 6. Dinas Pendidikan Prov. Lampung -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#EFF6FF"/>
-                    <circle cx="18" cy="18" r="14" fill="#1E40AF"/>
-                    <path d="M18 8C19 10 19.5 11.5 18 13C16.5 11.5 17 10 18 8Z" fill="#F59E0B"/>
-                    <path d="M18 13.5L14 17L18 20L22 17L18 13.5Z" fill="#FBBF24"/>
-                    <path d="M10 16C12 18 14 20 18 20C22 20 24 18 26 16C24.5 21 21.5 25 18 26C14.5 25 11.5 21 10 16Z" fill="#F59E0B"/>
-                    <circle cx="18" cy="17" r="1.5" fill="#1E40AF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Dinas Pendidikan Prov. Lampung</span>
-                  <span class="mitra-sub">Instansi Pemerintah Daerah</span>
-                </div>
-              </div>
-
-              <!-- 7. PT ASDP Indonesia Ferry -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#0284C7"/>
-                    <path d="M6 24C10 22 14 26 18 24C22 22 26 26 30 24V27C26 29 22 25 18 27C14 29 10 25 6 27V24Z" fill="#F97316"/>
-                    <path d="M9 19L18 9L27 19H22L18 13L14 19H9Z" fill="#FFFFFF"/>
-                    <circle cx="18" cy="18" r="2" fill="#F97316"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT ASDP Indonesia Ferry</span>
-                  <span class="mitra-sub">BUMN Penyeberangan & Logistik</span>
-                </div>
-              </div>
-
-              <!-- 8. RSUD Dr. H. Abdul Moeloek -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#ECFDF5"/>
-                    <circle cx="18" cy="18" r="13" fill="#059669"/>
-                    <rect x="15" y="10" width="6" height="16" rx="2" fill="#FFFFFF"/>
-                    <rect x="10" y="15" width="16" height="6" rx="2" fill="#FFFFFF"/>
-                    <circle cx="18" cy="18" r="2.5" fill="#F59E0B"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">RSUD Dr. H. Abdul Moeloek</span>
-                  <span class="mitra-sub">Rumah Sakit Rujukan Lampung</span>
-                </div>
-              </div>
-
-              <!-- DUPLIKAT BARIS 1 (UNTUK SEAMLESS LOOP) -->
-              <!-- 1. Telkom Indonesia -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="18" cy="18" r="16" fill="#FEE2E2"/>
-                    <path d="M18 6C11.37 6 6 11.37 6 18C6 24.63 11.37 30 18 30C23.18 30 27.58 26.71 29.21 22.1H24.5C23.23 24.67 20.82 26.2 18 26.2C13.47 26.2 9.8 22.53 9.8 18C9.8 13.47 13.47 9.8 18 9.8C20.61 9.8 22.86 11.02 24.28 12.92L27.65 10.42C25.43 7.7 21.94 6 18 6Z" fill="#DC2626"/>
-                    <circle cx="19" cy="18" r="4.5" fill="#475569"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Telkom Indonesia</span>
-                  <span class="mitra-sub">BUMN Telekomunikasi</span>
-                </div>
-              </div>
-
-              <!-- 2. Bank Mandiri -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#00387A"/>
-                    <path d="M8 22V14H11.5L14 18.5L16.5 14H20V22H17.5V17.2L15 21.2H13L10.5 17.2V22H8Z" fill="#FFFFFF"/>
-                    <path d="M19 13C22 13 25.5 14.5 28 17.5C25.5 18.5 22.5 18 20 16.5C18.5 15.6 18 14 19 13Z" fill="#F59E0B"/>
-                    <path d="M21 17C24 17 27.5 19 29 22C26.5 22.5 23.5 21.5 21.5 19.8C20.5 19 20 17.8 21 17Z" fill="#FBBF24"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Bank Mandiri (Persero)</span>
-                  <span class="mitra-sub">BUMN Perbankan</span>
-                </div>
-              </div>
-
-              <!-- 3. Universitas Lampung (UNILA) -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#ECFDF5"/>
-                    <path d="M18 5L28 9V17C28 23.5 23.7 28.5 18 31C12.3 28.5 8 23.5 8 17V9L18 5Z" fill="#047857"/>
-                    <path d="M18 8L25.5 11.2V17C25.5 22 22.2 26 18 28.2C13.8 26 10.5 22 10.5 17V11.2L18 8Z" fill="#065F46"/>
-                    <path d="M18 11C18.8 12.2 19.5 13.5 18 15C16.5 13.5 17.2 12.2 18 11Z" fill="#F59E0B"/>
-                    <path d="M14 19C15.5 18 17 18.5 18 19.5C19 18.5 20.5 18 22 19V24C20.5 23 19 23.5 18 24.5C17 23.5 15.5 23 14 24V19Z" fill="#FBBF24"/>
-                    <rect x="17.2" y="15" width="1.6" height="4" rx="0.8" fill="#F59E0B"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Universitas Lampung</span>
-                  <span class="mitra-sub">Perguruan Tinggi Negeri</span>
-                </div>
-              </div>
-
-              <!-- 4. PT PLN (Persero) -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#FEF9C3"/>
-                    <path d="M18 5L29 11V23L18 31L7 23V11L18 5Z" fill="#FACC15" stroke="#EAB308" stroke-width="1.2"/>
-                    <path d="M10 20C12 18.5 14 21.5 16 20C18 18.5 20 21.5 22 20C24 18.5 25 20 26 19.5" stroke="#0284C7" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M19.5 8L12.5 19H17.5L15 28L24 16.5H18.5L21.5 8H19.5Z" fill="#DC2626"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT PLN (Persero)</span>
-                  <span class="mitra-sub">BUMN Ketenagalistrikan</span>
-                </div>
-              </div>
-
-              <!-- 5. PT Bukit Asam Tbk -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#FFF1F2"/>
-                    <path d="M18 6L25 18H11L18 6Z" fill="#DC2626"/>
-                    <path d="M18 13L27 28H19L18 13Z" fill="#EA580C"/>
-                    <path d="M18 13L9 28H17L18 13Z" fill="#B91C1C"/>
-                    <circle cx="18" cy="20" r="3.5" fill="#FDE047"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Bukit Asam Tbk</span>
-                  <span class="mitra-sub">BUMN Pertambangan & Energi</span>
-                </div>
-              </div>
-
-              <!-- 6. Dinas Pendidikan Prov. Lampung -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#EFF6FF"/>
-                    <circle cx="18" cy="18" r="14" fill="#1E40AF"/>
-                    <path d="M18 8C19 10 19.5 11.5 18 13C16.5 11.5 17 10 18 8Z" fill="#F59E0B"/>
-                    <path d="M18 13.5L14 17L18 20L22 17L18 13.5Z" fill="#FBBF24"/>
-                    <path d="M10 16C12 18 14 20 18 20C22 20 24 18 26 16C24.5 21 21.5 25 18 26C14.5 25 11.5 21 10 16Z" fill="#F59E0B"/>
-                    <circle cx="18" cy="17" r="1.5" fill="#1E40AF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Dinas Pendidikan Prov. Lampung</span>
-                  <span class="mitra-sub">Instansi Pemerintah Daerah</span>
-                </div>
-              </div>
-
-              <!-- 7. PT ASDP Indonesia Ferry -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#0284C7"/>
-                    <path d="M6 24C10 22 14 26 18 24C22 22 26 26 30 24V27C26 29 22 25 18 27C14 29 10 25 6 27V24Z" fill="#F97316"/>
-                    <path d="M9 19L18 9L27 19H22L18 13L14 19H9Z" fill="#FFFFFF"/>
-                    <circle cx="18" cy="18" r="2" fill="#F97316"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT ASDP Indonesia Ferry</span>
-                  <span class="mitra-sub">BUMN Penyeberangan & Logistik</span>
-                </div>
-              </div>
-
-              <!-- 8. RSUD Dr. H. Abdul Moeloek -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#ECFDF5"/>
-                    <circle cx="18" cy="18" r="13" fill="#059669"/>
-                    <rect x="15" y="10" width="6" height="16" rx="2" fill="#FFFFFF"/>
-                    <rect x="10" y="15" width="16" height="6" rx="2" fill="#FFFFFF"/>
-                    <circle cx="18" cy="18" r="2.5" fill="#F59E0B"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">RSUD Dr. H. Abdul Moeloek</span>
-                  <span class="mitra-sub">Rumah Sakit Rujukan Lampung</span>
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
 
           <!-- ================= BARIS 2 (DIBAWAHNYA) ================= -->
           <div class="mitra-marquee-wrap">
             <div class="mitra-track track-right">
-              <!-- SET 1 (BARIS 2) -->
-              <!-- 1. Pertamina -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#F8FAFC"/>
-                    <path d="M8 8L16 6L14 16L6 14L8 8Z" fill="#0284C7"/>
-                    <path d="M18 6L28 10L23 18L15 15L18 6Z" fill="#16A34A"/>
-                    <path d="M12 18L24 16L26 27L16 29L12 18Z" fill="#DC2626"/>
-                  </svg>
+              @foreach($partnersRow2 as $partner)
+                <div class="mitra-card">
+                  <div class="mitra-logo-wrap">
+                    @if($partner->logo)
+                      <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" loading="lazy" decoding="async" style="max-height: 28px; max-width: 34px; object-fit: contain;">
+                    @else
+                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #0F172A, #1E293B); color: #F59E0B; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
+                        {{ strtoupper(substr($partner->name, 0, 2)) }}
+                      </div>
+                    @endif
+                  </div>
+                  <div class="mitra-meta">
+                    <span class="mitra-name">{{ $partner->name }}</span>
+                    <span class="mitra-sub">{{ $partner->category ?? 'Mitra Rekanan' }}</span>
+                  </div>
                 </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Pertamina (Persero)</span>
-                  <span class="mitra-sub">BUMN Energi & Migas</span>
-                </div>
-              </div>
+              @endforeach
 
-              <!-- 2. Bank Lampung -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#0F2C59"/>
-                    <path d="M6 23C8 22 11 21.5 18 21.5C25 21.5 28 22 30 23V25H6V23Z" fill="#F59E0B"/>
-                    <path d="M18 9L21 16L24 11L26 18L29 15L28 22H8L7 15L10 18L12 11L15 16L18 9Z" fill="#FBBF24"/>
-                    <circle cx="18" cy="12" r="1.5" fill="#DC2626"/>
-                    <circle cx="12" cy="14" r="1" fill="#DC2626"/>
-                    <circle cx="24" cy="14" r="1" fill="#DC2626"/>
-                  </svg>
+              {{-- Clone untuk Infinite Marquee --}}
+              @foreach($partnersRow2 as $partner)
+                <div class="mitra-card" aria-hidden="true">
+                  <div class="mitra-logo-wrap">
+                    @if($partner->logo)
+                      <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" loading="lazy" decoding="async" style="max-height: 28px; max-width: 34px; object-fit: contain;">
+                    @else
+                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #0F172A, #1E293B); color: #F59E0B; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
+                        {{ strtoupper(substr($partner->name, 0, 2)) }}
+                      </div>
+                    @endif
+                  </div>
+                  <div class="mitra-meta">
+                    <span class="mitra-name">{{ $partner->name }}</span>
+                    <span class="mitra-sub">{{ $partner->category ?? 'Mitra Rekanan' }}</span>
+                  </div>
                 </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Bank Lampung</span>
-                  <span class="mitra-sub">Bank Pembangunan Daerah</span>
-                </div>
-              </div>
-
-              <!-- 3. ITERA -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#FFF1F2"/>
-                    <path d="M18 6L29 12V24L18 30L7 24V12L18 6Z" fill="#881337"/>
-                    <path d="M18 9L26 13.5V22.5L18 27L10 22.5V13.5L18 9Z" fill="#9F1239"/>
-                    <path d="M18 12L23 16V20L18 23L13 20V16L18 12Z" fill="#F59E0B"/>
-                    <path d="M16 16L18 14L20 16V20L18 18L16 20V16Z" fill="#FFFFFF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Institut Teknologi Sumatera</span>
-                  <span class="mitra-sub">Perguruan Tinggi Negeri</span>
-                </div>
-              </div>
-
-              <!-- 4. Pelindo (Pelabuhan Indonesia) -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#0369A1"/>
-                    <circle cx="18" cy="18" r="11" stroke="#38BDF8" stroke-width="2"/>
-                    <path d="M18 10V26M10 18H26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="18" cy="18" r="4.5" fill="#38BDF8"/>
-                    <circle cx="18" cy="18" r="2" fill="#FFFFFF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Pelabuhan Indonesia</span>
-                  <span class="mitra-sub">BUMN Kepelabuhanan & Logistik</span>
-                </div>
-              </div>
-
-              <!-- 5. Semen Baturaja -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#F1F5F9"/>
-                    <path d="M8 26V13L16 8L24 13V17H28V26H8Z" fill="#B91C1C"/>
-                    <rect x="12" y="17" width="5" height="9" fill="#FFFFFF"/>
-                    <rect x="19" y="19" width="4" height="7" fill="#FFFFFF"/>
-                    <circle cx="26" cy="20" r="1.5" fill="#F59E0B"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Semen Baturaja Tbk</span>
-                  <span class="mitra-sub">BUMN Industri Semen</span>
-                </div>
-              </div>
-
-              <!-- 6. SMA Al Kautsar -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#F0FDF4"/>
-                    <path d="M18 6L21 11L26 9L24 14L29 16L25 20L28 24L22 25L21 30L17 27L13 29L14 24L9 22L12 18L8 15L13 14L12 9L17 11L18 6Z" fill="#047857"/>
-                    <circle cx="18" cy="18" r="6" fill="#FBBF24"/>
-                    <path d="M18 14L19.2 16.5L22 17L20 18.8L20.5 21.5L18 20.2L15.5 21.5L16 18.8L14 17L16.8 16.5L18 14Z" fill="#065F46"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">SMA Al Kautsar Lampung</span>
-                  <span class="mitra-sub">Institusi Pendidikan Unggulan</span>
-                </div>
-              </div>
-
-              <!-- 7. PT Pupuk Sriwidjaja (Pusri) -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#15803D"/>
-                    <path d="M18 7C14 12 12 18 18 29C24 18 22 12 18 7Z" fill="#EAB308"/>
-                    <path d="M18 11V26M14 16L18 19M22 16L18 19M13 21L18 23M23 21L18 23" stroke="#15803D" stroke-width="1.4" stroke-linecap="round"/>
-                    <circle cx="18" cy="11" r="1.5" fill="#FFFFFF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Pupuk Sriwidjaja</span>
-                  <span class="mitra-sub">BUMN Pupuk Nusantara</span>
-                </div>
-              </div>
-
-              <!-- 8. UIN Raden Intan Lampung -->
-              <div class="mitra-card">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#047857"/>
-                    <path d="M18 7C14 11 11 15 11 19H25C25 15 22 11 18 7Z" fill="#FBBF24"/>
-                    <path d="M10 22C14 20 17 21 18 22C19 21 22 20 26 22V26C22 24 19 25 18 26C17 25 14 24 10 26V22Z" fill="#FFFFFF"/>
-                    <circle cx="18" cy="13" r="1.8" fill="#047857"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">UIN Raden Intan Lampung</span>
-                  <span class="mitra-sub">Perguruan Tinggi Keagamaan Negeri</span>
-                </div>
-              </div>
-
-              <!-- DUPLIKAT BARIS 2 (UNTUK SEAMLESS LOOP) -->
-              <!-- 1. Pertamina -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#F8FAFC"/>
-                    <path d="M8 8L16 6L14 16L6 14L8 8Z" fill="#0284C7"/>
-                    <path d="M18 6L28 10L23 18L15 15L18 6Z" fill="#16A34A"/>
-                    <path d="M12 18L24 16L26 27L16 29L12 18Z" fill="#DC2626"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Pertamina (Persero)</span>
-                  <span class="mitra-sub">BUMN Energi & Migas</span>
-                </div>
-              </div>
-
-              <!-- 2. Bank Lampung -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#0F2C59"/>
-                    <path d="M6 23C8 22 11 21.5 18 21.5C25 21.5 28 22 30 23V25H6V23Z" fill="#F59E0B"/>
-                    <path d="M18 9L21 16L24 11L26 18L29 15L28 22H8L7 15L10 18L12 11L15 16L18 9Z" fill="#FBBF24"/>
-                    <circle cx="18" cy="12" r="1.5" fill="#DC2626"/>
-                    <circle cx="12" cy="14" r="1" fill="#DC2626"/>
-                    <circle cx="24" cy="14" r="1" fill="#DC2626"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Bank Lampung</span>
-                  <span class="mitra-sub">Bank Pembangunan Daerah</span>
-                </div>
-              </div>
-
-              <!-- 3. ITERA -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#FFF1F2"/>
-                    <path d="M18 6L29 12V24L18 30L7 24V12L18 6Z" fill="#881337"/>
-                    <path d="M18 9L26 13.5V22.5L18 27L10 22.5V13.5L18 9Z" fill="#9F1239"/>
-                    <path d="M18 12L23 16V20L18 23L13 20V16L18 12Z" fill="#F59E0B"/>
-                    <path d="M16 16L18 14L20 16V20L18 18L16 20V16Z" fill="#FFFFFF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">Institut Teknologi Sumatera</span>
-                  <span class="mitra-sub">Perguruan Tinggi Negeri</span>
-                </div>
-              </div>
-
-              <!-- 4. Pelindo (Pelabuhan Indonesia) -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#0369A1"/>
-                    <circle cx="18" cy="18" r="11" stroke="#38BDF8" stroke-width="2"/>
-                    <path d="M18 10V26M10 18H26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="18" cy="18" r="4.5" fill="#38BDF8"/>
-                    <circle cx="18" cy="18" r="2" fill="#FFFFFF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Pelabuhan Indonesia</span>
-                  <span class="mitra-sub">BUMN Kepelabuhanan & Logistik</span>
-                </div>
-              </div>
-
-              <!-- 5. Semen Baturaja -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#F1F5F9"/>
-                    <path d="M8 26V13L16 8L24 13V17H28V26H8Z" fill="#B91C1C"/>
-                    <rect x="12" y="17" width="5" height="9" fill="#FFFFFF"/>
-                    <rect x="19" y="19" width="4" height="7" fill="#FFFFFF"/>
-                    <circle cx="26" cy="20" r="1.5" fill="#F59E0B"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Semen Baturaja Tbk</span>
-                  <span class="mitra-sub">BUMN Industri Semen</span>
-                </div>
-              </div>
-
-              <!-- 6. SMA Al Kautsar -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#F0FDF4"/>
-                    <path d="M18 6L21 11L26 9L24 14L29 16L25 20L28 24L22 25L21 30L17 27L13 29L14 24L9 22L12 18L8 15L13 14L12 9L17 11L18 6Z" fill="#047857"/>
-                    <circle cx="18" cy="18" r="6" fill="#FBBF24"/>
-                    <path d="M18 14L19.2 16.5L22 17L20 18.8L20.5 21.5L18 20.2L15.5 21.5L16 18.8L14 17L16.8 16.5L18 14Z" fill="#065F46"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">SMA Al Kautsar Lampung</span>
-                  <span class="mitra-sub">Institusi Pendidikan Unggulan</span>
-                </div>
-              </div>
-
-              <!-- 7. PT Pupuk Sriwidjaja (Pusri) -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#15803D"/>
-                    <path d="M18 7C14 12 12 18 18 29C24 18 22 12 18 7Z" fill="#EAB308"/>
-                    <path d="M18 11V26M14 16L18 19M22 16L18 19M13 21L18 23M23 21L18 23" stroke="#15803D" stroke-width="1.4" stroke-linecap="round"/>
-                    <circle cx="18" cy="11" r="1.5" fill="#FFFFFF"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">PT Pupuk Sriwidjaja</span>
-                  <span class="mitra-sub">BUMN Pupuk Nusantara</span>
-                </div>
-              </div>
-
-              <!-- 8. UIN Raden Intan Lampung -->
-              <div class="mitra-card" aria-hidden="true">
-                <div class="mitra-logo-wrap">
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="36" height="36" rx="8" fill="#047857"/>
-                    <path d="M18 7C14 11 11 15 11 19H25C25 15 22 11 18 7Z" fill="#FBBF24"/>
-                    <path d="M10 22C14 20 17 21 18 22C19 21 22 20 26 22V26C22 24 19 25 18 26C17 25 14 24 10 26V22Z" fill="#FFFFFF"/>
-                    <circle cx="18" cy="13" r="1.8" fill="#047857"/>
-                  </svg>
-                </div>
-                <div class="mitra-meta">
-                  <span class="mitra-name">UIN Raden Intan Lampung</span>
-                  <span class="mitra-sub">Perguruan Tinggi Keagamaan Negeri</span>
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
 
@@ -642,7 +190,14 @@
               
               <!-- Frame Foto Pemilik -->
               <div class="owner-photo-frame">
-                <img src="{{ asset('assets/images/pemilik-nirwana.JPG') }}" alt="Pimpinan & Founder Nirwana Tour Lampung - Kiki M Alfin" class="owner-photo">
+                <picture>
+                  @if(!empty($settings['owner_photo']))
+                    <img src="{{ storage_or_asset($settings['owner_photo']) }}" alt="{{ $settings['owner_role'] ?? 'Pimpinan & Founder' }} - {{ $settings['owner_name'] ?? 'Kiki M Alfin' }}" class="owner-photo owner-photo-custom" loading="lazy" decoding="async">
+                  @else
+                    <source srcset="{{ asset('assets/images/pemilik-nirwana.webp') }}" type="image/webp">
+                    <img src="{{ asset('assets/images/pemilik-nirwana.JPG') }}" alt="{{ $settings['owner_role'] ?? 'Pimpinan & Founder Nirwana Tour Lampung' }} - {{ $settings['owner_name'] ?? 'Kiki M Alfin' }}" class="owner-photo" loading="lazy" decoding="async">
+                  @endif
+                </picture>
                 <div class="owner-photo-overlay"></div>
               </div>
 
@@ -659,13 +214,13 @@
                 </div>
 
                 <blockquote class="owner-quote-body">
-                  "Selamat datang di Nirwana Tour Lampung. Bagi kami, setiap perjalanan bukan sekadar mengantar Anda ke destinasi, melainkan sebuah amanah untuk menghadirkan rasa aman, kenyamanan prima, dan kenangan indah yang abadi bersama orang-orang tercinta."
+                  "{{ $settings['owner_quote'] ?? 'Selamat datang di Nirwana Tour Lampung. Bagi kami, setiap perjalanan bukan sekadar mengantar Anda ke destinasi, melainkan sebuah amanah untuk menghadirkan rasa aman, kenyamanan prima, dan kenangan indah yang abadi bersama orang-orang tercinta.' }}"
                 </blockquote>
 
                 <div class="owner-profile-footer">
                   <div class="owner-details">
-                    <strong class="owner-name">Pimpinan & Founder - Kiki M Alfin</strong>
-                    <span class="owner-role">Nirwana Tour Lampung &bull; Sejak 2016</span>
+                    <strong class="owner-name">{{ $settings['owner_name'] ?? 'Kiki M Alfin' }}</strong>
+                    <span class="owner-role">{{ $settings['owner_role'] ?? 'Pimpinan & Founder - Nirwana Tour Lampung • Sejak 2016' }}</span>
                   </div>
                 </div>
               </div>
@@ -679,32 +234,32 @@
             <h2 class="section-title">Biro Perjalanan Wisata Terpercaya di Lampung</h2>
             
             <p class="about-lead">
-              <strong>Nirwana Tour Lampung</strong> adalah biro perjalanan wisata resmi dan berizin lengkap yang berbasis di Bandar Lampung, berdedikasi menciptakan pengalaman liburan yang aman, nyaman, dan berkesan tinggi bagi setiap rombongan.
+              {{ $settings['about_company'] ?? 'Nirwana Tour Lampung adalah biro perjalanan wisata berizin resmi (TDUP & NIB) yang telah berpengalaman mendampingi ribuan wisatawan mengeksplorasi keindahan alam dan budaya Indonesia dengan pelayanan standar V.I.P yang aman, nyaman, dan berkesan.' }}
             </p>
             <p class="about-desc">
-              Dengan pengalaman lebih dari 8 tahun, kami telah melayani ribuan pelanggan mulai dari keluarga, sekolah, universitas, instansi pemerintahan, hingga BUMN & perusahaan swasta nasional. Setiap rencana perjalanan kami susun secara terstruktur dengan pemandu berlisensi dan armada transportasi pariwisata terawat.
+              {{ $settings['about_description'] ?? 'Dengan pengalaman lebih dari 8 tahun, kami telah melayani ribuan pelanggan mulai dari keluarga, sekolah, universitas, instansi pemerintahan, hingga BUMN & perusahaan swasta nasional. Setiap rencana perjalanan kami susun secara terstruktur dengan pemandu berlisensi dan armada transportasi pariwisata terawat.' }}
             </p>
 
             <!-- Highlights / Mini Stats Bar -->
             <div class="about-mini-stats">
               <div class="mini-stat">
-                <span class="mini-stat-num" data-counter-target="8" data-counter-suffix="+">8+</span>
-                <span class="mini-stat-lbl">Tahun Pengalaman</span>
+                <span class="mini-stat-num" data-counter-target="{{ $settings['stat_years_count'] ?? '8' }}" data-counter-suffix="+">{{ $settings['stat_years_count'] ?? '8' }}+</span>
+                <span class="mini-stat-lbl">{{ $settings['stat_years_label'] ?? 'Tahun Pengalaman' }}</span>
               </div>
               <div class="mini-stat-sep"></div>
               <div class="mini-stat">
-                <span class="mini-stat-num" data-counter-target="1500" data-counter-suffix="+" data-counter-dot="true">1.500+</span>
-                <span class="mini-stat-lbl">Trip Terlaksana</span>
+                <span class="mini-stat-num" data-counter-target="{{ $settings['stat_trips_count'] ?? '1500' }}" data-counter-suffix="+" data-counter-dot="true">{{ number_format((int)($settings['stat_trips_count'] ?? 1500), 0, ',', '.') }}+</span>
+                <span class="mini-stat-lbl">{{ $settings['stat_trips_label'] ?? 'Trip Terlaksana' }}</span>
               </div>
               <div class="mini-stat-sep"></div>
               <div class="mini-stat">
-                <span class="mini-stat-num" data-counter-target="99" data-counter-suffix="%">99%</span>
-                <span class="mini-stat-lbl">Kepuasan Pelanggan</span>
+                <span class="mini-stat-num" data-counter-target="{{ $settings['stat_satisfaction_count'] ?? '99' }}" data-counter-suffix="%">{{ $settings['stat_satisfaction_count'] ?? '99' }}%</span>
+                <span class="mini-stat-lbl">{{ $settings['stat_satisfaction_label'] ?? 'Kepuasan Pelanggan' }}</span>
               </div>
               <div class="mini-stat-sep"></div>
               <div class="mini-stat">
-                <span class="mini-stat-num" data-counter-target="100" data-counter-suffix="%">100%</span>
-                <span class="mini-stat-lbl">Legalitas Resmi</span>
+                <span class="mini-stat-num" data-counter-target="{{ $settings['stat_legal_count'] ?? '100' }}" data-counter-suffix="%">{{ $settings['stat_legal_count'] ?? '100' }}%</span>
+                <span class="mini-stat-lbl">{{ $settings['stat_legal_label'] ?? 'Legalitas Resmi' }}</span>
               </div>
             </div>
 
@@ -715,23 +270,23 @@
               </span>
               <div class="cert-logos-row">
                 <div class="cert-logo-item" title="Nirwana Tour Lampung - Biro Perjalanan Wisata Resmi">
-                  <img src="assets/logo/Logo-Nirwana.png" alt="Logo Nirwana Tour Lampung" class="cert-logo-img">
+                  <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Logo Nirwana Tour Lampung" class="cert-logo-img" loading="lazy" decoding="async">
                 </div>
                 <div class="cert-logo-item" title="ASITA (Association of The Indonesian Tours and Travel Agencies)">
-                  <img src="assets/images/asita.png" alt="Logo ASITA Indonesia" class="cert-logo-img">
+                  <img src="{{ asset('assets/images/asita.png') }}" alt="Logo ASITA Indonesia" class="cert-logo-img" loading="lazy" decoding="async">
                 </div>
                 <div class="cert-logo-item" title="Wonderful Indonesia - Kementerian Pariwisata RI">
-                  <img src="assets/images/wonderful.png" alt="Logo Wonderful Indonesia" class="cert-logo-img">
+                  <img src="{{ asset('assets/images/wonderful.png') }}" alt="Logo Wonderful Indonesia" class="cert-logo-img" loading="lazy" decoding="async">
                 </div>
                 <div class="cert-logo-item" title="Pariwisata Provinsi Lampung - The Treasure of Sumatra">
-                  <img src="assets/images/lampung.png" alt="Logo Pariwisata Lampung" class="cert-logo-img">
+                  <img src="{{ asset('assets/images/lampung.png') }}" alt="Logo Pariwisata Lampung" class="cert-logo-img" loading="lazy" decoding="async">
                 </div>
               </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="about-cta-row">
-              <a href="{{ route('about') }}" class="btn btn-primary">
+              <a href="{{ route('profile') }}" class="btn btn-primary">
                 <i class="fa-solid fa-circle-info"></i> Selengkapnya Tentang Kami
               </a>
               <a href="#" class="btn btn-outline wa-link-btn" data-wa-msg="Halo Pimpinan Nirwana Tour, saya ingin konsultasi paket perjalanan wisata.">
@@ -745,7 +300,7 @@
     </section>
 
     <!-- ========================================================
-         4. LAYANAN SECTION
+         4. LAYANAN SECTION (DINAMIS DARI DATABASE)
          ======================================================== -->
     <section class="section services-section" id="layanan">
       <div class="container">
@@ -756,111 +311,61 @@
         </div>
 
         <div class="services-grid">
-          <!-- Layanan 1: Paket Wisata -->
-          <div class="service-card">
-            <div class="service-card-top">
-              <div class="service-icon-box">
-                <i class="fa-solid fa-umbrella-beach"></i>
+          @forelse($services as $index => $service)
+            @php
+              $accents = ['accent-burgundy', 'accent-emerald', 'accent-amber', 'accent-rose'];
+              $accentClass = $accents[$index % count($accents)];
+              $defaultIcons = ['fa-umbrella-beach', 'fa-graduation-cap', 'fa-people-roof', 'fa-van-shuttle'];
+              $iconClass = $service->icon ?: ($defaultIcons[$index % count($defaultIcons)] ?? 'fa-compass');
+            @endphp
+            <div class="service-card">
+              <div class="service-card-top">
+                <div class="service-icon-box {{ $accentClass }}">
+                  <i class="fa-solid {{ $iconClass }}"></i>
+                </div>
+                <span class="service-chip">Layanan Unggulan</span>
               </div>
-              <span class="service-chip">Open & Private Trip</span>
-            </div>
-            <h3 class="service-title">Paket Wisata Lampung & Domestik</h3>
-            <p class="service-desc">
-              Jelajahi surga bahari Lampung (Pahawang, Kiluan, Gigi Hiu) hingga destinasi nasional seperti Bali & Jogja dengan jadwal tertata rapi.
-            </p>
-            <ul class="service-perks">
-              <li><i class="fa-solid fa-check"></i> Tiket wisata & retribusi all-in</li>
-              <li><i class="fa-solid fa-check"></i> Penginapan hotel / homestay nyaman</li>
-              <li><i class="fa-solid fa-check"></i> Makan, snack, & dokumentasi</li>
-              <li><i class="fa-solid fa-check"></i> Tour Leader ramah bersertifikat</li>
-            </ul>
-            <div class="service-action">
-              <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Paket Wisata.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
-              </a>
-            </div>
-          </div>
-
-          <!-- Layanan 2: Study Tour -->
-          <div class="service-card">
-            <div class="service-card-top">
-              <div class="service-icon-box accent-emerald">
-                <i class="fa-solid fa-graduation-cap"></i>
+              <h3 class="service-title">
+                <a href="{{ route('services.show', $service->slug) }}" style="color: inherit; text-decoration: none;">{{ $service->title }}</a>
+              </h3>
+              <p class="service-desc">
+                {{ Str::limit($service->short_description, 140) }}
+              </p>
+              @if(!empty($service->features) && is_array($service->features))
+                <ul class="service-perks">
+                  @foreach(array_slice($service->features, 0, 4) as $perk)
+                    <li><i class="fa-solid fa-check"></i> {{ $perk }}</li>
+                  @endforeach
+                </ul>
+              @endif
+              <div class="service-action">
+                <a href="{{ route('services.show', $service->slug) }}" class="btn btn-service-detail" title="Rincian Layanan {{ $service->title }}">
+                  <i class="fa-solid fa-circle-info"></i>
+                  <span class="btn-text">
+                    <span class="btn-lbl-desktop">Rincian Layanan</span>
+                    <span class="btn-lbl-mobile">Detail</span>
+                  </span>
+                </a>
+                <a href="#" class="btn btn-service-wa wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan {{ $service->title }}." title="Pesan Layanan {{ $service->title }}">
+                  <i class="fa-brands fa-whatsapp"></i>
+                  <span class="btn-text">
+                    <span class="btn-lbl-desktop">Pesan Layanan</span>
+                    <span class="btn-lbl-mobile">Pesan</span>
+                  </span>
+                </a>
               </div>
-              <span class="service-chip">Sekolah & Kampus</span>
             </div>
-            <h3 class="service-title">Study Tour & Edukasi Pelajar</h3>
-            <p class="service-desc">
-              Program belajar di luar kelas yang edukatif, seru, dan aman untuk siswa TK hingga mahasiswa dengan panduan fasilitator berpengalaman.
-            </p>
-            <ul class="service-perks">
-              <li><i class="fa-solid fa-check"></i> Destinasi sejarah, sains & budaya</li>
-              <li><i class="fa-solid fa-check"></i> Lembar edukasi / LKPD terarah</li>
-              <li><i class="fa-solid fa-check"></i> Tim medis P3K & asuransi lengkap</li>
-              <li><i class="fa-solid fa-check"></i> Free seat guru & modul terpadu</li>
-            </ul>
-            <div class="service-action">
-              <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Study Tour.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
-              </a>
+          @empty
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: #FFF; border-radius: 12px; border: 1px solid var(--border-light);">
+              <p style="color: #64748b;">Belum ada data layanan aktif saat ini.</p>
             </div>
-          </div>
-
-          <!-- Layanan 3: Kunjungan Industri & Gathering -->
-          <div class="service-card">
-            <div class="service-card-top">
-              <div class="service-icon-box accent-amber">
-                <i class="fa-solid fa-people-roof"></i>
-              </div>
-              <span class="service-chip">Corporate & Instansi</span>
-            </div>
-            <h3 class="service-title">Kunjungan Industri & Gathering</h3>
-            <p class="service-desc">
-              Paket outbound team building, fun games, family gathering kantor, dan perizinan instansi untuk mempererat kekompakan tim kerja Anda.
-            </p>
-            <ul class="service-perks">
-              <li><i class="fa-solid fa-check"></i> MC & game master profesional</li>
-              <li><i class="fa-solid fa-check"></i> Sound system & entertainment</li>
-              <li><i class="fa-solid fa-check"></i> Spanduk, kaos seragam & plakat</li>
-              <li><i class="fa-solid fa-check"></i> Fasilitas koordinasi perizinan instansi</li>
-            </ul>
-            <div class="service-action">
-              <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Kunjungan Industri & Gathering.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
-              </a>
-            </div>
-          </div>
-
-          <!-- Layanan 4: Sewa Transportasi -->
-          <div class="service-card">
-            <div class="service-card-top">
-              <div class="service-icon-box accent-rose">
-                <i class="fa-solid fa-van-shuttle"></i>
-              </div>
-              <span class="service-chip">Armada Pariwisata</span>
-            </div>
-            <h3 class="service-title">Sewa Transportasi Rombongan</h3>
-            <p class="service-desc">
-              Penyewaan armada pariwisata prima dalam dan luar kota didampingi kru ramah yang berpengalaman rute Lampung, Jawa, dan Bali.
-            </p>
-            <ul class="service-perks">
-              <li><i class="fa-solid fa-check"></i> Toyota HiAce Premio (14 Seat)</li>
-              <li><i class="fa-solid fa-check"></i> Medium Bus Pariwisata (31-35 Seat)</li>
-              <li><i class="fa-solid fa-check"></i> Big Bus Executive (45-50 Seat)</li>
-              <li><i class="fa-solid fa-check"></i> Full AC, audio karaoke & charger HP</li>
-            </ul>
-            <div class="service-action">
-              <a href="#" class="btn btn-primary btn-block wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya tertarik dengan layanan Sewa Transportasi.">
-                <i class="fa-brands fa-whatsapp"></i> Pesan Layanan Ini
-              </a>
-            </div>
-          </div>
+          @endforelse
         </div>
       </div>
     </section>
 
     <!-- ========================================================
-         5. DESTINASI WISATA SECTION
+         5. DESTINASI WISATA SECTION (DINAMIS DARI DATABASE)
          ======================================================== -->
     <section class="section destination-section" id="destinasi">
       <div class="container">
@@ -871,342 +376,59 @@
         </div>
 
         <div class="destinations-grid" id="destGrid">
-          <!-- Destinasi 1: Pulau Pahawang -->
-          <article class="dest-card" data-category="lampung" data-id="pahawang">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/pahawang.jpg" alt="Pulau Pahawang Lampung">
-              <span class="dest-category"><i class="fa-solid fa-water"></i> Bahari & Snorkeling</span>
-              <span class="dest-badge-rec">Favorit Wisatawan</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> Pesawaran, Lampung</span>
-                <span><i class="fa-solid fa-clock"></i> 1 Hari / 2H1M</span>
+          @forelse($featuredPackages as $pkg)
+            @php
+              $categorySlug = $pkg->category ? Str::slug($pkg->category->name) : 'lampung';
+            @endphp
+            <article class="dest-card" data-category="{{ $categorySlug }}" data-id="{{ $pkg->slug }}">
+              <div class="dest-thumb">
+                <a href="{{ route('packages.show', $pkg->slug) }}" style="display: block; width: 100%; height: 100%;">
+                  <img src="{{ $pkg->thumbnail_url }}" alt="{{ $pkg->title }}" loading="lazy">
+                </a>
+                <span class="dest-category"><i class="fa-solid fa-map-pin"></i> {{ $pkg->category->name ?? 'Wisata Populer' }}</span>
+                @if($pkg->badge)
+                  <span class="dest-badge-rec">{{ $pkg->badge }}</span>
+                @endif
               </div>
-              <h3 class="dest-title">Pulau Pahawang & Kelagian</h3>
-              <p class="dest-desc">
-                Surga snorkeling dengan air kristal bening, taman terumbu karang warna-warni, foto underwater bersama ikan nemo, dan keindahan pasir timbul yang memesona.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Snorkeling Spot Nemo</span>
-                <span><i class="fa-solid fa-check-circle"></i> Villa Apung</span>
-                <span><i class="fa-solid fa-check-circle"></i> Pasir Timbul</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp175.000 <small>/ pax</small></span>
+              <div class="dest-body">
+                <div class="dest-meta">
+                  <span><i class="fa-solid fa-location-dot"></i> {{ $pkg->destination_location ?? 'Lampung' }}</span>
+                  <span><i class="fa-solid fa-clock"></i> {{ $pkg->duration_label }}</span>
                 </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="pahawang" aria-label="Lihat Rundown Paket Pulau Pahawang">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata ke Pulau Pahawang.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Destinasi 2: Teluk Kiluan -->
-          <article class="dest-card" data-category="lampung" data-id="kiluan">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/kiluan.jpg" alt="Teluk Kiluan Lumba-Lumba">
-              <span class="dest-category"><i class="fa-solid fa-ship"></i> Dolphin Safari</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> Tanggamus, Lampung</span>
-                <span><i class="fa-solid fa-clock"></i> 2 Hari 1 Malam</span>
-              </div>
-              <h3 class="dest-title">Teluk Kiluan & Laguna Gayau</h3>
-              <p class="dest-desc">
-                Sensasi menaiki jukung tradisional di lautan lepas menyapa kawanan lumba-lumba liar yang berenang bebas, serta berenang di kolam renang alami Laguna Gayau.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Atraksi Lumba-lumba Liar</span>
-                <span><i class="fa-solid fa-check-circle"></i> Laguna Gayau</span>
-                <span><i class="fa-solid fa-check-circle"></i> Homestay View Laut</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp450.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="kiluan" aria-label="Lihat Rundown Paket Teluk Kiluan">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata ke Teluk Kiluan.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
+                <h3 class="dest-title">
+                  <a href="{{ route('packages.show', $pkg->slug) }}" style="color: inherit; text-decoration: none;">{{ $pkg->title }}</a>
+                </h3>
+                <p class="dest-desc">
+                  {{ Str::limit($pkg->summary, 135) }}
+                </p>
+                @if(!empty($pkg->includes) && is_array($pkg->includes))
+                  <div class="dest-highlights">
+                    @foreach(array_slice($pkg->includes, 0, 3) as $includeItem)
+                      <span><i class="fa-solid fa-check-circle"></i> {{ Str::limit($includeItem, 32) }}</span>
+                    @endforeach
+                  </div>
+                @endif
+                <div class="dest-footer">
+                  <div class="dest-pricing">
+                    <span class="label">Mulai dari</span>
+                    <span class="price">{{ $pkg->formatted_price }} <small>/ pax</small></span>
+                  </div>
+                  <div class="dest-action-group">
+                    <a href="{{ route('packages.show', $pkg->slug) }}" class="btn btn-outline btn-sm" aria-label="Lihat Rundown Paket {{ $pkg->title }}">
+                      <i class="fa-solid fa-list-check"></i> Detail & Rundown
+                    </a>
+                    <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata ke {{ $pkg->title }}.">
+                      <i class="fa-brands fa-whatsapp"></i> Tanya Paket
+                    </a>
+                  </div>
                 </div>
               </div>
+            </article>
+          @empty
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: #FFF; border-radius: 12px; border: 1px solid var(--border-light);">
+              <p style="color: #64748b;">Belum ada paket wisata aktif yang ditampilkan di beranda.</p>
             </div>
-          </article>
-
-          <!-- Destinasi 3: Pantai Gigi Hiu -->
-          <article class="dest-card" data-category="lampung" data-id="gigi-hiu">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/gigi-hiu.jpg" alt="Pantai Gigi Hiu Pegadungan">
-              <span class="dest-category"><i class="fa-solid fa-mountain-sun"></i> Geowisata Eksotis</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> Tanggamus, Lampung</span>
-                <span><i class="fa-solid fa-clock"></i> 1 Hari / Sunrise Tour</span>
-              </div>
-              <h3 class="dest-title">Pantai Gigi Hiu (Pegadungan)</h3>
-              <p class="dest-desc">
-                Gugusan tebing karang runcing menjulang yang diterpa deburan ombak Samudera Hindia. Ikon fotografi landscape kelas dunia dengan panorama matahari terbit spektakuler.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Tebing Karang Eksotis</span>
-                <span><i class="fa-solid fa-check-circle"></i> Spot Foto Instagramable</span>
-                <span><i class="fa-solid fa-check-circle"></i> Sunrise Adventure</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp375.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="gigi-hiu" aria-label="Lihat Rundown Paket Pantai Gigi Hiu">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata ke Pantai Gigi Hiu.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Destinasi 4: Way Kambas -->
-          <article class="dest-card" data-category="lampung edukasi" data-id="way-kambas">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/way-kambas.jpg" alt="Taman Nasional Way Kambas">
-              <span class="dest-category"><i class="fa-solid fa-tree"></i> Ekowisata & Edukasi</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> Lampung Timur</span>
-                <span><i class="fa-solid fa-clock"></i> 1 Hari Wisata</span>
-              </div>
-              <h3 class="dest-title">Taman Nasional Way Kambas</h3>
-              <p class="dest-desc">
-                Pusat konservasi dan pelatihan gajah Sumatera tertua di Indonesia. Pengunjung diajak berinteraksi langsung, memandikan gajah, dan mempelajari ekosistem hutan rimba.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Interaksi Bersama Gajah</span>
-                <span><i class="fa-solid fa-check-circle"></i> Konservasi Hutan Alam</span>
-                <span><i class="fa-solid fa-check-circle"></i> Cocok untuk Edukasi Anak</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp250.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="way-kambas" aria-label="Lihat Rundown Paket Way Kambas">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata ke Taman Nasional Way Kambas.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Destinasi 5: Yogyakarta -->
-          <article class="dest-card" data-category="nusantara edukasi" data-id="jogja">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/jogja.jpg" alt="Wisata Budaya Candi Yogyakarta">
-              <span class="dest-category"><i class="fa-solid fa-landmark"></i> Budaya & Edukasi</span>
-              <span class="dest-badge-rec">Favorit Sekolah</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> D.I. Yogyakarta</span>
-                <span><i class="fa-solid fa-clock"></i> 4 Hari 3 Malam</span>
-              </div>
-              <h3 class="dest-title">Eksotika Pelajar & Budaya Yogyakarta</h3>
-              <p class="dest-desc">
-                Petualangan legendaris menyusuri keagungan Candi Borobudur/Prambanan, keseruan Lava Tour Jeep Merapi, panorama HeHa Sky View, dan belanja asyik di Malioboro.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Candi Prambanan / Borobudur</span>
-                <span><i class="fa-solid fa-check-circle"></i> Lava Tour Jeep Merapi</span>
-                <span><i class="fa-solid fa-check-circle"></i> Malioboro & Tebing Breksi</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp1.450.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="jogja" aria-label="Lihat Rundown Paket Yogyakarta">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata Yogyakarta 4H3M.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Destinasi 6: Malang & Bromo -->
-          <article class="dest-card" data-category="nusantara edukasi" data-id="bromo">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/bromo.jpg" alt="Sunrise Gunung Bromo Malang">
-              <span class="dest-category"><i class="fa-solid fa-volcano"></i> Alam & Petualangan</span>
-              <span class="dest-badge-rec">Best Gathering</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> Malang & TN Bromo Semeru, Jatim</span>
-                <span><i class="fa-solid fa-clock"></i> 4 Hari 3 Malam</span>
-              </div>
-              <h3 class="dest-title">Malang & Bromo Sunrise Adventure</h3>
-              <p class="dest-desc">
-                Menyaksikan matahari terbit spektakuler Penanjakan Bromo dengan Jeep 4x4, menjelajahi Pasir Berbisik, petik apel di Kota Batu, dan wahana seru Museum Angkut.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Golden Sunrise Jeep Bromo</span>
-                <span><i class="fa-solid fa-check-circle"></i> Museum Angkut & Jatim Park</span>
-                <span><i class="fa-solid fa-check-circle"></i> Wisata Petik Apel Batu</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp1.850.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="bromo" aria-label="Lihat Rundown Paket Malang Bromo">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata Malang Bromo 4H3M.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Destinasi Extra 1: Krakatau & Sebesi -->
-          <article class="dest-card" data-category="lampung" data-id="krakatau">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/krakatau.jpg" alt="Gunung Anak Krakatau dan Pulau Sebesi">
-              <span class="dest-category"><i class="fa-solid fa-volcano"></i> Ekspedisi Geologi</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> Selat Sunda, Lampung</span>
-                <span><i class="fa-solid fa-clock"></i> 2 Hari 1 Malam</span>
-              </div>
-              <h3 class="dest-title">Gunung Krakatau & Pulau Sebesi</h3>
-              <p class="dest-desc">
-                Petualangan legendaris menyusuri Selat Sunda menuju cagar alam geologi Gunung Anak Krakatau, berpadu snorkeling di Laguna Cabe dan keindahan pulau tropis Sebesi.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> View Gunung Api Vulkanik</span>
-                <span><i class="fa-solid fa-check-circle"></i> Snorkeling Spot Cabe</span>
-                <span><i class="fa-solid fa-check-circle"></i> Sunset Selat Sunda</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp520.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="krakatau" aria-label="Lihat Rundown Paket Krakatau">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata ke Krakatau & Sebesi.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Destinasi Extra 2: Krui Pesisir Barat -->
-          <article class="dest-card" data-category="lampung" data-id="krui">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/krui.jpg" alt="Pantai Krui Pesisir Barat Lampung">
-              <span class="dest-category"><i class="fa-solid fa-umbrella-beach"></i> Pantai & Surfing</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> Pesisir Barat, Lampung</span>
-                <span><i class="fa-solid fa-clock"></i> 3 Hari 2 Malam</span>
-              </div>
-              <h3 class="dest-title">Pantai Krui & Pulau Pisang</h3>
-              <p class="dest-desc">
-                Pantai berpasir putih alami dengan gulungan ombak kelas dunia. Menikmati kelapa muda di Pantai Labuhan Jukung serta menyeberang ke Pulau Pisang yang damai.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Labuhan Jukung Sunset</span>
-                <span><i class="fa-solid fa-check-circle"></i> Jelajah Pulau Pisang</span>
-                <span><i class="fa-solid fa-check-circle"></i> Kuliner Ikan Tuhuk Khas</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp650.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="krui" aria-label="Lihat Rundown Paket Krui">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata ke Krui & Pesisir Barat.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Destinasi Extra 3: Jakarta - Bandung -->
-          <article class="dest-card" data-category="nusantara edukasi" data-id="jakarta-bandung">
-            <div class="dest-thumb">
-              <img src="assets/images/destinasi/jakarta-bandung.jpg" alt="Tour Jakarta Bandung Lembang">
-              <span class="dest-category"><i class="fa-solid fa-city"></i> Kunjungan & Wisata</span>
-              <span class="dest-badge-rec">Tol & Ferry All-In</span>
-            </div>
-            <div class="dest-body">
-              <div class="dest-meta">
-                <span><i class="fa-solid fa-location-dot"></i> DKI Jakarta & Bandung, Jabar</span>
-                <span><i class="fa-solid fa-clock"></i> 3 Hari 2 Malam</span>
-              </div>
-              <h3 class="dest-title">Jakarta & Bandung Smart Tour</h3>
-              <p class="dest-desc">
-                Paket wisata terpadu kunjungan industri/instansi, eksplorasi Tangkuban Perahu, Floating Market Lembang, jalan-jalan heritage Jalan Braga, dan belanja Pasar Baru.
-              </p>
-              <div class="dest-highlights">
-                <span><i class="fa-solid fa-check-circle"></i> Kunjungan Industri / Monas</span>
-                <span><i class="fa-solid fa-check-circle"></i> Tangkuban Perahu & Lembang</span>
-                <span><i class="fa-solid fa-check-circle"></i> Hotel Bintang 3 + Bus VIP</span>
-              </div>
-              <div class="dest-footer">
-                <div class="dest-pricing">
-                  <span class="label">Mulai dari</span>
-                  <span class="price">Rp1.250.000 <small>/ pax</small></span>
-                </div>
-                <div class="dest-action-group">
-                  <button type="button" class="btn btn-outline btn-sm btn-itinerary" data-dest-id="jakarta-bandung" aria-label="Lihat Rundown Paket Jakarta Bandung">
-                    <i class="fa-solid fa-list-check"></i> Rundown
-                  </button>
-                  <a href="#" class="btn btn-primary btn-sm wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin info paket wisata Jakarta - Bandung 3H2M.">
-                    <i class="fa-brands fa-whatsapp"></i> Tanya Paket
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
+          @endforelse
         </div>
 
         <!-- Tombol Aksi Lihat Destinasi Lainnya -->
@@ -1226,52 +448,6 @@
     </section>
 
     <!-- ========================================================
-         MODAL RUNDOWN & DETAIL ITINERARY
-         ======================================================== -->
-    <div class="itinerary-modal" id="itineraryModal" role="dialog" aria-modal="true" aria-labelledby="itineraryModalTitle" hidden>
-      <div class="itinerary-backdrop" id="itineraryBackdrop"></div>
-      <div class="itinerary-dialog">
-        <button class="itinerary-close-btn" id="itineraryClose" aria-label="Tutup detail itinerary">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="itinerary-header">
-          <span class="itinerary-badge" id="itineraryCategory">Wisata Bahari</span>
-          <h3 class="itinerary-modal-title" id="itineraryModalTitle">Paket Wisata Pulau Pahawang</h3>
-          <p class="itinerary-duration" id="itineraryDuration"><i class="fa-solid fa-clock"></i> 1 Hari (One Day Tour)</p>
-        </div>
-        <div class="itinerary-body">
-          <div class="itinerary-section">
-            <h4 class="itinerary-subheading"><i class="fa-solid fa-route"></i> Rencana Perjalanan (Rundown Kegiatan)</h4>
-            <div class="timeline-list" id="itineraryTimeline">
-              <!-- Dynamically populated via JS -->
-            </div>
-          </div>
-          <div class="itinerary-section">
-            <h4 class="itinerary-subheading"><i class="fa-solid fa-circle-check"></i> Fasilitas Termasuk (Include)</h4>
-            <ul class="itinerary-perks-list" id="itineraryIncludes">
-              <!-- Dynamically populated via JS -->
-            </ul>
-          </div>
-          <div class="itinerary-section">
-            <h4 class="itinerary-subheading"><i class="fa-solid fa-circle-xmark"></i> Tidak Termasuk (Exclude)</h4>
-            <ul class="itinerary-excludes-list" id="itineraryExcludes">
-              <!-- Dynamically populated via JS -->
-            </ul>
-          </div>
-        </div>
-        <div class="itinerary-footer">
-          <div class="itinerary-footer-price">
-            <span class="lbl">Mulai dari:</span>
-            <strong class="val" id="itineraryPriceDisplay">Rp175.000 / pax</strong>
-          </div>
-          <a href="#" class="btn btn-whatsapp btn-md" id="itineraryWaBtn" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-whatsapp"></i> Tanya / Booking Paket Ini
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========================================================
          6. KEUNGGULAN SECTION
          ======================================================== -->
     <section class="section reasons-section" id="keunggulan">
@@ -1287,7 +463,6 @@
       <div class="reasons-marquee-wrap" title="Sorot kursor untuk menjeda putaran">
         <div class="reasons-track">
           <!-- ================= SET 1 ================= -->
-          <!-- Item 1 -->
           <div class="reason-card">
             <div class="reason-icon">
               <i class="fa-solid fa-certificate"></i>
@@ -1298,7 +473,6 @@
             </p>
           </div>
 
-          <!-- Item 2 -->
           <div class="reason-card">
             <div class="reason-icon">
               <i class="fa-solid fa-user-shield"></i>
@@ -1309,7 +483,6 @@
             </p>
           </div>
 
-          <!-- Item 3 -->
           <div class="reason-card">
             <div class="reason-icon">
               <i class="fa-solid fa-bus"></i>
@@ -1320,7 +493,6 @@
             </p>
           </div>
 
-          <!-- Item 4 -->
           <div class="reason-card">
             <div class="reason-icon">
               <i class="fa-solid fa-sliders"></i>
@@ -1331,7 +503,6 @@
             </p>
           </div>
 
-          <!-- Item 5 -->
           <div class="reason-card">
             <div class="reason-icon">
               <i class="fa-solid fa-camera-retro"></i>
@@ -1342,7 +513,6 @@
             </p>
           </div>
 
-          <!-- Item 6 -->
           <div class="reason-card">
             <div class="reason-icon">
               <i class="fa-solid fa-headset"></i>
@@ -1354,7 +524,6 @@
           </div>
 
           <!-- ================= SET 2 (CLONE FOR INFINITE MARQUEE) ================= -->
-          <!-- Item 1 -->
           <div class="reason-card" aria-hidden="true">
             <div class="reason-icon">
               <i class="fa-solid fa-certificate"></i>
@@ -1365,7 +534,6 @@
             </p>
           </div>
 
-          <!-- Item 2 -->
           <div class="reason-card" aria-hidden="true">
             <div class="reason-icon">
               <i class="fa-solid fa-user-shield"></i>
@@ -1376,7 +544,6 @@
             </p>
           </div>
 
-          <!-- Item 3 -->
           <div class="reason-card" aria-hidden="true">
             <div class="reason-icon">
               <i class="fa-solid fa-bus"></i>
@@ -1387,7 +554,6 @@
             </p>
           </div>
 
-          <!-- Item 4 -->
           <div class="reason-card" aria-hidden="true">
             <div class="reason-icon">
               <i class="fa-solid fa-sliders"></i>
@@ -1398,7 +564,6 @@
             </p>
           </div>
 
-          <!-- Item 5 -->
           <div class="reason-card" aria-hidden="true">
             <div class="reason-icon">
               <i class="fa-solid fa-camera-retro"></i>
@@ -1409,7 +574,6 @@
             </p>
           </div>
 
-          <!-- Item 6 -->
           <div class="reason-card" aria-hidden="true">
             <div class="reason-icon">
               <i class="fa-solid fa-headset"></i>
@@ -1424,7 +588,7 @@
     </section>
 
     <!-- ========================================================
-         7. GALERI VIDEO KEGIATAN SECTION
+         7. GALERI VIDEO KEGIATAN SECTION (DINAMIS DARI DATABASE)
          ======================================================== -->
     <section class="section gallery-section" id="galeri">
       <div class="container">
@@ -1434,142 +598,74 @@
           <p class="section-subtitle">Saksikan langsung cuplikan video keceriaan dan kehangatan rombongan wisatawan saat menjelajahi ragam destinasi impian bersama Nirwana Tour Lampung.</p>
         </div>
 
-        <!-- Video Marquee Auto-Scroll ke Kiri (4 Video Berjalan Seamless) -->
+        <!-- Video Marquee Auto-Scroll ke Kiri (Video Berjalan Seamless) -->
         <div class="video-marquee-wrapper" id="videoMarqueeWrapper">
           <div class="video-marquee-track">
             
-            <!-- Group 1: 4 Video Cards Utama -->
+            <!-- Group 1: Video Cards Dinamis -->
             <div class="video-marquee-group">
-              <!-- Video 1 -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:33</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Wisata Bahari & Snorkeling</span>
-                  <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
-                  <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari, snorkeling di perairan jernih, dan kebersamaan hangat peserta trip.</p>
-                </div>
-              </article>
-
-              <!-- Video 2 -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video2-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video2.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 00:59</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Study Tour & Edukasi</span>
-                  <h3 class="video-title">Keceriaan Agenda Study Tour Edukasi Pelajar</h3>
-                  <p class="video-desc">Pendampingan penuh kehangatan oleh tim tour leader Nirwana Tour dalam membimbing siswa belajar dan berpetualang dengan riang gembira.</p>
-                </div>
-              </article>
-
-              <!-- Video 3 -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video3-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video3.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:00</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Momen Liburan Tropis</span>
-                  <h3 class="video-title">Eksplorasi Panorama & Keindahan Bahari Tropis</h3>
-                  <p class="video-desc">Menyusuri deburan ombak dan pesona alam nusantara, menghadirkan memori manis dan cerita tak terlupakan bagi setiap rombongan wisatawan.</p>
-                </div>
-              </article>
-
-              <!-- Video 4 -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video4-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video4.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:15</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Gathering & Outbound</span>
-                  <h3 class="video-title">Keseruan Outbound & Gathering Perusahaan</h3>
-                  <p class="video-desc">Aktivitas fun team building, kekompakan karyawan instansi, dan malam kebersamaan rombongan yang penuh tawa dan keakraban.</p>
-                </div>
-              </article>
+              @forelse($galleryVideos as $video)
+                <article class="video-card">
+                  <div class="video-player-wrapper">
+                    <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>
+                      <source src="{{ $video->file_url }}" type="video/mp4">
+                      Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                  </div>
+                  <div class="video-card-body">
+                    <span class="video-tag">{{ $video->caption ?? 'Dokumentasi Tour' }}</span>
+                    <h3 class="video-title">{{ $video->title }}</h3>
+                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
+                  </div>
+                </article>
+              @empty
+                <article class="video-card">
+                  <div class="video-player-wrapper">
+                    <video class="gallery-video" controls playsinline preload="none" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
+                      <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
+                      Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                  </div>
+                  <div class="video-card-body">
+                    <span class="video-tag">Wisata Bahari</span>
+                    <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
+                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari dan snorkeling di perairan jernih.</p>
+                  </div>
+                </article>
+              @endforelse
             </div>
 
-            <!-- Group 2: Duplikasi 4 Video Cards untuk Seamless Infinite Loop -->
+            <!-- Group 2: Duplikasi Video Cards untuk Seamless Infinite Loop -->
             <div class="video-marquee-group" aria-hidden="true">
-              <!-- Video 1 (Clone) -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:33</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Wisata Bahari & Snorkeling</span>
-                  <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
-                  <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari, snorkeling di perairan jernih, dan kebersamaan hangat peserta trip.</p>
-                </div>
-              </article>
-
-              <!-- Video 2 (Clone) -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video2-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video2.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 00:59</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Study Tour & Edukasi</span>
-                  <h3 class="video-title">Keceriaan Agenda Study Tour Edukasi Pelajar</h3>
-                  <p class="video-desc">Pendampingan penuh kehangatan oleh tim tour leader Nirwana Tour dalam membimbing siswa belajar dan berpetualang dengan riang gembira.</p>
-                </div>
-              </article>
-
-              <!-- Video 3 (Clone) -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video3-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video3.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:00</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Momen Liburan Tropis</span>
-                  <h3 class="video-title">Eksplorasi Panorama & Keindahan Bahari Tropis</h3>
-                  <p class="video-desc">Menyusuri deburan ombak dan pesona alam nusantara, menghadirkan memori manis dan cerita tak terlupakan bagi setiap rombongan wisatawan.</p>
-                </div>
-              </article>
-
-              <!-- Video 4 (Clone) -->
-              <article class="video-card">
-                <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ asset('assets/images/galeri/video4-poster.jpg') }}">
-                    <source src="{{ asset('assets/images/galeri/video4.mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge"><i class="fa-solid fa-clock"></i> 01:15</div>
-                </div>
-                <div class="video-card-body">
-                  <span class="video-tag">Gathering & Outbound</span>
-                  <h3 class="video-title">Keseruan Outbound & Gathering Perusahaan</h3>
-                  <p class="video-desc">Aktivitas fun team building, kekompakan karyawan instansi, dan malam kebersamaan rombongan yang penuh tawa dan keakraban.</p>
-                </div>
-              </article>
+              @forelse($galleryVideos as $video)
+                <article class="video-card">
+                  <div class="video-player-wrapper">
+                    <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>
+                      <source src="{{ $video->file_url }}" type="video/mp4">
+                      Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                  </div>
+                  <div class="video-card-body">
+                    <span class="video-tag">{{ $video->caption ?? 'Dokumentasi Tour' }}</span>
+                    <h3 class="video-title">{{ $video->title }}</h3>
+                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
+                  </div>
+                </article>
+              @empty
+                <article class="video-card">
+                  <div class="video-player-wrapper">
+                    <video class="gallery-video" controls playsinline preload="none" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
+                      <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
+                      Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                  </div>
+                  <div class="video-card-body">
+                    <span class="video-tag">Wisata Bahari</span>
+                    <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
+                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari dan snorkeling di perairan jernih.</p>
+                  </div>
+                </article>
+              @endforelse
             </div>
 
           </div>
@@ -1587,7 +683,7 @@
     </section>
 
     <!-- ========================================================
-         6.5 ARTIKEL & TIPS WISATA SECTION
+         6.5 ARTIKEL & TIPS WISATA SECTION (DINAMIS DARI DATABASE)
          ======================================================== -->
     <section class="section articles-section" id="artikel">
       <div class="container">
@@ -1602,9 +698,9 @@
             <article class="article-card">
               <div class="article-thumb">
                 <a href="{{ route('posts.show', $post->slug) }}" style="display: block; width: 100%; height: 100%;">
-                  <img src="{{ $post->cover_image ? asset($post->cover_image) : asset('assets/images/destinasi/pahawang.jpg') }}" alt="{{ $post->title }}" class="article-img" loading="lazy">
+                  <img src="{{ $post->cover_image_url }}" alt="{{ $post->title }}" class="article-img" loading="lazy">
                 </a>
-                <span class="article-tag">{{ $post->category->name ?? 'Tips Wisata' }}</span>
+                <span class="article-tag">{{ $post->category_name ?: ($post->category->name ?? 'Tips Wisata') }}</span>
               </div>
               <div class="article-body">
                 <div class="article-meta">
@@ -1648,7 +744,7 @@
     </section>
 
     <!-- ========================================================
-         8. TESTIMONI WISATAWAN (CERITA BAHAGIA WISATAWAN)
+         8. TESTIMONI WISATAWAN (DINAMIS DARI DATABASE)
          ======================================================== -->
     <section class="section testimonials-section" id="testimoni">
       <div class="container">
@@ -1661,8 +757,30 @@
               Pengalaman nyata dari sekolah, instansi, BUMN, dan keluarga yang telah mempercayakan perjalanan liburan serta agenda rombongannya kepada kami.
             </p>
 
+            @if(session('review_success'))
+              <div style="background: #ECFDF5; border: 1px solid #10B981; color: #065F46; padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 1.2rem; color: #10B981;"></i>
+                <span>{{ session('review_success') }}</span>
+              </div>
+            @endif
+
             <!-- Social Proof Trust Card -->
             <div class="testi-trust-card">
+              <!-- Google Reviews Badge -->
+              <div class="google-review-badge" style="display: flex; align-items: center; gap: 12px; background: #FFFFFF; border: 1px solid #E2E8F0; padding: 12px 16px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);">
+                <i class="fa-brands fa-google" style="font-size: 1.8rem; color: #4285F4;"></i>
+                <div style="line-height: 1.35;">
+                  <div style="font-size: 0.92rem; font-weight: 800; color: #0F172A; display: flex; align-items: center; gap: 6px;">
+                    <span>{{ $settings['google_maps_rating'] ?? '4.9' }}</span>
+                    <span style="color: #F59E0B; font-size: 0.85rem;">★★★★★</span>
+                    <span style="font-size: 0.78rem; color: #64748B; font-weight: 600;">({{ $settings['google_maps_reviews_count'] ?? '250+' }} Ulasan Google)</span>
+                  </div>
+                  <a href="{{ $settings['google_maps_review_url'] ?? 'https://maps.google.com/?q=Nirwana+Tour+Lampung' }}" target="_blank" rel="noopener noreferrer" style="font-size: 0.8rem; color: #2563EB; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 2px;">
+                    Lihat Review Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.68rem;"></i>
+                  </a>
+                </div>
+              </div>
+
               <div class="trust-card-score">
                 <span class="trust-number">4.9</span>
                 <div class="trust-stars-wrap">
@@ -1692,158 +810,104 @@
                 </div>
               </div>
 
-              <div class="trust-card-cta">
+              <div class="trust-card-cta" style="display: flex; gap: 12px; flex-wrap: wrap;">
                 <a href="#kontak" class="btn btn-primary btn-md">
-                  <span>Konsultasi Liburan Rombongan</span>
+                  <span>Konsultasi Liburan</span>
                   <i class="fa-solid fa-arrow-right"></i>
                 </a>
+                <button type="button" class="btn btn-outline-primary btn-md" onclick="document.getElementById('reviewModal').style.display='flex'">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <span>Beri Ulasan Anda</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <!-- SISI KANAN: Testimoni Berjalan Kebawah (Vertical Downward Marquee) -->
+          <!-- SISI KANAN: Testimoni Berjalan Kebawah (Vertical Downward Marquee Dinamis) -->
           <div class="testimonials-right-col">
             <div class="testimonials-viewport" id="testimonialsViewport">
+              @php
+                $testiHalf = max(1, (int) ceil($testimonials->count() / 2));
+                $testiCol1 = $testimonials->slice(0, $testiHalf);
+                $testiCol2 = $testimonials->slice($testiHalf);
+                if ($testiCol2->isEmpty()) {
+                    $testiCol2 = $testiCol1;
+                }
+              @endphp
+
               <div class="testi-track-grid">
                 <!-- Kolom Track 1: Bergerak Kebawah -->
                 <div class="testi-col-track track-col-1">
                   <div class="testi-track-inner">
-                    <!-- Group 1 -->
                     <div class="testi-group">
-                      <!-- Card 1: Sekolah -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-1">RJ</div>
-                            <div>
-                              <h4 class="author-name">Dra. Hj. Ratna Juwita, M.Pd</h4>
-                              <p class="author-role">Kepala SMA Negeri di Bandar Lampung</p>
+                      @foreach($testiCol1 as $testi)
+                        <div class="testimonial-card">
+                          <div class="testimonial-card-top">
+                            <div class="testi-author">
+                              @if($testi->avatar)
+                                <img src="{{ $testi->avatar_url }}" alt="{{ $testi->client_name }}" loading="lazy" decoding="async" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                              @else
+                                <div class="author-avatar avatar-{{ ($loop->index % 4) + 1 }}">
+                                  {{ strtoupper(substr($testi->client_name, 0, 2)) }}
+                                </div>
+                              @endif
+                              <div>
+                                <h4 class="author-name">{{ $testi->client_name }}</h4>
+                                <p class="author-role">{{ $testi->role ? $testi->role . ' - ' : '' }}{{ $testi->organization }}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Pelayanan Nirwana Tour sangat profesional dan amanah saat mendampingi study tour 120 siswa kami ke Yogyakarta. Kunjungan edukasi tepat waktu, armada bus executive prima, serta tour leader sigap mengayomi siswa."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-graduation-cap"></i> Study Tour Edukasi (120 Siswa)
-                        </div>
-                      </div>
-
-                      <!-- Card 2: BUMN / Corporate -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-2">DW</div>
-                            <div>
-                              <h4 class="author-name">Dimas Wicaksono, S.T.</h4>
-                              <p class="author-role">Ketua Panitia Gathering BUMN Lampung</p>
-                            </div>
+                          <p class="testi-text">
+                            "{{ $testi->comment }}"
+                          </p>
+                          <div class="testi-stars">
+                            @for($s = 0; $s < ($testi->rating ?? 5); $s++)
+                              <i class="fa-solid fa-star"></i>
+                            @endfor
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Employee gathering perusahaan kami ke Teluk Kiluan terlaksana sukses dan sangat berkesan. Kegiatan outbound seru, akomodasi bersih dan nyaman, serta koordinasi tim di lapangan sangat rapi."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-people-group"></i> Corporate Gathering (45 Peserta)
-                        </div>
-                      </div>
-
-                      <!-- Card 3: Keluarga Luar Kota -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-3">HK</div>
-                            <div>
-                              <h4 class="author-name">dr. Hendra Kurniawan, Sp.A</h4>
-                              <p class="author-role">Wisatawan Keluarga (Jakarta)</p>
+                          @if($testi->trip_name)
+                            <div class="testi-trip-badge">
+                              <i class="fa-solid fa-location-dot"></i> {{ $testi->trip_name }}
                             </div>
-                          </div>
+                          @endif
                         </div>
-                        <p class="testi-text">
-                          "Liburan keluarga besar kami ke Pulau Pahawang terasa sangat praktis dan menyenangkan. Layanan penjemputan di Bandara Radin Inten II tepat waktu dengan armada HiAce Premio yang bersih dan nyaman."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-umbrella-beach"></i> Family Private Trip Pahawang
-                        </div>
-                      </div>
+                      @endforeach
                     </div>
 
                     <!-- Group 1 Clone (Infinite Loop) -->
                     <div class="testi-group" aria-hidden="true">
-                      <!-- Card 1: Sekolah -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-1">RJ</div>
-                            <div>
-                              <h4 class="author-name">Dra. Hj. Ratna Juwita, M.Pd</h4>
-                              <p class="author-role">Kepala SMA Negeri di Bandar Lampung</p>
+                      @foreach($testiCol1 as $testi)
+                        <div class="testimonial-card">
+                          <div class="testimonial-card-top">
+                            <div class="testi-author">
+                              @if($testi->avatar)
+                                <img src="{{ $testi->avatar_url }}" alt="{{ $testi->client_name }}" loading="lazy" decoding="async" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                              @else
+                                <div class="author-avatar avatar-{{ ($loop->index % 4) + 1 }}">
+                                  {{ strtoupper(substr($testi->client_name, 0, 2)) }}
+                                </div>
+                              @endif
+                              <div>
+                                <h4 class="author-name">{{ $testi->client_name }}</h4>
+                                <p class="author-role">{{ $testi->role ? $testi->role . ' - ' : '' }}{{ $testi->organization }}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Pelayanan Nirwana Tour sangat profesional dan amanah saat mendampingi study tour 120 siswa kami ke Yogyakarta. Kunjungan edukasi tepat waktu, armada bus executive prima, serta tour leader sigap mengayomi siswa."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-graduation-cap"></i> Study Tour Edukasi (120 Siswa)
-                        </div>
-                      </div>
-
-                      <!-- Card 2: BUMN / Corporate -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-2">DW</div>
-                            <div>
-                              <h4 class="author-name">Dimas Wicaksono, S.T.</h4>
-                              <p class="author-role">Ketua Panitia Gathering BUMN Lampung</p>
-                            </div>
+                          <p class="testi-text">
+                            "{{ $testi->comment }}"
+                          </p>
+                          <div class="testi-stars">
+                            @for($s = 0; $s < ($testi->rating ?? 5); $s++)
+                              <i class="fa-solid fa-star"></i>
+                            @endfor
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Employee gathering perusahaan kami ke Teluk Kiluan terlaksana sukses dan sangat berkesan. Kegiatan outbound seru, akomodasi bersih dan nyaman, serta koordinasi tim di lapangan sangat rapi."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-people-group"></i> Corporate Gathering (45 Peserta)
-                        </div>
-                      </div>
-
-                      <!-- Card 3: Keluarga Luar Kota -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-3">HK</div>
-                            <div>
-                              <h4 class="author-name">dr. Hendra Kurniawan, Sp.A</h4>
-                              <p class="author-role">Wisatawan Keluarga (Jakarta)</p>
+                          @if($testi->trip_name)
+                            <div class="testi-trip-badge">
+                              <i class="fa-solid fa-location-dot"></i> {{ $testi->trip_name }}
                             </div>
-                          </div>
+                          @endif
                         </div>
-                        <p class="testi-text">
-                          "Liburan keluarga besar kami ke Pulau Pahawang terasa sangat praktis dan menyenangkan. Layanan penjemputan di Bandara Radin Inten II tepat waktu dengan armada HiAce Premio yang bersih dan nyaman."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-umbrella-beach"></i> Family Private Trip Pahawang
-                        </div>
-                      </div>
+                      @endforeach
                     </div>
                   </div>
                 </div>
@@ -1851,145 +915,79 @@
                 <!-- Kolom Track 2: Bergerak Kebawah -->
                 <div class="testi-col-track track-col-2">
                   <div class="testi-track-inner">
-                    <!-- Group 2 -->
                     <div class="testi-group">
-                      <!-- Card 4: Instansi / Kedinasan -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-4">NH</div>
-                            <div>
-                              <h4 class="author-name">Nurdin Hidayat, S.Sos., M.M.</h4>
-                              <p class="author-role">Koordinator Kunker Instansi Kedinasan</p>
+                      @foreach($testiCol2 as $testi)
+                        <div class="testimonial-card">
+                          <div class="testimonial-card-top">
+                            <div class="testi-author">
+                              @if($testi->avatar)
+                                <img src="{{ $testi->avatar_url }}" alt="{{ $testi->client_name }}" loading="lazy" decoding="async" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                              @else
+                                <div class="author-avatar avatar-{{ (($loop->index + 2) % 4) + 1 }}">
+                                  {{ strtoupper(substr($testi->client_name, 0, 2)) }}
+                                </div>
+                              @endif
+                              <div>
+                                <h4 class="author-name">{{ $testi->client_name }}</h4>
+                                <p class="author-role">{{ $testi->role ? $testi->role . ' - ' : '' }}{{ $testi->organization }}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Agenda study banding dan capacity building tim kami ke Bromo & Malang berjalan tertib, aman, dan sangat berkesan. Nirwana Tour sangat profesional dalam penyusunan SPJ administrasi resmi dinas."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-landmark"></i> Capacity Building & Kunker (35 Peserta)
-                        </div>
-                      </div>
-
-                      <!-- Card 5: Corporate Gathering HRD -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-2">RD</div>
-                            <div>
-                              <h4 class="author-name">Ratna Dewi Kusuma</h4>
-                              <p class="author-role">Divisi HRD Bank Mandiri Area Lampung</p>
-                            </div>
+                          <p class="testi-text">
+                            "{{ $testi->comment }}"
+                          </p>
+                          <div class="testi-stars">
+                            @for($s = 0; $s < ($testi->rating ?? 5); $s++)
+                              <i class="fa-solid fa-star"></i>
+                            @endfor
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Family gathering tahunan karyawan di Pulau Pahawang sangat sukses! Games outbound-nya seru, makanan seafood segar melimpah, serta dokumentasi drone dan foto underwater-nya luar biasa."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-building"></i> Company Gathering Pahawang
-                        </div>
-                      </div>
-
-                      <!-- Card 6: Reuni & Sewa Bus Pariwisata -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-3">BP</div>
-                            <div>
-                              <h4 class="author-name">Budi Prasetyo, S.T.</h4>
-                              <p class="author-role">Ikatan Alumni Universitas Lampung</p>
+                          @if($testi->trip_name)
+                            <div class="testi-trip-badge">
+                              <i class="fa-solid fa-location-dot"></i> {{ $testi->trip_name }}
                             </div>
-                          </div>
+                          @endif
                         </div>
-                        <p class="testi-text">
-                          "Pelayanan sewa bus pariwisatanya istimewa. Kondisi armada Big Bus Jetbus sangat bersih, AC dingin, dan suspensi empuk untuk perjalanan jauh ke Bromo-Malang. Sangat terpercaya."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-bus"></i> Reuni & Overland Trip Bromo
-                        </div>
-                      </div>
+                      @endforeach
                     </div>
 
                     <!-- Group 2 Clone (Infinite Loop) -->
                     <div class="testi-group" aria-hidden="true">
-                      <!-- Card 4: Instansi / Kedinasan -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-4">NH</div>
-                            <div>
-                              <h4 class="author-name">Nurdin Hidayat, S.Sos., M.M.</h4>
-                              <p class="author-role">Koordinator Kunker Instansi Kedinasan</p>
+                      @foreach($testiCol2 as $testi)
+                        <div class="testimonial-card">
+                          <div class="testimonial-card-top">
+                            <div class="testi-author">
+                              @if($testi->avatar)
+                                <img src="{{ $testi->avatar_url }}" alt="{{ $testi->client_name }}" loading="lazy" decoding="async" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                              @else
+                                <div class="author-avatar avatar-{{ (($loop->index + 2) % 4) + 1 }}">
+                                  {{ strtoupper(substr($testi->client_name, 0, 2)) }}
+                                </div>
+                              @endif
+                              <div>
+                                <h4 class="author-name">{{ $testi->client_name }}</h4>
+                                <p class="author-role">{{ $testi->role ? $testi->role . ' - ' : '' }}{{ $testi->organization }}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Agenda study banding dan capacity building tim kami ke Bromo & Malang berjalan tertib, aman, dan sangat berkesan. Nirwana Tour sangat profesional dalam penyusunan SPJ administrasi resmi dinas."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-landmark"></i> Capacity Building & Kunker (35 Peserta)
-                        </div>
-                      </div>
-
-                      <!-- Card 5: Corporate Gathering HRD -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-2">RD</div>
-                            <div>
-                              <h4 class="author-name">Ratna Dewi Kusuma</h4>
-                              <p class="author-role">Divisi HRD Bank Mandiri Area Lampung</p>
-                            </div>
+                          <p class="testi-text">
+                            "{{ $testi->comment }}"
+                          </p>
+                          <div class="testi-stars">
+                            @for($s = 0; $s < ($testi->rating ?? 5); $s++)
+                              <i class="fa-solid fa-star"></i>
+                            @endfor
                           </div>
-                        </div>
-                        <p class="testi-text">
-                          "Family gathering tahunan karyawan di Pulau Pahawang sangat sukses! Games outbound-nya seru, makanan seafood segar melimpah, serta dokumentasi drone dan foto underwater-nya luar biasa."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-building"></i> Company Gathering Pahawang
-                        </div>
-                      </div>
-
-                      <!-- Card 6: Reuni & Sewa Bus Pariwisata -->
-                      <div class="testimonial-card">
-                        <div class="testimonial-card-top">
-                          <div class="testi-author">
-                            <div class="author-avatar avatar-3">BP</div>
-                            <div>
-                              <h4 class="author-name">Budi Prasetyo, S.T.</h4>
-                              <p class="author-role">Ikatan Alumni Universitas Lampung</p>
+                          @if($testi->trip_name)
+                            <div class="testi-trip-badge">
+                              <i class="fa-solid fa-location-dot"></i> {{ $testi->trip_name }}
                             </div>
-                          </div>
+                          @endif
                         </div>
-                        <p class="testi-text">
-                          "Pelayanan sewa bus pariwisatanya istimewa. Kondisi armada Big Bus Jetbus sangat bersih, AC dingin, dan suspensi empuk untuk perjalanan jauh ke Bromo-Malang. Sangat terpercaya."
-                        </p>
-                        <div class="testi-stars">
-                          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <div class="testi-trip-badge">
-                          <i class="fa-solid fa-bus"></i> Reuni & Overland Trip Bromo
-                        </div>
-                      </div>
+                      @endforeach
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
             <div class="testi-hint">
@@ -1999,113 +997,80 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ========================================================
-         FAQ (PERTANYAAN YANG SERING DIAJUKAN - DISEMBUNYIKAN)
-         ======================================================== -->
-    <section class="section faq-section bg-alt" id="faq" style="display: none;" aria-hidden="true">
-      <div class="container">
-        <div class="section-header text-center">
-          <div class="section-tag"><i class="fa-solid fa-circle-question"></i> Bantuan & Informasi</div>
-          <h2 class="section-title">Pertanyaan yang Sering Diajukan (FAQ)</h2>
-          <p class="section-subtitle">Temukan jawaban cepat seputar pemesanan paket wisata, armada transportasi, fasilitas, dan syarat perjalanan bersama kami.</p>
-        </div>
+      <!-- MODAL TULIS ULASAN / TESTIMONI -->
+      <div id="reviewModal" style="display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative;">
+          <!-- Close Button -->
+          <button type="button" onclick="document.getElementById('reviewModal').style.display='none'" style="position: absolute; top: 20px; right: 20px; border: none; background: #F1F5F9; color: #64748B; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: background 0.2s;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
 
-        <div class="faq-accordion-wrapper">
-          <!-- Item 1 -->
-          <div class="faq-item">
-            <button class="faq-question-btn" type="button" aria-expanded="false">
-              <span>Bagaimana alur pemesanan paket wisata di Nirwana Tour Lampung?</span>
-              <i class="fa-solid fa-chevron-down faq-arrow"></i>
-            </button>
-            <div class="faq-answer-panel">
-              <p>
-                Pemesanan sangat mudah dan cepat! Anda cukup menghubungi konsultan kami via WhatsApp atau mengisi form kontak di website. Tim kami akan mengonfirmasi pilihan destinasi, tanggal berangkat, dan jumlah peserta, lalu mengirimkan proposal penawaran resmi beserta invoice.
-              </p>
+          <div style="margin-bottom: 22px;">
+            <span style="display: inline-block; background: rgba(128,0,32,0.08); color: var(--primary, #800020); font-weight: 700; font-size: 0.78rem; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; margin-bottom: 8px;">
+              Kepuasan Pelanggan
+            </span>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: #0F172A; margin: 0 0 6px 0;">Bagikan Pengalaman Trip Anda</h3>
+            <p style="color: #64748B; font-size: 0.88rem; margin: 0; line-height: 1.5;">
+              Ceritakan keseruan liburan Anda bersama Nirwana Tour Lampung. Ulasan Anda membantu kami terus memberikan pelayanan terbaik!
+            </p>
+          </div>
+
+          <form action="{{ route('testimonial.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="text" name="_hp_check" style="display:none !important;" tabindex="-1" autocomplete="off">
+
+            <!-- Rating Stars Picker -->
+            <div style="margin-bottom: 18px; text-align: center; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 14px;">
+              <label style="display: block; font-size: 0.84rem; font-weight: 700; color: #334155; margin-bottom: 8px;">Berapa Bintang untuk Layanan Kami?</label>
+              <div id="starRatingPicker" style="display: inline-flex; gap: 8px; font-size: 1.6rem; cursor: pointer; color: #F59E0B;">
+                <input type="hidden" name="rating" id="ratingInput" value="5">
+                <i class="fa-solid fa-star star-btn" data-val="1"></i>
+                <i class="fa-solid fa-star star-btn" data-val="2"></i>
+                <i class="fa-solid fa-star star-btn" data-val="3"></i>
+                <i class="fa-solid fa-star star-btn" data-val="4"></i>
+                <i class="fa-solid fa-star star-btn" data-val="5"></i>
+              </div>
+              <div id="ratingText" style="font-size: 0.8rem; font-weight: 600; color: #64748B; margin-top: 4px;">5 / 5 - Luar Biasa Sangat Puas!</div>
             </div>
-          </div>
 
-          <!-- Item 2 -->
-          <div class="faq-item">
-            <button class="faq-question-btn" type="button" aria-expanded="false">
-              <span>Berapa minimal jumlah peserta untuk Private Trip atau Rombongan?</span>
-              <i class="fa-solid fa-chevron-down faq-arrow"></i>
-            </button>
-            <div class="faq-answer-panel">
-              <p>
-                Untuk Private Trip, tidak ada batas minimal. Kami melayani mulai dari pasangan (2 orang), keluarga (4–15 orang), hingga ratusan peserta untuk instansi sekolah maupun kantor. Tanggal dan titik penjemputan bebas Anda tentukan sendiri.
-              </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+              <div>
+                <label style="display: block; font-weight: 600; font-size: 0.84rem; margin-bottom: 5px; color: #334155;">Nama Lengkap *</label>
+                <input type="text" name="client_name" required placeholder="Contoh: Budi Santoso" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.88rem; outline: none;">
+              </div>
+              <div>
+                <label style="display: block; font-weight: 600; font-size: 0.84rem; margin-bottom: 5px; color: #334155;">Instansi / Asal Kota</label>
+                <input type="text" name="organization" placeholder="Contoh: Jakarta / Bank Mandiri" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.88rem; outline: none;">
+              </div>
             </div>
-          </div>
 
-          <!-- Item 3 -->
-          <div class="faq-item">
-            <button class="faq-question-btn" type="button" aria-expanded="false">
-              <span>Apakah melayani penjemputan dari luar kota seperti Jakarta atau Palembang?</span>
-              <i class="fa-solid fa-chevron-down faq-arrow"></i>
-            </button>
-            <div class="faq-answer-panel">
-              <p>
-                Ya, tentu saja! Kami melayani penjemputan dari Bandara Radin Inten II, Stasiun Tanjung Karang, Pelabuhan Bakauheni, maupun penjemputan langsung dari kota asal Anda (Jakarta, Bogor, Tangerang, Bekasi, atau Palembang) menggunakan armada bus pariwisata VIP kami.
-              </p>
+            <div style="margin-bottom: 14px;">
+              <label style="display: block; font-weight: 600; font-size: 0.84rem; margin-bottom: 5px; color: #334155;">Nama Paket / Trip yang Diikuti</label>
+              <input type="text" name="trip_name" placeholder="Contoh: Paket Snorkeling Pahawang 2D1N / Sewa HiAce" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.88rem; outline: none;">
             </div>
-          </div>
 
-          <!-- Item 4 -->
-          <div class="faq-item">
-            <button class="faq-question-btn" type="button" aria-expanded="false">
-              <span>Bagaimana sistem pembayaran dan ketentuan Down Payment (DP)?</span>
-              <i class="fa-solid fa-chevron-down faq-arrow"></i>
-            </button>
-            <div class="faq-answer-panel">
-              <p>
-                Pemesanan resmi dilakukan dengan pembayaran DP sebesar 30%–50% setelah proposal disetujui. Sisa pelunasan dapat dibayarkan H-3 sebelum keberangkatan atau saat hari H penjemputan. Kami menerbitkan kuitansi dan invoice resmi berstempel perusahaan legal.
-              </p>
+            <div style="margin-bottom: 14px;">
+              <label style="display: block; font-weight: 600; font-size: 0.84rem; margin-bottom: 5px; color: #334155;">Ulasan / Kesan Perjalanan Anda *</label>
+              <textarea name="comment" rows="3" required placeholder="Ceritakan bagaimana pelayanan tour leader, armada, makanan, dan keseruan destinasinya..." style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.88rem; outline: none;"></textarea>
             </div>
-          </div>
 
-          <!-- Item 5 -->
-          <div class="faq-item">
-            <button class="faq-question-btn" type="button" aria-expanded="false">
-              <span>Apa saja perlengkapan yang disediakan saat trip snorkeling (misal: Pahawang)?</span>
-              <i class="fa-solid fa-chevron-down faq-arrow"></i>
-            </button>
-            <div class="faq-answer-panel">
-              <p>
-                Paket wisata bahari kami sudah lengkap (All-In): sewa perahu jelajah, pelampung (life jacket), kacamata masker snorkel, pemandu underwater, dokumentasi kamera bawah air GoPro (foto bersama nemo), makan siang prasmanan, air mineral, dan P3K darurat.
-              </p>
+            <div style="margin-bottom: 20px;">
+              <label style="display: block; font-weight: 600; font-size: 0.84rem; margin-bottom: 5px; color: #334155;">Foto Profil / Kenangan Trip (Opsional)</label>
+              <input type="file" name="avatar" accept="image/png,image/jpeg,image/webp" style="width: 100%; font-size: 0.84rem; color: #64748B;">
             </div>
-          </div>
 
-          <!-- Item 6 -->
-          <div class="faq-item">
-            <button class="faq-question-btn" type="button" aria-expanded="false">
-              <span>Bagaimana jika terjadi cuaca ekstrem atau kendala alam (Force Majeure)?</span>
-              <i class="fa-solid fa-chevron-down faq-arrow"></i>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-weight: 700; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Kirim Ulasan Saya</span>
             </button>
-            <div class="faq-answer-panel">
-              <p>
-                Keselamatan wisatawan adalah prioritas mutlak. Jika otoritas pelabuhan/BMKG melarang pelayaran karena cuaca buruk, trip dapat dijadwalkan ulang (*reschedule*) tanpa hangus atau dialihkan ke destinasi darat alternatif secara fleksibel sesuai kesepakatan bersama.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-contact-card">
-          <div class="faq-contact-text">
-            <h4>Punya pertanyaan spesifik lainnya?</h4>
-            <p>Konsultan wisata Nirwana Tour siap membantu dan memberikan solusi perjalanan terbaik untuk Anda.</p>
-          </div>
-          <a href="#" class="btn btn-whatsapp wa-link-btn" data-wa-msg="Halo Nirwana Tour, saya ingin bertanya lebih lanjut mengenai paket wisata.">
-            <i class="fa-brands fa-whatsapp"></i> Chat Admin Sekarang
-          </a>
+          </form>
         </div>
       </div>
     </section>
 
     <!-- ========================================================
-         8. KONTAK SECTION
+         8. KONTAK SECTION (DINAMIS DENGAN PENYIMPANAN DATABASE)
          ======================================================== -->
     <section class="section contact-section bg-alt" id="kontak">
       <div class="container">
@@ -2198,12 +1163,17 @@
             </div>
           </div>
 
-          <!-- Form Kontak Cepat -->
+          <!-- Form Kontak Cepat (Tersimpan ke Database & Langsung WA) -->
           <div class="contact-form-card">
             <h3 class="contact-card-title">Kirim Pesan & Pengajuan Proposal</h3>
-            <p class="form-instruction">Isi formulir ringkas ini untuk langsung mengarahkan pesan terstruktur ke WhatsApp konsultan kami.</p>
+            <p class="form-instruction">Isi formulir ringkas ini. Permintaan Anda otomatis tercatat di sistem kami dan langsung diteruskan ke WhatsApp konsultan.</p>
 
-            <form id="contactForm" class="contact-form">
+            <form action="{{ route('inquiry.store') }}" method="POST" class="contact-form">
+              @csrf
+              <input type="hidden" name="source" value="homepage_contact">
+              {{-- Anti-Spam Honeypot Field --}}
+              <input type="text" name="_hp_security_check" style="display:none !important;" tabindex="-1" autocomplete="off">
+
               <div class="form-group">
                 <label for="formName">Nama Lengkap / Instansi <span class="required">*</span></label>
                 <div class="input-icon-group">
@@ -2222,31 +1192,30 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="formService">Jenis Layanan</label>
+                  <label for="formService">Pilihan Paket / Layanan</label>
                   <div class="input-icon-group">
                     <i class="fa-solid fa-compass"></i>
-                    <select id="formService" name="service" class="form-control">
-                      <option value="Paket Wisata Lampung">Paket Wisata Lampung</option>
-                      <option value="Study Tour Sekolah">Study Tour Sekolah</option>
-                      <option value="Gathering Perusahaan">Gathering Perusahaan</option>
-                      <option value="Sewa Bus & HiAce">Sewa Bus & HiAce Pariwisata</option>
-                      <option value="Custom Trip Rombongan">Custom Trip Rombongan</option>
+                    <select id="formService" name="tour_package_id" class="form-control">
+                      <option value="">-- Pilih Paket Wisata / Layanan --</option>
+                      @foreach($packages as $pkg)
+                        <option value="{{ $pkg->id }}">{{ $pkg->title }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="formParticipants">Estimasi Jumlah Peserta & Rencana Tanggal</label>
+                <label for="formParticipants">Estimasi Jumlah Peserta</label>
                 <div class="input-icon-group">
-                  <i class="fa-solid fa-calendar-days"></i>
-                  <input type="text" id="formParticipants" name="details" class="form-control" placeholder="Contoh: 35 Orang, rencana tgl 20 November">
+                  <i class="fa-solid fa-users"></i>
+                  <input type="number" id="formParticipants" name="participants" class="form-control" placeholder="Contoh: 35" min="1" value="1">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="formNotes">Catatan / Kebutuhan Khusus</label>
-                <textarea id="formNotes" name="notes" class="form-control" rows="3" placeholder="Tuliskan tujuan yang diinginkan atau fasilitas khusus yang dibutuhkan..."></textarea>
+                <label for="formNotes">Catatan / Rencana Tanggal Keberangkatan</label>
+                <textarea id="formNotes" name="message" class="form-control" rows="3" placeholder="Tuliskan tanggal rencana liburan atau kebutuhan fasilitas khusus..."></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary btn-block btn-lg contact-submit-btn">

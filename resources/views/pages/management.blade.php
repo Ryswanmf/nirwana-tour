@@ -31,7 +31,10 @@
           <!-- Foto Pimpinan -->
           <div class="story-media">
             <div class="about-img-wrapper" style="max-width: 440px;">
-              <img src="{{ asset('assets/images/pemilik-nirwana.JPG') }}" alt="Pimpinan & Founder Nirwana Tour - Kiki M Alfin" class="about-main-img" style="height: 480px; object-position: center top;">
+              <picture>
+                <source srcset="{{ asset('assets/images/pemilik-nirwana.webp') }}" type="image/webp">
+                <img src="{{ asset('assets/images/pemilik-nirwana.JPG') }}" alt="Pimpinan & Founder Nirwana Tour - Kiki M Alfin" class="about-main-img" loading="lazy" decoding="async" style="height: 480px; object-position: center top;">
+              </picture>
               <div class="about-founder-label">
                 <strong>Kiki M Alfin</strong>
                 <span>Pimpinan & Founder Nirwana Tour Lampung</span>
@@ -90,73 +93,40 @@
         </div>
 
         <div class="team-grid">
-          <!-- Tim 1: Pimpinan & Founder -->
-          <div class="team-card">
-            <div class="team-card-header">
-              <h3 class="team-name">Kiki M Alfin</h3>
-              <p class="team-role">Pimpinan & Founder @ Nirwana Tour</p>
+          @forelse($teamMembers as $member)
+            <div class="team-card">
+              <div class="team-card-header">
+                <h3 class="team-name">{{ $member->name }}</h3>
+                <p class="team-role">{{ $member->role }}</p>
+              </div>
+              <div class="team-photo-wrap">
+                <img src="{{ $member->photo_url }}" alt="{{ $member->name }}" class="team-photo" loading="lazy" decoding="async">
+              </div>
+              <div class="team-social-links">
+                @if($member->linkedin_url)
+                  <a href="{{ $member->linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                @endif
+                @if($member->facebook_url)
+                  <a href="{{ $member->facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                @endif
+                @if($member->tiktok_url)
+                  <a href="{{ $member->tiktok_url }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                @endif
+                @if($member->twitter_url)
+                  <a href="{{ $member->twitter_url }}" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                @endif
+                @if(!$member->linkedin_url && !$member->facebook_url && !$member->tiktok_url && !$member->twitter_url)
+                  <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['whatsapp_number'] ?? '6282269616188') }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin berkonsultasi dengan ' . $member->name) }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </a>
+                @endif
+              </div>
             </div>
-            <div class="team-photo-wrap">
-              <img src="{{ asset('assets/images/pemilik-nirwana.JPG') }}" alt="Pimpinan & Founder Nirwana Tour - Kiki M Alfin" class="team-photo">
+          @empty
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: #FFF; border-radius: 12px;">
+              <p style="color: #64748b;">Belum ada data anggota tim yang dipublikasikan saat ini.</p>
             </div>
-            <div class="team-social-links">
-              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-            </div>
-          </div>
-
-          <!-- Tim 2: Tim Tour Leader & Guide HPI -->
-          <div class="team-card">
-            <div class="team-card-header">
-              <h3 class="team-name">Tim Tour Leader & Guide</h3>
-              <p class="team-role">Head Tour Guide @ HPI Lampung</p>
-            </div>
-            <div class="team-photo-wrap">
-              <img src="{{ asset('assets/images/galeri/galeri-1.jpg') }}" alt="Tim Tour Leader Bersertifikat HPI" class="team-photo">
-            </div>
-            <div class="team-social-links">
-              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-            </div>
-          </div>
-
-          <!-- Tim 3: Koordinator Wisata Bahari -->
-          <div class="team-card">
-            <div class="team-card-header">
-              <h3 class="team-name">Koordinator Wisata Bahari</h3>
-              <p class="team-role">Marine Safety Specialist @ Teluk Lampung</p>
-            </div>
-            <div class="team-photo-wrap">
-              <img src="{{ asset('assets/images/galeri/galeri-3.jpg') }}" alt="Koordinator Wisata Bahari" class="team-photo">
-            </div>
-            <div class="team-social-links">
-              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-            </div>
-          </div>
-
-          <!-- Tim 4: Customer Care & Reservasi -->
-          <div class="team-card">
-            <div class="team-card-header">
-              <h3 class="team-name">Konsultan Wisata & Reservasi</h3>
-              <p class="team-role">Customer Care & Trip Planner @ Nirwana Tour</p>
-            </div>
-            <div class="team-photo-wrap">
-              <img src="{{ asset('assets/images/galeri/galeri-5.jpg') }}" alt="Trip Consultant & Reservasi" class="team-photo">
-            </div>
-            <div class="team-social-links">
-              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-            </div>
-          </div>
+          @endforelse
         </div>
       </div>
     </section>

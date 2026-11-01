@@ -131,15 +131,15 @@
         </div>
 
         @if($posts->count() > 0)
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px;">
+          <div class="articles-grid">
             @foreach($posts as $post)
               <article class="article-card">
                 <div class="article-thumb">
-                  <img src="{{ $post->cover_image ? asset($post->cover_image) : asset('assets/images/destinasi/pahawang.jpg') }}" 
+                  <img src="{{ $post->cover_image_url }}" 
                        alt="{{ $post->title }}" 
                        class="article-img"
                        loading="lazy">
-                  <span class="article-tag">{{ $post->category->name ?? 'Info Wisata' }}</span>
+                  <span class="article-tag">{{ $post->category_name ?: ($post->category->name ?? 'Info Wisata') }}</span>
                 </div>
                 <div class="article-body">
                   <div class="article-meta">

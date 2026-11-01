@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewInquiryReceived;
 use App\Models\Inquiry;
 use App\Models\SiteSetting;
 use App\Models\TourPackage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class InquiryController extends Controller
 {
     public function store(Request $request): RedirectResponse
     {
+        // 1. Honeypot Anti-Spam Check
+        if ($request->filled('_hp_security_check')) {
+            $waNumber = SiteSetting::get('whatsapp_number', '6282269616188');
+            $cleanWa = preg_replace('/[^0-9]/', '', $waNumber);
+            return redirect()->away("https://wa.me/{$cleanWa}");
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'phone' => 'required|string|max:30',
@@ -47,7 +57,37 @@ class InquiryController extends Controller
             'status' => 'pending',
         ]);
 
-        // Build WhatsApp redirect link
+        // 2. Kirim Notifikasi Email Otomatis ke Tim Admin (Non-blocking)
+        try {
+            $adminEmail = SiteSetting::get('email', config('mail.from.address', 'info@nirwanatour.com'));
+            if ($adminEmail) {
+                Mail::to($adminEmail)->send(new NewInquiryReceived($inquiry));
+            }
+        } catch (\Throwable $e) {
+            Log::info('Pengiriman email leads baru dilewati / gagal: ' . $e->getMessage());
+        }
+
+        // 3. Notifikasi Database ke Admin Panel Filament
+        try {
+            $admins = \App\Models\User::all();
+            if ($admins->isNotEmpty()) {
+                \Filament\Notifications\Notification::make()
+                    ->title('Permintaan Pesanan Baru!')
+                    ->icon('heroicon-o-shopping-bag')
+                    ->iconColor('success')
+                    ->body("{$inquiry->name} mengirim konsultasi untuk {$inquiry->package_name} ({$inquiry->participants} orang).")
+                    ->actions([
+                        \Filament\Notifications\Actions\Action::make('view')
+                            ->label('Buka Detail')
+                            ->url(route('filament.admin.resources.inquiries.edit', $inquiry->id)),
+                    ])
+                    ->sendToDatabase($admins);
+            }
+        } catch (\Throwable $e) {
+            Log::info('Notifikasi database admin dilewati: ' . $e->getMessage());
+        }
+
+        // 4. Bangun tautan WhatsApp redirect resmi
         $waNumber = SiteSetting::get('whatsapp_number', '6282269616188');
         $cleanWa = preg_replace('/[^0-9]/', '', $waNumber);
 
