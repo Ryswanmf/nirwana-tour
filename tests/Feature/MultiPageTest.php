@@ -395,6 +395,17 @@ class MultiPageTest extends TestCase
         $this->assertTrue(str_contains($adminResponse->headers->get('content-disposition'), 'attachment'));
     }
 
+    public function test_admin_storage_link_requires_auth(): void
+    {
+        $guestResponse = $this->get('/admin/storage-link');
+        $guestResponse->assertRedirect(route('login'));
+
+        $admin = \App\Models\User::first();
+        $adminResponse = $this->actingAs($admin)->get('/admin/storage-link');
+        $adminResponse->assertStatus(200);
+        $adminResponse->assertSee('Storage link berhasil dibuat');
+    }
+
     public function test_admin_sidebar_and_navbar_have_logo_and_reorganized_groups(): void
     {
         $admin = \App\Models\User::first();

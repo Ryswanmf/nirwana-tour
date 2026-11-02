@@ -91,3 +91,49 @@ Route::get('/admin/backup-database', function () {
     }
     return response()->download($files[0]->getPathname());
 })->middleware(['web', 'auth'])->name('admin.backup.download');
+
+// Buat Symlink Storage Khusus Admin (Bermanfaat jika hosting tanpa terminal SSH)
+Route::get('/admin/storage-link', function () {
+    if (!auth()->check()) {
+        abort(403, 'Akses ditolak.');
+    }
+
+    $target = storage_path('app/public');
+    $link = public_path('storage');
+    $messages = [];
+
+    // 1. Coba buat symlink standar Laravel
+    try {
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        $messages[] = 'Perintah storage:link berhasil dijalankan.';
+    } catch (\Throwable $e) {
+        $messages[] = 'Perintah storage:link gagal: ' . $e->getMessage();
+    }
+
+    // 2. Jika symlink tidak terbentuk atau hosting mematikan fungsi symlink(), salin fisik folder ke public
+    if (!is_link($link)) {
+        if (!file_exists($link)) {
+            \Illuminate\Support\Facades\File::makeDirectory($link, 0755, true, true);
+        }
+        if (is_dir($link)) {
+            \Illuminate\Support\Facades\File::copyDirectory($target, $link);
+            $messages[] = 'Folder fisik storage dan seluruh gambar/video berhasil disinkronkan langsung ke: ' . htmlspecialchars($link);
+        }
+    } else {
+        $messages[] = 'Symlink aktif dan terhubung ke: ' . htmlspecialchars($link);
+    }
+
+    $outputHtml = '<div style="font-family:sans-serif;padding:30px;line-height:1.6;">';
+    $outputHtml .= '<h2 style="color:#0f766e;">Storage link berhasil dibuat!</h2>';
+    $outputHtml .= '<ul>';
+    foreach ($messages as $msg) {
+        $outputHtml .= '<li>' . $msg . '</li>';
+    }
+    $outputHtml .= '</ul>';
+    $outputHtml .= '<p style="color:#16a34a;font-weight:bold;">Gambar dan video siap dimuat di website!</p>';
+    $outputHtml .= '<p><a href="/admin" style="display:inline-block;padding:10px 20px;background:#0f766e;color:#fff;text-decoration:none;border-radius:6px;">Kembali ke Dashboard Admin</a></p>';
+    $outputHtml .= '</div>';
+
+    return response($outputHtml);
+})->middleware(['web', 'auth'])->name('admin.storage.link');
+
