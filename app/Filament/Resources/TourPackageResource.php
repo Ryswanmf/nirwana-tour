@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TourPackageResource\Pages;
+use App\Helpers\ImageOptimizer;
 use App\Models\TourPackage;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,17 +16,22 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class TourPackageResource extends Resource
 {
@@ -186,26 +192,63 @@ class TourPackageResource extends Resource
                     ->schema([
                         Grid::make(2)->schema([
                             FileUpload::make('thumbnail')
-                                ->label('Foto Thumbnail / Banner')
+                                ->label('Foto Thumbnail / Sampul Utama')
                                 ->image()
                                 ->directory('packages')
-                                ->imageResizeMode('cover')
-                                ->imageResizeTargetWidth('1280')
-                                ->imageResizeTargetHeight('720')
-                                ->maxSize(5120)
-                                ->imageEditor(),
+                                ->maxSize(51200)
+                                ->helperText('Maksimal ukuran berkas hingga 50 MB. Gambar otomatis dikompresi prima.')
+                                ->imageEditor()
+                                ->saveUploadedFileUsing(function (BaseFileUpload $component, TemporaryUploadedFile $file) {
+                                    $storeMethod = $component->getVisibility() === 'public' ? 'storePubliclyAs' : 'storeAs';
+                                    $path = $file->{$storeMethod}(
+                                        $component->getDirectory(),
+                                        $component->getUploadedFileNameForStorage($file),
+                                        $component->getDiskName()
+                                    );
+
+                                    $fullPath = $component->getDisk()->path($path);
+                                    ImageOptimizer::compress($fullPath);
+
+                                    return $path;
+                                }),
                             Grid::make(1)->schema([
                                 Toggle::make('is_featured')
                                     ->label('Tampilkan sebagai Paket Unggulan di Beranda')
+                                    ->helperText('Jika aktif maka paket diprioritaskan di grid destinasi Beranda.')
                                     ->default(false),
                                 Toggle::make('is_active')
                                     ->label('Status Aktif / Dapat Dipesan')
+                                    ->helperText('Jika nonaktif maka paket disembunyikan dari katalog publik.')
                                     ->default(true),
                                 TextInput::make('order')
                                     ->label('Urutan Prioritas Tampil')
                                     ->numeric()
-                                    ->default(0),
+                                    ->default(0)
+                                    ->helperText('Angka lebih kecil tampil lebih awal.'),
                             ]),
+                            FileUpload::make('gallery')
+                                ->label('Galeri Foto Dokumentasi Destinasi (Opsional)')
+                                ->multiple()
+                                ->reorderable()
+                                ->image()
+                                ->directory('packages/gallery')
+                                ->maxSize(51200)
+                                ->maxFiles(8)
+                                ->columnSpanFull()
+                                ->helperText('Unggah beberapa foto dokumentasi tambahan (spot wisata, villa/hotel, kuliner, aktivitas trip) untuk tampil di halaman detail paket.')
+                                ->saveUploadedFileUsing(function (BaseFileUpload $component, TemporaryUploadedFile $file) {
+                                    $storeMethod = $component->getVisibility() === 'public' ? 'storePubliclyAs' : 'storeAs';
+                                    $path = $file->{$storeMethod}(
+                                        $component->getDirectory(),
+                                        $component->getUploadedFileNameForStorage($file),
+                                        $component->getDiskName()
+                                    );
+
+                                    $fullPath = $component->getDisk()->path($path);
+                                    ImageOptimizer::compress($fullPath);
+
+                                    return $path;
+                                }),
                         ]),
                     ]),
             ]);
@@ -222,10 +265,12 @@ class TourPackageResource extends Resource
                     ->label('Nama Paket')
                     ->searchable()
                     ->sortable()
-                    ->weight('bold'),
+                    ->weight('bold')
+                    ->description(fn (TourPackage $record): ?string => $record->destination_location),
                 TextColumn::make('category.name')
                     ->label('Kategori')
                     ->badge()
+                    ->color('info')
                     ->sortable(),
                 TextColumn::make('price_from')
                     ->label('Harga Mulai')
@@ -233,33 +278,71 @@ class TourPackageResource extends Resource
                     ->sortable(),
                 TextColumn::make('duration_label')
                     ->label('Durasi'),
-                IconColumn::make('is_featured')
-                    ->label('Unggulan')
-                    ->boolean()
+                TextColumn::make('inquiries_count')
+                    ->counts('inquiries')
+                    ->label('Pesanan')
+                    ->badge()
+                    ->color('success')
                     ->sortable(),
-                IconColumn::make('is_active')
+                ToggleColumn::make('is_featured')
+                    ->label('Unggulan Beranda')
+                    ->sortable(),
+                ToggleColumn::make('is_active')
                     ->label('Aktif')
-                    ->boolean()
                     ->sortable(),
                 TextColumn::make('order')
                     ->label('Urutan')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y H:i')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('order')
             ->filters([
                 SelectFilter::make('category')
-                    ->relationship('category', 'name', fn (Builder $query) => $query->where('type', 'tour')),
+                    ->relationship('category', 'name', fn (Builder $query) => $query->where('type', 'tour'))
+                    ->label('Kategori'),
                 TernaryFilter::make('is_featured')
-                    ->label('Paket Unggulan'),
+                    ->label('Unggulan Beranda')
+                    ->trueLabel('Hanya Paket Unggulan')
+                    ->falseLabel('Bukan Unggulan'),
                 TernaryFilter::make('is_active')
-                    ->label('Paket Aktif'),
+                    ->label('Status Aktif')
+                    ->trueLabel('Hanya Paket Aktif')
+                    ->falseLabel('Hanya Paket Nonaktif'),
             ])
             ->actions([
+                Action::make('view_on_web')
+                    ->label('Lihat di Web')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->color('gray')
+                    ->url(fn (TourPackage $record): string => route('packages.show', $record->slug))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    BulkAction::make('activate')
+                        ->label('Aktifkan yang Dipilih')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->action(fn (Collection $records) => $records->each->update(['is_active' => true]))
+                        ->deselectRecordsAfterCompletion(),
+                    BulkAction::make('deactivate')
+                        ->label('Nonaktifkan yang Dipilih')
+                        ->icon('heroicon-o-x-circle')
+                        ->color('warning')
+                        ->action(fn (Collection $records) => $records->each->update(['is_active' => false]))
+                        ->deselectRecordsAfterCompletion(),
+                    BulkAction::make('feature')
+                        ->label('Jadikan Unggulan Beranda')
+                        ->icon('heroicon-o-star')
+                        ->color('warning')
+                        ->action(fn (Collection $records) => $records->each->update(['is_featured' => true]))
+                        ->deselectRecordsAfterCompletion(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

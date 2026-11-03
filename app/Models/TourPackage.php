@@ -29,6 +29,40 @@ class TourPackage extends Model
         'order' => 'integer',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function ($package) {
+            if ($package->isDirty('thumbnail') && !empty($package->thumbnail)) {
+                $fullPath = \Illuminate\Support\Facades\Storage::disk('public')->path($package->thumbnail);
+                \App\Helpers\ImageOptimizer::compress($fullPath);
+            }
+
+            if ($package->isDirty('gallery') && !empty($package->gallery) && is_array($package->gallery)) {
+                foreach ($package->gallery as $galleryImg) {
+                    if (!empty($galleryImg)) {
+                        $fullPath = \Illuminate\Support\Facades\Storage::disk('public')->path($galleryImg);
+                        \App\Helpers\ImageOptimizer::compress($fullPath);
+                    }
+                }
+            }
+        });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

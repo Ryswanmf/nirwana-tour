@@ -947,4 +947,81 @@ class MultiPageTest extends TestCase
         // 6. Deleted from database
         $this->assertDatabaseMissing('services', ['slug' => $uniqueSlug]);
     }
+
+    public function test_tour_package_crud_lifecycle_and_frontend_features(): void
+    {
+        $category = \App\Models\Category::firstOrCreate(
+            ['name' => 'Wisata Eksplorasi', 'type' => 'tour'],
+            ['slug' => 'wisata-eksplorasi']
+        );
+
+        $uniqueTitle = 'Paket Eksklusif Uji ' . uniqid();
+        $uniqueSlug = 'paket-eksklusif-uji-' . uniqid();
+
+        // 1. Create package
+        $package = TourPackage::create([
+            'category_id' => $category->id,
+            'title' => $uniqueTitle,
+            'slug' => $uniqueSlug,
+            'badge' => 'Promo Spesial',
+            'destination_location' => 'Krui, Pesisir Barat',
+            'price_from' => 1250000,
+            'duration_days' => 3,
+            'duration_nights' => 2,
+            'min_pax' => 4,
+            'summary' => 'Trip selancar dan penjelajahan pantai eksotis Krui.',
+            'description' => '<p>Pengalaman surfing dan wisata bahari kelas dunia di Lampung Barat.</p>',
+            'itinerary' => [
+                ['day' => 1, 'title' => 'Kedatangan Krui', 'activities' => 'Check-in resort dan santai sore di Pantai Labuhan Jukung.'],
+                ['day' => 2, 'title' => 'Surfing & Pulau Pisang', 'activities' => 'Menyeberang ke Pulau Pisang dan hunting lumba-lumba.'],
+                ['day' => 3, 'title' => 'Oleh-oleh & Kepulangan', 'activities' => 'Beli kopi robusta dan transfer kembali.'],
+            ],
+            'includes' => ['Transport HiAce', 'Resort 2 Malam', 'Kapal Pulau Pisang'],
+            'excludes' => ['Sewa Papan Surfing', 'Tipping Driver'],
+            'faqs' => [
+                ['question' => 'Apakah pemula bisa ikut?', 'answer' => 'Sangat bisa, ada instruktur lokal berpengalaman.'],
+            ],
+            'gallery' => ['packages/gallery/sample1.jpg', 'packages/gallery/sample2.jpg'],
+            'is_featured' => true,
+            'is_active' => true,
+            'order' => 99,
+        ]);
+
+        try {
+            $this->assertDatabaseHas('tour_packages', ['slug' => $uniqueSlug]);
+
+            // 2. Scopes & Accessors work
+            $this->assertEquals('Rp 1.250.000', $package->formatted_price);
+            $this->assertEquals('3D 2N', $package->duration_label);
+            $this->assertTrue(TourPackage::active()->get()->contains('id', $package->id));
+            $this->assertTrue(TourPackage::featured()->get()->contains('id', $package->id));
+
+            // 3. Rendered on catalog (/paket-wisata)
+            $indexRes = $this->get('/paket-wisata');
+            $indexRes->assertStatus(200);
+            $indexRes->assertSee($uniqueTitle);
+            $indexRes->assertSee('Krui, Pesisir Barat');
+            $indexRes->assertSee('1.250.000');
+
+            // 4. Rendered on detail (/paket-wisata/{slug})
+            $detailRes = $this->get("/paket-wisata/{$uniqueSlug}");
+            $detailRes->assertStatus(200);
+            $detailRes->assertSee($uniqueTitle);
+            $detailRes->assertSee('Promo Spesial');
+            $detailRes->assertSee('Kedatangan Krui');
+            $detailRes->assertSee('Transport HiAce');
+            $detailRes->assertSee('Apakah pemula bisa ikut?');
+            $detailRes->assertSee('sample1.jpg');
+
+            // 5. Update package
+            $package->update(['price_from' => 1500000]);
+            $this->assertDatabaseHas('tour_packages', ['id' => $package->id, 'price_from' => 1500000]);
+
+        } finally {
+            $package->delete();
+        }
+
+        // 6. Deleted from database
+        $this->assertDatabaseMissing('tour_packages', ['slug' => $uniqueSlug]);
+    }
 }

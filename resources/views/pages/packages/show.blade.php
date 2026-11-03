@@ -104,13 +104,26 @@
           <!-- KOLOM KIRI: FOTO, DESKRIPSI, ITINERARY, FASILITAS -->
           <div>
             <!-- Foto Utama -->
-            <div style="border-radius: 20px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 6px 25px rgba(0,0,0,0.06); border: 1px solid #E2E8F0;">
+            <div style="border-radius: 20px; overflow: hidden; margin-bottom: 24px; box-shadow: 0 6px 25px rgba(0,0,0,0.06); border: 1px solid #E2E8F0;">
               <img src="{{ $package->thumbnail_url }}"
                    alt="{{ $package->title }}"
                    loading="lazy"
                    decoding="async"
                    style="width: 100%; max-height: 440px; object-fit: cover; display: block;">
             </div>
+
+            <!-- Galeri Foto Pendukung (Jika ada) -->
+            @if(!empty($package->gallery) && is_array($package->gallery))
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; margin-top: -10px; margin-bottom: 28px;">
+                @foreach($package->gallery as $galleryImg)
+                  @if(!empty($galleryImg))
+                    <div style="border-radius: 12px; overflow: hidden; height: 80px; border: 1px solid #E2E8F0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                      <img src="{{ storage_or_asset($galleryImg) }}" alt="Dokumentasi {{ $package->title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+                    </div>
+                  @endif
+                @endforeach
+              </div>
+            @endif
 
             <!-- Deskripsi Paket -->
             <div style="background: #FFFFFF; border-radius: 20px; padding: 35px; margin-bottom: 30px; border: 1px solid #E2E8F0; box-shadow: 0 4px 18px rgba(0,0,0,0.03);">
