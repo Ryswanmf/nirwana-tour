@@ -531,7 +531,9 @@ ul {
   }
 
   .nav-dropdown:hover .dropdown-menu,
-  .nav-dropdown:focus-within .dropdown-menu {
+  .nav-dropdown:focus-within .dropdown-menu,
+  .nav-dropdown.open .dropdown-menu,
+  .nav-dropdown .dropdown-menu.open {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -5769,15 +5771,17 @@ textarea.form-control {
     right: 0;
     background: #FFFFFF;
     flex-direction: column;
-    padding: 24px;
-    box-shadow: var(--shadow-xl);
+    padding: 24px 20px 28px;
+    box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.16);
     border-bottom: 1px solid var(--border-color);
     max-height: calc(100vh - 78px);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     transform: translateY(-120%);
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.35s ease, opacity 0.35s ease;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
   }
 
   .site-header.scrolled .nav-menu {
@@ -5792,23 +5796,34 @@ textarea.form-control {
   }
 
   .nav-list {
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
-    align-items: stretch;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  .nav-item {
+    width: 100% !important;
   }
 
   .nav-link {
-    padding: 12px 16px;
-    font-size: 1rem;
-    border-radius: var(--radius-md);
+    display: flex !important;
+    align-items: center;
+    padding: 13px 18px !important;
+    font-size: 1.02rem !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
     background: transparent !important;
     position: relative;
+    color: #334155 !important;
+    transition: all 0.2s ease !important;
   }
 
   .nav-link:hover,
   .nav-link:focus {
     background: transparent !important;
+    color: var(--primary) !important;
   }
 
   .nav-link.active,
@@ -5816,16 +5831,16 @@ textarea.form-control {
   .nav-link.active:focus {
     background: transparent !important;
     color: var(--primary) !important;
-    font-weight: 700;
+    font-weight: 700 !important;
   }
 
   .nav-link.active::after {
     display: block !important;
     position: absolute;
     bottom: 2px;
-    left: 16px;
-    right: 16px;
-    height: 2.5px;
+    left: 18px;
+    right: 18px;
+    height: 3px;
     background: var(--primary);
     border-radius: var(--radius-full);
     transform: scaleX(1);
@@ -5834,22 +5849,30 @@ textarea.form-control {
 
   /* Dropdown Mobile Submenu (Accordion) */
   .nav-dropdown {
-    width: 100%;
-    position: static;
+    width: 100% !important;
+    position: static !important;
   }
 
   .nav-dropdown-toggle {
-    width: 100%;
+    width: 100% !important;
     display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: var(--radius-md);
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 13px 18px !important;
+    font-size: 1.02rem !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
     cursor: pointer;
     background: transparent !important;
     position: relative;
+    color: #334155 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .nav-dropdown-toggle:hover,
+  .nav-dropdown-toggle:focus {
+    background: transparent !important;
+    color: var(--primary) !important;
   }
 
   .nav-dropdown-toggle.active,
@@ -5857,16 +5880,16 @@ textarea.form-control {
   .nav-dropdown-toggle.active:focus {
     background: transparent !important;
     color: var(--primary) !important;
-    font-weight: 700;
+    font-weight: 700 !important;
   }
 
   .nav-dropdown-toggle.active::after {
     display: block !important;
     position: absolute;
     bottom: 2px;
-    left: 16px;
-    right: 16px;
-    height: 2.5px;
+    left: 18px;
+    right: 18px;
+    height: 3px;
     background: var(--primary);
     border-radius: var(--radius-full);
     transform: scaleX(1);
@@ -5874,13 +5897,15 @@ textarea.form-control {
   }
 
   .nav-dropdown .dropdown-arrow {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
     transition: transform 0.25s ease, color 0.25s ease;
     pointer-events: none;
   }
 
-  .nav-dropdown.open .nav-dropdown-toggle .dropdown-arrow {
+  .nav-dropdown.open .nav-dropdown-toggle .dropdown-arrow,
+  .nav-dropdown.open .dropdown-arrow,
+  .nav-dropdown.open .fa-chevron-down {
     transform: rotate(180deg) !important;
     color: var(--primary) !important;
   }
@@ -5896,10 +5921,10 @@ textarea.form-control {
     box-shadow: none !important;
     border: 1px solid #E2E8F0 !important;
     background: #F8FAFC !important;
-    border-radius: 12px !important;
-    margin: 6px 0 10px 0 !important;
-    padding: 8px !important;
-    display: none;
+    border-radius: 14px !important;
+    margin: 8px 0 4px 0 !important;
+    padding: 10px 8px !important;
+    display: none !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
@@ -5911,10 +5936,12 @@ textarea.form-control {
     display: none !important;
   }
 
-  .nav-dropdown.open .dropdown-menu {
+  .nav-dropdown.open .dropdown-menu,
+  .nav-dropdown .dropdown-menu.open,
+  .dropdown-menu.open {
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
+    gap: 6px !important;
     animation: mobileDropdownSlide 0.22s ease forwards;
   }
 
@@ -5933,9 +5960,9 @@ textarea.form-control {
     display: flex !important;
     align-items: center !important;
     gap: 12px !important;
-    padding: 11px 14px !important;
-    border-radius: 8px !important;
-    font-size: 0.92rem !important;
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+    font-size: 0.95rem !important;
     font-weight: 600 !important;
     color: #334155 !important;
     background: transparent !important;
@@ -5965,12 +5992,18 @@ textarea.form-control {
 
   .nav-mobile-cta {
     display: block;
-    margin-top: 18px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px dashed #E2E8F0;
     width: 100%;
   }
 
   .nav-mobile-cta .btn {
     width: 100%;
+    justify-content: center;
+    padding: 13px 18px;
+    font-size: 0.98rem;
+    border-radius: 12px;
   }
 
   .itinerary-perks-list,

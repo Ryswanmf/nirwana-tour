@@ -24,12 +24,12 @@
         <li class="nav-item">
           <a href="{{ route('posts.index') }}" class="nav-link {{ request()->routeIs('posts.*') ? 'active' : '' }}">Berita</a>
         </li>
-        <li class="nav-item nav-dropdown">
-          <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle {{ request()->routeIs('profile') || request()->routeIs('management') || request()->routeIs('certificates') || request()->routeIs('about') || request()->routeIs('gallery.*') ? 'active' : '' }}" id="tentangDropdownComponent" role="button" aria-expanded="false" aria-haspopup="true">
+        <li class="nav-item nav-dropdown" x-data="{ dropdownOpen: false }" :class="{ 'open': dropdownOpen }" @click.outside="dropdownOpen = false">
+          <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle {{ request()->routeIs('profile') || request()->routeIs('management') || request()->routeIs('certificates') || request()->routeIs('about') || request()->routeIs('gallery.*') ? 'active' : '' }}" id="tentangDropdownComponent" role="button" @click.prevent.stop="dropdownOpen = !dropdownOpen" :aria-expanded="dropdownOpen" aria-haspopup="true">
             <span>Tentang</span>
-            <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+            <i class="fa-solid fa-chevron-down dropdown-arrow transition-transform duration-200" :class="{ 'rotate-180': dropdownOpen }"></i>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="tentangDropdownComponent">
+          <ul class="dropdown-menu" :class="{ 'open': dropdownOpen }" aria-labelledby="tentangDropdownComponent">
             <li>
               <a href="{{ route('profile') }}" class="dropdown-item {{ request()->routeIs('profile') ? 'active' : '' }}">
                 <i class="fa-solid fa-building-columns"></i>

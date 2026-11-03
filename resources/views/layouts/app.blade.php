@@ -165,17 +165,17 @@
 
       <!-- Desktop Navigation Menu -->
       <nav class="nav-menu" id="navMenu" :class="{ 'open': mobileOpen }" aria-label="Navigasi Utama">
-        <ul class="nav-list flex items-center gap-1 list-none m-0 p-0">
-          <li class="nav-item"><a href="{{ route('home') }}#hero" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('home') ? 'active text-[#800020] font-bold bg-[#800020]/10' : 'text-slate-600 hover:text-[#800020] hover:bg-[#800020]/5' }}" @click="closeMobile()">Beranda</a></li>
-          <li class="nav-item"><a href="{{ route('packages.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('packages.*') || request()->routeIs('destinations.*') ? 'active text-[#800020] font-bold bg-[#800020]/10' : 'text-slate-600 hover:text-[#800020] hover:bg-[#800020]/5' }}" @click="closeMobile()">Paket Wisata</a></li>
-          <li class="nav-item"><a href="{{ route('services.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('services.*') ? 'active text-[#800020] font-bold bg-[#800020]/10' : 'text-slate-600 hover:text-[#800020] hover:bg-[#800020]/5' }}" @click="closeMobile()">Layanan</a></li>
-          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('posts.*') ? 'active text-[#800020] font-bold bg-[#800020]/10' : 'text-slate-600 hover:text-[#800020] hover:bg-[#800020]/5' }}" @click="closeMobile()">Berita</a></li>
-          <li class="nav-item nav-dropdown" x-data="{ dropdownOpen: false }">
-            <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle px-3.5 py-2 text-sm font-semibold rounded-lg flex items-center gap-1.5 transition-colors {{ request()->routeIs('profile') || request()->routeIs('management') || request()->routeIs('certificates') || request()->routeIs('about') || request()->routeIs('gallery.*') ? 'active text-[#800020] font-bold bg-[#800020]/10' : 'text-slate-600 hover:text-[#800020] hover:bg-[#800020]/5' }}" id="tentangDropdown" role="button" @click="dropdownOpen = !dropdownOpen" :aria-expanded="dropdownOpen" aria-haspopup="true">
+        <ul class="nav-list list-none m-0 p-0">
+          <li class="nav-item"><a href="{{ route('home') }}#hero" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('home') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Beranda</a></li>
+          <li class="nav-item"><a href="{{ route('packages.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('packages.*') || request()->routeIs('destinations.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Paket Wisata</a></li>
+          <li class="nav-item"><a href="{{ route('services.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('services.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Layanan</a></li>
+          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('posts.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Berita</a></li>
+          <li class="nav-item nav-dropdown" x-data="{ dropdownOpen: false }" :class="{ 'open': dropdownOpen }" @click.outside="dropdownOpen = false">
+            <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle px-3.5 py-2 text-sm font-semibold rounded-lg flex items-center justify-between gap-1.5 transition-colors {{ request()->routeIs('profile') || request()->routeIs('management') || request()->routeIs('certificates') || request()->routeIs('about') || request()->routeIs('gallery.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" id="tentangDropdown" role="button" @click.prevent.stop="dropdownOpen = !dropdownOpen" :aria-expanded="dropdownOpen" aria-haspopup="true">
               <span>Tentang</span>
-              <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" :class="{ 'rotate-180': dropdownOpen }"></i>
+              <i class="fa-solid fa-chevron-down text-xs dropdown-arrow transition-transform duration-200" :class="{ 'rotate-180': dropdownOpen }"></i>
             </a>
-            <ul class="dropdown-menu" :class="{ 'open': dropdownOpen }" @click.outside="dropdownOpen = false" aria-labelledby="tentangDropdown">
+            <ul class="dropdown-menu" :class="{ 'open': dropdownOpen }" aria-labelledby="tentangDropdown">
               <li>
                 <a href="{{ route('profile') }}" class="dropdown-item {{ request()->routeIs('profile') ? 'active' : '' }}" @click="closeMobile()">
                   <i class="fa-solid fa-building-columns"></i>
@@ -202,7 +202,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('contact') ? 'active text-[#800020] font-bold bg-[#800020]/10' : 'text-slate-600 hover:text-[#800020] hover:bg-[#800020]/5' }}" @click="closeMobile()">Kontak</a></li>
+          <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('contact') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Kontak</a></li>
         </ul>
         <div class="nav-mobile-cta">
           <a href="https://wa.me/{{ $cleanWaNumber }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin konsultasi perjalanan.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm wa-link-btn inline-flex items-center gap-2 bg-[#800020] hover:bg-[#630018] text-white font-semibold px-4 py-2 rounded-xl text-sm transition-all" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
