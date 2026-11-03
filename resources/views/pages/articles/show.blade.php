@@ -56,6 +56,7 @@
         <div style="display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.88rem; color: #F1F5F9; flex-wrap: wrap;">
           <span><i class="fa-regular fa-user" style="color: var(--accent-gold); margin-right: 6px;"></i> Oleh {{ $post->author ?? 'Tim Nirwana' }}</span>
           <span><i class="fa-regular fa-calendar" style="color: var(--accent-gold); margin-right: 6px;"></i> {{ $post->published_at ? $post->published_at->format('d F Y') : date('d F Y') }}</span>
+          <span><i class="fa-regular fa-clock" style="color: var(--accent-gold); margin-right: 6px;"></i> {{ $post->reading_time }}</span>
         </div>
       </div>
     </section>
@@ -142,6 +143,35 @@
             </button>
           </div>
         </div>
+
+        <!-- Navigasi Artikel Sebelumnya & Selanjutnya -->
+        @if((isset($prevPost) && $prevPost) || (isset($nextPost) && $nextPost))
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 30px;">
+            @if(isset($prevPost) && $prevPost)
+              <a href="{{ route('posts.show', $prevPost->slug) }}" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 20px; text-decoration: none; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.02); transition: all 0.2s ease;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-arrow-left"></i> Artikel Sebelumnya
+                </span>
+                <span style="font-size: 0.96rem; font-weight: 700; color: #0F172A; line-height: 1.4;">
+                  {{ Str::limit($prevPost->title, 55) }}
+                </span>
+              </a>
+            @else
+              <div></div>
+            @endif
+
+            @if(isset($nextPost) && $nextPost)
+              <a href="{{ route('posts.show', $nextPost->slug) }}" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 20px; text-decoration: none; display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.02); transition: all 0.2s ease;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: flex; align-items: center; gap: 6px;">
+                  Artikel Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+                </span>
+                <span style="font-size: 0.96rem; font-weight: 700; color: #0F172A; line-height: 1.4;">
+                  {{ Str::limit($nextPost->title, 55) }}
+                </span>
+              </a>
+            @endif
+          </div>
+        @endif
 
         <!-- BERITA LAINNYA / RELATED POSTS -->
         @if(isset($recentPosts) && $recentPosts->isNotEmpty())

@@ -66,6 +66,30 @@ class PostController extends Controller
             ->take(4)
             ->get();
 
-        return view('pages.articles.show', compact('post', 'recentPosts'));
+        $prevPost = Post::where('is_published', true)
+            ->where(function ($q) use ($post) {
+                $q->where('published_at', '<', $post->published_at)
+                  ->orWhere(function ($sub) use ($post) {
+                      $sub->where('published_at', '=', $post->published_at)
+                          ->where('id', '<', $post->id);
+                  });
+            })
+            ->orderByDesc('published_at')
+            ->orderByDesc('id')
+            ->first();
+
+        $nextPost = Post::where('is_published', true)
+            ->where(function ($q) use ($post) {
+                $q->where('published_at', '>', $post->published_at)
+                  ->orWhere(function ($sub) use ($post) {
+                      $sub->where('published_at', '=', $post->published_at)
+                          ->where('id', '>', $post->id);
+                  });
+            })
+            ->orderBy('published_at', 'asc')
+            ->orderBy('id', 'asc')
+            ->first();
+
+        return view('pages.articles.show', compact('post', 'recentPosts', 'prevPost', 'nextPost'));
     }
 }

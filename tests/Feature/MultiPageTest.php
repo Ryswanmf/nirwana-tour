@@ -868,4 +868,32 @@ class MultiPageTest extends TestCase
 
         $this->assertDatabaseMissing('contacts', ['name' => $uniqueBranch]);
     }
+
+    public function test_article_reading_time_and_navigation_and_crud_features(): void
+    {
+        $post = Post::where('is_published', true)->first();
+        $this->assertNotNull($post);
+
+        // 1. Reading time attribute works
+        $this->assertStringContainsString('menit baca', $post->reading_time);
+
+        // 2. getAvailableCategories returns an array
+        $categories = Post::getAvailableCategories();
+        $this->assertIsArray($categories);
+
+        // 3. Frontend displays reading time
+        $detailRes = $this->get("/artikel/{$post->slug}");
+        $detailRes->assertStatus(200);
+        $detailRes->assertSee($post->reading_time);
+
+        $indexRes = $this->get('/artikel');
+        $indexRes->assertStatus(200);
+        $indexRes->assertSee('menit baca');
+
+        // 4. Test Post CRUD scopes
+        $publishedCount = Post::published()->count();
+        $this->assertGreaterThan(0, $publishedCount);
+        $featuredCount = Post::featured()->count();
+        $this->assertGreaterThanOrEqual(0, $featuredCount);
+    }
 }

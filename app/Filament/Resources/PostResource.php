@@ -24,7 +24,12 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
@@ -36,11 +41,11 @@ class PostResource extends Resource
 
     protected static ?string $navigationGroup = 'Konten & Informasi';
 
-    protected static ?string $navigationLabel = 'Artikel & Tips Wisata';
+    protected static ?string $navigationLabel = 'Berita & Artikel';
 
-    protected static ?string $modelLabel = 'Artikel';
+    protected static ?string $modelLabel = 'Berita / Artikel';
 
-    protected static ?string $pluralModelLabel = 'Artikel & Tips Wisata';
+    protected static ?string $pluralModelLabel = 'Berita & Artikel';
 
     protected static ?int $navigationSort = 2;
 
@@ -61,7 +66,8 @@ class PostResource extends Resource
                             ->unique(ignoreRecord: true),
                         TextInput::make('category_name')
                             ->label('Kategori Berita')
-                            ->placeholder('Ketik kategori sendiri (contoh: Tips Wisata, Edukasi, Promo, Event)')
+                            ->placeholder('Pilih saran atau ketik kategori baru (contoh: Tips Wisata, Edukasi, Promo, Event)')
+                            ->datalist(fn () => Post::getAvailableCategories())
                             ->maxLength(100)
                             ->afterStateHydrated(function ($component, $record) {
                                 if ($record && empty($component->getState())) {
@@ -151,35 +157,88 @@ class PostResource extends Resource
                     ->label('Cover')
                     ->circular(),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label('Judul Berita')
                     ->searchable()
                     ->sortable()
-                    ->limit(50),
+                    ->wrap()
+                    ->limit(45),
                 TextColumn::make('category_name')
                     ->label('Kategori')
-                    ->getStateUsing(fn ($record) => $record->category_name ?: ($record->category->name ?? '-'))
-                    ->badge(),
+                    ->getStateUsing(fn ($record) => $record->category_name_display)
+                    ->badge()
+                    ->color('info')
+                    ->sortable(query: fn (Builder $query, string $direction): Builder => $query->orderBy('category_name', $direction)),
+                TextColumn::make('author')
+                    ->label('Penulis')
+                    ->toggleable()
+                    ->searchable(),
                 ToggleColumn::make('is_featured')
                     ->label('Unggulan Beranda')
                     ->sortable(),
-                TextColumn::make('author')
-                    ->label('Penulis'),
-                IconColumn::make('is_published')
+                ToggleColumn::make('is_published')
                     ->label('Terbit')
-                    ->boolean()
                     ->sortable(),
                 TextColumn::make('published_at')
-                    ->label('Tanggal')
-                    ->date('d M Y')
+                    ->label('Tanggal Terbit')
+                    ->dateTime('d M Y H:i')
                     ->sortable(),
             ])
             ->defaultSort('published_at', 'desc')
+            ->filters([
+                TernaryFilter::make('is_published')
+                    ->label('Status Publikasi')
+                    ->trueLabel('Hanya yang Terbit')
+                    ->falseLabel('Hanya Draf (Belum Terbit)'),
+                TernaryFilter::make('is_featured')
+                    ->label('Posisi Tampil')
+                    ->trueLabel('Unggulan Beranda')
+                    ->falseLabel('Reguler (Halaman Berita)'),
+                SelectFilter::make('category_id')
+                    ->label('Kategori')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload(),
+                Filter::make('published_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('published_from')->label('Terbit Dari'),
+                        Forms\Components\DatePicker::make('published_until')->label('Terbit Sampai'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['published_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('published_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['published_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('published_at', '<=', $date),
+                            );
+                    }),
+            ])
             ->actions([
+                Action::make('view_on_web')
+                    ->label('Lihat di Web')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->color('gray')
+                    ->url(fn (Post $record): string => route('posts.show', $record->slug))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('publish')
+                        ->label('Terbitkan yang Dipilih')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->action(fn (Collection $records) => $records->each->update(['is_published' => true]))
+                        ->deselectRecordsAfterCompletion(),
+                    Tables\Actions\BulkAction::make('unpublish')
+                        ->label('Jadikan Draf')
+                        ->icon('heroicon-o-x-circle')
+                        ->color('warning')
+                        ->action(fn (Collection $records) => $records->each->update(['is_published' => false]))
+                        ->deselectRecordsAfterCompletion(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

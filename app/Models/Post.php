@@ -91,4 +91,58 @@ class Post extends Model
 
         return $photos;
     }
+
+    /**
+     * Estimasi waktu baca artikel (asumsi kecepatan baca ~200 kata per menit).
+     */
+    public function getReadingTimeAttribute(): string
+    {
+        $words = str_word_count(strip_tags($this->content ?? ''));
+        $minutes = max(1, (int) ceil($words / 200));
+
+        return "{$minutes} menit baca";
+    }
+
+    /**
+     * Scope untuk artikel yang sudah terbit.
+     */
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
+    /**
+     * Scope untuk artikel unggulan beranda.
+     */
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
+    /**
+     * Ambil daftar semua nama kategori artikel untuk opsi autocomplete di Filament.
+     *
+     * @return array<int, string>
+     */
+    public static function getAvailableCategories(): array
+    {
+        $fromCategories = Category::where('type', 'article')
+            ->pluck('name')
+            ->filter()
+            ->values()
+            ->all();
+
+        $fromPosts = static::whereNotNull('category_name')
+            ->where('category_name', '!=', '')
+            ->distinct()
+            ->pluck('category_name')
+            ->filter()
+            ->values()
+            ->all();
+
+        $merged = array_unique(array_merge($fromCategories, $fromPosts));
+        sort($merged);
+
+        return array_values($merged);
+    }
 }

@@ -145,7 +145,7 @@
                 <div class="article-body">
                   <div class="article-meta">
                     <span><i class="fa-regular fa-calendar"></i> {{ $post->published_at ? $post->published_at->format('d M Y') : date('d M Y') }}</span>
-                    <span><i class="fa-regular fa-user"></i> {{ $post->author ?? 'Tim Nirwana' }}</span>
+                    <span><i class="fa-regular fa-clock"></i> {{ $post->reading_time }}</span>
                   </div>
                   <h3 class="article-title">
                     <a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
