@@ -607,29 +607,50 @@
               @forelse($galleryVideos as $video)
                 <article class="video-card">
                   <div class="video-player-wrapper">
-                    <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>
-                      <source src="{{ $video->file_url }}" type="video/mp4">
-                      Browser Anda tidak mendukung pemutar video HTML5.
-                    </video>
+                    @if($video->is_instagram)
+                      <div class="instagram-reel-frame" style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
+                        <iframe src="{{ $video->instagram_embed_url }}"
+                                style="width: 100%; height: 100%; border: 0;"
+                                allowtransparency="true"
+                                allowfullscreen="true"
+                                loading="lazy"
+                                title="{{ $video->title }}">
+                        </iframe>
+                      </div>
+                    @else
+                      <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>
+                        <source src="{{ $video->file_url }}" type="video/mp4">
+                        Browser Anda tidak mendukung pemutar video HTML5.
+                      </video>
+                    @endif
                   </div>
                   <div class="video-card-body">
                     <span class="video-tag">{{ $video->caption ?? 'Dokumentasi Tour' }}</span>
                     <h3 class="video-title">{{ $video->title }}</h3>
                     <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
+                    @if($video->is_instagram)
+                      <a href="{{ $video->file_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #E1306C; margin-top: 6px; text-decoration: none;">
+                        <i class="fa-brands fa-instagram"></i> Tonton di Instagram
+                      </a>
+                    @endif
                   </div>
                 </article>
               @empty
                 <article class="video-card">
                   <div class="video-player-wrapper">
-                    <video class="gallery-video" controls playsinline preload="none" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
-                      <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
-                      Browser Anda tidak mendukung pemutar video HTML5.
-                    </video>
+                    <div style="width: 100%; aspect-ratio: 9/16; background: #0f172a; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; color: #fff;">
+                      <i class="fa-brands fa-instagram" style="font-size: 3rem; color: #E1306C; margin-bottom: 12px;"></i>
+                      <p style="font-size: 0.88rem; font-weight: 700; margin-bottom: 6px;">Instagram Reels</p>
+                      <p style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 14px;">Tonton video keseruan tour terbaru di Instagram kami.</p>
+                      <a href="{{ $settings['instagram'] ?? 'https://www.instagram.com/nirwana_tourlampung/' }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="font-size: 0.75rem; padding: 6px 14px;">
+                        <i class="fa-brands fa-instagram"></i> Buka Profil
+                      </a>
+                    </div>
                   </div>
                   <div class="video-card-body">
-                    <span class="video-tag">Wisata Bahari</span>
-                    <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
-                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari dan snorkeling di perairan jernih.</p>
+                    <span class="video-tag">Instagram Video</span>
+                    <h3 class="video-title">Keseruan Eksplorasi Wisata Nirwana Tour</h3>
+                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
                   </div>
                 </article>
               @endforelse
@@ -640,29 +661,50 @@
               @forelse($galleryVideos as $video)
                 <article class="video-card">
                   <div class="video-player-wrapper">
-                    <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>
-                      <source src="{{ $video->file_url }}" type="video/mp4">
-                      Browser Anda tidak mendukung pemutar video HTML5.
-                    </video>
+                    @if($video->is_instagram)
+                      <div class="instagram-reel-frame" style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
+                        <iframe src="{{ $video->instagram_embed_url }}"
+                                style="width: 100%; height: 100%; border: 0;"
+                                allowtransparency="true"
+                                allowfullscreen="true"
+                                loading="lazy"
+                                title="{{ $video->title }}">
+                        </iframe>
+                      </div>
+                    @else
+                      <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>
+                        <source src="{{ $video->file_url }}" type="video/mp4">
+                        Browser Anda tidak mendukung pemutar video HTML5.
+                      </video>
+                    @endif
                   </div>
                   <div class="video-card-body">
                     <span class="video-tag">{{ $video->caption ?? 'Dokumentasi Tour' }}</span>
                     <h3 class="video-title">{{ $video->title }}</h3>
                     <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
+                    @if($video->is_instagram)
+                      <a href="{{ $video->file_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #E1306C; margin-top: 6px; text-decoration: none;">
+                        <i class="fa-brands fa-instagram"></i> Tonton di Instagram
+                      </a>
+                    @endif
                   </div>
                 </article>
               @empty
                 <article class="video-card">
                   <div class="video-player-wrapper">
-                    <video class="gallery-video" controls playsinline preload="none" poster="{{ asset('assets/images/galeri/video1-poster.jpg') }}">
-                      <source src="{{ asset('assets/images/galeri/video1.mp4') }}" type="video/mp4">
-                      Browser Anda tidak mendukung pemutar video HTML5.
-                    </video>
+                    <div style="width: 100%; aspect-ratio: 9/16; background: #0f172a; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; color: #fff;">
+                      <i class="fa-brands fa-instagram" style="font-size: 3rem; color: #E1306C; margin-bottom: 12px;"></i>
+                      <p style="font-size: 0.88rem; font-weight: 700; margin-bottom: 6px;">Instagram Reels</p>
+                      <p style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 14px;">Tonton video keseruan tour terbaru di Instagram kami.</p>
+                      <a href="{{ $settings['instagram'] ?? 'https://www.instagram.com/nirwana_tourlampung/' }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="font-size: 0.75rem; padding: 6px 14px;">
+                        <i class="fa-brands fa-instagram"></i> Buka Profil
+                      </a>
+                    </div>
                   </div>
                   <div class="video-card-body">
-                    <span class="video-tag">Wisata Bahari</span>
-                    <h3 class="video-title">Keseruan Eksplorasi Wisata Rombongan Lampung</h3>
-                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan bahari dan snorkeling di perairan jernih.</p>
+                    <span class="video-tag">Instagram Video</span>
+                    <h3 class="video-title">Keseruan Eksplorasi Wisata Nirwana Tour</h3>
+                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
                   </div>
                 </article>
               @endforelse

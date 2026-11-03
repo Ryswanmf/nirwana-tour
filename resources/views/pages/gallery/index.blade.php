@@ -92,13 +92,25 @@
 
               <article class="video-card">
                 <div class="video-player-wrapper">
-                  <video class="gallery-video" controls playsinline preload="metadata" poster="{{ $thumbUrl }}">
-                    <source src="{{ $videoUrl }}" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video HTML5.
-                  </video>
-                  <div class="video-duration-badge">
-                    <i class="fa-solid fa-clock"></i> {{ $duration }}
-                  </div>
+                  @if($item->is_instagram)
+                    <div class="instagram-reel-frame" style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
+                      <iframe src="{{ $item->instagram_embed_url }}"
+                              style="width: 100%; height: 100%; border: 0;"
+                              allowtransparency="true"
+                              allowfullscreen="true"
+                              loading="lazy"
+                              title="{{ $item->title }}">
+                      </iframe>
+                    </div>
+                  @else
+                    <video class="gallery-video" controls playsinline preload="metadata" poster="{{ $thumbUrl }}">
+                      <source src="{{ $videoUrl }}" type="video/mp4">
+                      Browser Anda tidak mendukung pemutar video HTML5.
+                    </video>
+                    <div class="video-duration-badge">
+                      <i class="fa-solid fa-clock"></i> {{ $duration }}
+                    </div>
+                  @endif
                 </div>
 
                 <div class="video-card-body">
@@ -107,6 +119,11 @@
                   <p class="video-desc">
                     {{ $item->caption ?? 'Video dokumentasi sinematik autentik keceriaan para wisatawan bersama tim profesional Nirwana Tour Lampung.' }}
                   </p>
+                  @if($item->is_instagram)
+                    <a href="{{ $item->file_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #E1306C; margin-top: 6px; text-decoration: none;">
+                      <i class="fa-brands fa-instagram"></i> Tonton di Instagram
+                    </a>
+                  @endif
                 </div>
               </article>
             @endforeach

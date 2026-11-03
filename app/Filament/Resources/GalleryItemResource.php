@@ -51,10 +51,12 @@ class GalleryItemResource extends Resource
                             Select::make('media_type')
                                 ->label('Tipe Media')
                                 ->options([
-                                    'video' => 'Video Perjalanan (MP4)',
+                                    'reel' => 'Instagram Reel (Rekomendasi Hemat Storage)',
+                                    'video' => 'Video Lokal (MP4)',
                                     'image' => 'Foto / Gambar',
                                 ])
-                                ->default('video')
+                                ->default('reel')
+                                ->live()
                                 ->required(),
                             TextInput::make('order')
                                 ->label('Urutan Prioritas')
@@ -65,6 +67,13 @@ class GalleryItemResource extends Resource
                             ->label('Video Unggulan Beranda (Tampil di Home)')
                             ->helperText('Jika diaktifkan, video ini akan tampil di bagian Galeri Video Beranda (maksimal 5 video unggulan). Jika tidak diaktifkan, video akan tampil di halaman Galeri.')
                             ->default(false),
+                        TextInput::make('file_path')
+                            ->label('Link URL Instagram Reel')
+                            ->placeholder('https://www.instagram.com/reel/C...')
+                            ->helperText('Tempelkan link video Reels Instagram resmi Nirwana Tour (@nirwana_tourlampung).')
+                            ->visible(fn (Forms\Get $get) => $get('media_type') === 'reel')
+                            ->required(fn (Forms\Get $get) => $get('media_type') === 'reel')
+                            ->columnSpanFull(),
                         FileUpload::make('file_path')
                             ->label('Unggah File Media (Foto / Video)')
                             ->directory('gallery')
@@ -79,8 +88,9 @@ class GalleryItemResource extends Resource
                                 'video/x-msvideo',
                                 'video/webm',
                             ])
-                            ->helperText('Mendukung file foto (JPG, PNG, WebP) atau video (MP4, MOV) dengan ukuran hingga 150 MB.')
-                            ->required()
+                            ->helperText('Mendukung file foto (JPG, PNG, WebP) atau video (MP4, MOV).')
+                            ->visible(fn (Forms\Get $get) => in_array($get('media_type'), ['image', 'video']))
+                            ->required(fn (Forms\Get $get) => in_array($get('media_type'), ['image', 'video']))
                             ->columnSpanFull(),
                         Textarea::make('caption')
                             ->label('Keterangan / Caption Singkat')

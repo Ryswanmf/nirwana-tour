@@ -33,8 +33,8 @@ class HomeController extends Controller
             ->take(4)
             ->get();
         $galleryItems = GalleryItem::orderBy('order')->take(6)->get();
-        // 5 Video Unggulan untuk Galeri Beranda
-        $galleryVideos = GalleryItem::where('media_type', 'video')
+        // 5 Video Unggulan untuk Galeri Beranda (Mendukung Video Lokal & Instagram Reels)
+        $galleryVideos = GalleryItem::whereIn('media_type', ['video', 'reel'])
             ->where('is_featured', true)
             ->orderBy('order')
             ->take(5)
