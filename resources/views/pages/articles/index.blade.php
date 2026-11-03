@@ -138,7 +138,8 @@
                   <img src="{{ $post->cover_image_url }}" 
                        alt="{{ $post->title }}" 
                        class="article-img"
-                       loading="lazy">
+                       loading="lazy"
+                       decoding="async">
                   <span class="article-tag">{{ $post->category_name ?: ($post->category->name ?? 'Info Wisata') }}</span>
                 </div>
                 <div class="article-body">

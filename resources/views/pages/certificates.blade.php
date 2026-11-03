@@ -158,7 +158,7 @@
 
         <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 36px; padding: 20px 0;">
           <div style="background: #FFFFFF; padding: 20px 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 14px;">
-            <img src="{{ asset('assets/images/wonderful.png') }}" alt="Wonderful Indonesia" style="height: 48px; width: auto; object-fit: contain;">
+            <img src="{{ asset('assets/images/wonderful.png') }}" alt="Wonderful Indonesia" style="height: 48px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
             <div>
               <strong style="display: block; font-size: 0.94rem; color: var(--text-main);">Wonderful Indonesia</strong>
               <span style="font-size: 0.78rem; color: var(--text-muted);">Kemenparekraf RI</span>
@@ -166,7 +166,7 @@
           </div>
 
           <div style="background: #FFFFFF; padding: 20px 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 14px;">
-            <img src="{{ asset('assets/images/lampung.png') }}" alt="Pariwisata Lampung" style="height: 48px; width: auto; object-fit: contain;">
+            <img src="{{ asset('assets/images/lampung.png') }}" alt="Pariwisata Lampung" style="height: 48px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
             <div>
               <strong style="display: block; font-size: 0.94rem; color: var(--text-main);">Pariwisata Lampung</strong>
               <span style="font-size: 0.78rem; color: var(--text-muted);">Dinas Pariwisata Daerah</span>
@@ -174,7 +174,7 @@
           </div>
 
           <div style="background: #FFFFFF; padding: 20px 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 14px;">
-            <img src="{{ asset('assets/images/asita.png') }}" alt="ASITA" style="height: 48px; width: auto; object-fit: contain;">
+            <img src="{{ asset('assets/images/asita.png') }}" alt="ASITA" style="height: 48px; width: auto; object-fit: contain;" loading="lazy" decoding="async">
             <div>
               <strong style="display: block; font-size: 0.94rem; color: var(--text-main);">ASITA Indonesia</strong>
               <span style="font-size: 0.78rem; color: var(--text-muted);">Asosiasi Tour & Travel</span>

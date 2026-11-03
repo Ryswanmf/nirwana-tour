@@ -238,7 +238,7 @@
           <!-- Col 1: Brand & Bio -->
           <div class="footer-col col-brand lg:col-span-2">
             <a href="{{ route('home') }}#hero" class="footer-logo inline-flex items-center gap-3 mb-4 text-decoration-none" aria-label="Nirwana Tour Lampung">
-              <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Nirwana Tour Lampung" class="footer-logo-emblem h-12 w-12 object-contain">
+              <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Nirwana Tour Lampung" class="footer-logo-emblem h-12 w-12 object-contain" loading="lazy" decoding="async">
               <div class="footer-brand-text flex flex-col">
                 <span class="footer-brand-title text-xl font-bold text-white tracking-tight">Nirwana <span class="highlight text-[#F59E0B]">Tour Travel</span></span>
                 <span class="footer-brand-sub text-xs text-slate-300">Jelajahi Dunia, Ciptakan Cerita Tak Terlupakan</span>
@@ -252,13 +252,13 @@
             </div>
             <div class="footer-cert-logos flex items-center gap-4 flex-wrap">
               <div class="footer-cert-item bg-white/90 p-2 rounded-lg" title="Wonderful Indonesia">
-                <img src="{{ asset('assets/images/wonderful.png') }}" alt="Wonderful Indonesia" class="footer-cert-logo h-7 object-contain">
+                <img src="{{ asset('assets/images/wonderful.png') }}" alt="Wonderful Indonesia" class="footer-cert-logo h-7 object-contain" loading="lazy" decoding="async">
               </div>
               <div class="footer-cert-item bg-white/90 p-2 rounded-lg" title="Pariwisata Lampung">
-                <img src="{{ asset('assets/images/lampung.png') }}" alt="Pariwisata Lampung" class="footer-cert-logo h-7 object-contain">
+                <img src="{{ asset('assets/images/lampung.png') }}" alt="Pariwisata Lampung" class="footer-cert-logo h-7 object-contain" loading="lazy" decoding="async">
               </div>
               <div class="footer-cert-item bg-white/90 p-2 rounded-lg" title="ASITA (Association of The Indonesian Tour and Travel Agencies)">
-                <img src="{{ asset('assets/images/asita.png') }}" alt="ASITA" class="footer-cert-logo h-7 object-contain">
+                <img src="{{ asset('assets/images/asita.png') }}" alt="ASITA" class="footer-cert-logo h-7 object-contain" loading="lazy" decoding="async">
               </div>
             </div>
           </div>

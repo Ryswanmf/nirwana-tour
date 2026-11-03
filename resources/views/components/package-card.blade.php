@@ -8,7 +8,7 @@
 
 <article class="dest-card" data-category="{{ $package->category->slug ?? 'lampung' }}">
   <div class="dest-thumb">
-    <img src="{{ $imgSrc }}" alt="{{ $package->title }}" loading="lazy">
+    <img src="{{ $imgSrc }}" alt="{{ $package->title }}" loading="lazy" decoding="async">
     @if($package->category)
       <span class="dest-category">
         <i class="fa-solid fa-compass"></i> {{ $package->category->name }}

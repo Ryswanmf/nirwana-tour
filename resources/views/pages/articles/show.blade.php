@@ -76,7 +76,7 @@
           <div class="article-gallery-showcase">
             <!-- Foto Utama (1) -->
             <div class="article-main-photo">
-              <img src="{{ storage_or_asset($mainPhoto) }}" alt="{{ $post->title }}">
+              <img src="{{ storage_or_asset($mainPhoto) }}" alt="{{ $post->title }}" loading="lazy" decoding="async">
             </div>
 
             <!-- Foto Pendukung (HANYA tampil jika admin menambahkan beberapa foto galeri) -->
@@ -84,7 +84,7 @@
               <div class="article-sub-photos">
                 @foreach($subPhotos as $index => $subPhoto)
                   <div class="article-sub-photo-item">
-                    <img src="{{ storage_or_asset($subPhoto) }}" alt="Dokumentasi {{ $post->title }} Foto {{ $index + 2 }}" loading="lazy">
+                    <img src="{{ storage_or_asset($subPhoto) }}" alt="Dokumentasi {{ $post->title }} Foto {{ $index + 2 }}" loading="lazy" decoding="async">
                   </div>
                 @endforeach
               </div>

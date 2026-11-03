@@ -3,7 +3,7 @@
     <!-- Kolom 1: Profil Brand -->
     <div class="footer-col footer-brand-col">
       <div class="footer-brand">
-        <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Nirwana Tour Lampung" class="footer-logo">
+        <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Nirwana Tour Lampung" class="footer-logo" loading="lazy" decoding="async">
         <div class="brand-text">
           <span class="brand-title">Nirwana <strong>Tour Travel</strong></span>
           <span class="brand-sub">Jelajahi Dunia, Ciptakan Cerita Tak Terlupakan</span>

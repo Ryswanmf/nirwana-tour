@@ -626,13 +626,13 @@
         <span class="banner-badges-label">Sertifikasi & Kemitraan Resmi</span>
         <div class="banner-badges-row">
           <div class="banner-cert-pill" title="Wonderful Indonesia - Kementerian Pariwisata RI">
-            <img src="{{ asset('assets/images/wonderful.png') }}" alt="Wonderful Indonesia">
+            <img src="{{ asset('assets/images/wonderful.png') }}" alt="Wonderful Indonesia" loading="lazy" decoding="async">
           </div>
           <div class="banner-cert-pill" title="Pariwisata Provinsi Lampung">
-            <img src="{{ asset('assets/images/lampung.png') }}" alt="Pariwisata Lampung">
+            <img src="{{ asset('assets/images/lampung.png') }}" alt="Pariwisata Lampung" loading="lazy" decoding="async">
           </div>
           <div class="banner-cert-pill" title="ASITA (Association of The Indonesian Tour and Travel Agencies)">
-            <img src="{{ asset('assets/images/asita.png') }}" alt="ASITA">
+            <img src="{{ asset('assets/images/asita.png') }}" alt="ASITA" loading="lazy" decoding="async">
           </div>
         </div>
         <p class="banner-copyright">&copy; {{ date('Y') }} Nirwana Tour & Travel Lampung. Hak cipta dilindungi.</p>

@@ -66,7 +66,7 @@
           <!-- Media Showcase -->
           <div class="story-media">
             <div class="about-img-wrapper">
-              <img src="{{ asset('assets/images/hero/about-team.jpg') }}" alt="Tim Nirwana Tour Lampung" class="about-main-img">
+              <img src="{{ asset('assets/images/hero/about-team.jpg') }}" alt="Tim Nirwana Tour Lampung" class="about-main-img" loading="lazy" decoding="async">
               <div class="about-founder-label">
                 <strong>Manajemen & Tim Operasional</strong>
                 <span>Nirwana Tour Lampung</span>

@@ -383,7 +383,7 @@
             <article class="dest-card" data-category="{{ $categorySlug }}" data-id="{{ $pkg->slug }}">
               <div class="dest-thumb">
                 <a href="{{ route('packages.show', $pkg->slug) }}" style="display: block; width: 100%; height: 100%;">
-                  <img src="{{ $pkg->thumbnail_url }}" alt="{{ $pkg->title }}" loading="lazy">
+                  <img src="{{ $pkg->thumbnail_url }}" alt="{{ $pkg->title }}" loading="lazy" decoding="async">
                 </a>
                 <span class="dest-category"><i class="fa-solid fa-map-pin"></i> {{ $pkg->category->name ?? 'Wisata Populer' }}</span>
                 @if($pkg->badge)
@@ -740,7 +740,7 @@
             <article class="article-card">
               <div class="article-thumb">
                 <a href="{{ route('posts.show', $post->slug) }}" style="display: block; width: 100%; height: 100%;">
-                  <img src="{{ $post->cover_image_url }}" alt="{{ $post->title }}" class="article-img" loading="lazy">
+                  <img src="{{ $post->cover_image_url }}" alt="{{ $post->title }}" class="article-img" loading="lazy" decoding="async">
                 </a>
                 <span class="article-tag">{{ $post->category_name ?: ($post->category->name ?? 'Tips Wisata') }}</span>
               </div>

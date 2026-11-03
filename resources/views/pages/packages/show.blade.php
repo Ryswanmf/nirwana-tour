@@ -107,6 +107,8 @@
             <div style="border-radius: 20px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 6px 25px rgba(0,0,0,0.06); border: 1px solid #E2E8F0;">
               <img src="{{ $package->thumbnail_url }}"
                    alt="{{ $package->title }}"
+                   loading="lazy"
+                   decoding="async"
                    style="width: 100%; max-height: 440px; object-fit: cover; display: block;">
             </div>
 
