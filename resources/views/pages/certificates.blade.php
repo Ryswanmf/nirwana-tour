@@ -70,77 +70,119 @@
         </div>
 
         <div class="legal-grid">
-          <!-- 1. NIB OSS -->
-          <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
-            <div class="legal-card-header">
-              <i class="fa-solid fa-id-card-clip legal-icon" style="color: var(--primary);"></i>
-              <h4 style="color: var(--text-main);">Nomor Induk Berusaha (NIB)</h4>
-              <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> OSS BKPM</span>
-            </div>
-            <p style="color: var(--text-muted);">
-              Terdaftar secara sah pada sistem OSS (Online Single Submission) Kementerian Investasi/BKPM Republik Indonesia dengan klasifikasi baku KBLI 79120 (Biro Perjalanan Wisata).
-            </p>
-          </div>
+          @forelse($certificates as $cert)
+            <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main); display: flex; flex-direction: column;">
+              @if(!empty($cert->image))
+                <div style="margin: -1.5rem -1.5rem 1rem -1.5rem; border-top-left-radius: 12px; border-top-right-radius: 12px; overflow: hidden; max-height: 160px; background: #f8fafc; border-bottom: 1px solid var(--border-color);">
+                  <img src="{{ $cert->image_url }}" alt="{{ $cert->title }}" style="width: 100%; height: 160px; object-fit: cover; display: block;" loading="lazy">
+                </div>
+              @endif
+              <div class="legal-card-header">
+                <i class="{{ $cert->icon ?: 'fa-solid fa-certificate' }} legal-icon" style="color: var(--primary);"></i>
+                <h4 style="color: var(--text-main);">{{ $cert->title }}</h4>
+                @if(!empty($cert->badge))
+                  <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><i class="fa-solid fa-check"></i> {{ $cert->badge }}</span>
+                @endif
+              </div>
 
-          <!-- 2. TDUP Pariwisata -->
-          <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
-            <div class="legal-card-header">
-              <i class="fa-solid fa-file-contract legal-icon" style="color: var(--primary);"></i>
-              <h4 style="color: var(--text-main);">Izin Usaha Pariwisata (TDUP)</h4>
-              <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> Pemda Aktif</span>
-            </div>
-            <p style="color: var(--text-muted);">
-              Memiliki Tanda Daftar Usaha Pariwisata yang diakui Dinas Kebudayaan dan Pariwisata Pemerintah Kota Bandar Lampung untuk menyelenggarakan jasa tur dan perjalanan.
-            </p>
-          </div>
+              @if(!empty($cert->certificate_number) || !empty($cert->issuer))
+                <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+                  @if(!empty($cert->certificate_number))
+                    <span style="font-family: monospace; background: rgba(15, 23, 42, 0.05); padding: 2px 6px; border-radius: 4px;">
+                      <i class="fa-solid fa-hashtag" style="font-size: 0.7rem; color: var(--primary);"></i> {{ $cert->certificate_number }}
+                    </span>
+                  @endif
+                  @if(!empty($cert->issuer))
+                    <span><i class="fa-solid fa-building" style="font-size: 0.7rem; color: var(--text-muted);"></i> {{ $cert->issuer }}</span>
+                  @endif
+                </div>
+              @endif
 
-          <!-- 3. Lisensi HPI -->
-          <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
-            <div class="legal-card-header">
-              <i class="fa-solid fa-users-gear legal-icon" style="color: var(--primary);"></i>
-              <h4 style="color: var(--text-main);">Lisensi Pemandu Resmi HPI</h4>
-              <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> BNSP & HPI</span>
-            </div>
-            <p style="color: var(--text-muted);">
-              Seluruh Tour Leader dan koordinator pemandu lapangan memegang kartu lisensi kompetensi dari DPD Himpunan Pramuwisata Indonesia (HPI) Provinsi Lampung.
-            </p>
-          </div>
+              <p style="color: var(--text-muted); flex-grow: 1; margin-bottom: 12px;">
+                {{ $cert->description }}
+              </p>
 
-          <!-- 4. Izin Armada Dishub -->
-          <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
-            <div class="legal-card-header">
-              <i class="fa-solid fa-bus legal-icon" style="color: var(--primary);"></i>
-              <h4 style="color: var(--text-main);">Armada Berizin Resmi Dishub</h4>
-              <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> Uji KIR Aktif</span>
+              @if(!empty($cert->file))
+                <div style="padding-top: 10px; border-top: 1px dashed var(--border-color); margin-top: auto;">
+                  <a href="{{ $cert->file_url }}" target="_blank" rel="noopener noreferrer" style="font-size: 0.8rem; font-weight: 700; color: var(--primary); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-file-arrow-down"></i> Unduh Salinan Berkas
+                  </a>
+                </div>
+              @endif
             </div>
-            <p style="color: var(--text-muted);">
-              Seluruh bus dan HiAce pariwisata yang kami operasikan memiliki izin trayek pariwisata resmi dari Dinas Perhubungan, uji KIR berkala aktif, dan pengemudi profesional.
-            </p>
-          </div>
+          @empty
+            <!-- 1. NIB OSS -->
+            <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
+              <div class="legal-card-header">
+                <i class="fa-solid fa-id-card-clip legal-icon" style="color: var(--primary);"></i>
+                <h4 style="color: var(--text-main);">Nomor Induk Berusaha (NIB)</h4>
+                <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> OSS BKPM</span>
+              </div>
+              <p style="color: var(--text-muted);">
+                Terdaftar secara sah pada sistem OSS (Online Single Submission) Kementerian Investasi/BKPM Republik Indonesia dengan klasifikasi baku KBLI 79120 (Biro Perjalanan Wisata).
+              </p>
+            </div>
 
-          <!-- 5. Asuransi Perjalanan -->
-          <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
-            <div class="legal-card-header">
-              <i class="fa-solid fa-shield-virus legal-icon" style="color: var(--primary);"></i>
-              <h4 style="color: var(--text-main);">Jaminan Asuransi Resmi</h4>
-              <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> Terproteksi</span>
+            <!-- 2. TDUP Pariwisata -->
+            <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
+              <div class="legal-card-header">
+                <i class="fa-solid fa-file-contract legal-icon" style="color: var(--primary);"></i>
+                <h4 style="color: var(--text-main);">Izin Usaha Pariwisata (TDUP)</h4>
+                <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> Pemda Aktif</span>
+              </div>
+              <p style="color: var(--text-muted);">
+                Memiliki Tanda Daftar Usaha Pariwisata yang diakui Dinas Kebudayaan dan Pariwisata Pemerintah Kota Bandar Lampung untuk menyelenggarakan jasa tur dan perjalanan.
+              </p>
             </div>
-            <p style="color: var(--text-muted);">
-              Perlindungan asuransi kecelakaan diri perjalanan wisata resmi untuk menjamin keselamatan dan kenyamanan seluruh rombongan selama masa trip berlangsung.
-            </p>
-          </div>
 
-          <!-- 6. Faktur Pajak B2B -->
-          <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
-            <div class="legal-card-header">
-              <i class="fa-solid fa-file-invoice-dollar legal-icon" style="color: var(--primary);"></i>
-              <h4 style="color: var(--text-main);">Kelayakan Transaksi B2B</h4>
-              <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> NPWP & Faktur</span>
+            <!-- 3. Lisensi HPI -->
+            <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
+              <div class="legal-card-header">
+                <i class="fa-solid fa-users-gear legal-icon" style="color: var(--primary);"></i>
+                <h4 style="color: var(--text-main);">Lisensi Pemandu Resmi HPI</h4>
+                <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> BNSP & HPI</span>
+              </div>
+              <p style="color: var(--text-muted);">
+                Seluruh Tour Leader dan koordinator pemandu lapangan memegang kartu lisensi kompetensi dari DPD Himpunan Pramuwisata Indonesia (HPI) Provinsi Lampung.
+              </p>
             </div>
-            <p style="color: var(--text-muted);">
-              Memiliki NPWP Badan Usaha aktif, rekening bank resmi atas nama perusahaan, dan siap menerbitkan MoU, proposal penawaran, invoice resmi, faktur pajak, serta kwitansi bermaterai.
-            </p>
-          </div>
+
+            <!-- 4. Izin Armada Dishub -->
+            <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
+              <div class="legal-card-header">
+                <i class="fa-solid fa-bus legal-icon" style="color: var(--primary);"></i>
+                <h4 style="color: var(--text-main);">Armada Berizin Resmi Dishub</h4>
+                <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> Uji KIR Aktif</span>
+              </div>
+              <p style="color: var(--text-muted);">
+                Seluruh bus dan HiAce pariwisata yang kami operasikan memiliki izin trayek pariwisata resmi dari Dinas Perhubungan, uji KIR berkala aktif, dan pengemudi profesional.
+              </p>
+            </div>
+
+            <!-- 5. Asuransi Perjalanan -->
+            <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
+              <div class="legal-card-header">
+                <i class="fa-solid fa-shield-virus legal-icon" style="color: var(--primary);"></i>
+                <h4 style="color: var(--text-main);">Jaminan Asuransi Resmi</h4>
+                <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> Terproteksi</span>
+              </div>
+              <p style="color: var(--text-muted);">
+                Perlindungan asuransi kecelakaan diri perjalanan wisata resmi untuk menjamin keselamatan dan kenyamanan seluruh rombongan selama masa trip berlangsung.
+              </p>
+            </div>
+
+            <!-- 6. Faktur Pajak B2B -->
+            <div class="legal-card" style="background: #FFFFFF; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); color: var(--text-main);">
+              <div class="legal-card-header">
+                <i class="fa-solid fa-file-invoice-dollar legal-icon" style="color: var(--primary);"></i>
+                <h4 style="color: var(--text-main);">Kelayakan Transaksi B2B</h4>
+                <span style="margin-left: auto; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-check"></i> NPWP & Faktur</span>
+              </div>
+              <p style="color: var(--text-muted);">
+                Memiliki NPWP Badan Usaha aktif, rekening bank resmi atas nama perusahaan, dan siap menerbitkan MoU, proposal penawaran, invoice resmi, faktur pajak, serta kwitansi bermaterai.
+              </p>
+            </div>
+          @endforelse
         </div>
       </div>
     </section>

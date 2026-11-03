@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Certificate;
 use App\Models\Fleet;
 use App\Models\GalleryItem;
 use App\Models\Partner;
@@ -70,8 +71,9 @@ class HomeController extends Controller
     {
         $partners = Partner::where('is_active', true)->orderBy('order')->get();
         $fleets = Fleet::where('is_active', true)->orderBy('order')->get();
+        $certificates = Certificate::where('is_active', true)->orderBy('order')->get();
 
-        return view('pages.certificates', compact('partners', 'fleets'));
+        return view('pages.certificates', compact('partners', 'fleets', 'certificates'));
     }
 
     public function about(): View

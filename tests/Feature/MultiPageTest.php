@@ -1110,4 +1110,55 @@ class MultiPageTest extends TestCase
         // 5. Deleted
         $this->assertDatabaseMissing('team_members', ['name' => $uniqueName]);
     }
+
+    public function test_certificate_crud_lifecycle_and_frontend_rendering(): void
+    {
+        $uniqueTitle = 'Sertifikasi Mutu Pelayanan ' . uniqid();
+        $uniqueSlug = 'sertifikasi-mutu-' . uniqid();
+        $uniqueNumber = 'SK-TEST-' . rand(1000, 9999);
+        $uniqueBadge = 'Akreditasi Emas';
+        $uniqueIssuer = 'LSP Pariwisata Nasional';
+
+        // 1. Create certificate
+        $cert = \App\Models\Certificate::create([
+            'title' => $uniqueTitle,
+            'slug' => $uniqueSlug,
+            'issuer' => $uniqueIssuer,
+            'certificate_number' => $uniqueNumber,
+            'badge' => $uniqueBadge,
+            'icon' => 'fa-solid fa-stamp',
+            'order' => 99,
+            'description' => 'Standar kepatuhan layanan biro perjalanan wisata teruji.',
+            'is_active' => true,
+        ]);
+
+        try {
+            $this->assertDatabaseHas('certificates', ['id' => $cert->id, 'slug' => $uniqueSlug]);
+
+            // 2. Scopes work
+            $activeCerts = \App\Models\Certificate::active()->ordered()->get();
+            $this->assertTrue($activeCerts->contains('id', $cert->id));
+
+            // 3. Rendered on frontend /sertifikasi
+            $response = $this->get('/sertifikasi');
+            $response->assertStatus(200);
+            $response->assertSee($uniqueTitle);
+            $response->assertSee($uniqueNumber);
+            $response->assertSee($uniqueBadge);
+            $response->assertSee($uniqueIssuer);
+
+            // 4. Update
+            $cert->update(['badge' => 'Akreditasi Platinum']);
+            $this->assertDatabaseHas('certificates', ['id' => $cert->id, 'badge' => 'Akreditasi Platinum']);
+
+            // 5. Inactive hides from scoped list
+            $cert->update(['is_active' => false]);
+            $this->assertFalse(\App\Models\Certificate::active()->get()->contains('id', $cert->id));
+        } finally {
+            $cert->delete();
+        }
+
+        // 6. Delete verified
+        $this->assertDatabaseMissing('certificates', ['id' => $cert->id]);
+    }
 }
