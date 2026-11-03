@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #800020;
+  --color-primary-hover: #630018;
+  --color-primary-light: #FCE7EB;
+  --color-primary-dark: #4A0012;
+  --color-secondary: #9F1239;
+  --color-accent-gold: #F59E0B;
+  --color-accent-gold-light: #FEF3C7;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #1EBE5D;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+[x-cloak] {
+  display: none !important;
+}
