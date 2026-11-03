@@ -285,8 +285,23 @@
     <!-- ========================================================
          PAGE HERO BANNER & BREADCRUMB (BACKGROUND DIENG)
          ======================================================== -->
-    <section class="page-hero page-hero-packages" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.80) 0%, rgba(128, 0, 32, 0.75) 100%), url('{{ file_exists(public_path('assets/images/hero/dieng-hero.webp')) ? asset('assets/images/hero/dieng-hero.webp') : asset('assets/images/hero/dieng-hero.jpg') }}') center 40%/cover no-repeat;">
-      <div class="container page-hero-content">
+    <section class="page-hero page-hero-packages relative overflow-hidden" id="packages-hero">
+      <div class="page-hero-bg-container" aria-hidden="true">
+        <picture>
+          <source srcset="{{ asset('assets/images/hero/dieng-hero.webp') }}" type="image/webp">
+          <img src="{{ asset('assets/images/hero/dieng-hero.jpg') }}" 
+               alt="Background Paket Wisata Dieng Nirwana Tour" 
+               class="page-hero-bg-image" 
+               loading="eager" 
+               fetchpriority="high" 
+               decoding="async">
+        </picture>
+        <div class="page-hero-maroon-overlay"></div>
+        <div class="page-hero-ambient-overlay"></div>
+        <div class="page-hero-dots-overlay"></div>
+      </div>
+
+      <div class="container page-hero-content relative z-10">
         <nav class="breadcrumb-nav" aria-label="Breadcrumb">
           <a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Beranda</a>
           <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>

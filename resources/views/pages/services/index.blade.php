@@ -8,8 +8,38 @@
     <!-- ========================================================
          PAGE HERO BANNER & BREADCRUMB
          ======================================================== -->
-    <section class="page-hero">
-      <div class="container page-hero-content">
+    <section class="page-hero relative overflow-hidden" id="services-hero">
+      <!-- Background Pemandangan Wisata dengan Perpaduan Merah Maroon Mewah -->
+      <div class="page-hero-bg-container" aria-hidden="true">
+        <picture>
+          @php
+            $servicesPageBg = !empty($settings['services_page_background_image']) 
+              ? $settings['services_page_background_image'] 
+              : ($settings['services_background_image'] ?? null);
+          @endphp
+          @if(!empty($servicesPageBg))
+            <img src="{{ str_starts_with($servicesPageBg, 'http') ? $servicesPageBg : asset('storage/' . $servicesPageBg) }}" 
+                 alt="Background Layanan Perjalanan Nirwana Tour" 
+                 class="page-hero-bg-image" 
+                 loading="eager" 
+                 fetchpriority="high" 
+                 decoding="async">
+          @else
+            <source srcset="{{ asset('assets/images/hero/prambanan-hero.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/prambanan-hero.jpg') }}" 
+                 alt="Background Wisata Indonesia Candi Prambanan Nirwana Tour" 
+                 class="page-hero-bg-image" 
+                 loading="eager" 
+                 fetchpriority="high" 
+                 decoding="async">
+          @endif
+        </picture>
+        <div class="page-hero-maroon-overlay"></div>
+        <div class="page-hero-ambient-overlay"></div>
+        <div class="page-hero-dots-overlay"></div>
+      </div>
+
+      <div class="container page-hero-content relative z-10">
         <nav class="breadcrumb-nav" aria-label="Breadcrumb">
           <a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Beranda</a>
           <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>

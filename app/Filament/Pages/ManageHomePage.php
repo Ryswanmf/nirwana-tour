@@ -58,6 +58,7 @@ class ManageHomePage extends Page implements HasForms
             'hero_feature_3',
             'hero_background_image',
             'services_background_image',
+            'services_page_background_image',
             'reasons_background_image',
             'articles_background_image',
             'owner_name',
@@ -191,11 +192,22 @@ class ManageHomePage extends Page implements HasForms
                                     ->description('Foto pemandangan wisata latar belakang bagian layanan yang dipadukan secara mewah dengan gradasi merah marun khas Nirwana Tour.')
                                     ->schema([
                                         FileUpload::make('services_background_image')
-                                            ->label('Foto Background Bagian Layanan (Maroon Blend)')
+                                            ->label('Foto Background Bagian Layanan di Beranda (Maroon Blend)')
                                             ->image()
                                             ->directory('site-settings')
                                             ->imageEditor()
-                                            ->helperText('Upload foto pemandangan wisata (format: JPG, WebP, PNG, maks 5MB). Sistem secara otomatis memadukan foto dengan gradasi merah marun mewah khas Nirwana Tour. Kosongkan untuk menggunakan pemandangan default alam nusantara.'),
+                                            ->helperText('Upload foto pemandangan wisata (format: JPG, WebP, PNG, maks 5MB). Sistem secara otomatis memadukan foto dengan gradasi merah marun mewah khas Nirwana Tour. Kosongkan untuk menggunakan pemandangan default Dataran Tinggi Dieng.'),
+                                    ]),
+
+                                Section::make('Background Header Halaman Layanan Perjalanan (/layanan)')
+                                    ->description('Foto pemandangan wisata latar belakang header banner pada halaman Layanan Perjalanan yang dipadukan secara mewah dengan gradasi merah marun khas Nirwana Tour.')
+                                    ->schema([
+                                        FileUpload::make('services_page_background_image')
+                                            ->label('Foto Background Header Halaman Layanan (Maroon Blend)')
+                                            ->image()
+                                            ->directory('site-settings')
+                                            ->imageEditor()
+                                            ->helperText('Upload foto pemandangan wisata untuk header halaman Layanan Perjalanan (format: JPG, WebP, PNG, maks 5MB). Kosongkan untuk menggunakan pemandangan default Candi Prambanan.'),
                                     ]),
 
                                 Section::make('Background Bagian Keunggulan (Mengapa Memilih Kami)')
