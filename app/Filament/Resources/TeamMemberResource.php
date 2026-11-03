@@ -15,10 +15,15 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class TeamMemberResource extends Resource
@@ -29,13 +34,13 @@ class TeamMemberResource extends Resource
 
     protected static ?string $navigationGroup = 'Profil & Pengaturan';
 
-    protected static ?string $navigationLabel = 'Tim & Manajemen';
+    protected static ?string $navigationLabel = 'Manajemen & Tim';
 
     protected static ?string $modelLabel = 'Anggota Tim';
 
     protected static ?string $pluralModelLabel = 'Tim Manajemen & Pemandu';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -52,14 +57,24 @@ class TeamMemberResource extends Resource
                             TextInput::make('role')
                                 ->label('Jabatan / Posisi')
                                 ->required()
-                                ->placeholder('Contoh: Pimpinan & Founder @ Nirwana Tour'),
+                                ->placeholder('Contoh: Pimpinan & Founder / Senior Tour Leader'),
                             TextInput::make('division')
                                 ->label('Divisi Kerja')
-                                ->placeholder('Contoh: Direksi / Operasional / Tour Leader'),
+                                ->placeholder('Pilih dari saran atau ketik divisi baru')
+                                ->datalist([
+                                    'Direksi & Pimpinan',
+                                    'Operasional & Lapangan',
+                                    'Tour Leader & Pemandu Wisata',
+                                    'Customer Service & Reservasi',
+                                    'Transportasi & Logistik',
+                                    'Dokumentasi & Media',
+                                ])
+                                ->helperText('Contoh: Direksi / Operasional / Tour Leader'),
                             TextInput::make('order')
                                 ->label('Urutan Tampil')
                                 ->numeric()
-                                ->default(0),
+                                ->default(0)
+                                ->helperText('Urutan tampil di halaman manajemen (angka lebih kecil tampil lebih awal)'),
                         ]),
                         FileUpload::make('photo')
                             ->label('Foto Anggota Tim')
@@ -108,6 +123,7 @@ class TeamMemberResource extends Resource
                         ]),
                         Toggle::make('is_active')
                             ->label('Aktif / Tampilkan di Halaman Manajemen')
+                            ->helperText('Jika aktif maka profil anggota tim ini ditampilkan di rute /manajemen.')
                             ->default(true),
                     ]),
             ]);
@@ -133,25 +149,54 @@ class TeamMemberResource extends Resource
                 TextColumn::make('division')
                     ->label('Divisi')
                     ->badge()
-                    ->color('info'),
-                IconColumn::make('is_active')
-                    ->label('Status')
-                    ->boolean(),
+                    ->color('info')
+                    ->sortable(),
+                ToggleColumn::make('is_active')
+                    ->label('Aktif')
+                    ->sortable(),
                 TextColumn::make('order')
                     ->label('Urutan')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y H:i')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('order')
             ->filters([
-                //
+                SelectFilter::make('division')
+                    ->label('Filter Divisi')
+                    ->options(fn () => TeamMember::whereNotNull('division')->where('division', '!=', '')->distinct()->pluck('division', 'division')->toArray()),
+                TernaryFilter::make('is_active')
+                    ->label('Status Aktif')
+                    ->trueLabel('Hanya Anggota Aktif')
+                    ->falseLabel('Hanya yang Disembunyikan'),
             ])
             ->actions([
+                Action::make('view_on_web')
+                    ->label('Lihat di Web')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->color('gray')
+                    ->url(route('management'))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    BulkAction::make('activate')
+                        ->label('Aktifkan yang Dipilih')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->action(fn (Collection $records) => $records->each->update(['is_active' => true]))
+                        ->deselectRecordsAfterCompletion(),
+                    BulkAction::make('deactivate')
+                        ->label('Nonaktifkan yang Dipilih')
+                        ->icon('heroicon-o-x-circle')
+                        ->color('warning')
+                        ->action(fn (Collection $records) => $records->each->update(['is_active' => false]))
+                        ->deselectRecordsAfterCompletion(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

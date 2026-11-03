@@ -16,6 +16,31 @@ class TeamMember extends Model
         'order' => 'integer',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function ($member) {
+            if ($member->isDirty('photo') && !empty($member->photo)) {
+                $fullPath = \Illuminate\Support\Facades\Storage::disk('public')->path($member->photo);
+                \App\Helpers\ImageOptimizer::compress($fullPath);
+            }
+        });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
+    }
+
+    public function scopeByDivision($query, string $division)
+    {
+        return $query->where('division', $division);
+    }
+
     public function getPhotoUrlAttribute(): string
     {
         return storage_or_asset($this->photo, 'assets/images/pemilik-nirwana.webp');

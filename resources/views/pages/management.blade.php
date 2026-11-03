@@ -31,16 +31,16 @@
           <!-- Foto Pimpinan -->
           <div class="story-media">
             <div class="about-img-wrapper" style="max-width: 440px;">
-              <picture>
-                <source srcset="{{ asset('assets/images/pemilik-nirwana.webp') }}" type="image/webp">
-                <img src="{{ asset('assets/images/pemilik-nirwana.JPG') }}" alt="Pimpinan & Founder Nirwana Tour - Kiki M Alfin" class="about-main-img" loading="lazy" decoding="async" style="height: 480px; object-position: center top;">
-              </picture>
+              @php
+                $ownerPhoto = !empty($settings['owner_photo']) ? storage_or_asset($settings['owner_photo']) : asset('assets/images/pemilik-nirwana.webp');
+              @endphp
+              <img src="{{ $ownerPhoto }}" alt="Pimpinan & Founder Nirwana Tour - {{ $settings['owner_name'] ?? 'Kiki M Alfin' }}" class="about-main-img" loading="lazy" decoding="async" style="height: 480px; object-position: center top; object-fit: cover;">
               <div class="about-founder-label">
-                <strong>Kiki M Alfin</strong>
-                <span>Pimpinan & Founder Nirwana Tour Lampung</span>
+                <strong>{{ $settings['owner_name'] ?? 'Kiki M Alfin' }}</strong>
+                <span>{{ $settings['owner_role'] ?? 'Pimpinan & Founder Nirwana Tour Lampung' }}</span>
               </div>
               <div class="about-badge-exp">
-                <span class="exp-number">8+</span>
+                <span class="exp-number">{{ $settings['stat_years_count'] ?? '8+' }}</span>
                 <span class="exp-text">Tahun Memimpin</span>
               </div>
             </div>
@@ -51,15 +51,15 @@
             <div class="section-tag"><i class="fa-solid fa-user-tie"></i> Kepemimpinan Eksekutif</div>
             <h2 class="section-title">Dedikasi Penuh untuk Pelayanan Wisata Berkelas & Berintegritas</h2>
             <p class="story-lead">
-              Dipimpin oleh <strong>Kiki M Alfin</strong>, Nirwana Tour Lampung bertumbuh berlandaskan komitmen tulus dalam memajukan pariwisata Lampung dan Indonesia dengan standar keselamatan tinggi serta kejujuran transaksi.
+              Dipimpin oleh <strong>{{ $settings['owner_name'] ?? 'Kiki M Alfin' }}</strong>, {{ $settings['site_name'] ?? 'Nirwana Tour Lampung' }} bertumbuh berlandaskan komitmen tulus dalam memajukan pariwisata Lampung dan Indonesia dengan standar keselamatan tinggi serta kejujuran transaksi.
             </p>
             <p class="story-text">
-              Di bawah kepemimpinannya selama lebih dari 8 tahun, Nirwana Tour berhasil melayani lebih dari 15.000 wisatawan nusantara, membangun sinergi kuat dengan puluhan instansi BUMN, kementerian, sekolah, kampus, dan korporasi swasta, serta menggerakkan roda ekonomi masyarakat lokal di destinasi wisata.
+              Di bawah kepemimpinannya selama lebih dari {{ $settings['stat_years_count'] ?? '8+' }} tahun, Nirwana Tour berhasil melayani lebih dari {{ $settings['stat_tourists_count'] ?? '15.000+' }} wisatawan nusantara, membangun sinergi kuat dengan puluhan instansi BUMN, kementerian, sekolah, kampus, dan korporasi swasta, serta menggerakkan roda ekonomi masyarakat lokal di destinasi wisata.
             </p>
 
             <div class="story-quote-card">
-              <p>"Bagi kami, keberhasilan sebuah perjalanan bukan hanya tentang sampai di tujuan, tetapi bagaimana setiap tamu kami tersenyum bahagia, merasa nyaman, dan terlindungi di setiap langkahnya."</p>
-              <span>— Kiki M Alfin (Pimpinan & Founder Nirwana Tour Lampung)</span>
+              <p>"{{ $settings['owner_quote'] ?? 'Bagi kami, keberhasilan sebuah perjalanan bukan hanya tentang sampai di tujuan, tetapi bagaimana setiap tamu kami tersenyum bahagia, merasa nyaman, dan terlindungi di setiap langkahnya.' }}"</p>
+              <span>— {{ $settings['owner_name'] ?? 'Kiki M Alfin' }} ({{ $settings['owner_role'] ?? 'Pimpinan & Founder Nirwana Tour Lampung' }})</span>
             </div>
 
             @php

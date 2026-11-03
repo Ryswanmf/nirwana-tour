@@ -1064,4 +1064,50 @@ class MultiPageTest extends TestCase
         \App\Models\SiteSetting::set('owner_name', 'Kiki M Alfin', 'Nama Pimpinan', 'about');
         \App\Models\SiteSetting::set('company_vision', 'Menjadi biro perjalanan wisata terdepan, tepercaya, dan bereputasi prima di Lampung serta Indonesia, yang dikenal atas keunggulan layanan, integritas bisnis, standar keselamatan tinggi, dan kontribusi nyata dalam memajukan potensi pariwisata lokal yang berkelanjutan.', 'Visi Perusahaan', 'about');
     }
+
+    public function test_management_team_member_crud_lifecycle_and_scopes(): void
+    {
+        $uniqueName = 'Pemandu Senior Uji ' . uniqid();
+        $uniqueRole = 'Lead Marine Guide ' . uniqid();
+        $uniqueDiv = 'Operasional & Lapangan';
+
+        // 1. Create team member
+        $member = \App\Models\TeamMember::create([
+            'name' => $uniqueName,
+            'role' => $uniqueRole,
+            'division' => $uniqueDiv,
+            'photo' => null,
+            'linkedin_url' => 'https://linkedin.com/in/test-guide',
+            'order' => 88,
+            'is_active' => true,
+        ]);
+
+        try {
+            $this->assertDatabaseHas('team_members', ['name' => $uniqueName]);
+
+            // 2. Scopes work
+            $activeOrdered = \App\Models\TeamMember::active()->ordered()->get();
+            $this->assertTrue($activeOrdered->contains('id', $member->id));
+
+            $byDiv = \App\Models\TeamMember::byDivision($uniqueDiv)->get();
+            $this->assertTrue($byDiv->contains('id', $member->id));
+
+            // 3. Rendered on /manajemen
+            $response = $this->get('/manajemen');
+            $response->assertStatus(200);
+            $response->assertSee($uniqueName);
+            $response->assertSee($uniqueRole);
+            $response->assertSee('linkedin.com/in/test-guide');
+
+            // 4. Update member
+            $member->update(['role' => 'Master Tour Leader']);
+            $this->assertDatabaseHas('team_members', ['id' => $member->id, 'role' => 'Master Tour Leader']);
+
+        } finally {
+            $member->delete();
+        }
+
+        // 5. Deleted
+        $this->assertDatabaseMissing('team_members', ['name' => $uniqueName]);
+    }
 }
