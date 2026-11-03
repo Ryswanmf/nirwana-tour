@@ -127,20 +127,48 @@
               <article class="video-card">
                 <div class="video-player-wrapper">
                   @if($item->is_instagram)
-                    <div class="instagram-reel-frame" style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
-                      <iframe src="{{ $item->instagram_embed_url }}"
-                              style="width: 100%; height: 100%; border: 0;"
-                              allowtransparency="true"
-                              allowfullscreen="true"
-                              loading="lazy"
-                              title="{{ $item->title }}">
-                      </iframe>
+                    <div class="reel-preview-container" onclick="openReelModal('{{ $item->instagram_embed_url }}', '{{ addslashes($item->title) }}', '{{ $item->file_url }}')">
+                      <img src="{{ $item->thumbnail_url }}" 
+                           alt="{{ $item->title }}" 
+                           class="reel-poster-image" 
+                           loading="lazy" 
+                           decoding="async">
+                      
+                      <div class="reel-vignette-overlay"></div>
+
+                      <div class="reel-badge-top-left">
+                        <span class="reel-gradient-pill">
+                          <i class="fa-brands fa-instagram"></i>
+                          <span>Reels</span>
+                        </span>
+                      </div>
+
+                      <div class="reel-badge-top-right">
+                        <span class="reel-hd-pill">
+                          <i class="fa-solid fa-play"></i>
+                          <span>Watch</span>
+                        </span>
+                      </div>
+
+                      <button type="button" 
+                              class="reel-center-play-btn" 
+                              aria-label="Putar Video {{ $item->title }}">
+                        <i class="fa-solid fa-play"></i>
+                      </button>
+
+                      <div class="reel-bottom-author">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>@nirwana_tourlampung</span>
+                      </div>
                     </div>
                   @elseif($item->media_type === 'image')
-                    <div style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
-                      <img src="{{ $item->file_url }}" alt="{{ $item->title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
-                      <div class="video-duration-badge" style="background: rgba(15, 23, 42, 0.75);">
-                        <i class="fa-solid fa-camera"></i> Foto
+                    <div class="reel-preview-container">
+                      <img src="{{ $item->file_url }}" alt="{{ $item->title }}" class="reel-poster-image" loading="lazy">
+                      <div class="reel-vignette-overlay"></div>
+                      <div class="reel-badge-top-right">
+                        <span class="reel-hd-pill">
+                          <i class="fa-solid fa-camera"></i> Foto
+                        </span>
                       </div>
                     </div>
                   @else

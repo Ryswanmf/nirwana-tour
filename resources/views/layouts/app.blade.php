@@ -523,8 +523,86 @@
     </div>
   </div>
 
+  <!-- ========================================================
+       INSTAGRAM REELS LIGHTBOX MODAL
+       ======================================================== -->
+  <div id="reelModal" class="reel-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="reel-modal-dialog">
+      <div class="reel-modal-header">
+        <div class="reel-modal-title-wrap">
+          <i class="fa-brands fa-instagram text-[#E1306C]" style="font-size: 1.15rem;"></i>
+          <span id="reelModalTitle" class="reel-modal-title">Dokumentasi Tour Nirwana</span>
+        </div>
+        <button type="button" class="reel-modal-close" onclick="closeReelModal()" aria-label="Tutup Video">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="reel-modal-body">
+        <div class="reel-modal-frame-wrap" id="reelModalFrameWrap"></div>
+      </div>
+      <div class="reel-modal-footer">
+        <a id="reelModalExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="reel-modal-ig-btn">
+          <i class="fa-brands fa-instagram"></i>
+          <span>Buka di Aplikasi Instagram</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Script JS -->
   <script src="{{ file_exists(public_path('js/script.min.js')) ? asset('js/script.min.js') : asset('js/script.js') }}" defer></script>
+
+  <!-- Instagram Reels Modal Logic -->
+  <script>
+    window.openReelModal = function(embedUrl, title, originalUrl) {
+      var modal = document.getElementById('reelModal');
+      var frameWrap = document.getElementById('reelModalFrameWrap');
+      var titleEl = document.getElementById('reelModalTitle');
+      var linkEl = document.getElementById('reelModalExternalLink');
+      var marquee = document.getElementById('videoMarqueeWrapper');
+
+      if (!modal || !frameWrap) return;
+
+      if (titleEl) titleEl.textContent = title || 'Dokumentasi Tour Nirwana';
+      if (linkEl) linkEl.href = originalUrl || 'https://www.instagram.com/nirwana_tourlampung/';
+
+      if (marquee) marquee.classList.add('is-paused');
+
+      frameWrap.innerHTML = '<iframe src="' + embedUrl + '" class="reel-modal-iframe" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" loading="lazy"></iframe>';
+
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() {
+        modal.classList.add('is-active');
+      }, 10);
+    };
+
+    window.closeReelModal = function() {
+      var modal = document.getElementById('reelModal');
+      var frameWrap = document.getElementById('reelModalFrameWrap');
+      var marquee = document.getElementById('videoMarqueeWrapper');
+
+      if (!modal) return;
+
+      modal.classList.remove('is-active');
+      setTimeout(function() {
+        modal.style.display = 'none';
+        if (frameWrap) frameWrap.innerHTML = '';
+        document.body.style.overflow = '';
+        if (marquee) marquee.classList.remove('is-paused');
+      }, 250);
+    };
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeReelModal();
+    });
+    document.addEventListener('click', function(e) {
+      var modal = document.getElementById('reelModal');
+      if (modal && e.target === modal) {
+        closeReelModal();
+      }
+    });
+  </script>
 
   <!-- PWA Service Worker & Install Prompt Logic -->
   <script>
