@@ -13,6 +13,12 @@ class EditService extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('view_on_web')
+                ->label('Lihat di Web')
+                ->icon('heroicon-o-arrow-top-right-on-square')
+                ->color('gray')
+                ->url(fn (): string => route('services.show', $this->record->slug))
+                ->openUrlInNewTab(),
             Actions\DeleteAction::make(),
         ];
     }

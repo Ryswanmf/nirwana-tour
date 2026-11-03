@@ -896,4 +896,55 @@ class MultiPageTest extends TestCase
         $featuredCount = Post::featured()->count();
         $this->assertGreaterThanOrEqual(0, $featuredCount);
     }
+
+    public function test_service_crud_lifecycle_and_frontend_features(): void
+    {
+        $uniqueTitle = 'Layanan VIP Uji ' . uniqid();
+        $uniqueSlug = 'layanan-vip-uji-' . uniqid();
+
+        // 1. Create a new service
+        $service = Service::create([
+            'title' => $uniqueTitle,
+            'slug' => $uniqueSlug,
+            'icon' => 'fa-solid fa-plane-departure',
+            'short_description' => 'Layanan khusus penerbangan carter rombongan eksklusif.',
+            'full_description' => '<p>Fasilitas lengkap carter pesawat pribadi dan handling bandara VIP.</p>',
+            'features' => ['Fast Track Bandara', 'Lounge VIP Eksklusif', 'Konsumsi Bintang Lima'],
+            'order' => 99,
+            'is_active' => true,
+        ]);
+
+        try {
+            $this->assertDatabaseHas('services', ['slug' => $uniqueSlug]);
+
+            // 2. Scopes work
+            $activeServices = Service::active()->ordered()->get();
+            $this->assertTrue($activeServices->contains('id', $service->id));
+
+            // 3. Rendered on catalog (/layanan)
+            $indexRes = $this->get('/layanan');
+            $indexRes->assertStatus(200);
+            $indexRes->assertSee($uniqueTitle);
+            $indexRes->assertSee('Layanan khusus penerbangan carter');
+            $indexRes->assertSee('Fast Track Bandara');
+
+            // 4. Rendered on detail (/layanan/{slug})
+            $detailRes = $this->get("/layanan/{$uniqueSlug}");
+            $detailRes->assertStatus(200);
+            $detailRes->assertSee($uniqueTitle);
+            $detailRes->assertSee('Lounge VIP Eksklusif');
+            $detailRes->assertSee('Layanan: ' . $uniqueTitle);
+            $detailRes->assertSee('api.whatsapp.com/send');
+
+            // 5. Update service
+            $service->update(['short_description' => 'Deskripsi layanan telah diperbarui']);
+            $this->assertDatabaseHas('services', ['id' => $service->id, 'short_description' => 'Deskripsi layanan telah diperbarui']);
+
+        } finally {
+            $service->delete();
+        }
+
+        // 6. Deleted from database
+        $this->assertDatabaseMissing('services', ['slug' => $uniqueSlug]);
+    }
 }

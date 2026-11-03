@@ -49,6 +49,12 @@
           
           <!-- KOLOM KIRI: DESKRIPSI & KEUNGGULAN -->
           <div>
+            @if($service->image)
+              <div style="border-radius: 20px; overflow: hidden; margin-bottom: 24px; max-height: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #E2E8F0;">
+                <img src="{{ $service->image_url }}" alt="{{ $service->title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+              </div>
+            @endif
+
             <div style="background: #FFFFFF; border-radius: 20px; padding: 36px; border: 1px solid #E2E8F0; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 30px;">
               
               <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #F1F5F9;">
@@ -114,6 +120,34 @@
                     <span style="font-size: 0.82rem; color: #64748B;">Tanpa biaya tersembunyi, rincian jelas sejak awal penawaran.</span>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <!-- 1-Click Social Share Card untuk Layanan -->
+            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 18px 24px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.03);">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-share-nodes" style="color: var(--primary, #800020); font-size: 1.15rem;"></i>
+                <span style="font-weight: 700; color: #1E293B; font-size: 0.9rem;">Bagikan Informasi Layanan Ini:</span>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <a href="https://api.whatsapp.com/send?text={{ rawurlencode('Informasi Layanan ' . $service->title . ' - Nirwana Tour: ' . url()->current()) }}"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Bagikan ke WhatsApp"
+                   style="background: #25D366; color: #FFFFFF; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.1rem; transition: transform 0.2s;">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ rawurlencode(url()->current()) }}"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Bagikan ke Facebook"
+                   style="background: #1877F2; color: #FFFFFF; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.1rem; transition: transform 0.2s;">
+                  <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <button type="button"
+                        onclick="navigator.clipboard.writeText(window.location.href); alert('Tautan layanan berhasil disalin!');"
+                        title="Salin Tautan"
+                        style="background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.05rem; transition: transform 0.2s;">
+                  <i class="fa-solid fa-link"></i>
+                </button>
               </div>
             </div>
           </div>

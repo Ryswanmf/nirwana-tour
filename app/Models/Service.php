@@ -20,12 +20,29 @@ class Service extends Model
 
     protected static function booted(): void
     {
+        static::saving(function ($service) {
+            if ($service->isDirty('image') && !empty($service->image)) {
+                $fullPath = \Illuminate\Support\Facades\Storage::disk('public')->path($service->image);
+                \App\Helpers\ImageOptimizer::compress($fullPath);
+            }
+        });
+
         static::saved(function () {
             \Illuminate\Support\Facades\Cache::forget('nirwana_footer_services');
         });
         static::deleted(function () {
             \Illuminate\Support\Facades\Cache::forget('nirwana_footer_services');
         });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
     }
 
     public function getImageUrlAttribute(): string
