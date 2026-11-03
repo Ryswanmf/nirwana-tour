@@ -57,6 +57,7 @@ class ManageHomePage extends Page implements HasForms
             'hero_feature_2',
             'hero_feature_3',
             'hero_background_image',
+            'services_background_image',
             'owner_name',
             'owner_role',
             'owner_quote',
@@ -182,6 +183,17 @@ class ManageHomePage extends Page implements HasForms
                                             ->directory('site-settings')
                                             ->imageEditor()
                                             ->helperText('Upload foto pemandangan wisata (format: JPG, WebP, PNG, maks 5MB). Sistem secara otomatis memadukan foto dengan gradasi putih elegan agar seluruh teks tetap tajam dan mudah dibaca. Kosongkan untuk menggunakan pemandangan default Nirwana Tour.'),
+                                    ]),
+
+                                Section::make('Background Bagian Layanan (Solusi Perjalanan Lengkap)')
+                                    ->description('Foto pemandangan wisata latar belakang bagian layanan yang dipadukan secara mewah dengan gradasi merah marun khas Nirwana Tour.')
+                                    ->schema([
+                                        FileUpload::make('services_background_image')
+                                            ->label('Foto Background Bagian Layanan (Maroon Blend)')
+                                            ->image()
+                                            ->directory('site-settings')
+                                            ->imageEditor()
+                                            ->helperText('Upload foto pemandangan wisata (format: JPG, WebP, PNG, maks 5MB). Sistem secara otomatis memadukan foto dengan gradasi merah marun mewah khas Nirwana Tour. Kosongkan untuk menggunakan pemandangan default alam nusantara.'),
                                     ]),
                             ]),
 
@@ -362,7 +374,7 @@ class ManageHomePage extends Page implements HasForms
         foreach ($state as $key => $value) {
             $group = match ($key) {
                 'hero_badge', 'hero_title', 'hero_subtitle', 'hero_cta_wa_text', 'hero_cta_dest_text',
-                'hero_feature_1', 'hero_feature_2', 'hero_feature_3', 'hero_background_image' => 'home',
+                'hero_feature_1', 'hero_feature_2', 'hero_feature_3', 'hero_background_image', 'services_background_image' => 'home',
                 'owner_name', 'owner_role', 'owner_quote', 'owner_photo',
                 'about_company', 'about_description', 'stat_years_count', 'stat_years_label',
                 'stat_trips_count', 'stat_trips_label', 'stat_satisfaction_count', 'stat_satisfaction_label',

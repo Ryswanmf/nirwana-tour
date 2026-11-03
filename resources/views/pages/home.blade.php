@@ -325,10 +325,33 @@
     <!-- ========================================================
          4. LAYANAN SECTION (DINAMIS DARI DATABASE)
          ======================================================== -->
-    <section class="section services-section" id="layanan">
-      <div class="container">
+    <section class="section services-section relative overflow-hidden" id="layanan">
+      <!-- Background Pemandangan Wisata dengan Perpaduan Merah Maroon Mewah -->
+      <div class="services-bg-container" aria-hidden="true">
+        <picture>
+          @if(!empty($settings['services_background_image']))
+            <img src="{{ str_starts_with($settings['services_background_image'], 'http') ? $settings['services_background_image'] : asset('storage/' . $settings['services_background_image']) }}" 
+                 alt="Background Layanan Wisata Nirwana Tour" 
+                 class="services-bg-image" 
+                 loading="lazy" 
+                 decoding="async">
+          @else
+            <source srcset="{{ asset('assets/images/hero/dieng-hero.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/dieng-hero.jpg') }}" 
+                 alt="Background Layanan Wisata Nirwana Tour" 
+                 class="services-bg-image" 
+                 loading="lazy" 
+                 decoding="async">
+          @endif
+        </picture>
+        <div class="services-maroon-overlay"></div>
+        <div class="services-ambient-overlay"></div>
+        <div class="services-dots-overlay"></div>
+      </div>
+
+      <div class="container relative z-10">
         <div class="section-header text-center">
-          <div class="section-tag">Solusi Perjalanan Lengkap</div>
+          <div class="section-tag inline-block">Solusi Perjalanan Lengkap</div>
           <h2 class="section-title">Layanan Terbaik Nirwana Tour Lampung</h2>
           <p class="section-subtitle">Pilihan komprehensif untuk liburan keluarga, kegiatan pendidikan, gathering kantor, hingga sewa transportasi VIP.</p>
         </div>
