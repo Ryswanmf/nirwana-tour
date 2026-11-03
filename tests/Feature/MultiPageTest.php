@@ -1024,4 +1024,44 @@ class MultiPageTest extends TestCase
         // 6. Deleted from database
         $this->assertDatabaseMissing('tour_packages', ['slug' => $uniqueSlug]);
     }
+
+    public function test_company_profile_crud_and_frontend_dynamic_rendering(): void
+    {
+        $admin = \App\Models\User::first() ?? \App\Models\User::factory()->create();
+
+        // 1. Admin can access CompanyProfile page in Filament
+        $adminRes = $this->actingAs($admin)->get('/admin/company-profile');
+        $adminRes->assertStatus(200);
+        $adminRes->assertSee('Profil Nirwana');
+
+        // 2. Update dynamic profile settings
+        $testLegalName = 'PT Nirwana Tour Internasional ' . uniqid();
+        $testStoryTitle = 'Perjalanan Emas Menembus Cakrawala ' . uniqid();
+        $testOwner = 'Direktur Uji ' . uniqid();
+        $testVision = 'Visi Uji Komitmen Jangka Panjang ' . uniqid();
+
+        \App\Models\SiteSetting::set('company_legal_name', $testLegalName, 'Nama Badan Usaha', 'about');
+        \App\Models\SiteSetting::set('about_story_title', $testStoryTitle, 'Judul Cerita', 'about');
+        \App\Models\SiteSetting::set('owner_name', $testOwner, 'Nama Pimpinan', 'about');
+        \App\Models\SiteSetting::set('company_vision', $testVision, 'Visi Perusahaan', 'about');
+
+        // 3. Frontend /profil-nirwana and /tentang-kami render updated dynamic values
+        $profileRes = $this->get('/profil-nirwana');
+        $profileRes->assertStatus(200);
+        $profileRes->assertSee($testLegalName);
+        $profileRes->assertSee($testStoryTitle);
+        $profileRes->assertSee($testOwner);
+        $profileRes->assertSee($testVision);
+
+        $aboutRes = $this->get('/tentang-kami');
+        $aboutRes->assertStatus(200);
+        $aboutRes->assertSee($testLegalName);
+        $aboutRes->assertSee($testStoryTitle);
+
+        // Reset to original defaults
+        \App\Models\SiteSetting::set('company_legal_name', 'Nirwana Tour Travel', 'Nama Badan Usaha', 'about');
+        \App\Models\SiteSetting::set('about_story_title', 'Berawal dari Kecintaan Mendalam pada Pesona Bumi Ruwa Jurai', 'Judul Cerita', 'about');
+        \App\Models\SiteSetting::set('owner_name', 'Kiki M Alfin', 'Nama Pimpinan', 'about');
+        \App\Models\SiteSetting::set('company_vision', 'Menjadi biro perjalanan wisata terdepan, tepercaya, dan bereputasi prima di Lampung serta Indonesia, yang dikenal atas keunggulan layanan, integritas bisnis, standar keselamatan tinggi, dan kontribusi nyata dalam memajukan potensi pariwisata lokal yang berkelanjutan.', 'Visi Perusahaan', 'about');
+    }
 }
