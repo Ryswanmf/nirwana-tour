@@ -804,12 +804,35 @@
     <!-- ========================================================
          6.5 ARTIKEL & TIPS WISATA SECTION (DINAMIS DARI DATABASE)
          ======================================================== -->
-    <section class="section articles-section" id="artikel">
-      <div class="container">
+    <section class="section articles-section relative overflow-hidden" id="artikel">
+      <!-- Background Pemandangan Wisata dengan Perpaduan Merah Maroon Mewah -->
+      <div class="articles-bg-container" aria-hidden="true">
+        <picture>
+          @if(!empty($settings['articles_background_image']))
+            <img src="{{ str_starts_with($settings['articles_background_image'], 'http') ? $settings['articles_background_image'] : asset('storage/' . $settings['articles_background_image']) }}" 
+                 alt="Background Informasi & Edukasi Nirwana Tour" 
+                 class="articles-bg-image" 
+                 loading="lazy" 
+                 decoding="async">
+          @else
+            <source srcset="{{ asset('assets/images/hero/bromo-hero.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/bromo-hero.jpg') }}" 
+                 alt="Background Wisata Alam Bromo Nirwana Tour" 
+                 class="articles-bg-image" 
+                 loading="lazy" 
+                 decoding="async">
+          @endif
+        </picture>
+        <div class="articles-maroon-overlay"></div>
+        <div class="articles-ambient-overlay"></div>
+        <div class="articles-dots-overlay"></div>
+      </div>
+
+      <div class="container relative z-10">
         <div class="section-header text-center">
-          <div class="section-tag">Informasi & Edukasi</div>
-          <h2 class="section-title">Berita & Tips Wisata Terbaru</h2>
-          <p class="section-subtitle">Dapatkan panduan liburan praktis, tips destinasi populer, dan wawasan seru seputar wisata Lampung & Nusantara.</p>
+          <div class="section-tag inline-block">Informasi & Edukasi</div>
+          <h2 class="section-title text-white">Berita & Tips Wisata Terbaru</h2>
+          <p class="section-subtitle text-[#FCE7EB]">Dapatkan panduan liburan praktis, tips destinasi populer, dan wawasan seru seputar wisata Lampung & Nusantara.</p>
         </div>
 
         <div class="articles-grid">
