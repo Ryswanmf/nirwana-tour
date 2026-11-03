@@ -53,6 +53,6 @@ class TourPackage extends Model
 
     public function getThumbnailUrlAttribute(): string
     {
-        return storage_or_asset($this->thumbnail, 'assets/images/destinasi/pahawang.jpg');
+        return webp_url($this->thumbnail, 'assets/images/destinasi/pahawang.jpg');
     }
 }

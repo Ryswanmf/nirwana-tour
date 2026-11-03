@@ -18,6 +18,6 @@ class TeamMember extends Model
 
     public function getPhotoUrlAttribute(): string
     {
-        return storage_or_asset($this->photo, 'assets/images/owner.png');
+        return storage_or_asset($this->photo, 'assets/images/pemilik-nirwana.webp');
     }
 }

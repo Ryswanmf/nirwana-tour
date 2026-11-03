@@ -54,6 +54,6 @@ class GalleryItem extends Model
 
     public function getThumbnailUrlAttribute(): string
     {
-        return storage_or_asset($this->thumbnail, 'assets/images/galeri/video1-poster.jpg');
+        return webp_url($this->thumbnail, 'assets/images/galeri/video1-poster.jpg');
     }
 }

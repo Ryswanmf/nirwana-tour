@@ -21,3 +21,25 @@ if (!function_exists('storage_or_asset')) {
         return asset('storage/' . ltrim($path, '/'));
     }
 }
+
+if (!function_exists('webp_url')) {
+    /**
+     * Mengembalikan URL versi .webp jika tersedia di public directory, atau fallback ke storage_or_asset.
+     */
+    function webp_url(?string $path, ?string $fallback = null): ?string
+    {
+        $url = storage_or_asset($path, $fallback);
+        if (!$url) {
+            return null;
+        }
+
+        $parsedPath = ltrim(parse_url($url, PHP_URL_PATH) ?? '', '/');
+        $webpRelative = preg_replace('/\.(jpe?g|png)$/i', '.webp', $parsedPath);
+
+        if ($webpRelative && $webpRelative !== $parsedPath && file_exists(public_path($webpRelative))) {
+            return asset($webpRelative);
+        }
+
+        return $url;
+    }
+}

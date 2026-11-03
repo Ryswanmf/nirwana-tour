@@ -494,9 +494,45 @@ Alpine.data('reviewModal', () => ({
 }));
 
 // ========================================================
-// Inisialisasi Prefetcher Cepat untuk Kecepatan Halaman
+// Inisialisasi Prefetcher Cepat untuk Kecepatan Halaman & Event Handler Global
 // ========================================================
 document.addEventListener('DOMContentLoaded', () => {
+  // 1. WhatsApp Button Links
+  const waButtons = document.querySelectorAll('.wa-link-btn');
+  waButtons.forEach(btn => {
+    const customMsg = btn.getAttribute('data-wa-msg') || 'Halo Nirwana Tour, saya ingin konsultasi perjalanan.';
+    btn.setAttribute('href', window.buildWhatsAppUrl(customMsg));
+    btn.setAttribute('target', '_blank');
+    btn.setAttribute('rel', 'noopener noreferrer');
+  });
+
+  // 2. Contact Form to WhatsApp
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('formName')?.value.trim() || '-';
+      const phone = document.getElementById('formPhone')?.value.trim() || '-';
+      const service = document.getElementById('formService')?.value || '-';
+      const details = document.getElementById('formParticipants')?.value.trim() || '-';
+      const notes = document.getElementById('formNotes')?.value.trim() || '-';
+
+      const waMessage = 
+`Halo Nirwana Tour Lampung, saya ingin mengajukan penawaran/konsultasi perjalanan:
+
+• *Nama/Instansi*: ${name}
+• *Nomor Kontak*: ${phone}
+• *Pilihan Layanan*: ${service}
+• *Jumlah Peserta & Tanggal*: ${details}
+• *Catatan Tambahan*: ${notes}
+
+Mohon informasi ketersediaan jadwal dan estimasi biayanya. Terima kasih!`;
+
+      window.open(window.buildWhatsAppUrl(waMessage), '_blank', 'noopener,noreferrer');
+    });
+  }
+
+  // 3. Prefetcher Cepat
   const prefetched = new Set();
   function prefetch(url) {
     if (!url || prefetched.has(url)) return;
