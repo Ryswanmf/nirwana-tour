@@ -8,8 +8,32 @@
     <!-- ========================================================
          PAGE HERO BANNER & BREADCRUMB
          ======================================================== -->
-    <section class="page-hero">
-      <div class="container page-hero-content">
+    <section class="page-hero relative overflow-hidden" id="articles-hero">
+      <div class="page-hero-bg-container" aria-hidden="true">
+        <picture>
+          @if(!empty($settings['articles_background_image']))
+            <img src="{{ str_starts_with($settings['articles_background_image'], 'http') ? $settings['articles_background_image'] : asset('storage/' . $settings['articles_background_image']) }}" 
+                 alt="Background Berita & Tips Wisata Nirwana Tour" 
+                 class="page-hero-bg-image" 
+                 loading="eager" 
+                 fetchpriority="high" 
+                 decoding="async">
+          @else
+            <source srcset="{{ asset('assets/images/hero/bromo-hero.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/bromo-hero.jpg') }}" 
+                 alt="Background Berita & Tips Liburan Gunung Bromo" 
+                 class="page-hero-bg-image" 
+                 loading="eager" 
+                 fetchpriority="high" 
+                 decoding="async">
+          @endif
+        </picture>
+        <div class="page-hero-maroon-overlay"></div>
+        <div class="page-hero-ambient-overlay"></div>
+        <div class="page-hero-dots-overlay"></div>
+      </div>
+
+      <div class="container page-hero-content relative z-10">
         <nav class="breadcrumb-nav" aria-label="Breadcrumb">
           <a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Beranda</a>
           <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>

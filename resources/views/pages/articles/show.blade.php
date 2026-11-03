@@ -38,8 +38,32 @@
     <!-- ========================================================
          PAGE HERO BANNER & BREADCRUMB
          ======================================================== -->
-    <section class="page-hero">
-      <div class="container page-hero-content">
+    <section class="page-hero relative overflow-hidden" id="article-detail-hero">
+      <div class="page-hero-bg-container" aria-hidden="true">
+        <picture>
+          @if(!empty($post->featured_image_url))
+            <img src="{{ $post->featured_image_url }}" 
+                 alt="{{ $post->title }}" 
+                 class="page-hero-bg-image" 
+                 loading="eager" 
+                 fetchpriority="high" 
+                 decoding="async">
+          @else
+            <source srcset="{{ asset('assets/images/hero/bromo-hero.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/bromo-hero.jpg') }}" 
+                 alt="Background Berita Nirwana Tour Gunung Bromo" 
+                 class="page-hero-bg-image" 
+                 loading="eager" 
+                 fetchpriority="high" 
+                 decoding="async">
+          @endif
+        </picture>
+        <div class="page-hero-maroon-overlay"></div>
+        <div class="page-hero-ambient-overlay"></div>
+        <div class="page-hero-dots-overlay"></div>
+      </div>
+
+      <div class="container page-hero-content relative z-10">
         <nav class="breadcrumb-nav" aria-label="Breadcrumb">
           <a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Beranda</a>
           <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
