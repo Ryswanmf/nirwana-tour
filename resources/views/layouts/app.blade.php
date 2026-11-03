@@ -498,17 +498,90 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
+  <!-- ========================================================
+       PWA INSTALL PROMPT BANNER (ADD TO HOME SCREEN)
+       ======================================================== -->
+  <div id="pwaInstallBanner" class="pwa-install-banner" style="display: none;" role="dialog" aria-live="polite" aria-labelledby="pwaBannerTitle">
+    <div class="pwa-banner-card">
+      <div class="pwa-banner-body">
+        <div class="pwa-banner-icon-wrap">
+          <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Nirwana Tour Logo" class="pwa-banner-icon" width="44" height="44">
+        </div>
+        <div class="pwa-banner-text">
+          <h4 class="pwa-banner-title" id="pwaBannerTitle">Pasang Aplikasi Nirwana Tour</h4>
+          <p class="pwa-banner-desc">Akses cepat paket wisata & chat konsultasi langsung dari layar HP Anda.</p>
+        </div>
+      </div>
+      <div class="pwa-banner-actions">
+        <button type="button" id="pwaInstallBtn" class="btn btn-primary btn-sm pwa-btn-install">
+          <i class="fa-solid fa-download"></i> Pasang
+        </button>
+        <button type="button" id="pwaDismissBtn" class="pwa-btn-dismiss" aria-label="Tutup Banner">
+          Nanti Saja
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Script JS -->
   <script src="{{ file_exists(public_path('js/script.min.js')) ? asset('js/script.min.js') : asset('js/script.js') }}" defer></script>
 
-  <!-- PWA Service Worker Registration -->
+  <!-- PWA Service Worker & Install Prompt Logic -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('{{ asset("sw.js") }}?v={{ file_exists(public_path("sw.js")) ? filemtime(public_path("sw.js")) : time() }}').catch(function() {});
       });
     }
+
+    (function() {
+      var deferredPrompt = null;
+      var banner = document.getElementById('pwaInstallBanner');
+      var installBtn = document.getElementById('pwaInstallBtn');
+      var dismissBtn = document.getElementById('pwaDismissBtn');
+
+      if (!banner || !installBtn || !dismissBtn) return;
+
+      var lastDismissed = localStorage.getItem('nirwana_pwa_dismissed');
+      var now = Date.now();
+      if (lastDismissed && (now - parseInt(lastDismissed, 10)) < (7 * 24 * 60 * 60 * 1000)) {
+        return;
+      }
+
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        banner.style.display = 'block';
+        setTimeout(function() {
+          banner.classList.add('is-visible');
+        }, 120);
+      });
+
+      installBtn.addEventListener('click', function() {
+        if (!deferredPrompt) return;
+        banner.classList.remove('is-visible');
+        setTimeout(function() { banner.style.display = 'none'; }, 300);
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choiceResult) {
+          deferredPrompt = null;
+          if (choiceResult.outcome === 'accepted') {
+            localStorage.setItem('nirwana_pwa_installed', 'true');
+          }
+        });
+      });
+
+      dismissBtn.addEventListener('click', function() {
+        banner.classList.remove('is-visible');
+        setTimeout(function() { banner.style.display = 'none'; }, 300);
+        localStorage.setItem('nirwana_pwa_dismissed', Date.now().toString());
+      });
+
+      window.addEventListener('appinstalled', function() {
+        banner.style.display = 'none';
+        deferredPrompt = null;
+        localStorage.setItem('nirwana_pwa_installed', 'true');
+      });
+    })();
   </script>
   @stack('scripts')
 </body>

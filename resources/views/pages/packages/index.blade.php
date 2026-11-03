@@ -325,20 +325,20 @@
           <form action="{{ route('packages.index') }}" method="GET" id="packagesFilterForm">
             
             <!-- BARIS 1: INPUT DESTINASI / KATA KUNCI -->
-            <div class="pfilter-search-wrap">
+            <div class="pfilter-search-wrap" style="position: relative;">
               <i class="fa-solid fa-magnifying-glass pfilter-search-icon"></i>
               <input type="text"
                      name="q"
+                     id="pfilterSearchInput"
                      value="{{ request('q') }}"
                      placeholder="Cari nama paket atau destinasi wisata (misal: Pahawang, Kiluan, Bromo, Malang, Jogja)..."
                      class="pfilter-search-input"
                      autocomplete="off"
                      aria-label="Cari paket wisata">
-              @if(request('q'))
-                <a href="{{ route('packages.index', request()->except(['q', 'page'])) }}" class="pfilter-clear-btn" title="Hapus kata kunci">
-                  <i class="fa-solid fa-xmark"></i>
-                </a>
-              @endif
+              <i class="fa-solid fa-spinner fa-spin pfilter-spinner-icon" id="pfilterSpinner" style="display: none;"></i>
+              <button type="button" class="pfilter-clear-btn" id="pfilterClearBtn" title="Hapus kata kunci" style="{{ request('q') ? 'display: flex;' : 'display: none;' }}">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
             </div>
 
             <!-- BARIS 2: 4 DROPDOWN SEJAJAR + TOMBOL AKSI -->
@@ -350,7 +350,7 @@
                   <i class="fa-solid fa-compass"></i> Kategori Wisata
                 </label>
                 <div class="pfilter-select-wrap">
-                  <select name="kategori" id="pfilterCategory" class="pfilter-select {{ request('kategori') ? 'is-active' : '' }}" onchange="this.form.submit()">
+                  <select name="kategori" id="pfilterCategory" class="pfilter-select {{ request('kategori') ? 'is-active' : '' }}">
                     <option value="">Semua Kategori</option>
                     @if(isset($categories))
                       @foreach($categories as $cat)
@@ -370,7 +370,7 @@
                   <i class="fa-regular fa-clock"></i> Durasi Trip
                 </label>
                 <div class="pfilter-select-wrap">
-                  <select name="durasi" id="pfilterDuration" class="pfilter-select {{ request('durasi') ? 'is-active' : '' }}" onchange="this.form.submit()">
+                  <select name="durasi" id="pfilterDuration" class="pfilter-select {{ request('durasi') ? 'is-active' : '' }}">
                     <option value="">Semua Durasi Trip</option>
                     <option value="oneday" {{ request('durasi') === 'oneday' || request('durasi') === '1' ? 'selected' : '' }}>1 Hari (One Day)</option>
                     <option value="2d1n" {{ request('durasi') === '2d1n' ? 'selected' : '' }}>2 Hari 1 Malam (2D1N)</option>
@@ -387,7 +387,7 @@
                   <i class="fa-solid fa-wallet"></i> Rentang Biaya
                 </label>
                 <div class="pfilter-select-wrap">
-                  <select name="budget" id="pfilterBudget" class="pfilter-select {{ request('budget') ? 'is-active' : '' }}" onchange="this.form.submit()">
+                  <select name="budget" id="pfilterBudget" class="pfilter-select {{ request('budget') ? 'is-active' : '' }}">
                     <option value="">Semua Rentang Biaya</option>
                     <option value="under_500k" {{ request('budget') === 'under_500k' ? 'selected' : '' }}>&lt; Rp 500.000</option>
                     <option value="500k_1500k" {{ request('budget') === '500k_1500k' ? 'selected' : '' }}>Rp 500rb - 1.5jt</option>
@@ -403,7 +403,7 @@
                   <i class="fa-solid fa-arrow-down-short-wide"></i> Urutkan
                 </label>
                 <div class="pfilter-select-wrap">
-                  <select name="sort" id="pfilterSort" class="pfilter-select {{ request('sort') ? 'is-active' : '' }}" onchange="this.form.submit()">
+                  <select name="sort" id="pfilterSort" class="pfilter-select {{ request('sort') ? 'is-active' : '' }}">
                     <option value="">Rekomendasi Terbaik</option>
                     <option value="termurah" {{ request('sort') === 'termurah' ? 'selected' : '' }}>Harga: Termurah</option>
                     <option value="termahal" {{ request('sort') === 'termahal' ? 'selected' : '' }}>Harga: Tertinggi</option>
@@ -431,7 +431,7 @@
           </form>
 
           <!-- BARIS 3: METADATA & CHIPS FILTER AKTIF -->
-          <div class="pfilter-chips-row">
+          <div class="pfilter-chips-row" id="pfilterChipsRow">
             <div class="pfilter-chips-left">
               <span>Menampilkan <strong>{{ $packages->total() }}</strong> paket wisata</span>
               
@@ -493,32 +493,34 @@
           </div>
         </div>
 
-        <!-- DESTINATIONS GRID -->
-        @if($packages->isNotEmpty())
-          <div class="destinations-grid">
-            @foreach($packages as $pkg)
-              <x-package-card :package="$pkg" />
-            @endforeach
-          </div>
+        <!-- DESTINATIONS GRID CONTAINER (ASYNC LIVE FILTER) -->
+        <div id="packagesResultsArea" style="transition: opacity 0.25s ease;">
+          @if($packages->isNotEmpty())
+            <div class="destinations-grid">
+              @foreach($packages as $pkg)
+                <x-package-card :package="$pkg" />
+              @endforeach
+            </div>
 
-          <!-- PAGINATION -->
-          @if($packages->hasPages())
-            <div style="margin-top: 50px; display: flex; justify-content: center;">
-              {{ $packages->links() }}
+            <!-- PAGINATION -->
+            @if($packages->hasPages())
+              <div style="margin-top: 50px; display: flex; justify-content: center;">
+                {{ $packages->links() }}
+              </div>
+            @endif
+          @else
+            <div style="text-align: center; padding: 60px 20px; background: #FFFFFF; border-radius: 18px; border: 1px solid #E2E8F0; box-shadow: 0 4px 18px rgba(0,0,0,0.03);">
+              <div style="font-size: 2.8rem; color: #94A3B8; margin-bottom: 14px;">
+                <i class="fa-solid fa-map-location-dot"></i>
+              </div>
+              <h3 style="font-size: 1.3rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">Tidak Ada Paket Wisata yang Sesuai</h3>
+              <p style="font-size: 0.92rem; color: #64748B; margin-bottom: 22px;">Silakan coba kata kunci lain atau pilih kategori paket wisata lainnya.</p>
+              <a href="{{ route('packages.index') }}" class="btn btn-primary btn-sm pfilter-reset-btn">
+                Tampilkan Semua Paket Wisata
+              </a>
             </div>
           @endif
-        @else
-          <div style="text-align: center; padding: 60px 20px; background: #FFFFFF; border-radius: 18px; border: 1px solid #E2E8F0; box-shadow: 0 4px 18px rgba(0,0,0,0.03);">
-            <div style="font-size: 2.8rem; color: #94A3B8; margin-bottom: 14px;">
-              <i class="fa-solid fa-map-location-dot"></i>
-            </div>
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">Tidak Ada Paket Wisata yang Sesuai</h3>
-            <p style="font-size: 0.92rem; color: #64748B; margin-bottom: 22px;">Silakan coba kata kunci lain atau pilih kategori paket wisata lainnya.</p>
-            <a href="{{ route('packages.index') }}" class="btn btn-primary btn-sm">
-              Tampilkan Semua Paket Wisata
-            </a>
-          </div>
-        @endif
+        </div>
 
         <!-- CTA HUBUNGI KAMI / KONSULTASI DESTINASI KUSTOM -->
         <div style="margin-top: 60px; background: #FFFFFF; border-radius: 20px; border: 1px solid #E2E8F0; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;">
@@ -549,3 +551,199 @@
     </section>
   </main>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('packagesFilterForm');
+  const searchInput = document.getElementById('pfilterSearchInput');
+  const spinner = document.getElementById('pfilterSpinner');
+  const resultsContainer = document.getElementById('packagesResultsArea');
+  const chipsContainer = document.getElementById('pfilterChipsRow');
+  const clearBtn = document.getElementById('pfilterClearBtn');
+
+  if (!form || !searchInput || !resultsContainer) return;
+
+  let debounceTimer = null;
+  let currentController = null;
+
+  function doLiveFilter(pushUrl = true) {
+    if (spinner) spinner.style.display = 'block';
+    resultsContainer.style.opacity = '0.45';
+    resultsContainer.style.pointerEvents = 'none';
+
+    const formData = new FormData(form);
+    const params = new URLSearchParams();
+    for (const [key, val] of formData.entries()) {
+      if (val && typeof val === 'string' && val.trim() !== '') {
+        params.append(key, val.trim());
+      }
+    }
+
+    const queryString = params.toString();
+    const targetUrl = form.action + (queryString ? '?' + queryString : '');
+
+    if (currentController) {
+      currentController.abort();
+    }
+    currentController = new AbortController();
+
+    fetch(targetUrl, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      signal: currentController.signal
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Network error');
+      return response.text();
+    })
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Update chips row
+      const newChips = doc.getElementById('pfilterChipsRow');
+      if (newChips && chipsContainer) {
+        chipsContainer.innerHTML = newChips.innerHTML;
+      }
+
+      // Update results area
+      const newResults = doc.getElementById('packagesResultsArea');
+      if (newResults && resultsContainer) {
+        resultsContainer.innerHTML = newResults.innerHTML;
+      }
+
+      // Update clear button visibility
+      if (clearBtn) {
+        clearBtn.style.display = searchInput.value.trim() ? 'flex' : 'none';
+      }
+
+      // Sync browser history URL
+      if (pushUrl && window.history.pushState) {
+        window.history.pushState({ path: targetUrl }, '', targetUrl);
+      }
+    })
+    .catch(err => {
+      if (err.name !== 'AbortError') {
+        console.error('Pencarian paket gagal:', err);
+      }
+    })
+    .finally(() => {
+      if (spinner) spinner.style.display = 'none';
+      resultsContainer.style.opacity = '1';
+      resultsContainer.style.pointerEvents = 'auto';
+    });
+  }
+
+  // Live input debounce 280ms
+  searchInput.addEventListener('input', function() {
+    if (clearBtn) {
+      clearBtn.style.display = this.value.trim() ? 'flex' : 'none';
+    }
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      doLiveFilter(true);
+    }, 280);
+  });
+
+  // Tombol X Clear Search
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      searchInput.value = '';
+      clearBtn.style.display = 'none';
+      doLiveFilter(true);
+    });
+  }
+
+  // Prevent full form submit
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    clearTimeout(debounceTimer);
+    doLiveFilter(true);
+  });
+
+  // Select dropdown filters
+  ['pfilterCategory', 'pfilterDuration', 'pfilterBudget', 'pfilterSort'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', function() {
+        if (this.value) {
+          this.classList.add('is-active');
+        } else {
+          this.classList.remove('is-active');
+        }
+        doLiveFilter(true);
+      });
+    }
+  });
+
+  // Intercept chips filter and pagination clicks
+  document.addEventListener('click', function(e) {
+    const chipLink = e.target.closest('.pfilter-chip, .pfilter-reset-btn, .pfilter-reset-all-link');
+    if (chipLink && chipLink.href && chipLink.href.includes('/paket-wisata')) {
+      e.preventDefault();
+      fetchLiveUrl(chipLink.href, false);
+      return;
+    }
+
+    const paginationLink = e.target.closest('#packagesResultsArea .pagination a, #packagesResultsArea nav[role="navigation"] a');
+    if (paginationLink && paginationLink.href) {
+      e.preventDefault();
+      fetchLiveUrl(paginationLink.href, true);
+      return;
+    }
+  });
+
+  function fetchLiveUrl(url, scrollUp = false) {
+    if (spinner) spinner.style.display = 'block';
+    resultsContainer.style.opacity = '0.45';
+
+    fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+    .then(res => res.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const newUrl = new URL(url, window.location.origin);
+      searchInput.value = newUrl.searchParams.get('q') || '';
+      if (clearBtn) clearBtn.style.display = searchInput.value ? 'flex' : 'none';
+
+      ['kategori', 'durasi', 'budget', 'sort'].forEach(key => {
+        const sel = form.querySelector(`select[name="${key}"]`);
+        if (sel) {
+          sel.value = newUrl.searchParams.get(key) || '';
+          if (sel.value) sel.classList.add('is-active');
+          else sel.classList.remove('is-active');
+        }
+      });
+
+      const newChips = doc.getElementById('pfilterChipsRow');
+      if (newChips && chipsContainer) chipsContainer.innerHTML = newChips.innerHTML;
+
+      const newResults = doc.getElementById('packagesResultsArea');
+      if (newResults && resultsContainer) resultsContainer.innerHTML = newResults.innerHTML;
+
+      if (window.history.pushState) {
+        window.history.pushState({ path: url }, '', url);
+      }
+
+      if (scrollUp) {
+        const section = document.getElementById('katalog-destinasi');
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+      }
+    })
+    .catch(err => console.error(err))
+    .finally(() => {
+      if (spinner) spinner.style.display = 'none';
+      resultsContainer.style.opacity = '1';
+    });
+  }
+
+  window.addEventListener('popstate', function() {
+    fetchLiveUrl(window.location.href, false);
+  });
+});
+</script>
+@endpush
