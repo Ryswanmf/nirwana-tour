@@ -808,4 +808,31 @@ class MultiPageTest extends TestCase
             $singlePost->delete();
         }
     }
+
+    public function test_security_headers_are_present_on_responses(): void
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertHeader('X-Frame-Options', 'SAMEORIGIN');
+        $response->assertHeader('X-Content-Type-Options', 'nosniff');
+        $response->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    }
+
+    public function test_home_data_is_cached_and_cleared_on_model_events(): void
+    {
+        \Illuminate\Support\Facades\Cache::forget('nirwana_home_data');
+
+        $this->get('/');
+        $this->assertTrue(\Illuminate\Support\Facades\Cache::has('nirwana_home_data'));
+
+        // Creating or updating a partner invalidates home cache
+        $partner = \App\Models\Partner::create([
+            'name' => 'Cache Test Partner ' . uniqid(),
+            'is_active' => true,
+            'order' => 999,
+        ]);
+
+        $this->assertFalse(\Illuminate\Support\Facades\Cache::has('nirwana_home_data'));
+        $partner->delete();
+    }
 }

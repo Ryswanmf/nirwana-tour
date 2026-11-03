@@ -12,46 +12,40 @@ use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\TourPackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     public function index(): View
     {
-        $partners = Partner::where('is_active', true)->orderBy('order')->get();
-        $services = Service::where('is_active', true)->orderBy('order')->get();
-        $tourCategories = Category::where('type', 'tour')->withCount(['tourPackages' => fn ($q) => $q->where('is_active', true)])->get();
-        $packages = TourPackage::where('is_active', true)->select(['id', 'title', 'price_from'])->orderBy('order')->get();
-        $featuredPackages = TourPackage::where('is_active', true)->where('is_featured', true)->with('category')->orderBy('order')->take(6)->get();
-        $fleets = Fleet::where('is_active', true)->orderBy('order')->get();
-        $testimonials = Testimonial::where('is_active', true)->orderBy('order')->get();
-        // Berita Unggulan untuk Beranda
-        $posts = Post::where('is_published', true)
-            ->where('is_featured', true)
-            ->with('category')
-            ->orderByDesc('published_at')
-            ->take(4)
-            ->get();
-        $galleryItems = GalleryItem::orderBy('order')->take(6)->get();
-        // 5 Video Unggulan untuk Galeri Beranda (Mendukung Video Lokal & Instagram Reels)
-        $galleryVideos = GalleryItem::whereIn('media_type', ['video', 'reel'])
-            ->where('is_featured', true)
-            ->orderBy('order')
-            ->take(5)
-            ->get();
+        $homeData = Cache::remember('nirwana_home_data', 3600, function () {
+            return [
+                'partners' => Partner::where('is_active', true)->orderBy('order')->get(),
+                'services' => Service::where('is_active', true)->orderBy('order')->get(),
+                'tourCategories' => Category::where('type', 'tour')->withCount(['tourPackages' => fn ($q) => $q->where('is_active', true)])->get(),
+                'packages' => TourPackage::where('is_active', true)->select(['id', 'title', 'price_from'])->orderBy('order')->get(),
+                'featuredPackages' => TourPackage::where('is_active', true)->where('is_featured', true)->with('category')->orderBy('order')->take(6)->get(),
+                'fleets' => Fleet::where('is_active', true)->orderBy('order')->get(),
+                'testimonials' => Testimonial::where('is_active', true)->orderBy('order')->get(),
+                // Berita Unggulan untuk Beranda
+                'posts' => Post::where('is_published', true)
+                    ->where('is_featured', true)
+                    ->with('category')
+                    ->orderByDesc('published_at')
+                    ->take(4)
+                    ->get(),
+                'galleryItems' => GalleryItem::orderBy('order')->take(6)->get(),
+                // 5 Video Unggulan untuk Galeri Beranda (Mendukung Video Lokal & Instagram Reels)
+                'galleryVideos' => GalleryItem::whereIn('media_type', ['video', 'reel'])
+                    ->where('is_featured', true)
+                    ->orderBy('order')
+                    ->take(5)
+                    ->get(),
+            ];
+        });
 
-        return view('pages.home', compact(
-            'partners',
-            'services',
-            'tourCategories',
-            'packages',
-            'featuredPackages',
-            'fleets',
-            'testimonials',
-            'posts',
-            'galleryItems',
-            'galleryVideos'
-        ));
+        return view('pages.home', $homeData);
     }
 
     public function profile(): View

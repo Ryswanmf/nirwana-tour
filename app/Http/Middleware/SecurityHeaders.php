@@ -17,12 +17,23 @@ class SecurityHeaders
     {
         $response = $next($request);
 
-        // Proteksi Keamanan Web Modern
+        // Proteksi Keamanan Web Modern & Live Production
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('X-XSS-Protection', '1; mode=block');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
-        $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+        $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)');
+
+        // HSTS jika koneksi aman (HTTPS)
+        if ($request->isSecure()) {
+            $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+        }
+
+        // Hapus header finger-printing server
+        $response->headers->remove('X-Powered-By');
+        if (function_exists('header_remove')) {
+            @header_remove('X-Powered-By');
+        }
 
         return $response;
     }

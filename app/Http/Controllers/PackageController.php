@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\TourPackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class PackageController extends Controller
 {
     public function index(Request $request): View
     {
-        $categories = Category::where('type', 'tour')->withCount(['tourPackages' => fn ($q) => $q->where('is_active', true)])->get();
+        $categories = Cache::remember('nirwana_tour_categories', 3600, function () {
+            return Category::where('type', 'tour')->withCount(['tourPackages' => fn ($q) => $q->where('is_active', true)])->get();
+        });
 
         $query = TourPackage::where('is_active', true)->with('category');
 
