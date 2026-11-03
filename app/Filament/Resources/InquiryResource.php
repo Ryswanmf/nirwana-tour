@@ -134,6 +134,20 @@ class InquiryResource extends Resource
                     ->label('Estimasi')
                     ->money('IDR', locale: 'id')
                     ->sortable(),
+                TextColumn::make('source')
+                    ->label('Sumber')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'contact_page' => 'Form Kontak',
+                        'budget_estimator' => 'Kalkulator',
+                        default => $state ?? 'Website',
+                    })
+                    ->color(fn ($state) => match ($state) {
+                        'contact_page' => 'info',
+                        'budget_estimator' => 'warning',
+                        default => 'gray',
+                    })
+                    ->toggleable(),
                 SelectColumn::make('status')
                     ->label('Status')
                     ->options([
@@ -152,6 +166,12 @@ class InquiryResource extends Resource
                         'contacted' => 'Dihubungi',
                         'deal' => 'Deal',
                         'cancelled' => 'Batal',
+                    ]),
+                SelectFilter::make('source')
+                    ->label('Asal Pesan')
+                    ->options([
+                        'contact_page' => 'Formulir Halaman Kontak',
+                        'budget_estimator' => 'Simulasi Budget Estimator',
                     ]),
             ])
             ->actions([

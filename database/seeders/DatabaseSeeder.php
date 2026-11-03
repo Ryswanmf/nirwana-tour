@@ -632,5 +632,25 @@ class DatabaseSeeder extends Seeder
         foreach ($videos as $video) {
             GalleryItem::updateOrCreate(['file_path' => $video['file_path']], $video);
         }
+
+        // 11. Office Contacts
+        \App\Models\Contact::updateOrCreate(
+            ['name' => 'Kantor Pusat Nirwana Tour & Travel Lampung'],
+            [
+                'type' => 'Kantor Pusat',
+                'address' => 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122',
+                'city' => 'Bandar Lampung',
+                'phone' => '0822-6961-6188',
+                'whatsapp' => '6282269616188',
+                'email' => 'info@nirwanatourlampung.com',
+                'operating_hours' => 'Senin - Sabtu: 08:00 - 17:00 WIB',
+                'google_maps_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid',
+                'google_maps_url' => 'https://maps.google.com/?q=' . urlencode('Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122'),
+                'description' => 'Kantor operasional utama untuk konsultasi wisata langsung, pembayaran reservasi, dan koordinasi keberangkatan trip.',
+                'is_primary' => true,
+                'is_active' => true,
+                'order' => 1,
+            ]
+        );
     }
 }

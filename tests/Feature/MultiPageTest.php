@@ -835,4 +835,37 @@ class MultiPageTest extends TestCase
         $this->assertFalse(\Illuminate\Support\Facades\Cache::has('nirwana_home_data'));
         $partner->delete();
     }
+
+    public function test_contact_crud_in_database_and_frontend(): void
+    {
+        $uniqueBranch = 'Cabang Uji ' . uniqid();
+        $contact = \App\Models\Contact::create([
+            'name' => $uniqueBranch,
+            'type' => 'Kantor Cabang',
+            'address' => 'Jl. Uji Coba Cabang No. 99',
+            'city' => 'Metro',
+            'phone' => '0721-998877',
+            'whatsapp' => '6281299887766',
+            'is_primary' => false,
+            'is_active' => true,
+            'order' => 50,
+        ]);
+
+        try {
+            // Verify record exists and attributes work
+            $this->assertDatabaseHas('contacts', ['name' => $uniqueBranch]);
+            $this->assertEquals('6281299887766', $contact->clean_whatsapp);
+
+            // Verify rendered on contact page
+            $response = $this->get('/kontak');
+            $response->assertStatus(200);
+            $response->assertSee($uniqueBranch);
+            $response->assertSee('Kantor Cabang');
+            $response->assertSee('Jl. Uji Coba Cabang No. 99');
+        } finally {
+            $contact->delete();
+        }
+
+        $this->assertDatabaseMissing('contacts', ['name' => $uniqueBranch]);
+    }
 }

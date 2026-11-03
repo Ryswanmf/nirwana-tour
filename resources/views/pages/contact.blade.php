@@ -42,8 +42,8 @@
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
                 <div class="contact-item-content">
-                  <strong>Alamat Kantor Resmi</strong>
-                  <p>{{ $settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122' }}</p>
+                  <strong>{{ $primaryContact->name ?? 'Alamat Kantor Resmi' }}</strong>
+                  <p>{{ $primaryContact->address ?? ($settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122') }}</p>
                 </div>
               </div>
 
@@ -55,8 +55,12 @@
                 <div class="contact-item-content">
                   <strong>WhatsApp & Layanan 24 Jam</strong>
                   <p>
-                    <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282269616188' }}" target="_blank" rel="noopener noreferrer">
-                      +{{ $settings['whatsapp_number'] ?? '6282269616188' }}
+                    @php
+                      $activeWa = $primaryContact->whatsapp ?? ($settings['whatsapp_number'] ?? '6282269616188');
+                      $cleanWa = $primaryContact->clean_whatsapp ?? preg_replace('/[^0-9]/', '', $activeWa);
+                    @endphp
+                    <a href="https://wa.me/{{ $cleanWa }}" target="_blank" rel="noopener noreferrer">
+                      +{{ $activeWa }}
                     </a>
                   </p>
                 </div>
@@ -70,8 +74,11 @@
                 <div class="contact-item-content">
                   <strong>Telepon Kantor</strong>
                   <p>
-                    <a href="tel:{{ preg_replace('/[^0-9]/', '', $settings['phone'] ?? '082269616188') }}">
-                      {{ $settings['phone'] ?? '0822-6961-6188' }}
+                    @php
+                      $activePhone = $primaryContact->phone ?? ($settings['phone'] ?? '0822-6961-6188');
+                    @endphp
+                    <a href="tel:{{ preg_replace('/[^0-9]/', '', $activePhone) }}">
+                      {{ $activePhone }}
                     </a>
                   </p>
                 </div>
@@ -85,8 +92,11 @@
                 <div class="contact-item-content">
                   <strong>Email Resmi</strong>
                   <p>
-                    <a href="mailto:{{ $settings['email'] ?? 'info@nirwanatour.com' }}">
-                      {{ $settings['email'] ?? 'info@nirwanatour.com' }}
+                    @php
+                      $activeEmail = $primaryContact->email ?? ($settings['email'] ?? 'info@nirwanatourlampung.com');
+                    @endphp
+                    <a href="mailto:{{ $activeEmail }}">
+                      {{ $activeEmail }}
                     </a>
                   </p>
                 </div>
@@ -100,7 +110,7 @@
                 <div class="contact-item-content">
                   <strong>Jam Pelayanan Kantor</strong>
                   <p>
-                    {{ $settings['operating_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00 WIB' }}
+                    {{ $primaryContact->operating_hours ?? ($settings['operating_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00 WIB') }}
                     <br><span style="font-size: 0.82rem; color: #64748b;">Konsultasi Online WhatsApp Siaga 24 Jam</span>
                   </p>
                 </div>
@@ -109,10 +119,35 @@
 
             <!-- WhatsApp Action Button -->
             <div class="contact-wa-action">
-              <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282269616188' }}?text={{ urlencode('Halo Nirwana Tour Lampung, saya ingin berkonsultasi mengenai rencana perjalanan wisata.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-block btn-lg">
+              <a href="https://wa.me/{{ $cleanWa }}?text={{ urlencode('Halo Nirwana Tour Lampung, saya ingin berkonsultasi mengenai rencana perjalanan wisata.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-block btn-lg">
                 <i class="fa-brands fa-whatsapp"></i> Chat Langsung via WhatsApp
               </a>
             </div>
+
+            @if(isset($contacts) && $contacts->count() > 1)
+              <!-- Daftar Kantor Cabang / Unit Layanan Tambahan -->
+              <div style="margin-top: 24px; padding-top: 18px; border-top: 1px dashed #cbd5e1;">
+                <h4 style="font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-network-wired text-[#800020]"></i> Cabang & Saluran Layanan Lainnya:
+                </h4>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  @foreach($contacts->where('id', '!=', $primaryContact->id) as $subContact)
+                    <div style="padding: 12px 14px; background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <strong style="font-size: 0.85rem; color: #0f172a;">{{ $subContact->name }}</strong>
+                        <span style="font-size: 0.72rem; padding: 2px 8px; border-radius: 9999px; background: #fce7eb; color: #800020; font-weight: 600;">{{ $subContact->type }}</span>
+                      </div>
+                      <p style="font-size: 0.78rem; color: #64748b; margin: 0 0 6px 0;">{{ $subContact->address }}</p>
+                      @if($subContact->whatsapp)
+                        <a href="https://wa.me/{{ $subContact->clean_whatsapp }}" target="_blank" rel="noopener noreferrer" style="font-size: 0.78rem; color: #25D366; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                          <i class="fa-brands fa-whatsapp"></i> Hubungi WA: +{{ $subContact->whatsapp }}
+                        </a>
+                      @endif
+                    </div>
+                  @endforeach
+                </div>
+              </div>
+            @endif
 
             <!-- Social Media Channels -->
             <div class="contact-social-wrap">
@@ -218,18 +253,18 @@
                 <i class="fa-solid fa-map-location-dot"></i>
               </div>
               <div>
-                <h4 class="contact-map-title">Lokasi Kantor Resmi Nirwana Tour Lampung</h4>
-                <p class="contact-map-subtitle">{{ $settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122' }}</p>
+                <h4 class="contact-map-title">{{ $primaryContact->name ?? 'Lokasi Kantor Resmi Nirwana Tour Lampung' }}</h4>
+                <p class="contact-map-subtitle">{{ $primaryContact->address ?? ($settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122') }}</p>
               </div>
             </div>
-            <a href="{{ $settings['google_maps_review_url'] ?? ('https://maps.google.com/?q=' . urlencode($settings['address'] ?? 'Nirwana Tour Bandar Lampung')) }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm contact-map-btn">
+            <a href="{{ $primaryContact->google_maps_url ?? ($settings['google_maps_review_url'] ?? ('https://maps.google.com/?q=' . urlencode($settings['address'] ?? 'Nirwana Tour Bandar Lampung'))) }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm contact-map-btn">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Google Maps
             </a>
           </div>
           <div class="contact-map-frame-wrap">
             <iframe 
               title="Peta Lokasi Nirwana Tour Lampung"
-              src="{{ $settings['google_maps_embed_url'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid' }}" 
+              src="{{ $primaryContact->maps_embed_src ?? ($settings['google_maps_embed_url'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid') }}" 
               width="100%" 
               height="340" 
               style="border:0;" 
