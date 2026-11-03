@@ -8,15 +8,22 @@ use Illuminate\View\View;
 
 class GalleryController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        // Video & Reel non-unggulan (koleksi lengkap galeri reguler)
-        $galleryItems = GalleryItem::whereIn('media_type', ['video', 'reel'])
-            ->where('is_featured', false)
-            ->orderBy('order')
-            ->paginate(8)
+        $type = $request->query('type');
+
+        $query = GalleryItem::where('is_featured', false);
+
+        if ($type === 'video') {
+            $query->whereIn('media_type', ['video', 'reel']);
+        } elseif ($type === 'image') {
+            $query->where('media_type', 'image');
+        }
+
+        $galleryItems = $query->orderBy('order')
+            ->paginate(12)
             ->withQueryString();
 
-        return view('pages.gallery.index', compact('galleryItems'));
+        return view('pages.gallery.index', compact('galleryItems', 'type'));
     }
 }

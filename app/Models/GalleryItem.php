@@ -18,6 +18,44 @@ class GalleryItem extends Model
         'is_featured' => 'boolean',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function ($item) {
+            if ($item->isDirty('file_path') && !empty($item->file_path) && $item->media_type === 'image') {
+                $disk = \Illuminate\Support\Facades\Storage::disk('public');
+                if ($disk->exists($item->file_path)) {
+                    $fullPath = $disk->path($item->file_path);
+                    \App\Helpers\ImageOptimizer::compress($fullPath);
+                }
+            }
+        });
+    }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
+    public function scopeRegular($query)
+    {
+        return $query->where('is_featured', false);
+    }
+
+    public function scopeVideos($query)
+    {
+        return $query->whereIn('media_type', ['video', 'reel']);
+    }
+
+    public function scopeImages($query)
+    {
+        return $query->where('media_type', 'image');
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

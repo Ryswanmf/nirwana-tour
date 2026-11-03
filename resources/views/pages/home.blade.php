@@ -617,6 +617,10 @@
                                 title="{{ $video->title }}">
                         </iframe>
                       </div>
+                    @elseif($video->media_type === 'image')
+                      <div style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
+                        <img src="{{ $video->file_url }}" alt="{{ $video->title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                      </div>
                     @else
                       <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>
                         <source src="{{ $video->file_url }}" type="video/mp4">
@@ -670,6 +674,10 @@
                                 loading="lazy"
                                 title="{{ $video->title }}">
                         </iframe>
+                      </div>
+                    @elseif($video->media_type === 'image')
+                      <div style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
+                        <img src="{{ $video->file_url }}" alt="{{ $video->title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
                       </div>
                     @else
                       <video class="gallery-video" controls playsinline preload="metadata"@if($video->thumbnail) poster="{{ $video->thumbnail_url }}"@endif>

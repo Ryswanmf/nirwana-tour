@@ -28,19 +28,34 @@
     <section class="section bg-alt" id="koleksi-galeri">
       <div class="container">
 
-        <!-- HEADER SUB-BAR (KETERANGAN DOKUMENTASI VIDEO) -->
+        <!-- HEADER SUB-BAR (KETERANGAN DOKUMENTASI & FILTER TABS) -->
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 36px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color);">
           <div style="display: inline-flex; align-items: center; gap: 8px; border-left: 3px solid var(--primary, #800020); padding: 3px 0 3px 12px; border-radius: 0; background: transparent; color: var(--primary, #800020); font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.8px;">
-            <i class="fa-solid fa-film"></i>
-            <span>Dokumentasi Video Nyata &amp; Autentik</span>
+            <i class="fa-solid fa-photo-film"></i>
+            <span>Dokumentasi Nyata &amp; Autentik</span>
           </div>
-          <div style="color: var(--text-muted); font-size: 0.88rem;">
-            <i class="fa-solid fa-circle-play" style="color: var(--primary, #800020); margin-right: 6px;"></i>
-            <span>Klik tombol putar pada video untuk menyaksikan keseruan momen liburan</span>
+          
+          <!-- FILTER MEDIA TABS -->
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <a href="{{ route('gallery.index') }}" 
+               class="btn btn-sm" 
+               style="{{ empty($type) ? 'background: var(--primary, #800020); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+              <i class="fa-solid fa-border-all"></i> Semua Media
+            </a>
+            <a href="{{ route('gallery.index', ['type' => 'video']) }}" 
+               class="btn btn-sm" 
+               style="{{ $type === 'video' ? 'background: var(--primary, #800020); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+              <i class="fa-solid fa-film"></i> Video &amp; Reels
+            </a>
+            <a href="{{ route('gallery.index', ['type' => 'image']) }}" 
+               class="btn btn-sm" 
+               style="{{ $type === 'image' ? 'background: var(--primary, #800020); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+              <i class="fa-solid fa-camera"></i> Foto
+            </a>
           </div>
         </div>
 
-        <!-- VIDEO GALLERY GRID (VIDEO ONLY) -->
+        <!-- VIDEO & FOTO GALLERY GRID -->
         @if($galleryItems->isNotEmpty())
           <div class="gallery-video-grid">
             @foreach($galleryItems as $item)
@@ -48,10 +63,14 @@
                 $thumbUrl = $item->thumbnail_url;
                 $videoUrl = $item->file_url;
                 
-                // Durasi & badge kategori otomatis berdasarkan file_path/order
+                // Durasi & badge kategori otomatis berdasarkan tipe/file_path
                 $duration = '01:15';
                 $catTag = 'Dokumentasi Tour';
-                if (str_contains($item->file_path, 'video12')) {
+                if ($item->media_type === 'image') {
+                    $catTag = 'Dokumentasi Foto';
+                } elseif ($item->is_instagram) {
+                    $catTag = 'Instagram Reel';
+                } elseif (str_contains($item->file_path, 'video12')) {
                     $duration = '01:25';
                     $catTag = 'Study Tour & Edukasi';
                 } elseif (str_contains($item->file_path, 'video11')) {
@@ -102,6 +121,13 @@
                               title="{{ $item->title }}">
                       </iframe>
                     </div>
+                  @elseif($item->media_type === 'image')
+                    <div style="width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 12px; overflow: hidden; position: relative;">
+                      <img src="{{ $item->file_url }}" alt="{{ $item->title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                      <div class="video-duration-badge" style="background: rgba(15, 23, 42, 0.75);">
+                        <i class="fa-solid fa-camera"></i> Foto
+                      </div>
+                    </div>
                   @else
                     <video class="gallery-video" controls playsinline preload="metadata" poster="{{ $thumbUrl }}">
                       <source src="{{ $videoUrl }}" type="video/mp4">
@@ -123,6 +149,10 @@
                     <a href="{{ $item->file_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #E1306C; margin-top: 6px; text-decoration: none;">
                       <i class="fa-brands fa-instagram"></i> Tonton di Instagram
                     </a>
+                  @elseif($item->media_type === 'image')
+                    <a href="{{ $item->file_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: var(--primary); margin-top: 6px; text-decoration: none;">
+                      <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Lihat Resolusi Penuh
+                    </a>
                   @endif
                 </div>
               </article>
@@ -138,10 +168,10 @@
         @else
           <div style="text-align: center; padding: 60px 20px; background: #FFFFFF; border-radius: 18px; border: 1px solid #E2E8F0; box-shadow: 0 4px 18px rgba(0,0,0,0.03);">
             <div style="font-size: 2.8rem; color: #94A3B8; margin-bottom: 14px;">
-              <i class="fa-solid fa-video"></i>
+              <i class="fa-solid fa-photo-film"></i>
             </div>
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">Belum Ada Video Dokumentasi</h3>
-            <p style="font-size: 0.92rem; color: #64748B; margin-bottom: 22px;">Video dokumentasi kegiatan sedang disiapkan.</p>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">Belum Ada Dokumentasi</h3>
+            <p style="font-size: 0.92rem; color: #64748B; margin-bottom: 22px;">Dokumentasi kegiatan untuk kategori ini sedang disiapkan.</p>
           </div>
         @endif
 

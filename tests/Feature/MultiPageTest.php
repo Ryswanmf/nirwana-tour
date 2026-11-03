@@ -1161,4 +1161,80 @@ class MultiPageTest extends TestCase
         // 6. Delete verified
         $this->assertDatabaseMissing('certificates', ['id' => $cert->id]);
     }
+
+    public function test_gallery_crud_lifecycle_scopes_and_filtering(): void
+    {
+        $uniqueReelTitle = 'Momen Snorkeling Seru ' . uniqid();
+        $uniqueImageTitle = 'Dokumentasi Sunset Kiluan ' . uniqid();
+
+        // 1. Create items
+        $reelItem = \App\Models\GalleryItem::create([
+            'title' => $uniqueReelTitle,
+            'media_type' => 'reel',
+            'file_path' => 'https://www.instagram.com/reel/Ctest123456/',
+            'caption' => 'Keseruan snorkeling bersama peserta tour.',
+            'order' => 88,
+            'is_featured' => false,
+        ]);
+
+        $imageItem = \App\Models\GalleryItem::create([
+            'title' => $uniqueImageTitle,
+            'media_type' => 'image',
+            'file_path' => 'gallery/test-sunset.jpg',
+            'caption' => 'Pemandangan senja indah di Teluk Kiluan.',
+            'order' => 89,
+            'is_featured' => false,
+        ]);
+
+        try {
+            $this->assertDatabaseHas('gallery_items', ['id' => $reelItem->id, 'title' => $uniqueReelTitle]);
+            $this->assertDatabaseHas('gallery_items', ['id' => $imageItem->id, 'title' => $uniqueImageTitle]);
+
+            // 2. Scopes
+            $regularItems = \App\Models\GalleryItem::regular()->ordered()->get();
+            $this->assertTrue($regularItems->contains('id', $reelItem->id));
+            $this->assertTrue($regularItems->contains('id', $imageItem->id));
+
+            $videos = \App\Models\GalleryItem::videos()->get();
+            $this->assertTrue($videos->contains('id', $reelItem->id));
+            $this->assertFalse($videos->contains('id', $imageItem->id));
+
+            $images = \App\Models\GalleryItem::images()->get();
+            $this->assertTrue($images->contains('id', $imageItem->id));
+            $this->assertFalse($images->contains('id', $reelItem->id));
+
+            // Accessors
+            $this->assertTrue($reelItem->is_instagram);
+            $this->assertEquals('https://www.instagram.com/reel/Ctest123456/embed/', $reelItem->instagram_embed_url);
+
+            // 3. Frontend /galeri renders tabs and items
+            $response = $this->get('/galeri');
+            $response->assertStatus(200);
+            $response->assertSee('Semua Media');
+            $response->assertSee('Video &amp; Reels', false);
+            $response->assertSee('Foto');
+            $response->assertSee($uniqueReelTitle);
+            $response->assertSee($uniqueImageTitle);
+
+            // 4. Filter by image
+            $imageResponse = $this->get('/galeri?type=image');
+            $imageResponse->assertStatus(200);
+            $imageResponse->assertSee($uniqueImageTitle);
+            $imageResponse->assertDontSee($uniqueReelTitle);
+
+            // 5. Update item
+            $reelItem->update(['is_featured' => true]);
+            $this->assertDatabaseHas('gallery_items', ['id' => $reelItem->id, 'is_featured' => true]);
+
+            // Featured item should be in featured scope
+            $this->assertTrue(\App\Models\GalleryItem::featured()->get()->contains('id', $reelItem->id));
+        } finally {
+            $reelItem->delete();
+            $imageItem->delete();
+        }
+
+        // 6. Delete verified
+        $this->assertDatabaseMissing('gallery_items', ['id' => $reelItem->id]);
+        $this->assertDatabaseMissing('gallery_items', ['id' => $imageItem->id]);
+    }
 }
