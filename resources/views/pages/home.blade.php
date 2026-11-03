@@ -7,8 +7,31 @@
     <!-- ========================================================
          2. HERO SECTION
          ======================================================== -->
-    <section class="hero-section relative min-h-[92vh] flex items-center pt-32 pb-24 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50/50" id="hero">
-      <div class="hero-overlay"></div>
+    <section class="hero-section relative min-h-[92vh] flex items-center pt-32 pb-24 overflow-hidden bg-white" id="hero">
+      <!-- Background Pemandangan Wisata dengan Perpaduan Gradasi Putih Elegan -->
+      <div class="hero-bg-container" aria-hidden="true">
+        <picture>
+          @if(!empty($settings['hero_background_image']))
+            <img src="{{ str_starts_with($settings['hero_background_image'], 'http') ? $settings['hero_background_image'] : asset('storage/' . $settings['hero_background_image']) }}" 
+                 alt="Pemandangan Wisata Nirwana Tour" 
+                 class="hero-bg-image" 
+                 fetchpriority="high">
+          @else
+            <source srcset="{{ asset('assets/images/hero/hero-bg.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/hero-bg.jpg') }}" 
+                 alt="Pemandangan Wisata Nirwana Tour" 
+                 class="hero-bg-image" 
+                 fetchpriority="high">
+          @endif
+        </picture>
+        <!-- Layer 1: Horizontal White Fusion Gradient -->
+        <div class="hero-white-gradient"></div>
+        <!-- Layer 2: Vertical Soft Fade -->
+        <div class="hero-white-vertical-fade"></div>
+        <!-- Layer 3: Pola Dot Elegan -->
+        <div class="hero-dots-pattern"></div>
+      </div>
+
       <div class="container hero-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-14 relative z-10">
         <div class="hero-content max-w-2xl">
           <div class="hero-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#800020]/10 text-[#800020] border border-[#800020]/20 mb-5 tracking-wide uppercase">
