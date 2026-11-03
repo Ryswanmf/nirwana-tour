@@ -17,9 +17,9 @@
                  class="hero-bg-image" 
                  fetchpriority="high">
           @else
-            <source srcset="{{ asset('assets/images/hero/hero-bg.webp') }}" type="image/webp">
-            <img src="{{ asset('assets/images/hero/hero-bg.jpg') }}" 
-                 alt="Pemandangan Wisata Nirwana Tour" 
+            <source srcset="{{ asset('assets/images/hero/candi-hero.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/candi-hero.jpg') }}" 
+                 alt="Pemandangan Candi Wisata Budaya Indonesia Nirwana Tour" 
                  class="hero-bg-image" 
                  fetchpriority="high">
           @endif

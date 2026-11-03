@@ -586,9 +586,9 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 38%;
   transform: scale(1.02);
-  filter: saturate(1.18) contrast(1.04);
+  filter: saturate(1.15) contrast(1.03);
 }
 
 /* Layer 1: Horizontal White Fusion Gradient
