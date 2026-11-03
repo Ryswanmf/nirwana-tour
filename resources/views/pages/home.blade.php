@@ -496,17 +496,40 @@
     <!-- ========================================================
          6. KEUNGGULAN SECTION
          ======================================================== -->
-    <section class="section reasons-section" id="keunggulan">
-      <div class="container">
+    <section class="section reasons-section relative overflow-hidden" id="keunggulan">
+      <!-- Background Pemandangan Candi / Wisata dengan Perpaduan Merah Maroon Mewah -->
+      <div class="reasons-bg-container" aria-hidden="true">
+        <picture>
+          @if(!empty($settings['reasons_background_image']))
+            <img src="{{ str_starts_with($settings['reasons_background_image'], 'http') ? $settings['reasons_background_image'] : asset('storage/' . $settings['reasons_background_image']) }}" 
+                 alt="Background Keunggulan Nirwana Tour" 
+                 class="reasons-bg-image" 
+                 loading="lazy" 
+                 decoding="async">
+          @else
+            <source srcset="{{ asset('assets/images/hero/prambanan-hero.webp') }}" type="image/webp">
+            <img src="{{ asset('assets/images/hero/prambanan-hero.jpg') }}" 
+                 alt="Background Keunggulan Candi Prambanan Nirwana Tour" 
+                 class="reasons-bg-image" 
+                 loading="lazy" 
+                 decoding="async">
+          @endif
+        </picture>
+        <div class="reasons-maroon-overlay"></div>
+        <div class="reasons-ambient-overlay"></div>
+        <div class="reasons-dots-overlay"></div>
+      </div>
+
+      <div class="container relative z-10">
         <div class="section-header text-center">
-          <div class="section-tag">Mengapa Memilih Kami</div>
-          <h2 class="section-title">Keunggulan Nirwana Tour Lampung</h2>
-          <p class="section-subtitle">Komitmen kami dalam memberikan standar mutu perjalanan tertinggi tanpa kompromi.</p>
+          <div class="section-tag inline-block">Mengapa Memilih Kami</div>
+          <h2 class="section-title text-white">Keunggulan Nirwana Tour Lampung</h2>
+          <p class="section-subtitle text-[#FCE7EB]">Komitmen kami dalam memberikan standar mutu perjalanan tertinggi tanpa kompromi.</p>
         </div>
       </div>
 
       <!-- Marquee Keunggulan Berjalan Sejajar ke Kanan -->
-      <div class="reasons-marquee-wrap" title="Sorot kursor untuk menjeda putaran">
+      <div class="reasons-marquee-wrap relative z-10" title="Sorot kursor untuk menjeda putaran">
         <div class="reasons-track">
           <!-- ================= SET 1 ================= -->
           <div class="reason-card">
