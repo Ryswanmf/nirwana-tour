@@ -16,10 +16,12 @@ class SiteSetting extends Model
     {
         static::saved(function (SiteSetting $setting) {
             Cache::forget('nirwana_site_settings');
+            Cache::forget('nirwana_home_data');
             Cache::forget("site_setting_{$setting->key}");
         });
         static::deleted(function (SiteSetting $setting) {
             Cache::forget('nirwana_site_settings');
+            Cache::forget('nirwana_home_data');
             Cache::forget("site_setting_{$setting->key}");
         });
     }

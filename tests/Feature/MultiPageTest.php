@@ -1237,4 +1237,93 @@ class MultiPageTest extends TestCase
         $this->assertDatabaseMissing('gallery_items', ['id' => $reelItem->id]);
         $this->assertDatabaseMissing('gallery_items', ['id' => $imageItem->id]);
     }
+
+    public function test_home_page_crud_and_cross_page_synchronization(): void
+    {
+        $user = \App\Models\User::first() ?? \App\Models\User::factory()->create();
+
+        // 1. Filament ManageHomePage renders successfully
+        \Livewire\Livewire::actingAs($user)
+            ->test(\App\Filament\Pages\ManageHomePage::class)
+            ->assertSuccessful()
+            ->assertFormFieldExists('hero_title')
+            ->assertFormFieldExists('hero_badge')
+            ->assertFormFieldExists('hero_feature_1')
+            ->assertFormFieldExists('owner_name');
+
+        // 2. Update home settings
+        $testHeroTitle = 'Jelajahi Pesona Lampung Bersama Nirwana ' . uniqid();
+        $testHeroBadge = 'Biro Wisata Terakreditasi ' . uniqid();
+        $testFeature1 = 'Garansi Kepuasan Pelanggan ' . uniqid();
+        $testSocialProof = 'Tingkat Kepuasan 100% ' . uniqid();
+
+        \App\Models\SiteSetting::set('hero_title', $testHeroTitle, 'Judul Hero', 'home');
+        \App\Models\SiteSetting::set('hero_badge', $testHeroBadge, 'Badge Hero', 'home');
+        \App\Models\SiteSetting::set('hero_feature_1', $testFeature1, 'Feature 1', 'home');
+        \App\Models\SiteSetting::set('social_proof_headline', $testSocialProof, 'Social Proof', 'social_proof');
+
+        \Illuminate\Support\Facades\Cache::forget('nirwana_home_data');
+
+        // 3. Verify Beranda reflects dynamic settings
+        $homeRes = $this->get('/');
+        $homeRes->assertStatus(200);
+        $homeRes->assertSee($testHeroTitle);
+        $homeRes->assertSee($testHeroBadge);
+        $homeRes->assertSee($testFeature1);
+        $homeRes->assertSee($testSocialProof);
+
+        // 4. Test Cross-Page Synchronization: Service
+        $uniqueServiceTitle = 'Layanan Ekspedisi Khusus ' . uniqid();
+        $uniqueServiceSlug = 'layanan-ekspedisi-' . uniqid();
+        $service = \App\Models\Service::create([
+            'title' => $uniqueServiceTitle,
+            'slug' => $uniqueServiceSlug,
+            'short_description' => 'Layanan ekspedisi dan perjalanan dinas terpadu.',
+            'description' => 'Penjelasan lengkap layanan ekspedisi khusus.',
+            'order' => -100,
+            'is_active' => true,
+        ]);
+
+        // 5. Test Cross-Page Synchronization: TourPackage
+        $uniquePackageTitle = 'Paket Eksplorasi Eksotis ' . uniqid();
+        $uniquePackageSlug = 'paket-eksplorasi-' . uniqid();
+        $package = \App\Models\TourPackage::create([
+            'title' => $uniquePackageTitle,
+            'slug' => $uniquePackageSlug,
+            'price_from' => 750000,
+            'summary' => 'Ringkasan paket eksotis uji coba.',
+            'duration_label' => '2H1M',
+            'order' => -100,
+            'is_featured' => true,
+            'is_active' => true,
+        ]);
+
+        try {
+            // Beranda shows service and featured package
+            $homeRes = $this->get('/');
+            $homeRes->assertStatus(200);
+            $homeRes->assertSee($uniqueServiceTitle);
+            $homeRes->assertSee($uniquePackageTitle);
+
+            // Layanan index shows service
+            $layananRes = $this->get('/layanan');
+            $layananRes->assertStatus(200);
+            $layananRes->assertSee($uniqueServiceTitle);
+
+            // Paket wisata index shows package
+            $paketRes = $this->get('/paket-wisata');
+            $paketRes->assertStatus(200);
+            $paketRes->assertSee($uniquePackageTitle);
+        } finally {
+            $service->delete();
+            $package->delete();
+        }
+
+        // Reset settings
+        \App\Models\SiteSetting::set('hero_title', 'Selamat Datang di Website Nirwana Tour and Travel Lampung', 'Judul Hero', 'home');
+        \App\Models\SiteSetting::set('hero_badge', 'Biro Perjalanan Wisata Resmi Lampung', 'Badge Hero', 'home');
+        \App\Models\SiteSetting::set('hero_feature_1', 'Legalitas Berizin Resmi', 'Feature 1', 'home');
+        \App\Models\SiteSetting::set('social_proof_headline', 'Kepuasan 99% dari 500+ Rombongan', 'Social Proof', 'social_proof');
+        \Illuminate\Support\Facades\Cache::forget('nirwana_home_data');
+    }
 }

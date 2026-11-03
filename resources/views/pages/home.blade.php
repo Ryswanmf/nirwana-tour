@@ -12,7 +12,7 @@
       <div class="container hero-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-14 relative z-10">
         <div class="hero-content max-w-2xl">
           <div class="hero-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#800020]/10 text-[#800020] border border-[#800020]/20 mb-5 tracking-wide uppercase">
-            Biro Perjalanan Wisata Resmi Lampung
+            {{ $settings['hero_badge'] ?? 'Biro Perjalanan Wisata Resmi Lampung' }}
           </div>
           <h1 class="hero-title text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
             {{ $settings['hero_title'] ?? 'Selamat Datang di Website Nirwana Tour and Travel Lampung' }}
@@ -22,10 +22,10 @@
           </p>
           <div class="hero-buttons flex flex-wrap items-center gap-4 mb-10">
             <a href="#" class="btn btn-whatsapp btn-lg wa-link-btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-white font-bold bg-[#25D366] hover:bg-[#1EBE5D] shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan wisata.">
-              <i class="fa-brands fa-whatsapp text-xl"></i> Konsultasi via WhatsApp
+              <i class="fa-brands fa-whatsapp text-xl"></i> {{ $settings['hero_cta_wa_text'] ?? 'Konsultasi via WhatsApp' }}
             </a>
             <a href="#destinasi" class="btn btn-outline btn-lg inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-bold border-2 border-[#800020] text-[#800020] hover:bg-[#800020] hover:text-white transition-all duration-200 transform hover:-translate-y-0.5">
-              <i class="fa-solid fa-map-location-dot"></i> Lihat Destinasi
+              <i class="fa-solid fa-map-location-dot"></i> {{ $settings['hero_cta_dest_text'] ?? 'Lihat Destinasi' }}
             </a>
           </div>
 
@@ -33,15 +33,15 @@
           <div class="hero-features grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200/80">
             <div class="hero-feature-item flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700">
               <i class="fa-solid fa-shield-halved text-[#800020] text-base"></i>
-              <span>Legalitas Berizin Resmi</span>
+              <span>{{ $settings['hero_feature_1'] ?? 'Legalitas Berizin Resmi' }}</span>
             </div>
             <div class="hero-feature-item flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700">
               <i class="fa-solid fa-bus-simple text-[#800020] text-base"></i>
-              <span>Armada Bus Nyaman & Terawat</span>
+              <span>{{ $settings['hero_feature_2'] ?? 'Armada Bus Nyaman & Terawat' }}</span>
             </div>
             <div class="hero-feature-item flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700">
               <i class="fa-solid fa-user-tie text-[#800020] text-base"></i>
-              <span>Tour Leader Berpengalaman</span>
+              <span>{{ $settings['hero_feature_3'] ?? 'Tour Leader Berpengalaman' }}</span>
             </div>
           </div>
         </div>
@@ -841,7 +841,7 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                   </div>
-                  <span class="trust-label">Kepuasan 99% dari 500+ Rombongan</span>
+                  <span class="trust-label">{{ $settings['social_proof_headline'] ?? 'Kepuasan 99% dari 500+ Rombongan' }}</span>
                 </div>
               </div>
 
