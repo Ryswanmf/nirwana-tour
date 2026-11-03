@@ -4725,9 +4725,23 @@ textarea.form-control {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1.2fr 1.3fr;
-  gap: 48px;
-  margin-bottom: 60px;
+  grid-template-columns: 1.4fr 1fr 1.1fr 1.25fr;
+  gap: 36px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 }
 
 .footer-logo {
@@ -4786,7 +4800,7 @@ textarea.form-control {
 .footer-bio {
   font-size: 0.9rem;
   line-height: 1.7;
-  color: #94A3B8;
+  color: rgba(255, 255, 255, 0.82);
   margin-bottom: 20px;
 }
 
@@ -4849,9 +4863,9 @@ textarea.form-control {
   position: absolute;
   bottom: -8px;
   left: 0;
-  width: 28px;
-  height: 2px;
-  background: var(--primary);
+  width: 32px;
+  height: 2.5px;
+  background: #F59E0B;
   border-radius: 2px;
 }
 
@@ -4863,7 +4877,7 @@ textarea.form-control {
 
 .footer-links a {
   font-size: 0.88rem;
-  color: #94A3B8;
+  color: rgba(255, 255, 255, 0.82);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -4872,7 +4886,7 @@ textarea.form-control {
 
 .footer-links a i {
   font-size: 0.72rem;
-  color: #64748B;
+  color: #F59E0B;
   transition: var(--transition);
 }
 
@@ -4882,7 +4896,7 @@ textarea.form-control {
 }
 
 .footer-links a:hover i {
-  color: var(--primary);
+  color: #FCD34D;
 }
 
 .footer-contact-info {
@@ -4898,10 +4912,11 @@ textarea.form-control {
   gap: 12px;
   font-size: 0.88rem;
   line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .footer-contact-info li i {
-  color: var(--primary);
+  color: #F59E0B;
   font-size: 1rem;
   margin-top: 3px;
   flex-shrink: 0;
@@ -4928,8 +4943,8 @@ textarea.form-control {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: #1E293B;
-  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4938,21 +4953,21 @@ textarea.form-control {
 }
 
 .footer-social-icons a:hover {
-  background: var(--primary);
-  color: #FFFFFF;
+  background: #F59E0B;
+  color: #1E293B;
   transform: translateY(-3px);
 }
 
 .footer-bottom {
-  padding-top: 30px;
-  border-top: 1px solid #1E293B;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
   font-size: 0.86rem;
-  color: #64748B;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .footer-bottom strong {

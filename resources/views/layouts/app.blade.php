@@ -234,33 +234,76 @@
   <footer class="site-footer bg-[#800020] text-slate-100 pt-16 pb-12 overflow-hidden border-t-4 border-[#F59E0B]">
     <div class="container footer-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="footer-top mb-12">
-        <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="footer-grid">
           <!-- Col 1: Brand & Bio -->
-          <div class="footer-col col-brand lg:col-span-2">
-            <a href="{{ route('home') }}#hero" class="footer-logo inline-flex items-center gap-3 mb-4 text-decoration-none" aria-label="Nirwana Tour Lampung">
+          <div class="footer-col col-brand">
+            <a href="{{ route('home') }}" class="footer-logo inline-flex items-center gap-3 mb-4 text-decoration-none" aria-label="Nirwana Tour Lampung">
               <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Nirwana Tour Lampung" class="footer-logo-emblem h-12 w-12 object-contain" loading="lazy" decoding="async">
               <div class="footer-brand-text flex flex-col">
                 <span class="footer-brand-title text-xl font-bold text-white tracking-tight">Nirwana <span class="highlight text-[#F59E0B]">Tour Travel</span></span>
                 <span class="footer-brand-sub text-xs text-slate-300">Jelajahi Dunia, Ciptakan Cerita Tak Terlupakan</span>
               </div>
             </a>
-            <p class="footer-bio text-sm text-slate-300 leading-relaxed mb-5 max-w-md">
-              Nirwana Tour Lampung adalah biro perjalanan wisata tepercaya yang melayani paket wisata nusantara, study tour, gathering perusahaan, dan transportasi pariwisata berkelas di Provinsi Lampung.
+            <p class="footer-bio text-sm text-slate-300 leading-relaxed mb-5">
+              Nirwana Tour Lampung adalah biro perjalanan wisata tepercaya yang melayani paket wisata nusantara, study tour, corporate gathering, dan sewa transportasi pariwisata berkelas di Provinsi Lampung.
             </p>
-            <div class="footer-legal-badge inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 text-white border border-white/20 mb-6">
+            <div class="footer-legal-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 text-white border border-white/20 mb-5">
+              <i class="fa-solid fa-shield-halved text-[#F59E0B]"></i>
               <span>Biro Perjalanan Wisata Resmi Terdaftar</span>
             </div>
-            <div class="footer-cert-logos flex items-center gap-4 flex-wrap">
-              <div class="footer-cert-item bg-white/90 p-2 rounded-lg" title="Wonderful Indonesia">
+            <div class="footer-cert-logos flex items-center gap-3 flex-wrap">
+              <div class="footer-cert-item bg-white/95 p-2 rounded-lg shadow-sm" title="Wonderful Indonesia - Kemenparekraf RI">
                 <img src="{{ asset('assets/images/wonderful.png') }}" alt="Wonderful Indonesia" class="footer-cert-logo h-7 object-contain" loading="lazy" decoding="async">
               </div>
-              <div class="footer-cert-item bg-white/90 p-2 rounded-lg" title="Pariwisata Lampung">
+              <div class="footer-cert-item bg-white/95 p-2 rounded-lg shadow-sm" title="Pariwisata Provinsi Lampung">
                 <img src="{{ asset('assets/images/lampung.png') }}" alt="Pariwisata Lampung" class="footer-cert-logo h-7 object-contain" loading="lazy" decoding="async">
               </div>
-              <div class="footer-cert-item bg-white/90 p-2 rounded-lg" title="ASITA (Association of The Indonesian Tour and Travel Agencies)">
+              <div class="footer-cert-item bg-white/95 p-2 rounded-lg shadow-sm" title="ASITA (Association of The Indonesian Tour and Travel Agencies)">
                 <img src="{{ asset('assets/images/asita.png') }}" alt="ASITA" class="footer-cert-logo h-7 object-contain" loading="lazy" decoding="async">
               </div>
             </div>
+          </div>
+
+          <!-- Col 2: Jelajahi Website (Menu Navigasi Cepat) -->
+          <div class="footer-col">
+            <h4 class="footer-title text-lg font-bold text-white mb-5 flex items-center gap-2">Jelajahi Website</h4>
+            <ul class="footer-links list-none p-0 m-0 space-y-2.5 text-sm">
+              <li>
+                <a href="{{ route('home') }}" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-angle-right text-xs text-[#F59E0B]"></i> Beranda
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('profile') }}" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-angle-right text-xs text-[#F59E0B]"></i> Profil Nirwana &amp; Visi
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('management') }}" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-angle-right text-xs text-[#F59E0B]"></i> Manajemen &amp; Tim
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('certificates') }}" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-angle-right text-xs text-[#F59E0B]"></i> Legalitas &amp; Sertifikasi
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('packages.index') }}" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-angle-right text-xs text-[#F59E0B]"></i> Paket &amp; Destinasi Wisata
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('gallery.index') }}" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-angle-right text-xs text-[#F59E0B]"></i> Galeri Video &amp; Momen
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('posts.index') }}" class="text-slate-300 hover:text-white transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-angle-right text-xs text-[#F59E0B]"></i> Berita &amp; Tips Liburan
+                </a>
+              </li>
+            </ul>
           </div>
 
           <!-- Col 2: Layanan Populer -->
@@ -290,9 +333,9 @@
             </ul>
           </div>
 
-          <!-- Col 4: Hubungi Kami -->
+          <!-- Col 4: Kantor & Kontak Reservasi -->
           <div class="footer-col col-contact">
-            <h4 class="footer-title text-lg font-bold text-white mb-5 flex items-center gap-2">Kontak & Reservasi</h4>
+            <h4 class="footer-title text-lg font-bold text-white mb-5 flex items-center gap-2">Kontak &amp; Kantor</h4>
             <ul class="footer-contact-info list-none p-0 m-0 space-y-3 text-sm text-slate-300 mb-6">
               <li class="flex items-start gap-2.5">
                 <i class="fa-solid fa-location-dot text-[#F59E0B] mt-1"></i>
@@ -314,46 +357,35 @@
                 </a>
               </li>
               <li class="flex items-center gap-2.5">
-                <i class="fa-solid fa-envelope text-[#F59E0B]"></i>
+                <i class="fa-solid fa-envelope text-[#F59E0B] shrink-0"></i>
                 <a href="mailto:{{ $settings['email'] ?? 'info@nirwanatourlampung.com' }}" class="hover:text-white transition-colors">{{ $settings['email'] ?? 'info@nirwanatourlampung.com' }}</a>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i class="fa-solid fa-clock text-[#F59E0B] shrink-0"></i>
+                <span class="text-xs text-slate-300">Senin - Sabtu: 08.00 - 17.00 WIB</span>
               </li>
             </ul>
 
-            <!-- Google Maps Embed Footer Widget -->
-            <div class="footer-map-box mb-5 rounded-xl overflow-hidden border border-white/15 shadow-md">
-              <iframe
-                src="{{ $settings['google_maps_embed_url'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127118.81423406987!2d105.18788934440026!3d-5.419086111369344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40da4290c58e77%3A0xb696f5341cf60f4e!2sBandar%20Lampung%2C%20Kota%20Bandar%20Lampung%2C%20Lampung!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid' }}"
-                width="100%"
-                height="120"
-                style="border: 0; display: block;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Peta Lokasi Google Maps Nirwana Tour Lampung">
-              </iframe>
-              <a href="https://maps.google.com/?q={{ urlencode($settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122') }}"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 class="flex items-center justify-center gap-2 py-2 px-3 bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-semibold border-t border-white/10 transition-colors">
-                <i class="fa-solid fa-map-location-dot text-[#F59E0B]"></i>
-                <span>Petunjuk Arah Google Maps</span>
-              </a>
-            </div>
-
-            <h5 class="social-header-title text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Ikuti Kami</h5>
-            <div class="footer-social-icons flex items-center gap-3">
-              <a href="{{ $settings['instagram'] ?? 'https://www.instagram.com/nirwana_tourlampung/?utm_source=ig_web_button_share_sheet' }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F59E0B] text-white flex items-center justify-center transition-all"><i class="fa-brands fa-instagram"></i></a>
-              <a href="{{ $settings['tiktok'] ?? 'https://www.tiktok.com/@nirwana_tour_travel?is_from_webapp=1&sender_device=pc' }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F59E0B] text-white flex items-center justify-center transition-all"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="{{ $settings['youtube'] ?? 'https://youtube.com/@nirwanatourlampung?si=ZMFi9b5dvpn0NKfr' }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F59E0B] text-white flex items-center justify-center transition-all"><i class="fa-brands fa-youtube"></i></a>
+            <h5 class="social-header-title text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">Ikuti Media Sosial</h5>
+            <div class="footer-social-icons flex items-center gap-2.5">
+              <a href="{{ $settings['instagram'] ?? 'https://www.instagram.com/nirwana_tourlampung/?utm_source=ig_web_button_share_sheet' }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F59E0B] hover:text-slate-900 text-white flex items-center justify-center transition-all shadow-sm"><i class="fa-brands fa-instagram text-base"></i></a>
+              <a href="{{ $settings['tiktok'] ?? 'https://www.tiktok.com/@nirwana_tour_travel?is_from_webapp=1&sender_device=pc' }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F59E0B] hover:text-slate-900 text-white flex items-center justify-center transition-all shadow-sm"><i class="fa-brands fa-tiktok text-base"></i></a>
+              <a href="{{ $settings['youtube'] ?? 'https://youtube.com/@nirwanatourlampung?si=ZMFi9b5dvpn0NKfr' }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/10 hover:bg-[#F59E0B] hover:text-slate-900 text-white flex items-center justify-center transition-all shadow-sm"><i class="fa-brands fa-youtube text-base"></i></a>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Footer Bottom Copyright -->
-      <div class="footer-bottom border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+      <div class="footer-bottom border-t border-white/10 pt-6 mt-8 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-400">
         <p>&copy; <span id="currentYear">{{ date('Y') }}</span> <strong class="text-white">Nirwana Tour Lampung</strong>. Hak Cipta Dilindungi Undang-Undang.</p>
-        <p class="footer-tagline">Dibuat oleh <a href="https://www.instagram.com/swiftcode.lpg?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white underline">Swift Code Lampung</a></p>
+        <div class="flex items-center flex-wrap gap-x-4 gap-y-2 text-xs">
+          <a href="{{ route('certificates') }}" class="hover:text-white transition-colors">Legalitas Usaha</a>
+          <span>&bull;</span>
+          <a href="{{ route('contact') }}" class="hover:text-white transition-colors">Bantuan Reservasi</a>
+          <span>&bull;</span>
+          <span class="footer-tagline">Dibuat oleh <a href="https://www.instagram.com/swiftcode.lpg?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white underline">Swift Code Lampung</a></span>
+        </div>
       </div>
     </div>
   </footer>
