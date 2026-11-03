@@ -390,19 +390,16 @@ ul {
   border-radius: var(--radius-sm);
   transition: var(--transition);
   position: relative;
+  background: transparent !important;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus {
   color: var(--primary);
-  background: var(--primary-light);
+  background: transparent !important;
 }
 
-.nav-link.active {
-  color: var(--primary);
-  font-weight: 700;
-}
-
-.nav-link.active::after {
+.nav-link::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -411,6 +408,29 @@ ul {
   height: 2.5px;
   background: var(--primary);
   border-radius: var(--radius-full);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+  opacity: 0;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  opacity: 0.55;
+}
+
+.nav-link.active,
+.nav-link.active:hover,
+.nav-link.active:focus {
+  color: var(--primary);
+  font-weight: 700;
+  background: transparent !important;
+}
+
+.nav-link.active::after {
+  transform: scaleX(1);
+  opacity: 1;
+  background: var(--primary);
 }
 
 .nav-mobile-cta {
@@ -5485,14 +5505,34 @@ textarea.form-control {
     padding: 12px 16px;
     font-size: 1rem;
     border-radius: var(--radius-md);
+    background: transparent !important;
+    position: relative;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    background: transparent !important;
+  }
+
+  .nav-link.active,
+  .nav-link.active:hover,
+  .nav-link.active:focus {
+    background: transparent !important;
+    color: var(--primary) !important;
+    font-weight: 700;
   }
 
   .nav-link.active::after {
-    display: none;
-  }
-
-  .nav-link.active {
-    background: var(--primary-light);
+    display: block !important;
+    position: absolute;
+    bottom: 2px;
+    left: 16px;
+    right: 16px;
+    height: 2.5px;
+    background: var(--primary);
+    border-radius: var(--radius-full);
+    transform: scaleX(1);
+    opacity: 1;
   }
 
   /* Dropdown Mobile Submenu (Accordion) */
@@ -5511,12 +5551,29 @@ textarea.form-control {
     font-weight: 600;
     border-radius: var(--radius-md);
     cursor: pointer;
-    background: transparent;
+    background: transparent !important;
+    position: relative;
   }
 
-  .nav-dropdown-toggle.active {
-    background: var(--primary-light) !important;
+  .nav-dropdown-toggle.active,
+  .nav-dropdown-toggle.active:hover,
+  .nav-dropdown-toggle.active:focus {
+    background: transparent !important;
     color: var(--primary) !important;
+    font-weight: 700;
+  }
+
+  .nav-dropdown-toggle.active::after {
+    display: block !important;
+    position: absolute;
+    bottom: 2px;
+    left: 16px;
+    right: 16px;
+    height: 2.5px;
+    background: var(--primary);
+    border-radius: var(--radius-full);
+    transform: scaleX(1);
+    opacity: 1;
   }
 
   .nav-dropdown .dropdown-arrow {
