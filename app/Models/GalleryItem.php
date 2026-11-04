@@ -85,7 +85,11 @@ class GalleryItem extends Model
     public function getFileUrlAttribute(): string
     {
         if ($this->is_instagram) {
-            return $this->file_path;
+            $url = trim($this->file_path ?? '');
+            if (!empty($url) && !str_starts_with($url, 'http://') && !str_starts_with($url, 'https://')) {
+                return 'https://' . $url;
+            }
+            return $url ?: 'https://www.instagram.com/nirwana_tourlampung/';
         }
 
         return storage_or_asset($this->file_path);

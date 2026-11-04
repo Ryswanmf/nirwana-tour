@@ -677,7 +677,7 @@
                 <article class="video-card">
                   <div class="video-player-wrapper">
                     @if($video->is_instagram)
-                      <div class="reel-preview-container" onclick="openReelModal('{{ $video->instagram_embed_url }}', '{{ addslashes($video->title) }}', '{{ $video->file_url }}')">
+                      <a href="{{ $video->file_url }}" target="_blank" rel="noopener noreferrer" class="reel-preview-container" aria-label="Tonton video {{ $video->title }} langsung di Instagram" style="text-decoration: none; display: block;">
                         <img src="{{ $video->thumbnail_url }}" 
                              alt="{{ $video->title }}" 
                              class="reel-poster-image" 
@@ -700,17 +700,15 @@
                           </span>
                         </div>
 
-                        <button type="button" 
-                                class="reel-center-play-btn" 
-                                aria-label="Putar Video {{ $video->title }}">
+                        <span class="reel-center-play-btn" aria-label="Putar Video {{ $video->title }} di Instagram">
                           <i class="fa-solid fa-play"></i>
-                        </button>
+                        </span>
 
                         <div class="reel-bottom-author">
                           <i class="fa-brands fa-instagram"></i>
                           <span>@nirwana_tourlampung</span>
                         </div>
-                      </div>
+                      </a>
                     @elseif($video->media_type === 'image')
                       <div class="reel-preview-container">
                         <img src="{{ $video->file_url }}" alt="{{ $video->title }}" class="reel-poster-image" loading="lazy">
@@ -766,7 +764,7 @@
                 <article class="video-card">
                   <div class="video-player-wrapper">
                     @if($video->is_instagram)
-                      <div class="reel-preview-container" onclick="openReelModal('{{ $video->instagram_embed_url }}', '{{ addslashes($video->title) }}', '{{ $video->file_url }}')">
+                      <a href="{{ $video->file_url }}" target="_blank" rel="noopener noreferrer" class="reel-preview-container" aria-label="Tonton video {{ $video->title }} langsung di Instagram" style="text-decoration: none; display: block;">
                         <img src="{{ $video->thumbnail_url }}" 
                              alt="{{ $video->title }}" 
                              class="reel-poster-image" 
@@ -789,17 +787,15 @@
                           </span>
                         </div>
 
-                        <button type="button" 
-                                class="reel-center-play-btn" 
-                                aria-label="Putar Video {{ $video->title }}">
+                        <span class="reel-center-play-btn" aria-label="Putar Video {{ $video->title }} di Instagram">
                           <i class="fa-solid fa-play"></i>
-                        </button>
+                        </span>
 
                         <div class="reel-bottom-author">
                           <i class="fa-brands fa-instagram"></i>
                           <span>@nirwana_tourlampung</span>
                         </div>
-                      </div>
+                      </a>
                     @elseif($video->media_type === 'image')
                       <div class="reel-preview-container">
                         <img src="{{ $video->file_url }}" alt="{{ $video->title }}" class="reel-poster-image" loading="lazy">
