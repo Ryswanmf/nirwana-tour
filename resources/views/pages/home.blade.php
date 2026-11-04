@@ -729,9 +729,9 @@
                     @endif
                   </div>
                   <div class="video-card-body">
-                    <span class="video-tag">{{ $video->caption ?? 'Dokumentasi Tour' }}</span>
+                    <span class="video-tag">{{ $video->media_type === 'reel' ? 'Instagram Reel' : 'Dokumentasi Tour' }}</span>
                     <h3 class="video-title">{{ $video->title }}</h3>
-                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
+                    <p class="video-desc">{{ $video->caption ?: 'Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.' }}</p>
                     @if($video->is_instagram)
                       <a href="{{ $video->file_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #E1306C; margin-top: 6px; text-decoration: none;">
                         <i class="fa-brands fa-instagram"></i> Tonton di Instagram
@@ -818,9 +818,9 @@
                     @endif
                   </div>
                   <div class="video-card-body">
-                    <span class="video-tag">{{ $video->caption ?? 'Dokumentasi Tour' }}</span>
+                    <span class="video-tag">{{ $video->media_type === 'reel' ? 'Instagram Reel' : 'Dokumentasi Tour' }}</span>
                     <h3 class="video-title">{{ $video->title }}</h3>
-                    <p class="video-desc">Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.</p>
+                    <p class="video-desc">{{ $video->caption ?: 'Momen autentik keceriaan rombongan saat menikmati perjalanan wisata bersama Nirwana Tour Lampung.' }}</p>
                     @if($video->is_instagram)
                       <a href="{{ $video->file_url }}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: #E1306C; margin-top: 6px; text-decoration: none;">
                         <i class="fa-brands fa-instagram"></i> Tonton di Instagram

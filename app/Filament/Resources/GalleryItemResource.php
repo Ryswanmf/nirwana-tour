@@ -115,6 +115,14 @@ class GalleryItemResource extends Resource
                             ->visible(fn (Forms\Get $get) => in_array($get('media_type'), ['image', 'video']))
                             ->required(fn (Forms\Get $get) => in_array($get('media_type'), ['image', 'video']))
                             ->columnSpanFull(),
+                        FileUpload::make('thumbnail')
+                            ->label('Thumbnail / Poster Cover Video (Opsional)')
+                            ->directory('gallery/thumbnails')
+                            ->image()
+                            ->imageEditor()
+                            ->helperText('Unggah foto cover poster video agar tampilan gambar kartu di beranda sama persis seperti cover di Instagram. Jika dikosongkan, akan memakai poster default.')
+                            ->visible(fn (Forms\Get $get) => in_array($get('media_type'), ['reel', 'video']))
+                            ->columnSpanFull(),
                         Textarea::make('caption')
                             ->label('Keterangan / Caption Singkat')
                             ->rows(2)
