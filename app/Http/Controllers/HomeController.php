@@ -72,7 +72,15 @@ class HomeController extends Controller
     {
         $partners = Partner::where('is_active', true)->orderBy('order')->get();
         $fleets = Fleet::where('is_active', true)->orderBy('order')->get();
-        $certificates = Certificate::where('is_active', true)->orderBy('order')->get();
+
+        $certificates = collect();
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('certificates')) {
+                $certificates = Certificate::where('is_active', true)->orderBy('order')->get();
+            }
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         return view('pages.certificates', compact('partners', 'fleets', 'certificates'));
     }

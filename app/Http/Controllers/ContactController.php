@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\Service;
 use App\Models\TourPackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
 class ContactController extends Controller
@@ -14,11 +15,21 @@ class ContactController extends Controller
     {
         $packages = TourPackage::where('is_active', true)->orderBy('order')->get();
         $services = Service::where('is_active', true)->orderBy('order')->get();
-        $contacts = Contact::where('is_active', true)
-            ->orderByDesc('is_primary')
-            ->orderBy('order')
-            ->get();
-        $primaryContact = $contacts->firstWhere('is_primary', true) ?? $contacts->first();
+
+        $contacts = collect();
+        $primaryContact = null;
+
+        try {
+            if (Schema::hasTable('contacts')) {
+                $contacts = Contact::where('is_active', true)
+                    ->orderByDesc('is_primary')
+                    ->orderBy('order')
+                    ->get();
+                $primaryContact = $contacts->firstWhere('is_primary', true) ?? $contacts->first();
+            }
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         return view('pages.contact', compact('packages', 'services', 'contacts', 'primaryContact'));
     }

@@ -57,8 +57,8 @@
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
                 <div class="contact-item-content">
-                  <strong>{{ $primaryContact->name ?? 'Alamat Kantor Resmi' }}</strong>
-                  <p>{{ $primaryContact->address ?? ($settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122') }}</p>
+                  <strong>{{ $primaryContact?->name ?? 'Alamat Kantor Resmi' }}</strong>
+                  <p>{{ $primaryContact?->address ?? ($settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122') }}</p>
                 </div>
               </div>
 
@@ -71,8 +71,8 @@
                   <strong>WhatsApp & Layanan 24 Jam</strong>
                   <p>
                     @php
-                      $activeWa = $primaryContact->whatsapp ?? ($settings['whatsapp_number'] ?? '6282269616188');
-                      $cleanWa = $primaryContact->clean_whatsapp ?? preg_replace('/[^0-9]/', '', $activeWa);
+                      $activeWa = $primaryContact?->whatsapp ?? ($settings['whatsapp_number'] ?? '6282269616188');
+                      $cleanWa = $primaryContact?->clean_whatsapp ?? preg_replace('/[^0-9]/', '', $activeWa);
                     @endphp
                     <a href="https://wa.me/{{ $cleanWa }}" target="_blank" rel="noopener noreferrer">
                       +{{ $activeWa }}
@@ -90,7 +90,7 @@
                   <strong>Telepon Kantor</strong>
                   <p>
                     @php
-                      $activePhone = $primaryContact->phone ?? ($settings['phone'] ?? '0822-6961-6188');
+                      $activePhone = $primaryContact?->phone ?? ($settings['phone'] ?? '0822-6961-6188');
                     @endphp
                     <a href="tel:{{ preg_replace('/[^0-9]/', '', $activePhone) }}">
                       {{ $activePhone }}
@@ -108,7 +108,7 @@
                   <strong>Email Resmi</strong>
                   <p>
                     @php
-                      $activeEmail = $primaryContact->email ?? ($settings['email'] ?? 'info@nirwanatourlampung.com');
+                      $activeEmail = $primaryContact?->email ?? ($settings['email'] ?? 'info@nirwanatourlampung.com');
                     @endphp
                     <a href="mailto:{{ $activeEmail }}">
                       {{ $activeEmail }}
@@ -125,7 +125,7 @@
                 <div class="contact-item-content">
                   <strong>Jam Pelayanan Kantor</strong>
                   <p>
-                    {{ $primaryContact->operating_hours ?? ($settings['operating_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00 WIB') }}
+                    {{ $primaryContact?->operating_hours ?? ($settings['operating_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00 WIB') }}
                     <br><span style="font-size: 0.82rem; color: #64748b;">Konsultasi Online WhatsApp Siaga 24 Jam</span>
                   </p>
                 </div>
@@ -139,7 +139,7 @@
               </a>
             </div>
 
-            @if(isset($contacts) && $contacts->count() > 1)
+            @if(isset($contacts) && $contacts->count() > 1 && $primaryContact)
               <!-- Daftar Kantor Cabang / Unit Layanan Tambahan -->
               <div style="margin-top: 24px; padding-top: 18px; border-top: 1px dashed #cbd5e1;">
                 <h4 style="font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
