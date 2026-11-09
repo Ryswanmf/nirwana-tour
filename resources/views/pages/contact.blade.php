@@ -143,14 +143,14 @@
               <!-- Daftar Kantor Cabang / Unit Layanan Tambahan -->
               <div style="margin-top: 24px; padding-top: 18px; border-top: 1px dashed #cbd5e1;">
                 <h4 style="font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
-                  <i class="fa-solid fa-network-wired text-[#800020]"></i> Cabang & Saluran Layanan Lainnya:
+                  <i class="fa-solid fa-network-wired text-[#DE0171]"></i> Cabang & Saluran Layanan Lainnya:
                 </h4>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                   @foreach($contacts->where('id', '!=', $primaryContact->id) as $subContact)
                     <div style="padding: 12px 14px; background: #ffffff; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
                       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <strong style="font-size: 0.85rem; color: #0f172a;">{{ $subContact->name }}</strong>
-                        <span style="font-size: 0.72rem; padding: 2px 8px; border-radius: 9999px; background: #fce7eb; color: #800020; font-weight: 600;">{{ $subContact->type }}</span>
+                        <span style="font-size: 0.72rem; padding: 2px 8px; border-radius: 9999px; background: #fdf2f8; color: #de0171; font-weight: 600;">{{ $subContact->type }}</span>
                       </div>
                       <p style="font-size: 0.78rem; color: #64748b; margin: 0 0 6px 0;">{{ $subContact->address }}</p>
                       @if($subContact->whatsapp)

@@ -12,7 +12,9 @@ class PostController extends Controller
     public function index(Request $request): View
     {
         // Hanya menampilkan berita non-unggulan di Halaman Berita (berita unggulan tampil di Beranda)
+        // Artikel yang dijadwalkan di masa depan belum tampil sampai tanggal rilis tiba
         $query = Post::where('is_published', true)
+            ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
             ->where('is_featured', false)
             ->with('category');
 
@@ -45,9 +47,9 @@ class PostController extends Controller
             $query->orderByDesc('published_at');
         }
 
-        $posts = $query->paginate(6)->withQueryString();
+        $posts = $query->paginate(8)->withQueryString();
         $categories = Category::where('type', 'article')
-            ->withCount(['posts' => fn ($q) => $q->where('is_published', true)->where('is_featured', false)])
+            ->withCount(['posts' => fn ($q) => $q->where('is_published', true)->where('is_featured', false)->where(fn ($sub) => $sub->whereNull('published_at')->orWhere('published_at', '<=', now()))])
             ->get();
 
         return view('pages.articles.index', compact('posts', 'categories'));
@@ -57,16 +59,19 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)
             ->where('is_published', true)
+            ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
             ->with('category')
             ->firstOrFail();
 
         $recentPosts = Post::where('is_published', true)
+            ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
             ->where('id', '!=', $post->id)
             ->orderByDesc('published_at')
             ->take(4)
             ->get();
 
         $prevPost = Post::where('is_published', true)
+            ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
             ->where(function ($q) use ($post) {
                 $q->where('published_at', '<', $post->published_at)
                   ->orWhere(function ($sub) use ($post) {
@@ -79,6 +84,7 @@ class PostController extends Controller
             ->first();
 
         $nextPost = Post::where('is_published', true)
+            ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
             ->where(function ($q) use ($post) {
                 $q->where('published_at', '>', $post->published_at)
                   ->orWhere(function ($sub) use ($post) {

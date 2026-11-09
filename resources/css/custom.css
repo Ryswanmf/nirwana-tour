@@ -5,13 +5,13 @@
    ======================================================== */
 
 :root {
-  /* Brand Colors - Elegant Maroon Theme */
-  --primary: #800020;
-  --primary-hover: #630018;
-  --primary-light: #FCE7EB;
-  --primary-dark: #4A0012;
-  --secondary: #9F1239;
-  --secondary-gradient: linear-gradient(135deg, #BE123C 0%, #800020 50%, #4A0012 100%);
+  /* Brand Colors - Elegant Pink Theme (Inspired by Nirwana Logo) */
+  --primary: #DE0171;
+  --primary-hover: #B8015B;
+  --primary-light: #FDF2F8;
+  --primary-dark: #36021B;
+  --secondary: #BE185D;
+  --secondary-gradient: linear-gradient(135deg, #FC028B 0%, #DE0171 50%, #36021B 100%);
   --accent-gold: #F59E0B;
   --accent-gold-light: #FEF3C7;
   --whatsapp: #25D366;
@@ -43,7 +43,7 @@
   --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
   --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
-  --shadow-glow: 0 10px 25px -5px rgba(128, 0, 32, 0.35);
+  --shadow-glow: 0 10px 25px -5px rgba(222, 1, 113, 0.35);
 
   /* Radius */
   --radius-sm: 8px;
@@ -128,7 +128,7 @@ ul {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #800020 0%, #BE123C 50%, #D97706 100%);
+  background: linear-gradient(135deg, #DE0171 0%, #FC028B 50%, #F59E0B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -219,12 +219,12 @@ ul {
 .btn-primary {
   background: var(--primary);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.35);
+  box-shadow: 0 4px 14px rgba(222, 1, 113, 0.35);
 }
 
 .btn-primary:hover {
   background: var(--primary-hover);
-  box-shadow: 0 6px 18px rgba(128, 0, 32, 0.45);
+  box-shadow: 0 6px 18px rgba(222, 1, 113, 0.45);
   transform: translateY(-2px);
 }
 
@@ -244,13 +244,13 @@ ul {
   background: #FFFFFF;
   border: 1.5px solid var(--primary);
   color: var(--primary);
-  box-shadow: 0 2px 6px rgba(128, 0, 32, 0.08);
+  box-shadow: 0 2px 6px rgba(222, 1, 113, 0.08);
 }
 
 .btn-outline:hover {
   background: var(--primary);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.25);
+  box-shadow: 0 4px 14px rgba(222, 1, 113, 0.25);
   transform: translateY(-2px);
 }
 
@@ -258,13 +258,13 @@ ul {
   background: #FFFFFF;
   border: 1.5px solid var(--primary);
   color: var(--primary);
-  box-shadow: 0 2px 6px rgba(128, 0, 32, 0.08);
+  box-shadow: 0 2px 6px rgba(222, 1, 113, 0.08);
 }
 
 .btn-outline-light:hover {
   background: var(--primary);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.25);
+  box-shadow: 0 4px 14px rgba(222, 1, 113, 0.25);
   transform: translateY(-2px);
 }
 
@@ -512,7 +512,7 @@ ul {
     border: 1px solid rgba(226, 232, 240, 0.95);
     border-radius: 12px;
     padding: 8px;
-    box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.14), 0 4px 12px rgba(128, 0, 32, 0.06);
+    box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.14), 0 4px 12px rgba(222, 1, 113, 0.06);
     list-style: none;
     opacity: 0;
     visibility: hidden;
@@ -655,7 +655,7 @@ ul {
 .hero-dots-pattern {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(128, 0, 32, 0.05) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(rgba(222, 1, 113, 0.05) 1.2px, transparent 1.2px);
   background-size: 24px 24px;
   opacity: 0.75;
   pointer-events: none;
@@ -712,7 +712,7 @@ ul {
 }
 
 .hero-section .text-gradient {
-  background: linear-gradient(135deg, #800020 0%, #B91C1C 100%);
+  background: linear-gradient(135deg, #DE0171 0%, #FC028B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -744,7 +744,7 @@ ul {
   background: var(--primary);
   color: #FFFFFF;
   border-color: var(--primary);
-  box-shadow: 0 8px 24px rgba(128, 0, 32, 0.25);
+  box-shadow: 0 8px 24px rgba(222, 1, 113, 0.25);
 }
 
 .hero-features {
@@ -778,7 +778,7 @@ ul {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 1px solid rgba(128, 0, 32, 0.1);
+  border: 1px solid rgba(222, 1, 113, 0.1);
   flex-shrink: 0;
 }
 
@@ -811,7 +811,7 @@ ul {
   transform: translate(-50%, -50%);
   width: 95%;
   height: 95%;
-  background: radial-gradient(circle, rgba(128, 0, 32, 0.08) 0%, rgba(245, 158, 11, 0.08) 45%, transparent 72%);
+  background: radial-gradient(circle, rgba(222, 1, 113, 0.08) 0%, rgba(245, 158, 11, 0.08) 45%, transparent 72%);
   border-radius: 50%;
   filter: blur(40px);
   z-index: -1;
@@ -825,13 +825,13 @@ ul {
   object-fit: contain;
   display: block;
   transform: scale(1.16);
-  filter: drop-shadow(0 20px 30px rgba(15, 23, 42, 0.14)) drop-shadow(0 6px 14px rgba(128, 0, 32, 0.12));
+  filter: drop-shadow(0 20px 30px rgba(15, 23, 42, 0.14)) drop-shadow(0 6px 14px rgba(222, 1, 113, 0.12));
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
 .hero-image-wrapper:hover .hero-image-cutout {
   transform: scale(1.20) translateY(-4px);
-  filter: drop-shadow(0 28px 40px rgba(15, 23, 42, 0.18)) drop-shadow(0 10px 24px rgba(128, 0, 32, 0.2));
+  filter: drop-shadow(0 28px 40px rgba(15, 23, 42, 0.18)) drop-shadow(0 10px 24px rgba(222, 1, 113, 0.2));
 }
 
 @keyframes heroFloat {
@@ -853,7 +853,7 @@ ul {
   background: #FFFFFF;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  box-shadow: 0 16px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(128, 0, 32, 0.06);
+  box-shadow: 0 16px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(222, 1, 113, 0.06);
   color: var(--text-main);
   animation: floatAnim 4s ease-in-out infinite alternate;
 }
@@ -923,9 +923,9 @@ ul {
    ======================================================== */
 .mitra-section {
   position: relative;
-  background: linear-gradient(135deg, #800020 0%, #630018 60%, #4A0012 100%);
+  background: linear-gradient(135deg, #DE0171 0%, #FC028B 100%);
   padding: 34px 0 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   overflow: hidden;
   z-index: 3;
 }
@@ -941,7 +941,7 @@ ul {
   flex: 0 0 300px;
   max-width: 300px;
   padding-right: 24px;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .mitra-pill {
@@ -965,13 +965,15 @@ ul {
   color: #FFFFFF;
   line-height: 1.35;
   margin-bottom: 8px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .mitra-desc {
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.5;
   margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Kolom Kanan: 2 Running Marquee Ticker (Atas & Bawah) */
@@ -1005,12 +1007,12 @@ ul {
 
 .mitra-marquee-wrap::before {
   left: 0;
-  background: linear-gradient(to right, #630018 0%, rgba(99, 0, 24, 0) 100%);
+  background: linear-gradient(to right, #DE0171 0%, rgba(222, 1, 113, 0) 100%);
 }
 
 .mitra-marquee-wrap::after {
   right: 0;
-  background: linear-gradient(to left, #630018 0%, rgba(99, 0, 24, 0) 100%);
+  background: linear-gradient(to left, #FC028B 0%, rgba(252, 2, 139, 0) 100%);
 }
 
 .mitra-track {
@@ -1492,7 +1494,7 @@ ul {
 .cert-logo-item:hover {
   transform: translateY(-2px);
   border-color: var(--primary);
-  box-shadow: 0 6px 16px -2px rgba(128, 0, 32, 0.14);
+  box-shadow: 0 6px 16px -2px rgba(222, 1, 113, 0.14);
 }
 
 .cert-logo-img {
@@ -1511,11 +1513,11 @@ ul {
 }
 
 /* ========================================================
-   4. LAYANAN (ELEGANT MAROON THEME WITH TOURISM BACKGROUND)
+   4. LAYANAN (ELEGANT LOGO PINK THEME WITH TOURISM BACKGROUND)
    ======================================================== */
 .services-section {
   position: relative;
-  background-color: #4A0012;
+  background-color: #36021B;
   overflow: hidden;
   padding: 85px 0 95px;
 }
@@ -1539,17 +1541,18 @@ ul {
   filter: saturate(1.25) contrast(1.08) brightness(0.72);
 }
 
-/* Layer 1: Perpaduan Merah Maroon Mewah
-   Menggunakan gradasi warna merah marun (#800020 & #4A0012) khas Nirwana Tour,
+/* Layer 1: Perpaduan Pink Elegan & Royal Berry Noir
+   Menggunakan gradasi warna pink logo elegan (#DE0171, #FC028B & #36021B) khas Nirwana Tour,
    membiarkan siluet pemandangan wisata terlihat anggun & megah di baliknya (opacity 82-88%). */
+.services-pink-overlay,
 .services-maroon-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, 
-    rgba(55, 0, 14, 0.90) 0%, 
-    rgba(128, 0, 32, 0.83) 45%, 
-    rgba(99, 0, 24, 0.85) 75%, 
-    rgba(40, 0, 8, 0.92) 100%
+    rgba(38, 2, 18, 0.92) 0%, 
+    rgba(110, 1, 56, 0.84) 45%, 
+    rgba(82, 1, 42, 0.86) 75%, 
+    rgba(28, 1, 14, 0.94) 100%
   );
   z-index: 2;
 }
@@ -1559,8 +1562,8 @@ ul {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.18) 0%, transparent 55%),
-    radial-gradient(circle at 15% 85%, rgba(185, 28, 28, 0.22) 0%, transparent 60%);
+    radial-gradient(circle at 85% 15%, rgba(252, 2, 139, 0.16) 0%, transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(222, 1, 113, 0.20) 0%, transparent 60%);
   pointer-events: none;
   z-index: 3;
 }
@@ -1602,7 +1605,7 @@ ul {
 }
 
 .services-section .section-subtitle {
-  color: #FCE7EB;
+  color: #FDF2F8;
 }
 
 .services-grid {
@@ -1803,7 +1806,7 @@ ul {
   border-color: var(--primary);
   color: var(--primary);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(128, 0, 32, 0.12);
+  box-shadow: 0 4px 10px rgba(222, 1, 113, 0.12);
 }
 
 .service-action .btn-service-wa {
@@ -2012,7 +2015,7 @@ ul {
 .dest-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-xl);
-  border-color: rgba(128, 0, 32, 0.4);
+  border-color: rgba(222, 1, 113, 0.4);
 }
 
 .dest-thumb {
@@ -2238,7 +2241,7 @@ ul {
   background: var(--primary);
   color: #FFFFFF;
   border-color: var(--primary);
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.35);
+  box-shadow: 0 4px 14px rgba(222, 1, 113, 0.35);
 }
 
 .dest-card.hide {
@@ -2286,7 +2289,7 @@ ul {
   border: 2px solid var(--primary);
   background: #FFFFFF;
   color: var(--primary);
-  box-shadow: 0 4px 16px rgba(128, 0, 32, 0.08);
+  box-shadow: 0 4px 16px rgba(222, 1, 113, 0.08);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   min-width: 260px;
@@ -2296,7 +2299,7 @@ ul {
 #btnLoadMoreDest:hover {
   background: var(--primary);
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(128, 0, 32, 0.28);
+  box-shadow: 0 8px 24px rgba(222, 1, 113, 0.28);
   transform: translateY(-2px);
 }
 
@@ -2632,7 +2635,7 @@ ul {
 
 .est-select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.15);
+  box-shadow: 0 0 0 3px rgba(222, 1, 113, 0.15);
 }
 
 .slider-label-row {
@@ -2648,7 +2651,7 @@ ul {
   font-size: 1rem;
   padding: 4px 14px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(128, 0, 32, 0.2);
+  border: 1px solid rgba(222, 1, 113, 0.2);
 }
 
 .est-slider {
@@ -2715,7 +2718,7 @@ ul {
 .transport-option-card input:checked + .opt-content {
   border-color: var(--primary);
   background: var(--primary-light);
-  box-shadow: 0 4px 12px rgba(128, 0, 32, 0.15);
+  box-shadow: 0 4px 12px rgba(222, 1, 113, 0.15);
 }
 
 .addons-grid {
@@ -2822,7 +2825,7 @@ ul {
 }
 
 .calc-box.primary-box {
-  background: rgba(128, 0, 32, 0.22);
+  background: rgba(222, 1, 113, 0.22);
   border: 1px solid rgba(251, 113, 133, 0.35);
 }
 
@@ -2898,11 +2901,11 @@ ul {
 }
 
 /* ========================================================
-   6. KEUNGGULAN (ELEGANT MAROON THEME WITH TOURISM BACKGROUND)
+   6. KEUNGGULAN (ELEGANT LOGO PINK THEME WITH TOURISM BACKGROUND)
    ======================================================== */
 .reasons-section {
   position: relative;
-  background-color: #4A0012;
+  background-color: #36021B;
   overflow: hidden;
   padding: 85px 0 95px;
 }
@@ -2926,17 +2929,18 @@ ul {
   filter: saturate(1.22) contrast(1.08) brightness(0.72);
 }
 
-/* Layer 1: Perpaduan Merah Maroon Mewah
-   Gradasi warna merah marun (#800020 & #4A0012) khas Nirwana Tour,
+/* Layer 1: Perpaduan Pink Elegan & Royal Berry Noir
+   Gradasi warna pink logo elegan (#DE0171, #FC028B & #36021B) khas Nirwana Tour,
    membiarkan siluet kemegahan Candi Prambanan terlihat anggun & mistis di baliknya (opacity 82-88%). */
+.reasons-pink-overlay,
 .reasons-maroon-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, 
-    rgba(55, 0, 14, 0.90) 0%, 
-    rgba(128, 0, 32, 0.83) 45%, 
-    rgba(99, 0, 24, 0.85) 75%, 
-    rgba(40, 0, 8, 0.92) 100%
+    rgba(38, 2, 18, 0.92) 0%, 
+    rgba(110, 1, 56, 0.84) 45%, 
+    rgba(82, 1, 42, 0.86) 75%, 
+    rgba(28, 1, 14, 0.94) 100%
   );
   z-index: 2;
 }
@@ -2946,8 +2950,8 @@ ul {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.18) 0%, transparent 55%),
-    radial-gradient(circle at 20% 80%, rgba(185, 28, 28, 0.22) 0%, transparent 60%);
+    radial-gradient(circle at 80% 20%, rgba(252, 2, 139, 0.16) 0%, transparent 55%),
+    radial-gradient(circle at 20% 80%, rgba(222, 1, 113, 0.20) 0%, transparent 60%);
   pointer-events: none;
   z-index: 3;
 }
@@ -2989,7 +2993,7 @@ ul {
 }
 
 .reasons-section .section-subtitle {
-  color: #FCE7EB;
+  color: #FDF2F8;
 }
 
 .reasons-section .reason-card {
@@ -3183,7 +3187,7 @@ ul {
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(128, 0, 32, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(222, 1, 113, 0.25) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -3438,8 +3442,8 @@ ul {
 
 .testi-group .testimonial-card:hover {
   transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 12px 28px rgba(128, 0, 32, 0.12);
-  border-color: rgba(128, 0, 32, 0.3);
+  box-shadow: 0 12px 28px rgba(222, 1, 113, 0.12);
+  border-color: rgba(222, 1, 113, 0.3);
 }
 
 .testi-hint {
@@ -3543,8 +3547,8 @@ ul {
 
 .testimonial-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 36px rgba(128, 0, 32, 0.12);
-  border-color: rgba(128, 0, 32, 0.35);
+  box-shadow: 0 16px 36px rgba(222, 1, 113, 0.12);
+  border-color: rgba(222, 1, 113, 0.35);
 }
 
 .testimonial-card:hover .testi-stars i {
@@ -3578,7 +3582,7 @@ ul {
   flex-shrink: 0;
 }
 
-.avatar-1 { background: linear-gradient(135deg, #800020, #9F1239); }
+.avatar-1 { background: linear-gradient(135deg, #DE0171, #FC028B); }
 .avatar-2 { background: linear-gradient(135deg, #059669, #10B981); }
 .avatar-3 { background: linear-gradient(135deg, #D97706, #F59E0B); }
 .avatar-4 { background: linear-gradient(135deg, #7C3AED, #A855F7); }
@@ -3632,11 +3636,11 @@ ul {
    6.5 ARTIKEL & TIPS WISATA
    ======================================================== */
 /* ========================================================
-   6.5 ARTIKEL & TIPS WISATA (ELEGANT MAROON THEME WITH TOURISM BACKGROUND)
+   6.5 ARTIKEL & TIPS WISATA (ELEGANT LOGO PINK THEME WITH TOURISM BACKGROUND)
    ======================================================== */
 .articles-section {
   position: relative;
-  background-color: #4A0012;
+  background-color: #36021B;
   overflow: hidden;
   padding: 85px 0 95px;
 }
@@ -3660,17 +3664,18 @@ ul {
   filter: saturate(1.22) contrast(1.08) brightness(0.72);
 }
 
-/* Layer 1: Perpaduan Merah Maroon Mewah
-   Gradasi warna merah marun (#800020 & #4A0012) khas Nirwana Tour,
+/* Layer 1: Perpaduan Pink Elegan & Royal Berry Noir
+   Gradasi warna pink logo elegan (#DE0171, #FC028B & #36021B) khas Nirwana Tour,
    membiarkan panorama sunrise & savana Bromo terlihat anggun di baliknya (opacity 82-88%). */
+.articles-pink-overlay,
 .articles-maroon-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, 
-    rgba(55, 0, 14, 0.90) 0%, 
-    rgba(128, 0, 32, 0.83) 45%, 
-    rgba(99, 0, 24, 0.85) 75%, 
-    rgba(40, 0, 8, 0.92) 100%
+    rgba(38, 2, 18, 0.92) 0%, 
+    rgba(110, 1, 56, 0.84) 45%, 
+    rgba(82, 1, 42, 0.86) 75%, 
+    rgba(28, 1, 14, 0.94) 100%
   );
   z-index: 2;
 }
@@ -3680,8 +3685,8 @@ ul {
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.18) 0%, transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(185, 28, 28, 0.22) 0%, transparent 60%);
+    radial-gradient(circle at 20% 20%, rgba(252, 2, 139, 0.16) 0%, transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(222, 1, 113, 0.20) 0%, transparent 60%);
   pointer-events: none;
   z-index: 3;
 }
@@ -3723,7 +3728,7 @@ ul {
 }
 
 .articles-section .section-subtitle {
-  color: #FCE7EB;
+  color: #FDF2F8;
 }
 
 .articles-grid {
@@ -3998,7 +4003,7 @@ ul {
   border: 2px solid var(--primary);
   background: #FFFFFF;
   color: var(--primary);
-  box-shadow: 0 4px 16px rgba(128, 0, 32, 0.08);
+  box-shadow: 0 4px 16px rgba(222, 1, 113, 0.08);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   min-width: 260px;
@@ -4008,7 +4013,7 @@ ul {
 #btnLoadMoreArticles:hover {
   background: var(--primary);
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(128, 0, 32, 0.28);
+  box-shadow: 0 8px 24px rgba(222, 1, 113, 0.28);
   transform: translateY(-2px);
 }
 
@@ -4043,7 +4048,7 @@ ul {
 }
 
 .articles-section .article-more-note {
-  color: #FCE7EB;
+  color: #FDF2F8;
 }
 
 .article-more-note a {
@@ -4102,8 +4107,8 @@ ul {
 
 .video-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 36px rgba(128, 0, 32, 0.16);
-  border-color: rgba(128, 0, 32, 0.35);
+  box-shadow: 0 16px 36px rgba(222, 1, 113, 0.16);
+  border-color: rgba(222, 1, 113, 0.35);
 }
 
 .video-player-wrapper {
@@ -4243,9 +4248,9 @@ ul {
 
 .video-card:hover .reel-center-play-btn {
   transform: translate(-50%, -50%) scale(1.15);
-  background: linear-gradient(135deg, #E1306C 0%, #800020 100%);
+  background: linear-gradient(135deg, #FC028B 0%, #DE0171 100%);
   border-color: #FFFFFF;
-  box-shadow: 0 12px 30px rgba(225, 48, 108, 0.5);
+  box-shadow: 0 12px 30px rgba(252, 2, 139, 0.45);
 }
 
 .video-card:hover .reel-center-play-btn i {
@@ -4896,8 +4901,8 @@ ul {
   width: fit-content;
   padding: 5px 14px;
   border-radius: 30px;
-  background: rgba(128, 0, 32, 0.07);
-  color: var(--primary, #800020);
+  background: rgba(222, 1, 113, 0.07);
+  color: var(--primary, #DE0171);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -4961,8 +4966,8 @@ ul {
 }
 
 .contact-item-icon.icon-location {
-  background: rgba(128, 0, 32, 0.1);
-  color: #800020;
+  background: rgba(222, 1, 113, 0.1);
+  color: #DE0171;
 }
 
 .contact-item-icon.icon-whatsapp {
@@ -5007,7 +5012,7 @@ ul {
 }
 
 .contact-item a:hover {
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   text-decoration: underline;
 }
 
@@ -5077,7 +5082,7 @@ ul {
 }
 
 .social-icons-row a:hover {
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
   transform: translateY(-2px);
 }
@@ -5148,12 +5153,12 @@ textarea.form-control {
 
 .form-control:focus {
   background: #FFFFFF;
-  border-color: var(--primary, #800020);
-  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.12);
+  border-color: var(--primary, #DE0171);
+  box-shadow: 0 0 0 3px rgba(222, 1, 113, 0.12);
 }
 
 .input-icon-group:focus-within i {
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
 }
 
 .contact-submit-btn {
@@ -5161,16 +5166,16 @@ textarea.form-control {
   padding: 13px 20px;
   font-weight: 700;
   font-size: 0.95rem;
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   border: none;
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.22);
+  box-shadow: 0 4px 14px rgba(222, 1, 113, 0.22);
   transition: all 0.25s ease;
 }
 
 .contact-submit-btn:hover {
   background: #660019;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(128, 0, 32, 0.32);
+  box-shadow: 0 6px 18px rgba(222, 1, 113, 0.32);
 }
 
 /* Contact Map Banner */
@@ -5204,8 +5209,8 @@ textarea.form-control {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(128, 0, 32, 0.1);
-  color: var(--primary, #800020);
+  background: rgba(222, 1, 113, 0.1);
+  color: var(--primary, #DE0171);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5975,7 +5980,7 @@ textarea.form-control {
 
   .dropdown-item i {
     width: 22px !important;
-    color: var(--primary, #800020) !important;
+    color: var(--primary, #DE0171) !important;
     font-size: 0.95rem !important;
     text-align: center !important;
     flex-shrink: 0;
@@ -5985,7 +5990,7 @@ textarea.form-control {
   .dropdown-item:active,
   .dropdown-item.active {
     background: #FFFFFF !important;
-    color: var(--primary, #800020) !important;
+    color: var(--primary, #DE0171) !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
     transform: none !important;
   }
@@ -6164,12 +6169,12 @@ textarea.form-control {
    PAGE: TENTANG KAMI (ABOUT US)
    ======================================================== */
 
-/* Page Hero Banner (Deep Maroon Theme with High-End Ambient Lighting) */
+/* Page Hero Banner (Deep Velvet Pink & Royal Noir Theme with High-End Ambient Lighting) */
 .page-hero {
   position: relative;
   padding: 160px 0 90px;
-  background-color: #4A0012;
-  background: linear-gradient(135deg, rgba(55, 0, 14, 0.94) 0%, rgba(128, 0, 32, 0.88) 50%, rgba(74, 0, 18, 0.94) 100%);
+  background-color: #36021B;
+  background: linear-gradient(135deg, rgba(38, 2, 18, 0.95) 0%, rgba(110, 1, 56, 0.88) 50%, rgba(28, 1, 14, 0.95) 100%);
   color: #FFFFFF;
   text-align: center;
   overflow: hidden;
@@ -6177,7 +6182,7 @@ textarea.form-control {
 
 .page-hero-packages {
   position: relative;
-  background-color: #4A0012;
+  background-color: #36021B;
 }
 
 .page-hero-bg-container {
@@ -6199,17 +6204,18 @@ textarea.form-control {
   filter: saturate(1.22) contrast(1.08) brightness(0.72);
 }
 
-/* Layer 1: Perpaduan Merah Maroon Mewah
-   Gradasi warna merah marun (#800020 & #4A0012) khas Nirwana Tour,
+/* Layer 1: Perpaduan Pink Elegan & Royal Berry Noir
+   Gradasi warna pink logo elegan (#DE0171 & #36021B) khas Nirwana Tour,
    membiarkan keindahan pemandangan wisata terlihat anggun di baliknya. */
+.page-hero-pink-overlay,
 .page-hero-maroon-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, 
-    rgba(55, 0, 14, 0.90) 0%, 
-    rgba(128, 0, 32, 0.83) 45%, 
-    rgba(99, 0, 24, 0.85) 75%, 
-    rgba(40, 0, 8, 0.92) 100%
+    rgba(38, 2, 18, 0.92) 0%, 
+    rgba(110, 1, 56, 0.84) 45%, 
+    rgba(82, 1, 42, 0.86) 75%, 
+    rgba(28, 1, 14, 0.94) 100%
   );
   z-index: 2;
 }
@@ -6284,7 +6290,7 @@ textarea.form-control {
 
 .page-hero-desc {
   font-size: 1.12rem;
-  color: #FCE7EB;
+  color: #FDF2F8;
   line-height: 1.7;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 }
@@ -6358,7 +6364,7 @@ textarea.form-control {
   content: '';
   position: absolute;
   inset: -14px -14px 14px 14px;
-  background: linear-gradient(135deg, rgba(128, 0, 32, 0.12) 0%, rgba(245, 158, 11, 0.15) 100%);
+  background: linear-gradient(135deg, rgba(222, 1, 113, 0.12) 0%, rgba(245, 158, 11, 0.15) 100%);
   border-radius: 30px;
   z-index: 0;
   pointer-events: none;
@@ -6382,11 +6388,11 @@ textarea.form-control {
   top: 24px;
   right: -16px;
   z-index: 2;
-  background: linear-gradient(135deg, #800020 0%, #4A0012 100%);
+  background: linear-gradient(135deg, #DE0171 0%, #36021B 100%);
   color: #FFFFFF;
   padding: 16px 20px;
   border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(128, 0, 32, 0.35);
+  box-shadow: 0 12px 30px rgba(222, 1, 113, 0.35);
   border: 3px solid #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -6999,7 +7005,7 @@ textarea.form-control {
 
 /* About CTA Box */
 .about-cta-banner {
-  background: linear-gradient(135deg, #9F1239 0%, #800020 50%, #4A0012 100%);
+  background: linear-gradient(135deg, #FC028B 0%, #DE0171 50%, #36021B 100%);
   border-radius: var(--radius-xl);
   padding: 60px 48px;
   color: #FFFFFF;
@@ -7030,7 +7036,7 @@ textarea.form-control {
   font-size: 1.1rem;
   max-width: 680px;
   margin: 0 auto 32px;
-  color: #FCE7EB;
+  color: #FDF2F8;
 }
 
 .about-cta-buttons {
@@ -7245,17 +7251,17 @@ textarea.form-control {
 
 .pagination-item:not(.disabled):not(.active) .pagination-link:hover {
   background: #F8FAFC;
-  border-color: var(--primary, #800020);
-  color: var(--primary, #800020);
+  border-color: var(--primary, #DE0171);
+  color: var(--primary, #DE0171);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(128, 0, 32, 0.12);
+  box-shadow: 0 4px 12px rgba(222, 1, 113, 0.12);
 }
 
 .pagination-item.active .pagination-link {
-  background: var(--primary, #800020);
-  border-color: var(--primary, #800020);
+  background: var(--primary, #DE0171);
+  border-color: var(--primary, #DE0171);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.28);
+  box-shadow: 0 4px 14px rgba(222, 1, 113, 0.28);
 }
 
 .pagination-item.disabled .pagination-link {
@@ -7370,8 +7376,8 @@ textarea.form-control {
 }
 
 .news-filter-bar:focus-within {
-  border-color: var(--primary, #800020);
-  box-shadow: 0 6px 22px rgba(128, 0, 32, 0.09);
+  border-color: var(--primary, #DE0171);
+  box-shadow: 0 6px 22px rgba(222, 1, 113, 0.09);
 }
 
 .news-filter-group {
@@ -7424,7 +7430,7 @@ textarea.form-control {
 }
 
 .news-filter-select:focus {
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
 }
 
 /* Custom Dropdown Component */
@@ -7475,7 +7481,7 @@ textarea.form-control {
 
 .news-custom-dropdown.is-open .news-dropdown-arrow {
   transform: rotate(180deg);
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
 }
 
 .news-dropdown-menu {
@@ -7533,7 +7539,7 @@ textarea.form-control {
 }
 
 .news-dropdown-search-input:focus {
-  border-color: var(--primary, #800020);
+  border-color: var(--primary, #DE0171);
   background: #FFFFFF;
 }
 
@@ -7560,7 +7566,7 @@ textarea.form-control {
 }
 
 .news-dropdown-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
 }
 
 .news-dropdown-item {
@@ -7578,18 +7584,18 @@ textarea.form-control {
 
 .news-dropdown-item:hover {
   background: #F8FAFC;
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
 }
 
 .news-dropdown-item.active {
-  background: rgba(128, 0, 32, 0.08);
-  color: var(--primary, #800020);
+  background: rgba(222, 1, 113, 0.08);
+  color: var(--primary, #DE0171);
   font-weight: 700;
 }
 
 .news-dropdown-check {
   font-size: 0.78rem;
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
 }
 
 /* Search Input & Action Buttons */
@@ -7733,13 +7739,13 @@ textarea.form-control {
 }
 
 .pfilter-search-wrap:focus-within {
-  border-color: var(--primary, #800020);
+  border-color: var(--primary, #DE0171);
   background: #FFFFFF;
-  box-shadow: 0 0 0 4px rgba(128, 0, 32, 0.08);
+  box-shadow: 0 0 0 4px rgba(222, 1, 113, 0.08);
 }
 
 .pfilter-search-icon {
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   font-size: 0.95rem;
   flex-shrink: 0;
 }
@@ -7761,7 +7767,7 @@ textarea.form-control {
 }
 
 .pfilter-spinner-icon {
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   font-size: 0.95rem;
   margin-right: 6px;
   flex-shrink: 0;
@@ -7815,7 +7821,7 @@ textarea.form-control {
 }
 
 .pfilter-label i {
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   font-size: 0.78rem;
 }
 
@@ -7851,15 +7857,15 @@ textarea.form-control {
 }
 
 .pfilter-select:focus {
-  border-color: var(--primary, #800020);
+  border-color: var(--primary, #DE0171);
   background: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.08);
+  box-shadow: 0 0 0 3px rgba(222, 1, 113, 0.08);
 }
 
 .pfilter-select.is-active {
-  border-color: var(--primary, #800020);
+  border-color: var(--primary, #DE0171);
   background: #FFF5F7;
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   font-weight: 700;
 }
 
@@ -7882,7 +7888,7 @@ textarea.form-control {
 .pfilter-submit-btn {
   height: 44px;
   padding: 0 20px;
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
   border: none;
   border-radius: 10px;
@@ -7892,7 +7898,7 @@ textarea.form-control {
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(128, 0, 32, 0.22);
+  box-shadow: 0 4px 12px rgba(222, 1, 113, 0.22);
   transition: all 0.2s ease;
   white-space: nowrap;
 }
@@ -7900,7 +7906,7 @@ textarea.form-control {
 .pfilter-submit-btn:hover {
   background: #660019;
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(128, 0, 32, 0.32);
+  box-shadow: 0 6px 16px rgba(222, 1, 113, 0.32);
 }
 
 .pfilter-reset-btn {
@@ -7949,10 +7955,10 @@ textarea.form-control {
   align-items: center;
   gap: 6px;
   padding: 3px 10px;
-  background: rgba(128, 0, 32, 0.06);
-  border: 1px solid rgba(128, 0, 32, 0.18);
+  background: rgba(222, 1, 113, 0.06);
+  border: 1px solid rgba(222, 1, 113, 0.18);
   border-radius: 999px;
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   font-size: 0.78rem;
   font-weight: 600;
   text-decoration: none;
@@ -7960,8 +7966,8 @@ textarea.form-control {
 }
 
 .pfilter-chip:hover {
-  background: rgba(128, 0, 32, 0.12);
-  border-color: var(--primary, #800020);
+  background: rgba(222, 1, 113, 0.12);
+  border-color: var(--primary, #DE0171);
 }
 
 .pfilter-chip i {
@@ -8042,14 +8048,14 @@ textarea.form-control {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary, #800020), #D4AF37);
+  background: linear-gradient(90deg, var(--primary, #DE0171), #D4AF37);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .service-card-premium:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 35px rgba(128, 0, 32, 0.09);
+  box-shadow: 0 14px 35px rgba(222, 1, 113, 0.09);
   border-color: #CBD5E1;
 }
 
@@ -8061,8 +8067,8 @@ textarea.form-control {
   width: 54px;
   height: 54px;
   border-radius: 14px;
-  background: rgba(128, 0, 32, 0.07);
-  color: var(--primary, #800020);
+  background: rgba(222, 1, 113, 0.07);
+  color: var(--primary, #DE0171);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8072,7 +8078,7 @@ textarea.form-control {
 }
 
 .service-card-premium:hover .service-icon-box {
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
   transform: scale(1.05);
 }
@@ -8134,7 +8140,7 @@ textarea.form-control {
   padding: 9px 12px;
   border-radius: 9px;
   background: #F8FAFC;
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   font-weight: 700;
   font-size: 0.84rem;
   text-decoration: none;
@@ -8147,9 +8153,9 @@ textarea.form-control {
 }
 
 .service-link-btn:hover {
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
-  border-color: var(--primary, #800020);
+  border-color: var(--primary, #DE0171);
 }
 
 .service-wa-btn {
@@ -8226,8 +8232,8 @@ textarea.form-control {
   font-weight: 700;
   padding: 4px 12px;
   border-radius: 20px;
-  background: rgba(128, 0, 32, 0.08);
-  color: var(--primary, #800020);
+  background: rgba(222, 1, 113, 0.08);
+  color: var(--primary, #DE0171);
 }
 
 .fleet-capacity-tag {
@@ -8289,7 +8295,7 @@ textarea.form-control {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
   font-weight: 800;
   font-size: 1.05rem;
@@ -8297,7 +8303,7 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   margin: 0 auto 16px auto;
-  box-shadow: 0 4px 12px rgba(128, 0, 32, 0.25);
+  box-shadow: 0 4px 12px rgba(222, 1, 113, 0.25);
 }
 
 .service-step-title {
@@ -8344,15 +8350,15 @@ textarea.form-control {
 
 .gallery-filter-pill:hover {
   background: #F8FAFC;
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   border-color: #CBD5E1;
 }
 
 .gallery-filter-pill.active {
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
-  border-color: var(--primary, #800020);
-  box-shadow: 0 4px 14px rgba(128, 0, 32, 0.25);
+  border-color: var(--primary, #DE0171);
+  box-shadow: 0 4px 14px rgba(222, 1, 113, 0.25);
 }
 
 .gallery-showcase-grid {
@@ -8433,7 +8439,7 @@ textarea.form-control {
   height: 54px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8445,7 +8451,7 @@ textarea.form-control {
 
 .gallery-card:hover .gallery-play-btn {
   transform: scale(1.12);
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
 }
 
@@ -8482,7 +8488,7 @@ textarea.form-control {
 }
 
 .gallery-card:hover .gallery-zoom-icon {
-  background: var(--primary, #800020);
+  background: var(--primary, #DE0171);
   color: #FFFFFF;
 }
 
@@ -8498,7 +8504,7 @@ details.faq-details-item[open] summary {
 }
 details.faq-details-item[open] .faq-chevron {
   transform: rotate(180deg);
-  color: var(--primary, #800020);
+  color: var(--primary, #DE0171);
 }
 
 /* ========================================================
@@ -8531,7 +8537,7 @@ details.faq-details-item[open] .faq-chevron {
 }
 
 .wa-concierge-header {
-  background: linear-gradient(135deg, #800020, #540015);
+  background: linear-gradient(135deg, #DE0171, #FC028B);
   color: #FFFFFF;
   padding: 16px 18px;
   display: flex;
@@ -8566,7 +8572,7 @@ details.faq-details-item[open] .faq-chevron {
   height: 12px;
   border-radius: 50%;
   background: #22C55E;
-  border: 2px solid #800020;
+  border: 2px solid #DE0171;
 }
 
 .wa-concierge-header-info {
@@ -8726,7 +8732,7 @@ details.faq-details-item[open] .faq-chevron {
   background: #FFFFFF;
   border-radius: 18px;
   border: 1px solid rgba(226, 232, 240, 0.95);
-  box-shadow: 0 16px 40px -4px rgba(15, 23, 42, 0.18), 0 4px 14px rgba(128, 0, 32, 0.08);
+  box-shadow: 0 16px 40px -4px rgba(15, 23, 42, 0.18), 0 4px 14px rgba(222, 1, 113, 0.08);
   padding: 16px 18px;
 }
 
@@ -8742,7 +8748,7 @@ details.faq-details-item[open] .faq-chevron {
   height: 48px;
   border-radius: 12px;
   background: #FFF1F2;
-  border: 1px solid rgba(128, 0, 32, 0.12);
+  border: 1px solid rgba(222, 1, 113, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;

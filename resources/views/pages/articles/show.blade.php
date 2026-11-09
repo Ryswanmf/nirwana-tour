@@ -89,7 +89,7 @@
          ARTICLE CONTENT SECTION
          ======================================================== -->
     <section class="section bg-alt" id="artikel-detail">
-      <div class="container" style="max-width: 920px;">
+      <div class="container article-reading-container">
         
         <!-- FOTO DOKUMENTASI ARTIKEL (1 FOTO JIKA HANYA COVER, ATAU LEBIH JIKA ADA GALERI TAMBAHAN) -->
         @php
@@ -117,26 +117,26 @@
           </div>
         @endif
 
-        <!-- ISI KONTEN ARTIKEL -->
-        <article style="background: #FFFFFF; border-radius: 20px; padding: 45px 40px; border: 1px solid #E2E8F0; box-shadow: 0 6px 20px rgba(0,0,0,0.04); line-height: 1.85; font-size: 1.05rem; color: #334155;">
+        <!-- ISI KONTEN ARTIKEL (STRUKTUR EDITORIAL MODERN & SANITASI XSS) -->
+        <article class="article-main-card">
           @if($post->excerpt)
-            <div style="font-size: 1.12rem; font-weight: 500; color: var(--primary, #800020); border-left: 4px solid var(--primary, #800020); padding-left: 20px; margin-bottom: 30px; line-height: 1.7; background: rgba(128,0,32,0.03); padding-top: 14px; padding-bottom: 14px; border-radius: 0 12px 12px 0;">
+            <div class="article-lead-box">
               {{ $post->excerpt }}
             </div>
           @endif
 
-          <div class="rich-content" style="line-height: 1.9;">
-            {!! $post->content !!}
+          <div class="rich-content article-content">
+            {!! $post->formatted_content !!}
           </div>
         </article>
 
         <!-- 1-Click Social Share Card untuk Artikel -->
-        <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.03);">
+        <div class="article-share-card">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <i class="fa-solid fa-share-nodes" style="color: var(--primary, #800020); font-size: 1.2rem;"></i>
+            <i class="fa-solid fa-share-nodes" style="color: var(--primary, #DE0171); font-size: 1.2rem;"></i>
             <span style="font-weight: 700; color: #1E293B; font-size: 0.92rem;">Bagikan Tips & Berita Ini:</span>
           </div>
-          <div style="display: flex; gap: 10px; align-items: center;">
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <!-- WhatsApp -->
             <a href="https://api.whatsapp.com/send?text={{ rawurlencode($post->title . ' - Baca selengkapnya di Nirwana Tour: ' . url()->current()) }}"
                target="_blank" rel="noopener noreferrer"
@@ -170,9 +170,9 @@
 
         <!-- Navigasi Artikel Sebelumnya & Selanjutnya -->
         @if((isset($prevPost) && $prevPost) || (isset($nextPost) && $nextPost))
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 30px;">
+          <div class="article-nav-grid">
             @if(isset($prevPost) && $prevPost)
-              <a href="{{ route('posts.show', $prevPost->slug) }}" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 20px; text-decoration: none; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.02); transition: all 0.2s ease;">
+              <a href="{{ route('posts.show', $prevPost->slug) }}" class="article-nav-btn">
                 <span style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: flex; align-items: center; gap: 6px;">
                   <i class="fa-solid fa-arrow-left"></i> Artikel Sebelumnya
                 </span>
@@ -185,7 +185,7 @@
             @endif
 
             @if(isset($nextPost) && $nextPost)
-              <a href="{{ route('posts.show', $nextPost->slug) }}" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 20px; text-decoration: none; display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.02); transition: all 0.2s ease;">
+              <a href="{{ route('posts.show', $nextPost->slug) }}" class="article-nav-btn" style="align-items: flex-end; text-align: right;">
                 <span style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: flex; align-items: center; gap: 6px;">
                   Artikel Selanjutnya <i class="fa-solid fa-arrow-right"></i>
                 </span>
@@ -207,7 +207,7 @@
               @foreach($recentPosts as $rec)
                 <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.03); transition: transform 0.25s ease, box-shadow 0.25s ease;">
                   <div>
-                    <span style="font-size: 0.75rem; color: var(--primary, #800020); font-weight: 700; text-transform: uppercase;">
+                    <span style="font-size: 0.75rem; color: var(--primary, #DE0171); font-weight: 700; text-transform: uppercase;">
                       {{ $rec->category_name ?: ($rec->category->name ?? 'Info Wisata') }}
                     </span>
                     <h4 style="margin: 10px 0 12px; font-size: 1.02rem; font-weight: 700; line-height: 1.4;">

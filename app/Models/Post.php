@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
 class Post extends Model
 {
@@ -26,10 +28,25 @@ class Post extends Model
         static::saving(function ($post) {
             if (!empty($post->category_name)) {
                 $trimmed = trim($post->category_name);
-                $category = Category::firstOrCreate(
-                    ['name' => $trimmed, 'type' => 'article'],
-                    ['slug' => Str::slug($trimmed) ?: 'kategori-' . time()]
-                );
+                $category = Category::where('name', $trimmed)
+                    ->orWhere('slug', Str::slug($trimmed))
+                    ->first();
+
+                if (! $category) {
+                    $baseSlug = Str::slug($trimmed) ?: 'kategori-' . time();
+                    $uniqueSlug = $baseSlug;
+                    $counter = 1;
+                    while (Category::where('slug', $uniqueSlug)->exists()) {
+                        $uniqueSlug = "{$baseSlug}-{$counter}";
+                        $counter++;
+                    }
+
+                    $category = Category::create([
+                        'name' => $trimmed,
+                        'type' => 'article',
+                        'slug' => $uniqueSlug,
+                    ]);
+                }
                 $post->category_id = $category->id;
             } elseif ($post->category_id && empty($post->category_name)) {
                 $post->category_name = $post->category?->name;
@@ -104,6 +121,90 @@ class Post extends Model
     }
 
     /**
+     * Mengembalikan konten artikel yang telah diformat secara editorial dan disanitasi dari ancaman XSS.
+     * Mendukung pemformatan teks polos, heading H1-H6, daftar UL/OL, kutipan, gambar, dan tabel responsif.
+     */
+    public function getFormattedContentAttribute(): string
+    {
+        $raw = (string) ($this->content ?? '');
+
+        if ($raw === '') {
+            return '';
+        }
+
+        // Jika teks polos (belum berupa markup HTML dari editor), ubah pemisah baris menjadi tag <p>
+        if (strip_tags($raw) === $raw) {
+            $paragraphs = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $raw)));
+            if (!empty($paragraphs)) {
+                $raw = '<p>' . implode("</p><p>", $paragraphs) . '</p>';
+            }
+        }
+
+        // Sanitasi HTML terhadap XSS menggunakan Symfony HtmlSanitizer
+        $sanitized = static::sanitizeArticleHtml($raw);
+
+        // Bungkus tabel yang belum memiliki wrapper responsif dengan div .article-table-wrapper
+        return preg_replace_callback(
+            '/(?<!<div class="article-table-wrapper">)(?<!<div class="table-responsive">)(<table\b[^>]*>.*?<\/table>)/is',
+            function ($matches) {
+                return '<div class="article-table-wrapper">' . $matches[1] . '</div>';
+            },
+            $sanitized
+        );
+    }
+
+    /**
+     * Sanitasi HTML artikel dengan daftar tag editorial dan atribut yang aman.
+     */
+    public static function sanitizeArticleHtml(string $html): string
+    {
+        $config = (new HtmlSanitizerConfig())
+            ->allowSafeElements()
+            ->allowElement('table', ['class', 'style', 'border', 'cellpadding', 'cellspacing'])
+            ->allowElement('thead', ['class'])
+            ->allowElement('tbody', ['class'])
+            ->allowElement('tfoot', ['class'])
+            ->allowElement('tr', ['class', 'style'])
+            ->allowElement('th', ['colspan', 'rowspan', 'scope', 'style', 'class', 'width', 'align'])
+            ->allowElement('td', ['colspan', 'rowspan', 'style', 'class', 'width', 'align'])
+            ->allowElement('h1', ['class', 'id'])
+            ->allowElement('h2', ['class', 'id'])
+            ->allowElement('h3', ['class', 'id'])
+            ->allowElement('h4', ['class', 'id'])
+            ->allowElement('h5', ['class', 'id'])
+            ->allowElement('h6', ['class', 'id'])
+            ->allowElement('p', ['style', 'class'])
+            ->allowElement('blockquote', ['style', 'class'])
+            ->allowElement('ul', ['style', 'class'])
+            ->allowElement('ol', ['style', 'class', 'start', 'type'])
+            ->allowElement('li', ['style', 'class'])
+            ->allowElement('a', ['href', 'title', 'target', 'rel', 'class', 'style'])
+            ->allowElement('img', ['src', 'alt', 'title', 'width', 'height', 'loading', 'class', 'style'])
+            ->allowElement('figure', ['class', 'style', 'data-trix-attachment', 'data-trix-content-type'])
+            ->allowElement('figcaption', ['class', 'style'])
+            ->allowElement('strong')
+            ->allowElement('b')
+            ->allowElement('em')
+            ->allowElement('i')
+            ->allowElement('u')
+            ->allowElement('s')
+            ->allowElement('strike')
+            ->allowElement('del')
+            ->allowElement('span', ['style', 'class'])
+            ->allowElement('div', ['style', 'class'])
+            ->allowElement('br')
+            ->allowElement('hr', ['class'])
+            ->allowElement('code', ['class'])
+            ->allowElement('pre', ['class'])
+            ->allowLinkSchemes(['http', 'https', 'mailto', 'tel'])
+            ->allowRelativeLinks();
+
+        $sanitizer = new HtmlSanitizer($config);
+
+        return $sanitizer->sanitize($html);
+    }
+
+    /**
      * Scope untuk artikel yang sudah terbit.
      */
     public function scopePublished($query)
@@ -120,7 +221,7 @@ class Post extends Model
     }
 
     /**
-     * Ambil daftar semua nama kategori artikel untuk opsi autocomplete di Filament.
+     * Ambil daftar semua nama kategori artikel untuk opsi autocomplete di admin.
      *
      * @return array<int, string>
      */

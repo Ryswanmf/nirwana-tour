@@ -1,0 +1,697 @@
+/**
+ * ============================================================================
+ * Nirwana Tour & Travel - Article Editorial & Typography Stylesheet
+ * Desain Tipografi Editorial Modern, Elegan, dan Nyaman Dibaca
+ * ============================================================================
+ */
+
+/* Container & Wrapper Lebar Ideal Bacaan (750px - 850px) */
+.article-reading-container {
+  max-width: 860px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+
+/* Card Artikel Utama */
+.article-main-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 48px 46px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Ringkasan / Lead Paragraph (Excerpt Box) */
+.article-lead-box {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1E293B;
+  border-left: 4px solid var(--primary, #DE0171);
+  background: linear-gradient(90deg, rgba(222, 1, 113, 0.04) 0%, rgba(222, 1, 113, 0.008) 100%);
+  padding: 18px 24px;
+  margin-bottom: 32px;
+  line-height: 1.78;
+  border-radius: 0 14px 14px 0;
+  border-top: 1px solid rgba(222, 1, 113, 0.06);
+  border-right: 1px solid rgba(222, 1, 113, 0.06);
+  border-bottom: 1px solid rgba(222, 1, 113, 0.06);
+}
+
+/* ============================================================================
+   KONTEN ARTIKEL & STRUKTUR TIPOGRAFI (.rich-content & .article-content)
+   ============================================================================ */
+.rich-content,
+.article-content {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  font-size: 1.05rem; /* ~16.8px */
+  line-height: 1.82;
+  color: #334155; /* Slate-700 / Navy gelap lembut untuk kenyamanan membaca */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Paragraf Artikel */
+.rich-content p,
+.article-content p {
+  margin-top: 0;
+  margin-bottom: 1.55rem;
+  line-height: 1.82;
+  color: #334155;
+  font-size: 1.05rem;
+}
+
+.rich-content p:last-child,
+.article-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Heading H1 (jika digunakan dalam isi artikel) */
+.rich-content h1,
+.article-content h1 {
+  font-size: clamp(1.65rem, 3.2vw, 2.1rem);
+  font-weight: 800;
+  color: #0F172A; /* Deep Navy */
+  line-height: 1.32;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+/* Heading H2 - Subjudul Utama */
+.rich-content h2,
+.article-content h2 {
+  font-size: clamp(1.4rem, 2.5vw, 1.72rem);
+  font-weight: 800;
+  color: #0F172A; /* Deep Navy Slate */
+  line-height: 1.35;
+  margin-top: 2.85rem;
+  margin-bottom: 1.15rem;
+  letter-spacing: -0.015em;
+  padding-left: 14px;
+  border-left: 4px solid var(--primary, #DE0171); /* Aksen Pink Logo Nirwana */
+  display: block;
+}
+
+/* Heading pertama di artikel tidak perlu margin-top berlebihan */
+.rich-content > h1:first-child,
+.rich-content > h2:first-child,
+.rich-content > h3:first-child,
+.article-content > h1:first-child,
+.article-content > h2:first-child,
+.article-content > h3:first-child {
+  margin-top: 0.5rem;
+}
+
+/* Heading H3 - Subjudul Bagian */
+.rich-content h3,
+.article-content h3 {
+  font-size: clamp(1.2rem, 2vw, 1.35rem);
+  font-weight: 700;
+  color: #1E293B;
+  line-height: 1.42;
+  margin-top: 2.15rem;
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.01em;
+}
+
+/* Heading H4 - Subjudul Minor */
+.rich-content h4,
+.article-content h4 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #334155;
+  line-height: 1.48;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Heading H5 & H6 */
+.rich-content h5,
+.rich-content h6,
+.article-content h5,
+.article-content h6 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #475569;
+  line-height: 1.5;
+  margin-top: 1.5rem;
+  margin-bottom: 0.65rem;
+}
+
+/* Penekanan Teks (Bold & Italic) */
+.rich-content strong,
+.rich-content b,
+.article-content strong,
+.article-content b {
+  font-weight: 700;
+  color: #0F172A; /* Kontras lebih tegas untuk kata penting */
+}
+
+.rich-content em,
+.rich-content i,
+.article-content em,
+.article-content i {
+  font-style: italic;
+}
+
+.rich-content u,
+.article-content u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rich-content s,
+.rich-content strike,
+.rich-content del,
+.article-content s,
+.article-content strike,
+.article-content del {
+  text-decoration: line-through;
+  color: #94A3B8;
+}
+
+/* Tautan (Links) */
+.rich-content a,
+.article-content a {
+  color: var(--primary, #DE0171);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(222, 1, 113, 0.35);
+  transition: all 0.2s ease;
+}
+
+.rich-content a:hover,
+.article-content a:hover {
+  color: var(--primary-hover, #B8015B);
+  text-decoration-color: var(--primary, #DE0171);
+}
+
+/* ============================================================================
+   DAFTAR POIN & NOMOR (UL & OL) DENGAN INDENTASI RAPI
+   ============================================================================ */
+.rich-content ul,
+.article-content ul {
+  list-style-type: disc;
+  margin-top: 0.5rem;
+  margin-bottom: 1.65rem;
+  padding-left: 1.75rem;
+}
+
+.rich-content ol,
+.article-content ol {
+  list-style-type: decimal;
+  margin-top: 0.5rem;
+  margin-bottom: 1.65rem;
+  padding-left: 1.85rem;
+}
+
+.rich-content li,
+.article-content li {
+  margin-bottom: 0.65rem;
+  line-height: 1.78;
+  color: #334155;
+  padding-left: 0.35rem;
+}
+
+.rich-content li:last-child,
+.article-content li:last-child {
+  margin-bottom: 0;
+}
+
+/* Warna Marker List Mengikuti Brand Nirwana */
+.rich-content ul > li::marker,
+.article-content ul > li::marker {
+  color: var(--primary, #DE0171);
+  font-size: 1.05em;
+}
+
+.rich-content ol > li::marker,
+.article-content ol > li::marker {
+  color: var(--primary, #DE0171);
+  font-weight: 700;
+}
+
+/* Nested Lists */
+.rich-content ul ul,
+.rich-content ol ul,
+.article-content ul ul,
+.article-content ol ul {
+  list-style-type: circle;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.rich-content ul ol,
+.rich-content ol ol,
+.article-content ul ol,
+.article-content ol ol {
+  list-style-type: lower-alpha;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+/* ============================================================================
+   KUTIPAN KHUSUS (BLOCKQUOTE)
+   ============================================================================ */
+.rich-content blockquote,
+.article-content blockquote {
+  position: relative;
+  margin: 2.2rem 0;
+  padding: 20px 26px 20px 24px;
+  background: #FAF8F8;
+  border-left: 4px solid var(--primary, #DE0171);
+  border-radius: 0 14px 14px 0;
+  border-top: 1px solid #F1E5E7;
+  border-right: 1px solid #F1E5E7;
+  border-bottom: 1px solid #F1E5E7;
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.78;
+  color: #1E293B;
+  box-shadow: 0 2px 10px rgba(222, 1, 113, 0.02);
+}
+
+.rich-content blockquote p,
+.article-content blockquote p {
+  margin-bottom: 0.75rem;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.rich-content blockquote p:last-child,
+.article-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.rich-content blockquote footer,
+.article-content blockquote footer {
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--primary, #DE0171);
+}
+
+/* ============================================================================
+   GAMBAR & MEDIA ARTIKEL (RESPONSIF, SUDUT MEMBULAT, SHADOW HALUS)
+   ============================================================================ */
+.rich-content img,
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  margin: 2.2rem auto;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  border: 1px solid #E2E8F0;
+  object-fit: cover;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.rich-content img:hover,
+.article-content img:hover {
+  box-shadow: 0 12px 30px -4px rgba(15, 23, 42, 0.12);
+}
+
+.rich-content figure,
+.article-content figure {
+  margin: 2.2rem 0;
+  text-align: center;
+}
+
+.rich-content figure img,
+.article-content figure img {
+  margin: 0 auto;
+}
+
+.rich-content figcaption,
+.article-content figcaption {
+  font-size: 0.88rem;
+  color: #64748B;
+  margin-top: 12px;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Dukungan Attachment Trix Editor (CMS Image Uploads) */
+.rich-content .attachment,
+.article-content .attachment,
+.rich-content figure[data-trix-attachment],
+.article-content figure[data-trix-attachment] {
+  display: block;
+  margin: 2.2rem auto;
+  max-width: 100%;
+  text-align: center;
+}
+
+.rich-content .attachment img,
+.article-content .attachment img,
+.rich-content figure[data-trix-attachment] img,
+.article-content figure[data-trix-attachment] img {
+  border-radius: 16px;
+  max-width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+  border: 1px solid #E2E8F0;
+}
+
+.rich-content .attachment__caption,
+.article-content .attachment__caption {
+  font-size: 0.88rem;
+  color: #64748B;
+  margin-top: 10px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ============================================================================
+   TABEL ARTIKEL (RESPONSIF MOBILE DENGAN SCROLL HALUS)
+   ============================================================================ */
+.article-table-wrapper,
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 2.2rem 0;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+  background: #FFFFFF;
+}
+
+.rich-content table,
+.article-content table,
+.article-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  background-color: #FFFFFF;
+  margin: 0;
+}
+
+.rich-content table th,
+.article-content table th,
+.article-table th {
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-weight: 700;
+  padding: 13px 18px;
+  border-bottom: 2px solid #CBD5E1;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  white-space: nowrap;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.rich-content table td,
+.article-content table td,
+.article-table td {
+  padding: 13px 18px;
+  border-bottom: 1px solid #F1F5F9;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  color: #334155;
+  vertical-align: top;
+}
+
+.rich-content table tbody tr:last-child td,
+.article-content table tbody tr:last-child td,
+.article-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.rich-content table tbody tr:nth-child(even),
+.article-content table tbody tr:nth-child(even),
+.article-table tbody tr:nth-child(even) {
+  background-color: #FCFDFE;
+}
+
+.rich-content table tbody tr:hover,
+.article-content table tbody tr:hover,
+.article-table tbody tr:hover {
+  background-color: #F1F5F9;
+  transition: background-color 0.15s ease;
+}
+
+/* ============================================================================
+   KODE & ELEMEN PEMISAH (CODE, PRE, HR)
+   ============================================================================ */
+.rich-content code,
+.article-content code {
+  background: #F1F5F9;
+  color: var(--primary, #DE0171);
+  padding: 3px 7px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.rich-content pre,
+.article-content pre {
+  background: #0F172A;
+  color: #F8FAFC;
+  padding: 20px 24px;
+  border-radius: 14px;
+  overflow-x: auto;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.rich-content pre code,
+.article-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+}
+
+.rich-content hr,
+.article-content hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #E2E8F0 25%, #E2E8F0 75%, transparent 100%);
+  margin: 3rem 0;
+}
+
+/* ============================================================================
+   KARTU BAGIKAN (SHARE) & NAVIGASI ARTIKEL TERKAIT
+   ============================================================================ */
+.article-share-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 18px 24px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+}
+
+.article-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.article-nav-btn {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.02);
+  transition: all 0.25s ease;
+}
+
+.article-nav-btn:hover {
+  border-color: var(--primary, #DE0171);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(222, 1, 113, 0.08);
+}
+
+@media (max-width: 480px) {
+  .article-share-card {
+    padding: 16px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE TYPOGRAPHY (TABLET & SMARTPHONE)
+   ============================================================================ */
+@media (max-width: 768px) {
+  .article-reading-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .article-main-card {
+    padding: 34px 26px;
+    border-radius: 18px;
+  }
+
+  .article-lead-box {
+    font-size: 1.02rem;
+    padding: 16px 20px;
+    margin-bottom: 26px;
+  }
+
+  .rich-content,
+  .article-content,
+  .rich-content p,
+  .article-content p {
+    font-size: 1rem; /* 16px */
+    line-height: 1.76;
+    margin-bottom: 1.4rem;
+  }
+
+  .rich-content h1,
+  .article-content h1 {
+    font-size: 1.6rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .rich-content h2,
+  .article-content h2 {
+    font-size: 1.38rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 12px;
+  }
+
+  .rich-content h3,
+  .article-content h3 {
+    font-size: 1.2rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .rich-content h4,
+  .article-content h4 {
+    font-size: 1.06rem;
+    margin-top: 1.5rem;
+  }
+
+  .rich-content ul,
+  .article-content ul,
+  .rich-content ol,
+  .article-content ol {
+    padding-left: 1.45rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .rich-content blockquote,
+  .article-content blockquote {
+    padding: 16px 20px;
+    font-size: 1rem;
+    margin: 1.75rem 0;
+  }
+
+  .rich-content img,
+  .article-content img {
+    margin: 1.75rem auto;
+    border-radius: 14px;
+  }
+
+  .article-table-wrapper,
+  .table-responsive {
+    margin: 1.75rem 0;
+    border-radius: 12px;
+  }
+
+  .rich-content table th,
+  .article-content table th,
+  .article-table th,
+  .rich-content table td,
+  .article-content table td,
+  .article-table td {
+    padding: 11px 14px;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-main-card {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .article-lead-box {
+    font-size: 0.96rem;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    line-height: 1.7;
+  }
+
+  .rich-content,
+  .article-content,
+  .rich-content p,
+  .article-content p {
+    font-size: 0.98rem; /* ~15.7px */
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .rich-content h1,
+  .article-content h1 {
+    font-size: 1.45rem;
+    margin-top: 1.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .rich-content h2,
+  .article-content h2 {
+    font-size: 1.26rem;
+    margin-top: 1.85rem;
+    margin-bottom: 0.85rem;
+    padding-left: 10px;
+    border-left-width: 3.5px;
+  }
+
+  .rich-content h3,
+  .article-content h3 {
+    font-size: 1.14rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .rich-content ul,
+  .article-content ul,
+  .rich-content ol,
+  .article-content ol {
+    padding-left: 1.25rem;
+  }
+
+  .rich-content blockquote,
+  .article-content blockquote {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+    margin: 1.5rem 0;
+  }
+}

@@ -49,7 +49,7 @@ Didukung oleh arsitektur **Laravel 12** dan panel administrasi modern **Filament
 ### 1. Antarmuka Publik (Front-End Wisatawan)
 - **Desain Mewah Bernuansa Wisata Indonesia**:
   - Hero Beranda berlatar siluet Candi Borobudur dengan teknik *White Fusion Gradient*.
-  - Section Solusi Layanan (Dieng), Mengapa Memilih Kami (Candi Prambanan), dan Edukasi (Gunung Bromo) berpadu harmonis dengan gradasi merah maroon khas Nirwana Tour (`#800020` & `#4A0012`).
+  - Section Solusi Layanan (Dieng), Mengapa Memilih Kami (Candi Prambanan), dan Edukasi (Gunung Bromo) berpadu harmonis dengan gradasi warna pink logo elegan khas Nirwana Tour (`#DE0171`, `#FC028B` & `#36021B`).
 - **Pencarian Cepat (*Instant Live Filter & Search*)**:
   - Pencarian paket wisata real-time dengan *debounce 280ms* tanpa me-refresh halaman.
   - Filter interaktif berdasarkan **Kategori Wisata**, **Durasi Trip**, **Rentang Biaya**, dan **Urutan Harga**.

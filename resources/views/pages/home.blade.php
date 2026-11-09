@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', ($settings['site_name'] ?? 'Nirwana Tour Lampung') . ' - ' . ($settings['tagline'] ?? 'Biro Wisata, Paket Tour & Sewa Bus Terpercaya'))
+@section('title', 'Nirwana Tour & Travel Lampung | Biro Wisata & Tour Lampung Terpercaya')
+@section('meta_description', 'Nirwana Tour & Travel Lampung adalah biro jasa perjalanan wisata resmi. Melayani paket tour Lampung, wisata Pahawang, study tour sekolah, gathering kantor, dan sewa bus pariwisata.')
+@section('meta_keywords', 'Nirwana Tour Lampung, Tour Travel Lampung, Biro Jasa Perjalanan Wisata Lampung, Tour Lampung, Wisata Lampung, Paket Tour Lampung, Sewa Bus Lampung')
 
 @section('content')
   <main>
@@ -34,11 +36,11 @@
 
       <div class="container hero-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-14 relative z-10">
         <div class="hero-content max-w-2xl">
-          <div class="hero-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#800020]/10 text-[#800020] border border-[#800020]/20 mb-5 tracking-wide uppercase">
+          <div class="hero-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#DE0171]/10 text-[#DE0171] border border-[#DE0171]/20 mb-5 tracking-wide uppercase">
             {{ $settings['hero_badge'] ?? 'Biro Perjalanan Wisata Resmi Lampung' }}
           </div>
           <h1 class="hero-title text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
-            {{ $settings['hero_title'] ?? 'Selamat Datang di Website Nirwana Tour and Travel Lampung' }}
+            {{ $settings['hero_title'] ?? 'Biro Perjalanan Wisata & Tour Travel Lampung Terpercaya' }}
           </h1>
           <p class="hero-description text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
             {{ $settings['hero_subtitle'] ?? 'Wujudkan momen liburan terbaik Anda bersama Nirwana Tour Lampung. Kami menghadirkan paket wisata eksotis, study tour edukatif, gathering perusahaan, serta persewaan armada transportasi nyaman dan profesional.' }}
@@ -47,7 +49,7 @@
             <a href="#" class="btn btn-whatsapp btn-lg wa-link-btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-white font-bold bg-[#25D366] hover:bg-[#1EBE5D] shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan wisata.">
               <i class="fa-brands fa-whatsapp text-xl"></i> {{ $settings['hero_cta_wa_text'] ?? 'Konsultasi via WhatsApp' }}
             </a>
-            <a href="#destinasi" class="btn btn-outline btn-lg inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-bold border-2 border-[#800020] text-[#800020] hover:bg-[#800020] hover:text-white transition-all duration-200 transform hover:-translate-y-0.5">
+            <a href="#destinasi" class="btn btn-outline btn-lg inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-bold border-2 border-[#DE0171] text-[#DE0171] hover:bg-[#DE0171] hover:text-white transition-all duration-200 transform hover:-translate-y-0.5">
               <i class="fa-solid fa-map-location-dot"></i> {{ $settings['hero_cta_dest_text'] ?? 'Lihat Destinasi' }}
             </a>
           </div>
@@ -55,15 +57,15 @@
           <!-- Hero Highlights / Mini Badges -->
           <div class="hero-features grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200/80">
             <div class="hero-feature-item flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700">
-              <i class="fa-solid fa-shield-halved text-[#800020] text-base"></i>
+              <i class="fa-solid fa-shield-halved text-[#DE0171] text-base"></i>
               <span>{{ $settings['hero_feature_1'] ?? 'Legalitas Berizin Resmi' }}</span>
             </div>
             <div class="hero-feature-item flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700">
-              <i class="fa-solid fa-bus-simple text-[#800020] text-base"></i>
+              <i class="fa-solid fa-bus-simple text-[#DE0171] text-base"></i>
               <span>{{ $settings['hero_feature_2'] ?? 'Armada Bus Nyaman & Terawat' }}</span>
             </div>
             <div class="hero-feature-item flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700">
-              <i class="fa-solid fa-user-tie text-[#800020] text-base"></i>
+              <i class="fa-solid fa-user-tie text-[#DE0171] text-base"></i>
               <span>{{ $settings['hero_feature_3'] ?? 'Tour Leader Berpengalaman' }}</span>
             </div>
           </div>
@@ -83,7 +85,13 @@
       <!-- Wave Separator -->
       <div class="hero-wave">
         <svg viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none">
-          <path d="M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,64C1200,75,1320,85,1380,90.7L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z" fill="#800020"></path>
+          <defs>
+            <linearGradient id="heroWavePink" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#DE0171"/>
+              <stop offset="100%" stop-color="#FC028B"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,64C1200,75,1320,85,1380,90.7L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z" fill="url(#heroWavePink)"></path>
         </svg>
       </div>
     </section>
@@ -121,7 +129,7 @@
                     @if($partner->logo)
                       <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" loading="lazy" decoding="async" style="max-height: 28px; max-width: 34px; object-fit: contain;">
                     @else
-                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #800020, #991B1B); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
+                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #DE0171, #FC028B); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
                         {{ strtoupper(substr($partner->name, 0, 2)) }}
                       </div>
                     @endif
@@ -140,7 +148,7 @@
                     @if($partner->logo)
                       <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" loading="lazy" decoding="async" style="max-height: 28px; max-width: 34px; object-fit: contain;">
                     @else
-                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #800020, #991B1B); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
+                      <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #DE0171, #FC028B); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82rem;">
                         {{ strtoupper(substr($partner->name, 0, 2)) }}
                       </div>
                     @endif
@@ -1207,7 +1215,7 @@
           </button>
 
           <div style="margin-bottom: 22px;">
-            <span style="display: inline-block; background: rgba(128,0,32,0.08); color: var(--primary, #800020); font-weight: 700; font-size: 0.78rem; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; margin-bottom: 8px;">
+            <span style="display: inline-block; background: rgba(222,1,113,0.08); color: var(--primary, #DE0171); font-weight: 700; font-size: 0.78rem; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; margin-bottom: 8px;">
               Kepuasan Pelanggan
             </span>
             <h3 style="font-size: 1.35rem; font-weight: 800; color: #0F172A; margin: 0 0 6px 0;">Bagikan Pengalaman Trip Anda</h3>

@@ -9,10 +9,10 @@
     
     <!-- Icon & Badge 404 -->
     <div style="position: relative; display: inline-block; margin-bottom: 24px;">
-      <div style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, rgba(128, 0, 32, 0.1) 0%, rgba(245, 158, 11, 0.15) 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px dashed rgba(128, 0, 32, 0.3);">
-        <i class="fa-solid fa-compass-drafting" style="font-size: 3rem; color: var(--primary, #800020);"></i>
+      <div style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, rgba(222, 1, 113, 0.1) 0%, rgba(245, 158, 11, 0.15) 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px dashed rgba(222, 1, 113, 0.3);">
+        <i class="fa-solid fa-compass-drafting" style="font-size: 3rem; color: var(--primary, #DE0171);"></i>
       </div>
-      <span style="position: absolute; bottom: -8px; right: calc(50% - 40px); background: var(--primary, #800020); color: #FFFFFF; font-weight: 800; font-size: 0.95rem; padding: 3px 14px; border-radius: 999px; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(128,0,32,0.35);">
+      <span style="position: absolute; bottom: -8px; right: calc(50% - 40px); background: var(--primary, #DE0171); color: #FFFFFF; font-weight: 800; font-size: 0.95rem; padding: 3px 14px; border-radius: 999px; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(222,1,113,0.35);">
         404
       </span>
     </div>
@@ -58,19 +58,19 @@
         Pilihan Populer Wisatawan:
       </p>
       <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
-        <a href="{{ route('packages.index', ['q' => 'Pahawang']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #800020); background: rgba(128,0,32,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(128,0,32,0.15);">
+        <a href="{{ route('packages.index', ['q' => 'Pahawang']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #DE0171); background: rgba(222,1,113,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(222,1,113,0.15);">
           Pulau Pahawang
         </a>
-        <a href="{{ route('packages.index', ['q' => 'Kiluan']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #800020); background: rgba(128,0,32,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(128,0,32,0.15);">
+        <a href="{{ route('packages.index', ['q' => 'Kiluan']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #DE0171); background: rgba(222,1,113,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(222,1,113,0.15);">
           Teluk Kiluan Lumba-Lumba
         </a>
-        <a href="{{ route('packages.index', ['q' => 'Jogja']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #800020); background: rgba(128,0,32,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(128,0,32,0.15);">
+        <a href="{{ route('packages.index', ['q' => 'Jogja']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #DE0171); background: rgba(222,1,113,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(222,1,113,0.15);">
           Study Tour Jogja
         </a>
-        <a href="{{ route('packages.index', ['q' => 'Bromo']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #800020); background: rgba(128,0,32,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(128,0,32,0.15);">
+        <a href="{{ route('packages.index', ['q' => 'Bromo']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #DE0171); background: rgba(222,1,113,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(222,1,113,0.15);">
           Bromo & Malang
         </a>
-        <a href="{{ route('packages.index', ['q' => 'Bali']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #800020); background: rgba(128,0,32,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(128,0,32,0.15);">
+        <a href="{{ route('packages.index', ['q' => 'Bali']) }}" style="font-size: 0.82rem; font-weight: 600; color: var(--primary, #DE0171); background: rgba(222,1,113,0.06); padding: 6px 14px; border-radius: 999px; text-decoration: none; border: 1px solid rgba(222,1,113,0.15);">
           Tour Eksotis Bali
         </a>
       </div>

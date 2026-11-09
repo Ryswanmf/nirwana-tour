@@ -95,11 +95,11 @@
             <div style="background: #FFFFFF; border-radius: 20px; padding: 36px; border: 1px solid #E2E8F0; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 30px;">
               
               <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #F1F5F9;">
-                <div style="width: 58px; height: 58px; border-radius: 14px; background: rgba(128,0,32,0.08); color: var(--primary, #800020); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;">
+                <div style="width: 58px; height: 58px; border-radius: 14px; background: rgba(222,1,113,0.08); color: var(--primary, #DE0171); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;">
                   <i class="{{ $service->icon }}"></i>
                 </div>
                 <div>
-                  <span style="font-size: 0.82rem; font-weight: 700; color: var(--primary, #800020); text-transform: uppercase; letter-spacing: 0.05em;">Layanan Resmi</span>
+                  <span style="font-size: 0.82rem; font-weight: 700; color: var(--primary, #DE0171); text-transform: uppercase; letter-spacing: 0.05em;">Layanan Resmi</span>
                   <h2 style="font-size: 1.45rem; font-weight: 800; color: #0F172A; margin: 4px 0 0 0;">Tentang Layanan Ini</h2>
                 </div>
               </div>
@@ -137,21 +137,21 @@
               </h3>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px;">
                 <div style="display: flex; gap: 12px; align-items: flex-start;">
-                  <i class="fa-solid fa-shield-halved" style="color: var(--primary, #800020); font-size: 1.2rem; margin-top: 2px;"></i>
+                  <i class="fa-solid fa-shield-halved" style="color: var(--primary, #DE0171); font-size: 1.2rem; margin-top: 2px;"></i>
                   <div>
                     <strong style="display: block; font-size: 0.9rem; color: #0F172A; margin-bottom: 2px;">Legalitas Resmi</strong>
                     <span style="font-size: 0.82rem; color: #64748B;">Perusahaan berizin resmi dengan rekam jejak terpercaya.</span>
                   </div>
                 </div>
                 <div style="display: flex; gap: 12px; align-items: flex-start;">
-                  <i class="fa-solid fa-handshake-angle" style="color: var(--primary, #800020); font-size: 1.2rem; margin-top: 2px;"></i>
+                  <i class="fa-solid fa-handshake-angle" style="color: var(--primary, #DE0171); font-size: 1.2rem; margin-top: 2px;"></i>
                   <div>
                     <strong style="display: block; font-size: 0.9rem; color: #0F172A; margin-bottom: 2px;">Tim Profesional</strong>
                     <span style="font-size: 0.82rem; color: #64748B;">Didampingi tour leader bersertifikasi dan ramah.</span>
                   </div>
                 </div>
                 <div style="display: flex; gap: 12px; align-items: flex-start;">
-                  <i class="fa-solid fa-file-invoice-dollar" style="color: var(--primary, #800020); font-size: 1.2rem; margin-top: 2px;"></i>
+                  <i class="fa-solid fa-file-invoice-dollar" style="color: var(--primary, #DE0171); font-size: 1.2rem; margin-top: 2px;"></i>
                   <div>
                     <strong style="display: block; font-size: 0.9rem; color: #0F172A; margin-bottom: 2px;">Biaya Transparan</strong>
                     <span style="font-size: 0.82rem; color: #64748B;">Tanpa biaya tersembunyi, rincian jelas sejak awal penawaran.</span>
@@ -163,7 +163,7 @@
             <!-- 1-Click Social Share Card untuk Layanan -->
             <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 18px 24px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.03);">
               <div style="display: flex; align-items: center; gap: 10px;">
-                <i class="fa-solid fa-share-nodes" style="color: var(--primary, #800020); font-size: 1.15rem;"></i>
+                <i class="fa-solid fa-share-nodes" style="color: var(--primary, #DE0171); font-size: 1.15rem;"></i>
                 <span style="font-weight: 700; color: #1E293B; font-size: 0.9rem;">Bagikan Informasi Layanan Ini:</span>
               </div>
               <div style="display: flex; gap: 10px; align-items: center;">
@@ -266,7 +266,7 @@
               @foreach($otherServices as $other)
                 <div style="background: #FFFFFF; border-radius: 16px; padding: 24px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between;">
                   <div>
-                    <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(128,0,32,0.07); color: var(--primary, #800020); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 16px;">
+                    <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(222,1,113,0.07); color: var(--primary, #DE0171); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 16px;">
                       <i class="{{ $other->icon }}"></i>
                     </div>
                     <h4 style="font-size: 1.15rem; font-weight: 700; color: #0F172A; margin: 0 0 8px 0;">{{ $other->title }}</h4>

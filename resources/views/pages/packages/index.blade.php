@@ -34,12 +34,12 @@
     position: relative;
   }
   .pfilter-search-wrap:focus-within {
-    border-color: var(--primary, #800020);
+    border-color: var(--primary, #DE0171);
     background: #FFFFFF;
-    box-shadow: 0 0 0 4px rgba(128, 0, 32, 0.08);
+    box-shadow: 0 0 0 4px rgba(222, 1, 113, 0.08);
   }
   .pfilter-search-icon {
-    color: var(--primary, #800020);
+    color: var(--primary, #DE0171);
     font-size: 0.95rem;
     flex-shrink: 0;
   }
@@ -98,7 +98,7 @@
     line-height: 1;
   }
   .pfilter-label i {
-    color: var(--primary, #800020);
+    color: var(--primary, #DE0171);
     font-size: 0.78rem;
   }
   .pfilter-select-wrap {
@@ -130,14 +130,14 @@
     background: #FFFFFF;
   }
   .pfilter-select:focus {
-    border-color: var(--primary, #800020);
+    border-color: var(--primary, #DE0171);
     background: #FFFFFF;
-    box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.08);
+    box-shadow: 0 0 0 3px rgba(222, 1, 113, 0.08);
   }
   .pfilter-select.is-active {
-    border-color: var(--primary, #800020);
-    background: #FFF5F7;
-    color: var(--primary, #800020);
+    border-color: var(--primary, #DE0171);
+    background: #FDF2F8;
+    color: var(--primary, #DE0171);
     font-weight: 700;
   }
   .pfilter-select-arrow {
@@ -157,7 +157,7 @@
   .pfilter-submit-btn {
     height: 44px;
     padding: 0 20px;
-    background: var(--primary, #800020);
+    background: var(--primary, #DE0171);
     color: #FFFFFF;
     border: none;
     border-radius: 10px;
@@ -167,14 +167,14 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.22);
+    box-shadow: 0 4px 12px rgba(222, 1, 113, 0.22);
     transition: all 0.2s ease;
     white-space: nowrap;
   }
   .pfilter-submit-btn:hover {
     background: #660019;
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(128, 0, 32, 0.32);
+    box-shadow: 0 6px 16px rgba(222, 1, 113, 0.32);
   }
   .pfilter-reset-btn {
     height: 44px;
@@ -220,18 +220,18 @@
     align-items: center;
     gap: 6px;
     padding: 3px 10px;
-    background: rgba(128, 0, 32, 0.06);
-    border: 1px solid rgba(128, 0, 32, 0.18);
+    background: rgba(222, 1, 113, 0.06);
+    border: 1px solid rgba(222, 1, 113, 0.18);
     border-radius: 999px;
-    color: var(--primary, #800020);
+    color: var(--primary, #DE0171);
     font-size: 0.78rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.15s ease;
   }
   .pfilter-chip:hover {
-    background: rgba(128, 0, 32, 0.12);
-    border-color: var(--primary, #800020);
+    background: rgba(222, 1, 113, 0.12);
+    border-color: var(--primary, #DE0171);
   }
   .pfilter-chip i {
     font-size: 0.7rem;
@@ -525,7 +525,7 @@
         <!-- CTA HUBUNGI KAMI / KONSULTASI DESTINASI KUSTOM -->
         <div style="margin-top: 60px; background: #FFFFFF; border-radius: 20px; border: 1px solid #E2E8F0; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;">
           <div style="max-width: 650px;">
-            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(128, 0, 32, 0.08); color: var(--primary, #800020); padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(222, 1, 113, 0.08); color: var(--primary, #DE0171); padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
               <i class="fa-solid fa-wand-magic-sparkles"></i> Custom Trip Planner
             </div>
             <h3 style="font-size: 1.5rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">

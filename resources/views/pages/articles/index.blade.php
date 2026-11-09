@@ -138,7 +138,7 @@
               <div>
                 <span>Menampilkan hasil:</span>
                 @if(request('category'))
-                  <strong style="color: var(--primary, #800020); margin-left: 4px;">
+                  <strong style="color: var(--primary, #DE0171); margin-left: 4px;">
                     Kategori "{{ $categories->firstWhere('slug', request('category'))->name ?? request('category') }}"
                   </strong>
                 @endif
@@ -207,14 +207,14 @@
         @endif
 
         <!-- CTA Hubungi Kami di Halaman Berita -->
-        <div style="margin-top: 60px; background: linear-gradient(135deg, #4A0012 0%, #800020 100%); border-radius: 20px; padding: 40px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; box-shadow: 0 12px 30px rgba(128,0,32,0.2);">
+        <div style="margin-top: 60px; background: linear-gradient(135deg, #36021B 0%, #DE0171 100%); border-radius: 20px; padding: 40px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; box-shadow: 0 12px 30px rgba(222,1,113,0.2);">
           <div style="max-width: 680px;">
             <h3 style="font-size: 1.45rem; font-weight: 800; color: #FFFFFF; margin: 0 0 8px 0;">Ingin Merencanakan Liburan ke Destinasi Impian?</h3>
-            <p style="margin: 0; font-size: 0.95rem; color: #FCE7EB; line-height: 1.6;">
+            <p style="margin: 0; font-size: 0.95rem; color: #FDF2F8; line-height: 1.6;">
               Konsultasikan rencana perjalanan Anda bersama konsultan Nirwana Tour Lampung. Kami siap membantu menyusun jadwal liburan, akomodasi, hingga sewa armada pariwisata.
             </p>
           </div>
-          <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg" style="background: #FFFFFF; color: var(--primary, #800020); border: none; font-weight: 700; white-space: nowrap;">
+          <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg" style="background: #FFFFFF; color: var(--primary, #DE0171); border: none; font-weight: 700; white-space: nowrap;">
             Hubungi Kami Sekarang
           </a>
         </div>

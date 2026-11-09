@@ -5,8 +5,8 @@
   "id": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#4A0012",
-  "theme_color": "#800020",
+  "background_color": "#FFFFFF",
+  "theme_color": "#DE0171",
   "orientation": "portrait",
   "description": "Biro perjalanan wisata resmi berizin di Bandar Lampung. Melayani paket tour Lampung & Nusantara, study tour sekolah, gathering kantor, dan sewa bus pariwisata.",
   "icons": [

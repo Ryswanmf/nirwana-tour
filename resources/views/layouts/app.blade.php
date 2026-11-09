@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Nirwana Tour Lampung - Biro Wisata, Paket Tour & Sewa Bus Terpercaya')</title>
-  <meta name="description" content="@yield('meta_description', 'Biro perjalanan wisata resmi di Lampung. Melayani paket wisata Lampung & Nusantara, study tour sekolah, gathering perusahaan, dan sewa transportasi pariwisata.')">
-  <meta name="keywords" content="@yield('meta_keywords', 'Nirwana Tour Lampung, Tour Lampung, Paket Wisata Lampung, Wisata Pahawang, Teluk Kiluan, Gigi Hiu, Sewa Bus Lampung, Study Tour Lampung')">
+  <title>@yield('title', 'Nirwana Tour & Travel Lampung | Biro Wisata & Tour Lampung Terpercaya')</title>
+  <meta name="description" content="@yield('meta_description', 'Nirwana Tour & Travel Lampung adalah biro jasa perjalanan wisata resmi. Melayani paket tour Lampung, wisata Pahawang, study tour sekolah, gathering, dan sewa bus pariwisata.')">
+  <meta name="keywords" content="@yield('meta_keywords', 'Nirwana Tour Lampung, Tour Travel Lampung, Biro Jasa Perjalanan Wisata Lampung, Tour Lampung, Wisata Lampung, Paket Wisata Lampung, Sewa Bus Lampung, Study Tour Lampung')">
   <meta name="author" content="Nirwana Tour Lampung">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="@yield('canonical_url', url()->current())">
   @if(!empty($settings['google_site_verification']))
     <meta name="google-site-verification" content="{{ $settings['google_site_verification'] }}">
   @endif
-  
+
   <!-- Open Graph / Meta Sosial (Facebook, WhatsApp, LinkedIn) -->
   <meta property="og:type" content="@yield('og_type', 'website')">
   <meta property="og:site_name" content="Nirwana Tour & Travel Lampung">
   <meta property="og:url" content="@yield('canonical_url', url()->current())">
-  <meta property="og:title" content="@yield('title', 'Nirwana Tour Lampung - Biro Wisata, Paket Tour & Sewa Bus Terpercaya')">
-  <meta property="og:description" content="@yield('meta_description', 'Biro perjalanan wisata resmi di Lampung. Melayani paket wisata Lampung & Nusantara, study tour sekolah, gathering perusahaan, dan sewa armada bus pariwisata terpercaya.')">
+  <meta property="og:title" content="@yield('title', 'Nirwana Tour & Travel Lampung | Biro Wisata & Tour Lampung Terpercaya')">
+  <meta property="og:description" content="@yield('meta_description', 'Nirwana Tour & Travel Lampung adalah biro jasa perjalanan wisata resmi. Melayani paket tour Lampung, wisata Pahawang, study tour sekolah, gathering, dan sewa bus pariwisata.')">
   <meta property="og:image" content="@yield('og_image', asset('assets/images/destinasi/pahawang.jpg'))">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -27,8 +27,8 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="@yield('canonical_url', url()->current())">
-  <meta name="twitter:title" content="@yield('title', 'Nirwana Tour Lampung - Biro Wisata, Paket Tour & Sewa Bus Terpercaya')">
-  <meta name="twitter:description" content="@yield('meta_description', 'Biro perjalanan wisata resmi di Lampung. Melayani paket wisata Lampung & Nusantara, study tour sekolah, gathering perusahaan, dan sewa armada bus pariwisata terpercaya.')">
+  <meta name="twitter:title" content="@yield('title', 'Nirwana Tour & Travel Lampung | Biro Wisata & Tour Lampung Terpercaya')">
+  <meta name="twitter:description" content="@yield('meta_description', 'Nirwana Tour & Travel Lampung adalah biro jasa perjalanan wisata resmi. Melayani paket tour Lampung, wisata Pahawang, study tour sekolah, gathering, dan sewa bus pariwisata.')">
   <meta name="twitter:image" content="@yield('og_image', asset('assets/images/destinasi/pahawang.jpg'))">
 
   <!-- Schema.org JSON-LD Structured Data -->
@@ -76,29 +76,29 @@
   }
   </script>
   @stack('jsonld')
-  
+
   <!-- Favicon, PWA & Mobile Web Manifest -->
   <link rel="icon" type="image/png" href="{{ asset('assets/logo/Logo-Nirwana.png') }}">
   <link rel="apple-touch-icon" href="{{ asset('assets/logo/Logo-Nirwana.png') }}">
   <link rel="manifest" href="{{ asset('manifest.json') }}">
-  <meta name="theme-color" content="#800020">
+  <meta name="theme-color" content="#DE0171">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Nirwana Tour">
-  
+
   <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <!-- Font Awesome Icons (Non-blocking) -->
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
   <noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   </noscript>
-  
+
   <!-- Stylesheet (Cache Busted) -->
   <link rel="stylesheet" href="{{ file_exists(public_path('css/style.min.css')) ? asset('css/style.min.css') : asset('css/style.css') }}?v={{ file_exists(public_path('css/style.min.css')) ? filemtime(public_path('css/style.min.css')) : time() }}">
   @stack('styles')
@@ -152,13 +152,28 @@
   <!-- ========================================================
        1. NAVBAR (EXACT FROM INDEX.HTML)
        ======================================================== -->
-  <header class="site-header fixed top-0 inset-x-0 z-50 transition-all duration-300" id="header" x-data="navigation" :class="{ 'scrolled bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200': scrolled, 'bg-white/85 backdrop-blur-sm': !scrolled }" @scroll.window="updateScroll()">
+  <header class="site-header fixed top-0 inset-x-0 z-50 transition-all duration-300" id="header" x-data="navigation" :class="{ 'scrolled bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200': scrolled, 'bg-white/85 backdrop-blur-sm': !scrolled }" @scroll.window="updateScroll()" @keydown.escape.window="closeMobile()">
+    <!-- Mobile Backdrop Overlay saat Menu Terbuka -->
+    <div
+      x-show="mobileOpen"
+      x-transition:enter="transition-opacity ease-out duration-200"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition-opacity ease-in duration-150"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      @click="closeMobile()"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs -z-10 lg:hidden"
+      style="display: none;"
+      aria-hidden="true"
+    ></div>
+
     <div class="header-container container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300">
       <!-- Logo Brand -->
       <a href="{{ route('home') }}#hero" class="brand-logo flex items-center gap-3 group text-decoration-none" aria-label="Nirwana Tour Lampung Beranda">
         <img src="{{ asset('assets/logo/Logo-Nirwana.png') }}" alt="Nirwana Tour Lampung" class="logo-emblem transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3">
         <div class="brand-text flex flex-col">
-          <span class="brand-title text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">Nirwana <strong class="text-[#800020]">Tour Travel</strong></span>
+          <span class="brand-title text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">Nirwana <strong class="text-[#DE0171]">Tour Travel</strong></span>
           <span class="brand-sub text-xs text-slate-500 hidden sm:inline leading-tight">Jelajahi Dunia, Ciptakan Cerita Tak Terlupakan</span>
         </div>
       </a>
@@ -166,12 +181,12 @@
       <!-- Desktop Navigation Menu -->
       <nav class="nav-menu" id="navMenu" :class="{ 'open': mobileOpen }" aria-label="Navigasi Utama">
         <ul class="nav-list list-none m-0 p-0">
-          <li class="nav-item"><a href="{{ route('home') }}#hero" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('home') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Beranda</a></li>
-          <li class="nav-item"><a href="{{ route('packages.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('packages.*') || request()->routeIs('destinations.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Paket Wisata</a></li>
-          <li class="nav-item"><a href="{{ route('services.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('services.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Layanan</a></li>
-          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('posts.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Berita</a></li>
+          <li class="nav-item"><a href="{{ route('home') }}#hero" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('home') ? 'active text-[#DE0171] font-bold' : 'text-slate-600 hover:text-[#DE0171]' }}" @click="closeMobile()">Beranda</a></li>
+          <li class="nav-item"><a href="{{ route('packages.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('packages.*') || request()->routeIs('destinations.*') ? 'active text-[#DE0171] font-bold' : 'text-slate-600 hover:text-[#DE0171]' }}" @click="closeMobile()">Paket Wisata</a></li>
+          <li class="nav-item"><a href="{{ route('services.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('services.*') ? 'active text-[#DE0171] font-bold' : 'text-slate-600 hover:text-[#DE0171]' }}" @click="closeMobile()">Layanan</a></li>
+          <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('posts.*') ? 'active text-[#DE0171] font-bold' : 'text-slate-600 hover:text-[#DE0171]' }}" @click="closeMobile()">Berita</a></li>
           <li class="nav-item nav-dropdown" x-data="{ dropdownOpen: false }" :class="{ 'open': dropdownOpen }" @click.outside="dropdownOpen = false">
-            <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle px-3.5 py-2 text-sm font-semibold rounded-lg flex items-center justify-between gap-1.5 transition-colors {{ request()->routeIs('profile') || request()->routeIs('management') || request()->routeIs('certificates') || request()->routeIs('about') || request()->routeIs('gallery.*') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" id="tentangDropdown" role="button" @click.prevent.stop="dropdownOpen = !dropdownOpen" :aria-expanded="dropdownOpen" aria-haspopup="true">
+            <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle px-3.5 py-2 text-sm font-semibold rounded-lg flex items-center justify-between gap-1.5 transition-colors {{ request()->routeIs('profile') || request()->routeIs('management') || request()->routeIs('certificates') || request()->routeIs('about') || request()->routeIs('gallery.*') ? 'active text-[#DE0171] font-bold' : 'text-slate-600 hover:text-[#DE0171]' }}" id="tentangDropdown" role="button" @click.prevent.stop="dropdownOpen = !dropdownOpen" :aria-expanded="dropdownOpen" aria-haspopup="true">
               <span>Tentang</span>
               <i class="fa-solid fa-chevron-down text-xs dropdown-arrow transition-transform duration-200" :class="{ 'rotate-180': dropdownOpen }"></i>
             </a>
@@ -202,10 +217,10 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('contact') ? 'active text-[#800020] font-bold' : 'text-slate-600 hover:text-[#800020]' }}" @click="closeMobile()">Kontak</a></li>
+          <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('contact') ? 'active text-[#DE0171] font-bold' : 'text-slate-600 hover:text-[#DE0171]' }}" @click="closeMobile()">Kontak</a></li>
         </ul>
         <div class="nav-mobile-cta">
-          <a href="https://wa.me/{{ $cleanWaNumber }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin konsultasi perjalanan.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm wa-link-btn inline-flex items-center gap-2 bg-[#800020] hover:bg-[#630018] text-white font-semibold px-4 py-2 rounded-xl text-sm transition-all" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
+          <a href="https://wa.me/{{ $cleanWaNumber }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin konsultasi perjalanan.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm wa-link-btn inline-flex items-center gap-2 bg-[#DE0171] hover:bg-[#B8015B] text-white font-semibold px-4 py-2 rounded-xl text-sm transition-all" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
             <i class="fa-brands fa-whatsapp text-emerald-400"></i> Chat WhatsApp
           </a>
         </div>
@@ -213,7 +228,7 @@
 
       <!-- Header CTA & Mobile Toggle -->
       <div class="header-actions flex items-center gap-3">
-        <a href="https://wa.me/{{ $cleanWaNumber }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin konsultasi perjalanan.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm desktop-only wa-link-btn inline-flex items-center gap-2 bg-[#800020] hover:bg-[#630018] text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition-all shadow-sm hover:shadow" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
+        <a href="https://wa.me/{{ $cleanWaNumber }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin konsultasi perjalanan.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm desktop-only wa-link-btn inline-flex items-center gap-2 bg-[#DE0171] hover:bg-[#B8015B] text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition-all shadow-sm hover:shadow" data-wa-msg="Halo Nirwana Tour, saya ingin konsultasi perjalanan.">
           <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Rencanakan Perjalanan
         </a>
         <button class="nav-toggle" id="navToggle" type="button" @click="toggleMobile()" :class="{ 'active': mobileOpen }" :aria-expanded="mobileOpen" aria-label="Buka menu navigasi" aria-controls="navMenu">
@@ -231,7 +246,7 @@
   <!-- ========================================================
        FOOTER (EXACT FROM INDEX.HTML)
        ======================================================== -->
-  <footer class="site-footer bg-[#800020] text-slate-100 pt-16 pb-12 overflow-hidden border-t-4 border-[#F59E0B]">
+  <footer class="site-footer bg-[#36021B] text-slate-100 pt-16 pb-12 overflow-hidden border-t-4 border-[#DE0171]">
     <div class="container footer-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="footer-top mb-12">
         <div class="footer-grid">
@@ -339,9 +354,9 @@
             <ul class="footer-contact-info list-none p-0 m-0 space-y-3 text-sm text-slate-300 mb-6">
               <li class="flex items-start gap-2.5">
                 <i class="fa-solid fa-location-dot text-[#F59E0B] mt-1"></i>
-                <a href="https://maps.google.com/?q={{ urlencode($settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122') }}" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
+                <a href="https://maps.google.com/?q={{ urlencode($settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122') }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
                    title="Buka Lokasi di Google Maps"
                    class="hover:text-white transition-colors leading-relaxed">
                   {{ $settings['address'] ?? 'Jl. Pangeran Antasari No. 88, Kedamaian, Kota Bandar Lampung, Lampung 35122' }}
@@ -349,8 +364,8 @@
               </li>
               <li class="flex items-center gap-2.5">
                 <i class="fa-brands fa-whatsapp text-emerald-400"></i>
-                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['whatsapp_number'] ?? '6282269616188') }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin konsultasi perjalanan.') }}" 
-                   target="_blank" 
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['whatsapp_number'] ?? '6282269616188') }}?text={{ rawurlencode('Halo Nirwana Tour, saya ingin konsultasi perjalanan.') }}"
+                   target="_blank"
                    rel="noopener noreferrer"
                    class="hover:text-white transition-colors">
                   +{{ $settings['whatsapp_number'] ?? '6282269616188' }}

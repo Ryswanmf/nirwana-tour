@@ -31,6 +31,7 @@ class HomeController extends Controller
                 'testimonials' => Testimonial::where('is_active', true)->orderBy('order')->get(),
                 // Berita Unggulan untuk Beranda
                 'posts' => Post::where('is_published', true)
+                    ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
                     ->where('is_featured', true)
                     ->with('category')
                     ->orderByDesc('published_at')

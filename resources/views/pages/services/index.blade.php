@@ -163,17 +163,17 @@
          ======================================================== -->
     <section class="section" style="padding-top: 0;">
       <div class="container">
-        <div style="background: linear-gradient(135deg, #4A0012 0%, #800020 100%); border-radius: 24px; padding: 48px 40px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px; box-shadow: 0 16px 36px rgba(128, 0, 32, 0.22);">
+        <div style="background: linear-gradient(135deg, #36021B 0%, #DE0171 100%); border-radius: 24px; padding: 48px 40px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px; box-shadow: 0 16px 36px rgba(222, 1, 113, 0.22);">
           <div style="max-width: 680px;">
             <h3 style="font-size: 1.55rem; font-weight: 800; color: #FFFFFF; margin: 0 0 10px 0;">
               Siap Mengadakan Acara Perjalanan Bersama Kami?
             </h3>
-            <p style="margin: 0; font-size: 0.96rem; color: #FCE7EB; line-height: 1.65;">
+            <p style="margin: 0; font-size: 0.96rem; color: #FDF2F8; line-height: 1.65;">
               Dapatkan proposal penawaran khusus dan konsultasikan konsep kegiatan rombongan sekolah, instansi, maupun perusahaan Anda tanpa biaya konsultasi.
             </p>
           </div>
           <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-            <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg" style="background: #FFFFFF; color: var(--primary, #800020); border: none; font-weight: 700; white-space: nowrap;">
+            <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg" style="background: #FFFFFF; color: var(--primary, #DE0171); border: none; font-weight: 700; white-space: nowrap;">
               Hubungi Kami Sekarang
             </a>
             @php

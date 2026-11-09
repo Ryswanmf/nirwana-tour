@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         // Set default pagination view
         Paginator::defaultView('vendor.pagination.default');
 
-        // Share site settings and active services globally across frontend Blade views with cache (skipping internal Filament views)
+        // Share site settings and active services globally across frontend Blade views with cache
         View::composer(['pages.*', 'layouts.*', 'components.*', 'emails.*'], function ($view) {
             static $sharedSettings = null;
             static $sharedServices = null;

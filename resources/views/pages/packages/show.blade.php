@@ -180,10 +180,10 @@
 
                 <div style="display: flex; flex-direction: column; gap: 20px;">
                   @foreach($package->itinerary as $item)
-                    <div style="display: flex; gap: 16px; border-left: 3px solid var(--primary, #800020); padding-left: 20px; position: relative;">
+                    <div style="display: flex; gap: 16px; border-left: 3px solid var(--primary, #DE0171); padding-left: 20px; position: relative;">
                       <div style="flex-grow: 1;">
                         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                          <span style="background: rgba(128,0,32,0.08); color: var(--primary, #800020); padding: 3px 12px; border-radius: 12px; font-size: 0.78rem; font-weight: 800;">
+                          <span style="background: rgba(222,1,113,0.08); color: var(--primary, #DE0171); padding: 3px 12px; border-radius: 12px; font-size: 0.78rem; font-weight: 800;">
                             HARI {{ $item['day'] ?? ($loop->index + 1) }}
                           </span>
                           <h4 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #0F172A;">
@@ -248,7 +248,7 @@
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; flex-wrap: wrap; gap: 10px;">
                 <div>
                   <h3 style="font-size: 1.25rem; font-weight: 800; color: #0F172A; margin: 0 0 6px 0; display: flex; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-circle-question" style="color: var(--primary, #800020);"></i>
+                    <i class="fa-solid fa-circle-question" style="color: var(--primary, #DE0171);"></i>
                     <span>Pertanyaan Umum (FAQ)</span>
                   </h3>
                   <p style="color: #64748B; font-size: 0.88rem; margin: 0;">Hal yang sering ditanyakan wisatawan seputar paket ini.</p>
@@ -263,7 +263,7 @@
                   <details class="faq-details-item" {{ $faqIndex === 0 ? 'open' : '' }} style="border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; background: #F8FAFC; transition: all 0.25s ease;">
                     <summary style="padding: 16px 20px; font-weight: 700; color: #1E293B; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; user-select: none; font-size: 0.94rem;">
                       <span style="display: flex; align-items: center; gap: 10px;">
-                        <span style="width: 24px; height: 24px; border-radius: 50%; background: rgba(128,0,32,0.1); color: var(--primary, #800020); display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0;">
+                        <span style="width: 24px; height: 24px; border-radius: 50%; background: rgba(222,1,113,0.1); color: var(--primary, #DE0171); display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0;">
                           {{ $faqIndex + 1 }}
                         </span>
                         {{ $faq['question'] ?? '' }}
@@ -286,7 +286,7 @@
               <!-- Harga Highlight Header -->
               <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 18px 20px; text-align: center; margin-bottom: 22px;">
                 <span style="display: block; font-size: 0.82rem; color: #64748B; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em;">Harga Paket Mulai Dari</span>
-                <span style="font-size: 1.9rem; font-weight: 800; color: var(--primary, #800020); display: block; line-height: 1.2; margin-top: 4px;">
+                <span style="font-size: 1.9rem; font-weight: 800; color: var(--primary, #DE0171); display: block; line-height: 1.2; margin-top: 4px;">
                   {{ $package->formatted_price }}
                 </span>
                 <small style="color: #64748B; font-size: 0.82rem;">per orang / pax</small>
@@ -364,7 +364,7 @@
             <!-- 1-Click Social Share Card -->
             <div style="background: #FFFFFF; border-radius: 16px; padding: 20px; border: 1px solid #E2E8F0; margin-top: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
               <span style="display: block; font-weight: 700; color: #1E293B; font-size: 0.88rem; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
-                <i class="fa-solid fa-share-nodes" style="color: var(--primary, #800020);"></i> Bagikan Paket Wisata Ini:
+                <i class="fa-solid fa-share-nodes" style="color: var(--primary, #DE0171);"></i> Bagikan Paket Wisata Ini:
               </span>
               <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
                 <!-- WhatsApp -->

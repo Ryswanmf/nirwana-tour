@@ -31,6 +31,7 @@ class SitemapController extends Controller
             ->get();
 
         $posts = Post::where('is_published', true)
+            ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
             ->select(['id', 'slug', 'updated_at'])
             ->latest('updated_at')
             ->get();

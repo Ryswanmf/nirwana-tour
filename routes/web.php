@@ -1,5 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\FleetController as AdminFleetController;
+use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
+use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
+use App\Http\Controllers\Admin\PartnerController as AdminPartnerController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
+use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
+use App\Http\Controllers\Admin\TourPackageController as AdminTourPackageController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
@@ -50,22 +62,96 @@ Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.stor
 // Kirim Testimoni / Ulasan Klien
 Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testimonial.store');
 
-// Rute Akses Login Admin di /login
-Route::get('/login', \App\Filament\Pages\Auth\Login::class)
-    ->middleware([
-        'web',
-        'Filament\Http\Middleware\SetUpPanel:admin',
-        'Filament\Http\Middleware\DisableBladeIconComponents',
-        'Filament\Http\Middleware\DispatchServingFilamentEvent',
-    ])
-    ->name('filament.admin.auth.login');
+// ========================================================
+// PORTAL ADMIN (LARAVEL + INERTIA.JS + VUE 3)
+// ========================================================
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Akses Utama /admin: Menampilkan form Login jika belum masuk, atau Dashboard jika sudah login
+    Route::get('/', function () {
+        if (!auth()->check()) {
+            return app(AdminAuthController::class)->showLogin();
+        }
+        return app(AdminDashboardController::class)->index();
+    })->name('dashboard');
 
-Route::get('/auth/login', function () {
-    return redirect('/login');
+    // Guest Auth
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('login');
+        Route::post('/login', [AdminAuthController::class, 'login']);
+        Route::post('/', [AdminAuthController::class, 'login']);
+    });
+
+    // Authenticated Admin Area
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+        Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+        // Manajemen Paket Wisata
+        Route::post('/packages/bulk-delete', [AdminTourPackageController::class, 'bulkDelete'])->name('packages.bulk-delete');
+        Route::resource('packages', AdminTourPackageController::class);
+        Route::post('/packages/{package}/toggle', [AdminTourPackageController::class, 'toggle'])->name('packages.toggle');
+
+        // Layanan Perjalanan
+        Route::resource('services', AdminServiceController::class);
+        Route::post('/services/{service}/toggle', [AdminServiceController::class, 'toggle'])->name('services.toggle');
+
+        // Artikel & Berita
+        Route::post('/posts/bulk-delete', [AdminPostController::class, 'bulkDelete'])->name('posts.bulk-delete');
+        Route::get('/posts/generator', [AdminPostController::class, 'generator'])->name('posts.generator');
+        Route::post('/posts/generator', [AdminPostController::class, 'generate'])->name('posts.generate');
+        Route::resource('posts', AdminPostController::class);
+        Route::post('/posts/{post}/toggle', [AdminPostController::class, 'toggle'])->name('posts.toggle');
+
+        // Galeri Dokumentasi
+        Route::post('/gallery/bulk-delete', [AdminGalleryController::class, 'bulkDelete'])->name('gallery.bulk-delete');
+        Route::resource('gallery', AdminGalleryController::class);
+        Route::post('/gallery/{gallery}/toggle', [AdminGalleryController::class, 'toggle'])->name('gallery.toggle');
+
+        // Mitra Rekanan
+        Route::get('/partners', [AdminPartnerController::class, 'index'])->name('partners.index');
+        Route::post('/partners', [AdminPartnerController::class, 'store'])->name('partners.store');
+        Route::put('/partners/{partner}', [AdminPartnerController::class, 'update'])->name('partners.update');
+        Route::delete('/partners/{partner}', [AdminPartnerController::class, 'destroy'])->name('partners.destroy');
+
+        // Armada Bus
+        Route::get('/fleets', [AdminFleetController::class, 'index'])->name('fleets.index');
+        Route::post('/fleets', [AdminFleetController::class, 'store'])->name('fleets.store');
+        Route::put('/fleets/{fleet}', [AdminFleetController::class, 'update'])->name('fleets.update');
+        Route::delete('/fleets/{fleet}', [AdminFleetController::class, 'destroy'])->name('fleets.destroy');
+
+        // Pesan Masuk / Inquiries
+        Route::post('/inquiries/bulk-delete', [AdminInquiryController::class, 'bulkDelete'])->name('inquiries.bulk-delete');
+        Route::get('/inquiries/export', [AdminInquiryController::class, 'exportCsv'])->name('inquiries.export');
+        Route::get('/inquiries', [AdminInquiryController::class, 'index'])->name('inquiries.index');
+        Route::patch('/inquiries/{inquiry}/status', [AdminInquiryController::class, 'updateStatus'])->name('inquiries.status');
+        Route::delete('/inquiries/{inquiry}', [AdminInquiryController::class, 'destroy'])->name('inquiries.destroy');
+
+        // Ulasan & Testimonial Pelanggan
+        Route::post('/testimonials/bulk-delete', [AdminTestimonialController::class, 'bulkDelete'])->name('testimonials.bulk-delete');
+        Route::get('/testimonials', [AdminTestimonialController::class, 'index'])->name('testimonials.index');
+        Route::post('/testimonials', [AdminTestimonialController::class, 'store'])->name('testimonials.store');
+        Route::put('/testimonials/{testimonial}', [AdminTestimonialController::class, 'update'])->name('testimonials.update');
+        Route::delete('/testimonials/{testimonial}', [AdminTestimonialController::class, 'destroy'])->name('testimonials.destroy');
+        Route::post('/testimonials/{testimonial}/toggle', [AdminTestimonialController::class, 'toggle'])->name('testimonials.toggle');
+
+        // Manajemen Akun Admin
+        Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+        Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
+        Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+
+        // Pengaturan Website & Profil
+        Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
+        Route::post('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
+    });
+});
+
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
 })->name('login');
 
-Route::get('/admin/login', function () {
-    return redirect('/login');
+Route::get('/auth/login', function () {
+    return redirect()->route('admin.login');
 });
 
 // PWA Assets Routing

@@ -12,11 +12,11 @@
       <div class="page-hero-bg-container" aria-hidden="true">
         <picture>
           <source srcset="{{ asset('assets/images/hero/dieng-hero.webp') }}" type="image/webp">
-          <img src="{{ asset('assets/images/hero/dieng-hero.jpg') }}" 
-               alt="Background Galeri Kegiatan Wisata Nirwana Tour" 
-               class="page-hero-bg-image" 
-               loading="eager" 
-               fetchpriority="high" 
+          <img src="{{ asset('assets/images/hero/dieng-hero.jpg') }}"
+               alt="Background Galeri Kegiatan Wisata Nirwana Tour"
+               class="page-hero-bg-image"
+               loading="eager"
+               fetchpriority="high"
                decoding="async">
         </picture>
         <div class="page-hero-maroon-overlay"></div>
@@ -45,26 +45,26 @@
 
         <!-- HEADER SUB-BAR (KETERANGAN DOKUMENTASI & FILTER TABS) -->
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 36px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color);">
-          <div style="display: inline-flex; align-items: center; gap: 8px; border-left: 3px solid var(--primary, #800020); padding: 3px 0 3px 12px; border-radius: 0; background: transparent; color: var(--primary, #800020); font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.8px;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; border-left: 3px solid var(--primary, #DE0171); padding: 3px 0 3px 12px; border-radius: 0; background: transparent; color: var(--primary, #DE0171); font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.8px;">
             <i class="fa-solid fa-photo-film"></i>
             <span>Dokumentasi Nyata &amp; Autentik</span>
           </div>
-          
+
           <!-- FILTER MEDIA TABS -->
           <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <a href="{{ route('gallery.index') }}" 
-               class="btn btn-sm" 
-               style="{{ empty($type) ? 'background: var(--primary, #800020); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+            <a href="{{ route('gallery.index') }}"
+               class="btn btn-sm"
+               style="{{ empty($type) ? 'background: var(--primary, #DE0171); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
               <i class="fa-solid fa-border-all"></i> Semua Media
             </a>
-            <a href="{{ route('gallery.index', ['type' => 'video']) }}" 
-               class="btn btn-sm" 
-               style="{{ $type === 'video' ? 'background: var(--primary, #800020); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+            <a href="{{ route('gallery.index', ['type' => 'video']) }}"
+               class="btn btn-sm"
+               style="{{ $type === 'video' ? 'background: var(--primary, #DE0171); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
               <i class="fa-solid fa-film"></i> Video &amp; Reels
             </a>
-            <a href="{{ route('gallery.index', ['type' => 'image']) }}" 
-               class="btn btn-sm" 
-               style="{{ $type === 'image' ? 'background: var(--primary, #800020); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+            <a href="{{ route('gallery.index', ['type' => 'image']) }}"
+               class="btn btn-sm"
+               style="{{ $type === 'image' ? 'background: var(--primary, #DE0171); color: #FFF; font-weight: 700;' : 'background: #FFFFFF; color: var(--text-main); border: 1px solid var(--border-color);' }} border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
               <i class="fa-solid fa-camera"></i> Foto
             </a>
           </div>
@@ -77,7 +77,7 @@
               @php
                 $thumbUrl = $item->thumbnail_url;
                 $videoUrl = $item->file_url;
-                
+
                 // Durasi & badge kategori otomatis berdasarkan tipe/file_path
                 $duration = '01:15';
                 $catTag = 'Dokumentasi Tour';
@@ -128,12 +128,12 @@
                 <div class="video-player-wrapper">
                   @if($item->is_instagram)
                     <a href="{{ $item->file_url }}" target="_blank" rel="noopener noreferrer" class="reel-preview-container" aria-label="Tonton video {{ $item->title }} langsung di Instagram" style="text-decoration: none; display: block;">
-                      <img src="{{ $item->thumbnail_url }}" 
-                           alt="{{ $item->title }}" 
-                           class="reel-poster-image" 
-                           loading="lazy" 
+                      <img src="{{ $item->thumbnail_url }}"
+                           alt="{{ $item->title }}"
+                           class="reel-poster-image"
+                           loading="lazy"
                            decoding="async">
-                      
+
                       <div class="reel-vignette-overlay"></div>
 
                       <div class="reel-badge-top-left">
@@ -217,17 +217,17 @@
         @endif
 
         <!-- CTA HUBUNGI KAMI DI HALAMAN GALERI -->
-        <div style="margin-top: 60px; background: linear-gradient(135deg, #4A0012 0%, #800020 100%); border-radius: 22px; padding: 44px 38px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 26px; box-shadow: 0 14px 32px rgba(128,0,32,0.2);">
+        <div style="margin-top: 60px; background: linear-gradient(135deg, #36021B 0%, #DE0171 100%); border-radius: 22px; padding: 44px 38px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 26px; box-shadow: 0 14px 32px rgba(222,1,113,0.2);">
           <div style="max-width: 660px;">
             <h3 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin: 0 0 10px 0;">
               Ingin Momen Seru Rombongan Anda Diabadikan Bersama Kami?
             </h3>
-            <p style="margin: 0; font-size: 0.95rem; color: #FCE7EB; line-height: 1.65;">
+            <p style="margin: 0; font-size: 0.95rem; color: #FDF2F8; line-height: 1.65;">
               Setiap paket tour bersama Nirwana Tour Lampung sudah termasuk pendampingan dokumentasi profesional agar setiap senyuman dan kenangan indah tetap abadi.
             </p>
           </div>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg" style="background: #FFFFFF; color: var(--primary, #800020); border: none; font-weight: 700; white-space: nowrap;">
+            <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg" style="background: #FFFFFF; color: var(--primary, #DE0171); border: none; font-weight: 700; white-space: nowrap;">
               Hubungi Kami
             </a>
             @php

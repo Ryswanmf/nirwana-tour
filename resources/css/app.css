@@ -1,12 +1,16 @@
 @import "tailwindcss";
+@source "../views";
+@source "../js";
+@source "../../app";
 @import "./custom.css";
+@import "./article-editorial.css";
 
 @theme {
-  --color-primary: #800020;
-  --color-primary-hover: #630018;
-  --color-primary-light: #FCE7EB;
-  --color-primary-dark: #4A0012;
-  --color-secondary: #9F1239;
+  --color-primary: #DE0171;
+  --color-primary-hover: #B8015B;
+  --color-primary-light: #FDF2F8;
+  --color-primary-dark: #36021B;
+  --color-secondary: #BE185D;
   --color-accent-gold: #F59E0B;
   --color-accent-gold-light: #FEF3C7;
   --color-whatsapp: #25D366;

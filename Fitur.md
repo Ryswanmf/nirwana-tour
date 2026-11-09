@@ -25,7 +25,7 @@ Website **Nirwana Tour & Travel Lampung** dirancang khusus bukan sekadar sebagai
 ### 🎯 Keunggulan Utama untuk Bisnis Klien:
 * **High Conversion to WhatsApp**: 85%+ wisatawan di Indonesia memesan tur melalui WhatsApp. Website ini mengintegrasikan tombol konsultasi dan pemesanan dengan pesan otomatis yang sudah terisi (*pre-filled auto message*).
 * **Kalkulator Wisata Mandiri (Price Estimator)**: Membantu calon klien menghitung estimasi biaya grup atau custom trip secara transparan dalam hitungan detik sebelum menghubungi admin.
-* **Tampilan Mewah & Modern (Luxury Tourism Branding)**: Menggunakan kombinasi warna *Deep Burgundy Maroon* (`#800020`), *Warm Sand Gold* (`#F59E0B`), dan tipografi modern yang meningkatkan kredibilitas agen tour di mata wisatawan premium, keluarga, instansi BUMN, maupun rombongan perusahaan (*corporate gathering*).
+* **Tampilan Mewah & Modern (Luxury Tourism Branding)**: Menggunakan kombinasi warna *Elegant Logo Pink* (`#DE0171` & `#FC028B`) yang serasi dengan identitas logo resmi Nirwana Tour, berpadu dengan aksen *Warm Sand Gold* (`#F59E0B`) dan latar *Royal Velvet Noir* (`#36021B`), meningkatkan kredibilitas agen tour di mata wisatawan premium, keluarga, instansi BUMN, maupun rombongan perusahaan (*corporate gathering*).
 * **Bisa Di-install di HP Seperti Aplikasi (PWA)**: Wisatawan tidak perlu download dari Play Store, cukup 1 klik "Install App" langsung tersimpan di layar beranda ponsel mereka.
 * **Panel Admin Mandiri (Full Self-Service)**: Pemilik bisnis dapat mengubah harga, menambah paket wisata, mengunggah foto galeri, menulis artikel tips wisata, dan memantau pesanan masuk tanpa perlu coding.
 
