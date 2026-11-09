@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate;
+use App\Models\Contact;
 use App\Models\Fleet;
 use App\Models\Inquiry;
 use App\Models\Post;
 use App\Models\Service;
+use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\TourPackage;
 use Inertia\Inertia;
@@ -28,6 +31,9 @@ class DashboardController extends Controller
             'fleets_total' => Fleet::count(),
             'posts_total' => Post::count(),
             'testimonials_total' => Testimonial::count(),
+            'team_members_total' => TeamMember::count(),
+            'certificates_total' => Certificate::count(),
+            'contacts_total' => Contact::count(),
         ];
 
         $recentInquiries = Inquiry::with('tourPackage:id,title')

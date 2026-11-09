@@ -75,6 +75,33 @@ const routes = {
   'admin.testimonials.toggle': (id) => `/admin/testimonials/${id}/toggle`,
   'admin.testimonials.bulk-delete': () => '/admin/testimonials/bulk-delete',
 
+  // Tim & Manajemen
+  'admin.team-members.index': () => '/admin/team-members',
+  'admin.team-members.store': () => '/admin/team-members',
+  'admin.team-members.update': (id) => `/admin/team-members/${id}`,
+  'admin.team-members.destroy': (id) => `/admin/team-members/${id}`,
+  'admin.team-members.toggle': (id) => `/admin/team-members/${id}/toggle`,
+
+  // Legalitas & Sertifikasi
+  'admin.certificates.index': () => '/admin/certificates',
+  'admin.certificates.store': () => '/admin/certificates',
+  'admin.certificates.update': (id) => `/admin/certificates/${id}`,
+  'admin.certificates.destroy': (id) => `/admin/certificates/${id}`,
+  'admin.certificates.toggle': (id) => `/admin/certificates/${id}/toggle`,
+
+  // Kontak & Kantor Cabang
+  'admin.contacts.index': () => '/admin/contacts',
+  'admin.contacts.store': () => '/admin/contacts',
+  'admin.contacts.update': (id) => `/admin/contacts/${id}`,
+  'admin.contacts.destroy': (id) => `/admin/contacts/${id}`,
+  'admin.contacts.toggle': (id) => `/admin/contacts/${id}/toggle`,
+
+  // Kategori Konten
+  'admin.categories.index': (query = '') => `/admin/categories${query ? '?' + query : ''}`,
+  'admin.categories.store': () => '/admin/categories',
+  'admin.categories.update': (id) => `/admin/categories/${id}`,
+  'admin.categories.destroy': (id) => `/admin/categories/${id}`,
+
   // Pengguna Administrator
   'admin.users.index': () => '/admin/users',
   'admin.users.store': () => '/admin/users',

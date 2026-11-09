@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\FleetController as AdminFleetController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
@@ -9,6 +12,7 @@ use App\Http\Controllers\Admin\PartnerController as AdminPartnerController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\Admin\TeamMemberController as AdminTeamMemberController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\TourPackageController as AdminTourPackageController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -133,6 +137,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/testimonials/{testimonial}', [AdminTestimonialController::class, 'update'])->name('testimonials.update');
         Route::delete('/testimonials/{testimonial}', [AdminTestimonialController::class, 'destroy'])->name('testimonials.destroy');
         Route::post('/testimonials/{testimonial}/toggle', [AdminTestimonialController::class, 'toggle'])->name('testimonials.toggle');
+
+        // Manajemen & Tim Profesional
+        Route::resource('team-members', AdminTeamMemberController::class)->except(['create', 'show', 'edit']);
+        Route::post('/team-members/{teamMember}/toggle', [AdminTeamMemberController::class, 'toggle'])->name('team-members.toggle');
+
+        // Dokumen Legalitas & Sertifikasi
+        Route::resource('certificates', AdminCertificateController::class)->except(['create', 'show', 'edit']);
+        Route::post('/certificates/{certificate}/toggle', [AdminCertificateController::class, 'toggle'])->name('certificates.toggle');
+
+        // Kontak & Kantor Cabang
+        Route::resource('contacts', AdminContactController::class)->except(['create', 'show', 'edit']);
+        Route::post('/contacts/{contact}/toggle', [AdminContactController::class, 'toggle'])->name('contacts.toggle');
+
+        // Kategori Konten
+        Route::resource('categories', AdminCategoryController::class)->except(['create', 'show', 'edit']);
 
         // Manajemen Akun Admin
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
