@@ -1,13 +1,11 @@
+DirectoryIndex index.php
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On
-
-    # Cegah LiteSpeed Cache menyimpan halaman admin dan membuang cookie session CSRF
-    RewriteCond %{REQUEST_URI} ^/(admin|login|inquiry|testimoni) [NC]
-    RewriteRule .* - [E=Cache-Control:no-cache]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
