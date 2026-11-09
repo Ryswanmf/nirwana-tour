@@ -29,6 +29,11 @@ class SecurityHeaders
             $response->headers->set('Cache-Control', 'no-cache, private, no-store, must-revalidate');
             $response->headers->set('Pragma', 'no-cache');
             $response->headers->set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
+            $response->headers->set('X-LiteSpeed-Cache-Control', 'no-cache');
+        } elseif (str_contains($response->headers->get('Content-Type', ''), 'text/html')) {
+            // Untuk halaman HTML publik, cegah caching kaku agar perubahan data/gambar langsung tampil tanpa hard refresh
+            $response->headers->set('Cache-Control', 'no-cache, must-revalidate, max-age=0');
+            $response->headers->set('Pragma', 'no-cache');
         }
 
         // HSTS jika koneksi aman (HTTPS)
