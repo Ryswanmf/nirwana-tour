@@ -1,6 +1,5 @@
-const CACHE_NAME = 'nirwana-tour-v12';
+const CACHE_NAME = 'nirwana-tour-v13';
 const PRECACHE_ASSETS = [
-  '/',
   '/css/style.css',
   '/css/style.min.css',
   '/js/script.js',
@@ -34,12 +33,14 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests and skip admin, auth or dynamic form submissions
+  // Hanya proses request GET
+  // JANGAN intercept admin, auth, form inquiry, dan JANGAN intercept file storage (media upload dinamis)
   if (
     event.request.method !== 'GET' || 
     event.request.url.includes('/admin') || 
     event.request.url.includes('/login') ||
-    event.request.url.includes('/inquiry')
+    event.request.url.includes('/inquiry') ||
+    event.request.url.includes('/storage')
   ) {
     return;
   }
@@ -47,7 +48,7 @@ self.addEventListener('fetch', (event) => {
   const isNavigation = event.request.mode === 'navigate' || event.request.destination === 'document';
 
   if (isNavigation) {
-    // Network-First for HTML navigation so users always see fresh packages & articles
+    // Network-First untuk navigasi HTML agar user selalu melihat paket & artikel terbaru
     event.respondWith(
       fetch(event.request)
         .then((networkResponse) => {
@@ -58,15 +59,13 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => {
-          return caches.match(event.request).then((cachedResponse) => {
-            return cachedResponse || caches.match('/');
-          });
+          return caches.match(event.request);
         })
     );
     return;
   }
 
-  // Cache-First with Network fallback for static assets (CSS, JS, images, fonts)
+  // Cache-First dengan Network fallback hanya untuk aset statis bawaan (CSS, JS, logo)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {

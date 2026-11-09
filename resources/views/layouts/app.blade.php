@@ -623,7 +623,11 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('{{ asset("sw.js") }}?v={{ file_exists(public_path("sw.js")) ? filemtime(public_path("sw.js")) : time() }}').catch(function() {});
+        navigator.serviceWorker.register('{{ asset("sw.js") }}?v={{ file_exists(public_path("sw.js")) ? filemtime(public_path("sw.js")) : time() }}')
+          .then(function(reg) {
+            reg.update();
+          })
+          .catch(function() {});
       });
     }
 
