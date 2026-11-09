@@ -29,8 +29,9 @@ class GalleryController extends Controller
                 'category_name' => $item->category?->name ?? 'Umum',
                 'preview_url' => $item->media_type === 'image' 
                     ? ($item->file_path ? (str_starts_with($item->file_path, 'http') ? $item->file_path : asset('storage/' . $item->file_path)) : asset('assets/images/destinasi/pahawang.jpg'))
-                    : ($item->thumbnail_url ? asset('storage/' . $item->thumbnail_url) : asset('assets/images/destinasi/pahawang.jpg')),
-                'video_url' => $item->video_url,
+                    : ($item->thumbnail ? asset('storage/' . $item->thumbnail) : ($item->thumbnail_url ?? asset('assets/images/destinasi/pahawang.jpg'))),
+                'file_url' => $item->file_url,
+                'video_url' => $item->file_path,
                 'is_featured' => (bool) $item->is_featured,
                 'order' => $item->order,
             ]);
@@ -60,22 +61,52 @@ class GalleryController extends Controller
             'category_id' => 'nullable|exists:categories,id',
             'media_type' => 'required|in:image,video,reel',
             'video_url' => 'nullable|string|max:500',
-            'caption' => 'nullable|string|max:500',
+            'caption' => 'nullable|string|max:1000',
             'order' => 'nullable|integer',
             'is_featured' => 'boolean',
-            'file' => 'nullable|image|max:4096',
-            'thumbnail' => 'nullable|image|max:3072',
+            'file' => 'nullable|file|max:102400', // Mendukung file video/foto hingga 100MB
+            'thumbnail' => 'nullable|image|max:5120',
         ]);
 
+        $filePath = '';
+
         if ($request->hasFile('file')) {
-            $validated['file_path'] = $request->file('file')->store('gallery', 'public');
+            $filePath = $request->file('file')->store('gallery', 'public');
+        } elseif ($request->filled('video_url')) {
+            $filePath = $request->input('video_url');
         }
 
+        if (empty($filePath) && in_array($validated['media_type'], ['reel', 'video']) && $request->filled('video_url')) {
+            $filePath = $request->input('video_url');
+        }
+
+        if (empty($filePath) && $validated['media_type'] === 'image' && !$request->hasFile('file')) {
+            return back()->withErrors(['file' => 'File foto wajib diunggah untuk format gambar.']);
+        }
+
+        if (empty($filePath) && $validated['media_type'] === 'video' && !$request->hasFile('file') && !$request->filled('video_url')) {
+            return back()->withErrors(['file' => 'File video (.mp4) atau URL video wajib diunggah/diisi.']);
+        }
+
+        if (empty($filePath) && $validated['media_type'] === 'reel' && !$request->filled('video_url')) {
+            return back()->withErrors(['video_url' => 'Tautan / URL Reels Instagram wajib diisi.']);
+        }
+
+        $thumbnailPath = null;
         if ($request->hasFile('thumbnail')) {
-            $validated['thumbnail_url'] = $request->file('thumbnail')->store('gallery-thumbs', 'public');
+            $thumbnailPath = $request->file('thumbnail')->store('gallery-thumbs', 'public');
         }
 
-        GalleryItem::create($validated);
+        GalleryItem::create([
+            'title' => $validated['title'],
+            'category_id' => $validated['category_id'] ?? null,
+            'media_type' => $validated['media_type'],
+            'file_path' => $filePath,
+            'thumbnail' => $thumbnailPath,
+            'caption' => $validated['caption'] ?? null,
+            'order' => $validated['order'] ?? 0,
+            'is_featured' => (bool) ($validated['is_featured'] ?? false),
+        ]);
 
         return redirect()->route('admin.gallery.index')
             ->with('success', 'Media galeri berhasil ditambahkan.');
@@ -89,12 +120,12 @@ class GalleryController extends Controller
                 'title' => $gallery->title,
                 'category_id' => $gallery->category_id,
                 'media_type' => $gallery->media_type,
-                'video_url' => $gallery->video_url,
+                'video_url' => str_starts_with($gallery->file_path ?? '', 'http') ? $gallery->file_path : '',
                 'caption' => $gallery->caption,
                 'order' => $gallery->order,
                 'is_featured' => (bool) $gallery->is_featured,
-                'preview_url' => $gallery->file_path ? asset('storage/' . $gallery->file_path) : null,
-                'thumb_preview' => $gallery->thumbnail_url ? asset('storage/' . $gallery->thumbnail_url) : null,
+                'preview_url' => $gallery->file_path ? (str_starts_with($gallery->file_path, 'http') ? $gallery->file_path : asset('storage/' . $gallery->file_path)) : null,
+                'thumb_preview' => $gallery->thumbnail ? asset('storage/' . $gallery->thumbnail) : null,
             ],
             'categories' => Category::select('id', 'name')->orderBy('name')->get(),
         ]);
@@ -107,28 +138,42 @@ class GalleryController extends Controller
             'category_id' => 'nullable|exists:categories,id',
             'media_type' => 'required|in:image,video,reel',
             'video_url' => 'nullable|string|max:500',
-            'caption' => 'nullable|string|max:500',
+            'caption' => 'nullable|string|max:1000',
             'order' => 'nullable|integer',
             'is_featured' => 'boolean',
-            'file' => 'nullable|image|max:4096',
-            'thumbnail' => 'nullable|image|max:3072',
+            'file' => 'nullable|file|max:102400',
+            'thumbnail' => 'nullable|image|max:5120',
         ]);
 
+        $filePath = $gallery->file_path;
+
         if ($request->hasFile('file')) {
-            if ($gallery->file_path && Storage::disk('public')->exists($gallery->file_path)) {
+            if ($gallery->file_path && !str_starts_with($gallery->file_path, 'http') && Storage::disk('public')->exists($gallery->file_path)) {
                 Storage::disk('public')->delete($gallery->file_path);
             }
-            $validated['file_path'] = $request->file('file')->store('gallery', 'public');
+            $filePath = $request->file('file')->store('gallery', 'public');
+        } elseif ($request->filled('video_url') && in_array($validated['media_type'], ['reel', 'video'])) {
+            $filePath = $request->input('video_url');
         }
 
+        $thumbnailPath = $gallery->thumbnail;
         if ($request->hasFile('thumbnail')) {
-            if ($gallery->thumbnail_url && Storage::disk('public')->exists($gallery->thumbnail_url)) {
-                Storage::disk('public')->delete($gallery->thumbnail_url);
+            if ($gallery->thumbnail && Storage::disk('public')->exists($gallery->thumbnail)) {
+                Storage::disk('public')->delete($gallery->thumbnail);
             }
-            $validated['thumbnail_url'] = $request->file('thumbnail')->store('gallery-thumbs', 'public');
+            $thumbnailPath = $request->file('thumbnail')->store('gallery-thumbs', 'public');
         }
 
-        $gallery->update($validated);
+        $gallery->update([
+            'title' => $validated['title'],
+            'category_id' => $validated['category_id'] ?? null,
+            'media_type' => $validated['media_type'],
+            'file_path' => $filePath,
+            'thumbnail' => $thumbnailPath,
+            'caption' => $validated['caption'] ?? null,
+            'order' => $validated['order'] ?? 0,
+            'is_featured' => (bool) ($validated['is_featured'] ?? false),
+        ]);
 
         return redirect()->route('admin.gallery.index')
             ->with('success', 'Media galeri berhasil diperbarui.');
@@ -136,49 +181,49 @@ class GalleryController extends Controller
 
     public function destroy(GalleryItem $gallery): RedirectResponse
     {
-        if ($gallery->file_path && Storage::disk('public')->exists($gallery->file_path)) {
+        if ($gallery->file_path && !str_starts_with($gallery->file_path, 'http') && Storage::disk('public')->exists($gallery->file_path)) {
             Storage::disk('public')->delete($gallery->file_path);
         }
-        if ($gallery->thumbnail_url && Storage::disk('public')->exists($gallery->thumbnail_url)) {
-            Storage::disk('public')->delete($gallery->thumbnail_url);
+
+        if ($gallery->thumbnail && Storage::disk('public')->exists($gallery->thumbnail)) {
+            Storage::disk('public')->delete($gallery->thumbnail);
         }
 
         $gallery->delete();
 
         return redirect()->route('admin.gallery.index')
-            ->with('success', 'Media galeri telah dihapus.');
+            ->with('success', 'Media galeri berhasil dihapus.');
     }
 
-    /**
-     * Hapus banyak media galeri sekaligus (Bulk Delete)
-     */
     public function bulkDelete(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'ids' => 'required|array|min:1',
-            'ids.*' => 'integer|exists:gallery_items,id',
+            'ids.*' => 'exists:gallery_items,id',
         ]);
 
         $items = GalleryItem::whereIn('id', $validated['ids'])->get();
-        $count = $items->count();
 
         foreach ($items as $item) {
-            if ($item->file_path && Storage::disk('public')->exists($item->file_path)) {
+            if ($item->file_path && !str_starts_with($item->file_path, 'http') && Storage::disk('public')->exists($item->file_path)) {
                 Storage::disk('public')->delete($item->file_path);
             }
-            if ($item->thumbnail_url && Storage::disk('public')->exists($item->thumbnail_url)) {
-                Storage::disk('public')->delete($item->thumbnail_url);
+            if ($item->thumbnail && Storage::disk('public')->exists($item->thumbnail)) {
+                Storage::disk('public')->delete($item->thumbnail);
             }
             $item->delete();
         }
 
         return redirect()->route('admin.gallery.index')
-            ->with('success', "{$count} media galeri berhasil dihapus sekaligus.");
+            ->with('success', count($validated['ids']) . ' media galeri berhasil dihapus.');
     }
 
     public function toggle(GalleryItem $gallery): RedirectResponse
     {
-        $gallery->update(['is_featured' => !$gallery->is_featured]);
-        return back()->with('success', 'Status unggulan galeri diperbarui.');
+        $gallery->update([
+            'is_featured' => !$gallery->is_featured,
+        ]);
+
+        return back()->with('success', 'Status media pilihan berhasil diperbarui.');
     }
 }
