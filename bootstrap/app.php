@@ -13,6 +13,11 @@ $app = Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
+        $middleware->preventRequestsDuringMaintenance(except: [
+            'admin',
+            'admin/*',
+            'maintenance-preview',
+        ]);
         $middleware->redirectGuestsTo('/admin/login');
         $middleware->web(append: [
             \App\Http\Middleware\SecurityHeaders::class,

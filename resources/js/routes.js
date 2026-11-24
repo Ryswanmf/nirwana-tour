@@ -111,6 +111,10 @@ const routes = {
   // Pengaturan
   'admin.settings.index': () => '/admin/settings',
   'admin.settings.update': () => '/admin/settings',
+
+  // Mode Maintenance
+  'admin.maintenance.index': () => '/admin/maintenance',
+  'admin.maintenance.toggle': () => '/admin/maintenance/toggle',
 };
 
 export function route(name, params) {

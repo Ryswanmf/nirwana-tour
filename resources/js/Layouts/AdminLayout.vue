@@ -25,6 +25,7 @@ const navigation = [
   { name: 'Ulasan / Testimoni', route: 'admin.testimonials.index', icon: 'fa-solid fa-comment-dots' },
   { name: 'Kelola Admin', route: 'admin.users.index', icon: 'fa-solid fa-user-shield' },
   { name: 'Pengaturan Web', route: 'admin.settings.index', icon: 'fa-solid fa-sliders' },
+  { name: 'Mode Maintenance', route: 'admin.maintenance.index', icon: 'fa-solid fa-screwdriver-wrench' },
 ];
 
 const logout = () => {

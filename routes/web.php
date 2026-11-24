@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\FleetController as AdminFleetController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
+use App\Http\Controllers\Admin\MaintenanceController as AdminMaintenanceController;
 use App\Http\Controllers\Admin\PartnerController as AdminPartnerController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
@@ -162,6 +163,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Pengaturan Website & Profil
         Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
         Route::post('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
+
+        // Kontrol & Tombol Mode Maintenance
+        Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('maintenance.index');
+        Route::post('/maintenance/toggle', [AdminMaintenanceController::class, 'toggle'])->name('maintenance.toggle');
     });
 });
 
@@ -241,4 +246,14 @@ Route::get('/admin/storage-link', function () {
 
     return response($outputHtml);
 })->middleware(['web', 'auth'])->name('admin.storage.link');
+
+// Preview Halaman Maintenance (503) untuk Pengujian Tampilan
+Route::get('/maintenance-preview', function () {
+    return response()->view('errors.503', [
+        'exception' => new \Symfony\Component\HttpKernel\Exception\HttpException(
+            503,
+            'Sistem sedang dalam proses optimasi performa dan pembaruan paket wisata Lampung terbaru.'
+        ),
+    ], 503);
+})->name('maintenance.preview');
 
